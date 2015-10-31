@@ -41,9 +41,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -78,6 +80,55 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Include\Application.h" />
+    <ClInclude Include="..\Include\EventChar.h" />
+    <ClInclude Include="..\Include\EventErrorMessage.h" />
+    <ClInclude Include="..\Include\EventFrameStart.h" />
+    <ClInclude Include="..\Include\EventInfoMessage.h" />
+    <ClInclude Include="..\Include\EventKeyboardMessage.h" />
+    <ClInclude Include="..\Include\EventKeyDown.h" />
+    <ClInclude Include="..\Include\EventKeyUp.h" />
+    <ClInclude Include="..\Include\EventManager.h" />
+    <ClInclude Include="..\Include\EventMouseLButtonDown.h" />
+    <ClInclude Include="..\Include\EventMouseLButtonUp.h" />
+    <ClInclude Include="..\Include\EventMouseLeave.h" />
+    <ClInclude Include="..\Include\EventMouseMButtonDown.h" />
+    <ClInclude Include="..\Include\EventMouseMButtonUp.h" />
+    <ClInclude Include="..\Include\EventMouseMessage.h" />
+    <ClInclude Include="..\Include\EventMouseMove.h" />
+    <ClInclude Include="..\Include\EventMouseRButtonDown.h" />
+    <ClInclude Include="..\Include\EventMouseRButtonUp.h" />
+    <ClInclude Include="..\Include\EventMouseWheel.h" />
+    <ClInclude Include="..\Include\EventWindowMessage.h" />
+    <ClInclude Include="..\Include\EventWindowResize.h" />
+    <ClInclude Include="..\Include\IEvent.h" />
+    <ClInclude Include="..\Include\IEventListener.h" />
+    <ClInclude Include="..\Include\IWindowProc.h" />
+    <ClInclude Include="..\Include\PCH.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="EventChar.cpp" />
+    <ClCompile Include="EventErrorMessage.cpp" />
+    <ClCompile Include="EventFrameStart.cpp" />
+    <ClCompile Include="EventInfoMessage.cpp" />
+    <ClCompile Include="EventKeyboardMessage.cpp" />
+    <ClCompile Include="EventKeyDown.cpp" />
+    <ClCompile Include="EventKeyUp.cpp" />
+    <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="EventMouseLButtonUp.cpp" />
+    <ClCompile Include="EventMouseLButtonDown.cpp" />
+    <ClCompile Include="EventMouseLeave.cpp" />
+    <ClCompile Include="EventMouseMButtonDown.cpp" />
+    <ClCompile Include="EventMouseMButtonUp.cpp" />
+    <ClCompile Include="EventMouseMessage.cpp" />
+    <ClCompile Include="EventMouseMove.cpp" />
+    <ClCompile Include="EventMouseRButtonDown.cpp" />
+    <ClCompile Include="EventMouseRButtonUp.cpp" />
+    <ClCompile Include="EventMouseWheel.cpp" />
+    <ClCompile Include="EventWindowMessage.cpp" />
+    <ClCompile Include="EventWindowResize.cpp" />
+    <ClCompile Include="IEventListener.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

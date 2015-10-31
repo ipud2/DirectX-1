@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{5a2cf5c6-d233-4ba1-85a0-23cb875af924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event">
+      <UniqueIdentifier>{71574cba-3673-423d-a3ac-b86d31384752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\Windows Message">
+      <UniqueIdentifier>{456b6ef1-a22c-45a2-8caa-f3eb67cb1833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\Windows Message\Keyboard">
+      <UniqueIdentifier>{ab01364f-cae1-4558-a934-fb1188e26f34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\Windows Message\Mouse">
+      <UniqueIdentifier>{79a69074-6c8e-4faa-8d88-0e6c61e6f683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\Windows Message\Window">
+      <UniqueIdentifier>{a51fb9b3-ee16-4e5b-89b0-f925a9357e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\Render">
+      <UniqueIdentifier>{d943593c-b6a8-40e6-a76f-ca9ae494412d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Event\Notification">
+      <UniqueIdentifier>{ed4ac5c0-a764-45a2-8328-3b5623218401}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Include\Application.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\PCH.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\IEvent.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventWindowMessage.h">
+      <Filter>Event\Windows Message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventKeyboardMessage.h">
+      <Filter>Event\Windows Message\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventKeyUp.h">
+      <Filter>Event\Windows Message\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventKeyDown.h">
+      <Filter>Event\Windows Message\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventChar.h">
+      <Filter>Event\Windows Message\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseMessage.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseLButtonUp.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseLButtonDown.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseRButtonUp.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseRButtonDown.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseMButtonUp.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseMButtonDown.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseMove.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseLeave.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventMouseWheel.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventWindowResize.h">
+      <Filter>Event\Windows Message\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventFrameStart.h">
+      <Filter>Event\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventInfoMessage.h">
+      <Filter>Event\Notification</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventErrorMessage.h">
+      <Filter>Event\Notification</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\IEventListener.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventManager.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\IWindowProc.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="EventWindowMessage.cpp">
+      <Filter>Event\Windows Message</Filter>
+    </ClCompile>
+    <ClCompile Include="EventKeyboardMessage.cpp">
+      <Filter>Event\Windows Message\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="EventKeyUp.cpp">
+      <Filter>Event\Windows Message\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="EventKeyDown.cpp">
+      <Filter>Event\Windows Message\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="EventChar.cpp">
+      <Filter>Event\Windows Message\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseMessage.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseLButtonDown.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseLButtonUp.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseRButtonUp.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseRButtonDown.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseMButtonUp.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseMButtonDown.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseMove.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseLeave.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseWheel.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="EventWindowResize.cpp">
+      <Filter>Event\Windows Message\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="EventFrameStart.cpp">
+      <Filter>Event\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="EventInfoMessage.cpp">
+      <Filter>Event\Notification</Filter>
+    </ClCompile>
+    <ClCompile Include="EventErrorMessage.cpp">
+      <Filter>Event\Notification</Filter>
+    </ClCompile>
+    <ClCompile Include="IEventListener.cpp">
+      <Filter>Event</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Event</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
