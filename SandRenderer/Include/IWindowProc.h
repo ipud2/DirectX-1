@@ -8,6 +8,7 @@ namespace Sand
 {
 	class IWindowProc
 	{
+	public:
 		virtual LRESULT WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM lParam ) = 0;
 		virtual void BeforeRegisterWindowClass( WNDCLASSEX& wc ) = 0;
 	};

@@ -10,9 +10,27 @@
 #include "EventKeyDown.h"
 #include "EventChar.h"
 
+// 鼠标事件
+#include "EventMouseLButtonUp.h"
+#include "EventMouseLButtonDown.h"
+#include "EventMouseRButtonUp.h"
+#include "EventMouseRButtonDown.h"
+#include "EventMouseMButtonDown.h"
+#include "EventMouseMButtonUp.h"
+#include "EventMouseLeave.h"
+#include "EventMouseMove.h"
+#include "EventMouseWheel.h"
+
+
+// 窗口resize事件
+#include "EventWindowResize.h"
+
 // message事件
 #include "EventInfoMessage.h"
 #include "EventErrorMessage.h"
+
+// 事件管理器
+#include "EventManager.h"
 
 // 应用程序框架类
 namespace Sand
@@ -23,7 +41,7 @@ namespace Sand
 		Application();
 		virtual ~Application();
 
-		static Application* GetApplication();
+		static Application* Get();
 
 		// 引擎配置
 		virtual bool ConfigureEngineComponents() = 0;
@@ -48,9 +66,13 @@ namespace Sand
 		// 截屏
 		virtual void TakeScreenShot() = 0;
 
+		// 应用程序名
+		virtual std::wstring GetName() = 0;
 
 		bool m_bLoop;
 		bool m_bSaveScreenShot;
+
+		EventManager m_EventManager;
 
 	protected:
 		static Application* m_spApplication;

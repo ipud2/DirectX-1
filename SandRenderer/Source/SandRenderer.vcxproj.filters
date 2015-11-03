@@ -33,6 +33,27 @@
     <Filter Include="Event\Notification">
       <UniqueIdentifier>{ed4ac5c0-a764-45a2-8328-3b5623218401}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{3044f07b-1690-4454-9026-7e6509267ff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{dbb5e819-eaa2-49b0-9855-1ff23bb88ddd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\DXGI">
+      <UniqueIdentifier>{a770e805-d480-40c9-940b-d5ef50bce660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Resource">
+      <UniqueIdentifier>{ea1f2497-6305-4e47-9fd9-74ef865bbec4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Resource\Buffer">
+      <UniqueIdentifier>{101b01d5-0f5c-41bf-be30-1330b821f121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Resource\Texture">
+      <UniqueIdentifier>{c68dab84-e7f1-4472-a265-fe2fc4e0957c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Resource\ResourceView">
+      <UniqueIdentifier>{124d98dd-fbdb-454f-8e81-075f82d3cdb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -110,6 +131,69 @@
     <ClInclude Include="..\Include\IWindowProc.h">
       <Filter>Application</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\RenderWindow.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Win32RenderWindow.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Vector2f.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\App.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Renderer.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\DXGIAdapter.h">
+      <Filter>Render\DXGI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\DXGIOutput.h">
+      <Filter>Render\DXGI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SwapChainConfig.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Texture2D.h">
+      <Filter>Render\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Resource.h">
+      <Filter>Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Texture2DConfig.h">
+      <Filter>Render\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ResourceProxy.h">
+      <Filter>Render\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ShaderResourceViewConfig.h">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\RenderTargetViewConfig.h">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\DepthStencilViewConfig.h">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\UnorderedAccessViewConfig.h">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\RenderTargetView.h">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\DepthStencilView.h">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ShaderResoruceView.h">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\UnorderedAccessView.h">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SwapChain.h">
+      <Filter>Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -177,6 +261,66 @@
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Event</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderWindow.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Win32RenderWindow.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="DXGIAdapter.cpp">
+      <Filter>Render\DXGI</Filter>
+    </ClCompile>
+    <ClCompile Include="DXGIOutput.cpp">
+      <Filter>Render\DXGI</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChainConfig.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Render\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2DConfig.cpp">
+      <Filter>Render\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencilViewConfig.cpp">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetViewConfig.cpp">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderResourceViewConfig.cpp">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="UnorderedAccessViewConfig.cpp">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceProxy.cpp">
+      <Filter>Render\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetView.cpp">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencilView.cpp">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderResourceView.cpp">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="UnorderedAccessView.cpp">
+      <Filter>Render\Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>Render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

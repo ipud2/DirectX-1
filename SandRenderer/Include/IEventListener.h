@@ -18,7 +18,6 @@ namespace Sand
 		IEventListener();
 		~IEventListener();
 
-		virtual std::wstring GetName() = 0;
 		virtual bool HandleEvent( EventPtr pEvent ) = 0;
 
 		// ÇëÇóÊÂ¼ş

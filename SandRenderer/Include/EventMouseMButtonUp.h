@@ -15,7 +15,7 @@ namespace Sand
 		virtual EventType GetEventType();
 	};
 
-	typedef std::shared_ptr<EventMouseMButtonUp> EventMouseMButtonUpUpPtr;
+	typedef std::shared_ptr<EventMouseMButtonUp> EventMouseMButtonUpPtr;
 }
 
 #endif

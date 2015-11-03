@@ -14,6 +14,8 @@ namespace Sand
 		virtual std::wstring GetEventName();
 		virtual EventType GetEventType();
 	};
+
+	typedef std::shared_ptr<EventKeyDown> EventKeyDownPtr;
 };
 
 #endif

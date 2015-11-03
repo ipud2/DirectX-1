@@ -11,6 +11,15 @@ Application::Application()
 	m_bLoop( true )
 {
 	m_spApplication = this;
+
+	SetEventManager( &m_EventManager );
+
+	// 需要监视的事件
+	RequestEvent( SYSTEM_KEY_UP );
+	RequestEvent( SYSTEM_KEY_DOWN );
+	RequestEvent( SYSTEM_KEY_CHAR );
+	RequestEvent( INFO_MESSAGE );
+	RequestEvent( ERROR_MESSAGE );
 }
 
 Application::~Application()
@@ -18,7 +27,7 @@ Application::~Application()
 	
 }
 
-Application* Application::GetApplication()
+Application* Application::Get()
 {
 	return m_spApplication;
 }
@@ -77,39 +86,53 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 
 		case WM_SIZE:
 		{
+			EventWindowResizePtr pEvent = EventWindowResizePtr( new EventWindowResizePtr( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
 		// ---------------------LButton------------------------ 
 		case WM_LBUTTONUP:
 		{
+			EventMouseLButtonUpPtr pEvent = EventMouseLButtonUpPtr( new EventMouseLButtonUp( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
 		case WM_LBUTTONDOWN:
 		{
+			EventMouseLButtonDownPtr pEvent = EventMouseLButtonDownPtr( new EventMouseLButtonDown( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
 		// ---------------------MButton------------------------------
 		case WM_MBUTTONUP:
 		{
+			EventMouseMButtonUpPtr pEvent = EventMouseMButtonUpPtr( new EventMouseMButtonUp( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
 		case WM_MBUTTONDOWN:
 		{
+			EventMouseMButtonDownPtr pEvent = EventMouseMButtonDownPtr( new EventMouseMButtonDown( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
 		// ----------------------RButton-------------------------------
 		case WM_RBUTTONUP:
 		{
+			EventMouseRButtonUpPtr pEvent = EventMouseRButtonUpPtr( new EventMouseRButtonUp( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
 		case WM_RBUTTONDOWN:
 		{
+			EventMouseRButtonDownPtr pEvent = EventMouseRButtonDownPtr( new EventMouseRButtonDown( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
@@ -117,29 +140,39 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		case WM_MOUSEMOVE:
 		{
 			// 鼠标移动
+			EventMouseMovePtr pEvent = EventMouseMovePtr( new EventMouseMove( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
 		case WM_MOUSEWHEEL:
 		{
+			EventMouseWheelPtr pEvent = EventMouseWheelPtr( new EventMouseWheel( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 		
 		// -----------------------Key-----------------------------------------
 		case WM_KEYUP:
 		{
+			EventKeyUpPtr pEvent = EventKeyUpPtr( new EventKeyUp( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
 
 		case WM_KEYDOWN:
 		{
+			EventKeyDownPtr pEvent = EventKeyDownPtr( new EventKeyDown( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
 
 		case WM_CHAR:
 		{
+			EventCharPtr pEvent = EventCharPtr( new EventChar( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 	}
