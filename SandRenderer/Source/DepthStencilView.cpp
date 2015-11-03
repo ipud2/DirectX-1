@@ -2,7 +2,7 @@
 
 using namespace Sand;
 
-DepthStencilView::DepthStencilView( ID3D11DepthStencilView* pDepthStencilView )
+DepthStencilView::DepthStencilView( Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDepthStencilView )
 {
 	m_DepthStencilView = pDepthStencilView;
 }

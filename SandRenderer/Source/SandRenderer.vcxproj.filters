@@ -194,6 +194,12 @@
     <ClInclude Include="..\Include\SwapChain.h">
       <Filter>Render</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Log.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\FileSystem.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -321,6 +327,12 @@
     </ClCompile>
     <ClCompile Include="SwapChain.cpp">
       <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSystem.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

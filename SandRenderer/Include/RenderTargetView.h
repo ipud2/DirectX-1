@@ -8,7 +8,7 @@ namespace Sand
 	class RenderTargetView
 	{
 	public:
-		RenderTargetView( ID3D11RenderTargetView* pRenderTargetView );
+		RenderTargetView( Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pRenderTargetView );
 		virtual ~RenderTargetView();
 
 		ID3D11RenderTargetView* Get();

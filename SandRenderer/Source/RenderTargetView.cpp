@@ -3,7 +3,7 @@
 
 using namespace Sand;
 
-RenderTargetView::RenderTargetView( ID3D11RenderTargetView* pRenderTargetView )
+RenderTargetView::RenderTargetView( Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pRenderTargetView )
 {
 	m_RenderTargetView = pRenderTargetView;
 }

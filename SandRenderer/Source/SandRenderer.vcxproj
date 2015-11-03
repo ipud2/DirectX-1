@@ -106,9 +106,11 @@
     <ClInclude Include="..\Include\EventMouseWheel.h" />
     <ClInclude Include="..\Include\EventWindowMessage.h" />
     <ClInclude Include="..\Include\EventWindowResize.h" />
+    <ClInclude Include="..\Include\FileSystem.h" />
     <ClInclude Include="..\Include\IEvent.h" />
     <ClInclude Include="..\Include\IEventListener.h" />
     <ClInclude Include="..\Include\IWindowProc.h" />
+    <ClInclude Include="..\Include\Log.h" />
     <ClInclude Include="..\Include\PCH.h" />
     <ClInclude Include="..\Include\Renderer.h" />
     <ClInclude Include="..\Include\RenderTargetView.h" />
@@ -154,7 +156,9 @@
     <ClCompile Include="EventMouseWheel.cpp" />
     <ClCompile Include="EventWindowMessage.cpp" />
     <ClCompile Include="EventWindowResize.cpp" />
+    <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="IEventListener.cpp" />
+    <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderTargetView.cpp" />

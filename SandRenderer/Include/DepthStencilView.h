@@ -8,7 +8,7 @@ namespace Sand
 	class DepthStencilView
 	{
 	public:
-		DepthStencilView( ID3D11DepthStencilView* pDepthStencilView );
+		DepthStencilView( Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDepthStencilView );
 		virtual ~DepthStencilView();
 
 		ID3D11DepthStencilView* Get();

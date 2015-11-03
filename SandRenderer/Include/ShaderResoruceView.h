@@ -8,7 +8,7 @@ namespace Sand
 	class ShaderResourceView
 	{
 	public:
-		ShaderResourceView( ID3D11ShaderResourceView* pShaderResourceView );
+		ShaderResourceView( Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pShaderResourceView );
 		virtual ~ShaderResourceView();
 
 		ID3D11ShaderResourceView* Get();

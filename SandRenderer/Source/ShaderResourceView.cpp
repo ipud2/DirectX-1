@@ -2,7 +2,7 @@
 
 using namespace Sand;
 
-ShaderResourceView::ShaderResourceView( ID3D11ShaderResourceView* pShaderResourceView )
+ShaderResourceView::ShaderResourceView( Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pShaderResourceView )
 {
 	m_ShaderResourceView = pShaderResourceView;
 }

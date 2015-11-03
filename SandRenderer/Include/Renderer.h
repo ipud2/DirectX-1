@@ -8,6 +8,11 @@ namespace Sand
 	typedef Microsoft::WRL::ComPtr<ID3D11DeviceContext> DeviceContextComPtr;
 	typedef Microsoft::WRL::ComPtr<ID3D11Texture2D> Texturte2DComPtr;
 
+	typedef Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> ShaderResourceViewPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11RenderTargetView> RenderTargetViewPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11DepthStencilView> DepthStencilViewPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> UnorderedAccessViewPtr;
+
 	// ------------资源配置----------------
 	class SwapChainConfig;
 	class Texture2DConfig;
@@ -53,7 +58,7 @@ namespace Sand
 		// 框架函数
 		bool Initialize( D3D_DRIVER_TYPE DriveType , D3D_FEATURE_LEVEL FeatureLevel );
 		void Shutdown();
-		void Present( HWND hwnd = 0 , int SwapChain = -1 , UINT SyncInterval = 0 , UINT PresentFlags = 0 );
+		void Present( int SwapChainID = -1 , UINT SyncInterval = 0 , UINT PresentFlags = 0 );
 
 		// 获取可用特性级别及当前特性级别
 		D3D_FEATURE_LEVEL GetAvailableFeatureLevel( D3D_DRIVER_TYPE DriveType );
@@ -73,6 +78,30 @@ namespace Sand
 		int CreateSwapChain( SwapChainConfig* pConfig );
 
 		
+
+		// ---------------------------------------------------------Resource---------------------------------------------------------------------
+		
+		//************************************
+		// Method:    DeleteResource
+		// FullName:  Sand::Renderer::DeleteResource
+		// Access:    public 
+		// Returns:   void
+		// Qualifier: 删除索引为index的资源对象
+		// Parameter: int index
+		//************************************
+		void DeleteResource( int index );
+
+
+		//************************************
+		// Method:    DeleteResource
+		// FullName:  Sand::Renderer::DeleteResource
+		// Access:    public 
+		// Returns:   void
+		// Qualifier: 从资源仓库中删除该资源
+		// Parameter: ResourcePtr pResource
+		//************************************
+		void DeleteResource( ResourceProxyPtr pResource );
+
 		//************************************
 		// Method:    StoreNewResource
 		// FullName:  Sand::Renderer::StoreNewResource
@@ -83,6 +112,28 @@ namespace Sand
 		//************************************
 		int StoreNewResource( Resource* pResource );
 
+		//************************************
+		// Method:    GetUnusedResourceIndex
+		// FullName:  Sand::Renderer::GetUnusedResourceIndex
+		// Access:    public 
+		// Returns:   int
+		// Qualifier: 查找元素为nullptr的位置
+		//************************************
+		int GetUnusedResourceIndex();
+
+		//************************************
+		// Method:    GetResource
+		// FullName:  Sand::Renderer::GetResource
+		// Access:    public 
+		// Returns:   ID3D11Resource*
+		// Qualifier: 根据索引获取资源对象
+		// Parameter: int index
+		//************************************
+		Resource* GetResourceByIndex( int index );
+
+
+
+		// ---------------------------------------------------------Resource View-----------------------------------------------------------
 
 		//************************************
 		// Method:    CreateShaderResourceView

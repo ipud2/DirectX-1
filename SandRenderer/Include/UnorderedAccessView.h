@@ -8,7 +8,7 @@ namespace Sand
 	class UnorderedAccessView
 	{
 	public:
-		UnorderedAccessView( ID3D11UnorderedAccessView* pUnorderedAccessView );
+		UnorderedAccessView( Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> pUnorderedAccessView );
 		virtual ~UnorderedAccessView();
 
 		ID3D11UnorderedAccessView* Get();
