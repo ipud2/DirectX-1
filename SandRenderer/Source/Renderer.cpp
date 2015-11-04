@@ -241,7 +241,7 @@ int Renderer::CreateShaderResourceView( int ResourceID , D3D11_SHADER_RESOURCE_V
 
 		if( pRawResource )
 		{
-			ShaderResourceViewPtr pShaderResourceView;
+			ShaderResourceViewComPtr pShaderResourceView;
 			HRESULT hr = m_pDevice->CreateShaderResourceView( pRawResource , Desc , pShaderResourceView.GetAddressOf() );
 
 			if( SUCCEEDED( hr ) )
@@ -272,7 +272,7 @@ int Renderer::CreateRenderTargetView( int ResourceID , D3D11_RENDER_TARGET_VIEW_
 
 		if( pRawResource )
 		{
-			RenderTargetViewPtr pRenderTargetView;
+			RenderTargetViewComPtr pRenderTargetView;
 			HRESULT hr = m_pDevice->CreateRenderTargetView( pRawResource , Desc , pRenderTargetView.GetAddressOf() );
 
 			if( SUCCEEDED( hr ) )
@@ -303,7 +303,7 @@ int Renderer::CreateDepthStencilView( int ResourceID , D3D11_DEPTH_STENCIL_VIEW_
 
 		if( pRawResource )
 		{
-			DepthStencilViewPtr pDepthStencilView;
+			DepthStencilViewComPtr pDepthStencilView;
 			HRESULT hr = m_pDevice->CreateDepthStencilView( pRawResource , Desc , pDepthStencilView.GetAddressOf() );
 
 			if( SUCCEEDED( hr ) )
@@ -334,7 +334,7 @@ int Renderer::CreateUnorderedAccessView( int ResourceID , D3D11_UNORDERED_ACCESS
 
 		if( pRawResource )
 		{
-			UnorderedAccessViewPtr pUnorderedAccessView;
+			UnorderedAccessViewComPtr pUnorderedAccessView;
 			HRESULT hr = m_pDevice->CreateUnorderedAccessView( pRawResource , Desc , pUnorderedAccessView.GetAddressOf() );
 
 			if( SUCCEEDED( hr ) )
@@ -408,6 +408,50 @@ void Sand::Renderer::DeleteResource( int index )
 
 		m_vResource[index & 0xffff] = nullptr;
 	}
+}
+
+Sand::ResourceProxyPtr Sand::Renderer::CreateTexture2D( Texture2DConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData ,
+														ShaderResourceViewConfig* pShaderResourceViewConfig /*= NULL */ ,
+														RenderTargetViewConfig* pRenderTargetViewConfig /*= NULL */ ,
+														UnorderedAccessViewConfig* pUnorderedAccessViewConfig /*= NULL */ ,
+														DepthStencilViewConfig* pDepthStencilViewConfig /*= NULL */ )
+{
+	// 创建ID3D11Texture2D纹理对象
+	Texturte2DComPtr pTexture;
+	HRESULT hr = m_pDevice->CreateTexture2D( &pConfig->m_State , pData , pTexture.GetAddressOf() );
+
+	if( pTexture )
+	{
+		// 创建Texture2D对象
+		Texture2D* pTex = new Texture2D( pTexture );
+		pTex->SetDesiredDescription( pConfig->GetTextureDesc() );
+
+		// 保存纹理对象
+		int id = StoreNewResource( pTex );
+
+		// 创建相应视图
+		ResourceProxyPtr Proxy( new ResourceProxy( id , pConfig , this ) );
+
+		return Proxy;
+	}
+
+	return ResourceProxyPtr( new ResourceProxyPtr() );
+}
+
+ResourceProxyPtr Renderer::GetSwapChainResource( int index )
+{
+	unsigned int id = static_cast< unsigned int >( index );
+
+	if( id < m_vSwapChain.size() )
+	{
+		return m_vSwapChain[id]->m_ResourceProxy;
+	}
+
+	Log::Get().Write( L"交换链索引无效" );
+
+	// 返回一个默认ResourceProxyPtr对象
+	// 资源，资源视图都为nullptr
+	return ResourceProxyPtr( new ResourceProxy() );
 }
 
 void Renderer::DeleteResource( ResourceProxyPtr pResource )

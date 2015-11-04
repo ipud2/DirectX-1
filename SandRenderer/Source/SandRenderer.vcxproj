@@ -109,9 +109,15 @@
     <ClInclude Include="..\Include\FileSystem.h" />
     <ClInclude Include="..\Include\IEvent.h" />
     <ClInclude Include="..\Include\IEventListener.h" />
+    <ClInclude Include="..\Include\InputAssemblerStage.h" />
+    <ClInclude Include="..\Include\InputAssemblerState.h" />
     <ClInclude Include="..\Include\IWindowProc.h" />
     <ClInclude Include="..\Include\Log.h" />
+    <ClInclude Include="..\Include\OutputMergeStage.h" />
+    <ClInclude Include="..\Include\OutputMergeStageState.h" />
     <ClInclude Include="..\Include\PCH.h" />
+    <ClInclude Include="..\Include\RasterizerStage.h" />
+    <ClInclude Include="..\Include\RasterizerStageState.h" />
     <ClInclude Include="..\Include\Renderer.h" />
     <ClInclude Include="..\Include\RenderTargetView.h" />
     <ClInclude Include="..\Include\RenderTargetViewConfig.h" />
@@ -124,6 +130,8 @@
     <ClInclude Include="..\Include\SwapChainConfig.h" />
     <ClInclude Include="..\Include\Texture2D.h" />
     <ClInclude Include="..\Include\Texture2DConfig.h" />
+    <ClInclude Include="..\Include\TStateArrayMonitor.h" />
+    <ClInclude Include="..\Include\TStateMonitor.h" />
     <ClInclude Include="..\Include\UnorderedAccessView.h" />
     <ClInclude Include="..\Include\UnorderedAccessViewConfig.h" />
     <ClInclude Include="..\Include\Vector2f.h" />
@@ -158,8 +166,14 @@
     <ClCompile Include="EventWindowResize.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="IEventListener.cpp" />
+    <ClCompile Include="InputAssemblerStage.cpp" />
+    <ClCompile Include="InputAssemblerState.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="OutputMergeStage.cpp" />
+    <ClCompile Include="OutputMergeStageState.cpp" />
+    <ClCompile Include="RasterizerStage.cpp" />
+    <ClCompile Include="RasterizerStageState.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderTargetView.cpp" />
     <ClCompile Include="RenderTargetViewConfig.cpp" />
@@ -174,6 +188,10 @@
     <ClCompile Include="UnorderedAccessView.cpp" />
     <ClCompile Include="UnorderedAccessViewConfig.cpp" />
     <ClCompile Include="Win32RenderWindow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Include\TStateArrayMonitor.inl" />
+    <None Include="..\Include\TStateMonitor.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -54,6 +54,48 @@
     <Filter Include="Render\Resource\ResourceView">
       <UniqueIdentifier>{124d98dd-fbdb-454f-8e81-075f82d3cdb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pipeline">
+      <UniqueIdentifier>{2aa7961d-6d85-4df9-9f76-a387b20ed1ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\FixedStage">
+      <UniqueIdentifier>{c5cb5edf-593b-47b6-9edb-6a0d820c9c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\FixedStage\StreamOutStage">
+      <UniqueIdentifier>{27c92bef-f3c7-4ef6-a310-4c20a95e5d35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\FixedStage\InputAssemblerStage">
+      <UniqueIdentifier>{58e4861d-7d8e-4bea-b127-a259e7e8553b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\FixedStage\OutputMergeStage">
+      <UniqueIdentifier>{8dc21d52-35fd-432e-b3a1-2897aa66eacb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\FixedStage\RasterizerStage">
+      <UniqueIdentifier>{15b1236c-e895-4fdb-a62a-08cc7f43f5e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\ProgrammableStage">
+      <UniqueIdentifier>{d99ec2da-2226-4fa7-9edc-0cd4bb59d432}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\ProgrammableStage\VertexStage">
+      <UniqueIdentifier>{e9f460d4-ef71-4c4c-b18d-d6f0fb61da8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\ProgrammableStage\HullStage">
+      <UniqueIdentifier>{91fa35fa-a7b8-4d89-a3f4-2ebf73e394c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\ProgrammableStage\DomainStage">
+      <UniqueIdentifier>{5bb5e15b-62cf-4d3f-98ce-80c6762b12ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\ProgrammableStage\GeometryStage">
+      <UniqueIdentifier>{0f830ed3-4929-44c7-9002-90d11df1634d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\ProgrammableStage\PixelStage">
+      <UniqueIdentifier>{a7e93cf8-67d4-47b4-8144-25631b832f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\ProgrammableStage\ComputeStage">
+      <UniqueIdentifier>{27f29bf7-aaa4-4012-abd1-16e90fee85a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\Common">
+      <UniqueIdentifier>{4b4fb4cb-4d40-41b9-8924-40b5ed7e0de1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -200,6 +242,30 @@
     <ClInclude Include="..\Include\FileSystem.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\TStateMonitor.h">
+      <Filter>Pipeline\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\TStateArrayMonitor.h">
+      <Filter>Pipeline\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\InputAssemblerState.h">
+      <Filter>Pipeline\FixedStage\InputAssemblerStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\InputAssemblerStage.h">
+      <Filter>Pipeline\FixedStage\InputAssemblerStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\RasterizerStage.h">
+      <Filter>Pipeline\FixedStage\RasterizerStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\OutputMergeStage.h">
+      <Filter>Pipeline\FixedStage\OutputMergeStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\OutputMergeStageState.h">
+      <Filter>Pipeline\FixedStage\OutputMergeStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\RasterizerStageState.h">
+      <Filter>Pipeline\FixedStage\RasterizerStage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -334,5 +400,31 @@
     <ClCompile Include="FileSystem.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+    <ClCompile Include="InputAssemblerState.cpp">
+      <Filter>Pipeline\FixedStage\InputAssemblerStage</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAssemblerStage.cpp">
+      <Filter>Pipeline\FixedStage\InputAssemblerStage</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterizerStage.cpp">
+      <Filter>Pipeline\FixedStage\RasterizerStage</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputMergeStage.cpp">
+      <Filter>Pipeline\FixedStage\OutputMergeStage</Filter>
+    </ClCompile>
+    <ClCompile Include="OutputMergeStageState.cpp">
+      <Filter>Pipeline\FixedStage\OutputMergeStage</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterizerStageState.cpp">
+      <Filter>Pipeline\FixedStage\RasterizerStage</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Include\TStateMonitor.inl">
+      <Filter>Pipeline\Common</Filter>
+    </None>
+    <None Include="..\Include\TStateArrayMonitor.inl">
+      <Filter>Pipeline\Common</Filter>
+    </None>
   </ItemGroup>
 </Project>

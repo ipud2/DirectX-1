@@ -2,7 +2,10 @@
 #define App_h
 
 #include "Application.h"
+
 #include "Win32RenderWindow.h"
+
+#include "Renderer.h"
 
 namespace Sand
 {
@@ -32,9 +35,16 @@ namespace Sand
 	protected:
 		Win32RenderWindow* m_pWindow;
 
-		int m_width;
-		int m_height;
-		bool m_bWindow;
+		Renderer* m_pRenderer;
+
+		// 交换链
+		int m_iSwapChain;
+
+		// 渲染目标视图
+		ResourceProxyPtr m_pRenderTarget;
+
+		// 深度模板视图
+		ResourceProxyPtr m_pDepthStencil;
 	};
 }
 

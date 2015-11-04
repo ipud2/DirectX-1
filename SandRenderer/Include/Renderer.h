@@ -2,16 +2,19 @@
 #define Renderer_h
 
 #include "PCH.h"
+#include "ResourceProxy.h"
 
 namespace Sand
 {
 	typedef Microsoft::WRL::ComPtr<ID3D11DeviceContext> DeviceContextComPtr;
 	typedef Microsoft::WRL::ComPtr<ID3D11Texture2D> Texturte2DComPtr;
 
-	typedef Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> ShaderResourceViewPtr;
-	typedef Microsoft::WRL::ComPtr<ID3D11RenderTargetView> RenderTargetViewPtr;
-	typedef Microsoft::WRL::ComPtr<ID3D11DepthStencilView> DepthStencilViewPtr;
-	typedef Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> UnorderedAccessViewPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> ShaderResourceViewComPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11RenderTargetView> RenderTargetViewComPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11DepthStencilView> DepthStencilViewComPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> UnorderedAccessViewComPtr;
+
+	typedef Microsoft::WRL::ComPtr<ID3D11InputLayout> InputLayoutComPtr;
 
 	// ------------资源配置----------------
 	class SwapChainConfig;
@@ -26,8 +29,6 @@ namespace Sand
 	class RenderTargetView;
 	class UnorderedAccessView;
 	class DepthStencilView;
-
-	class ResourceProxy;
 
 	class SwapChain;
 
@@ -55,18 +56,72 @@ namespace Sand
 		// 单一实例
 		static Renderer* Get();
 
-		// 框架函数
+		// ----------------------------------------------------------框架函数------------------------------------------------------
+		//************************************
+		// Method:    Initialize
+		// FullName:  Sand::Renderer::Initialize
+		// Access:    public 
+		// Returns:   bool
+		// Qualifier: 初始化函数，创建Device , DeviceContext
+		// Parameter: D3D_DRIVER_TYPE DriveType
+		// Parameter: D3D_FEATURE_LEVEL FeatureLevel
+		//************************************
 		bool Initialize( D3D_DRIVER_TYPE DriveType , D3D_FEATURE_LEVEL FeatureLevel );
+
+		//************************************
+		// Method:    Shutdown
+		// FullName:  Sand::Renderer::Shutdown
+		// Access:    public 
+		// Returns:   void
+		// Qualifier: 销毁资源
+		//************************************
 		void Shutdown();
+
+		//************************************
+		// Method:    Present
+		// FullName:  Sand::Renderer::Present
+		// Access:    public 
+		// Returns:   void
+		// Qualifier: 显示图像
+		// Parameter: int SwapChainID
+		// Parameter: UINT SyncInterval
+		// Parameter: UINT PresentFlags
+		//************************************
 		void Present( int SwapChainID = -1 , UINT SyncInterval = 0 , UINT PresentFlags = 0 );
 
-		// 获取可用特性级别及当前特性级别
+		//------------------------------------------------------------------------------------------------------------------------------------------------
+		//************************************
+		// Method:    GetAvailableFeatureLevel
+		// FullName:  Sand::Renderer::GetAvailableFeatureLevel
+		// Access:    public 
+		// Returns:   D3D_FEATURE_LEVEL
+		// Qualifier: 获取可用的特征级别
+		// Parameter: D3D_DRIVER_TYPE DriveType
+		//************************************
 		D3D_FEATURE_LEVEL GetAvailableFeatureLevel( D3D_DRIVER_TYPE DriveType );
+
+
+		//************************************
+		// Method:    GetCurrentFeatureLevel
+		// FullName:  Sand::Renderer::GetCurrentFeatureLevel
+		// Access:    public 
+		// Returns:   D3D_FEATURE_LEVEL
+		// Qualifier: 获取当前的特征级别
+		//************************************
 		D3D_FEATURE_LEVEL GetCurrentFeatureLevel();
 
-		// 获取可用显存
+		//************************************
+		// Method:    GetAvailableVideoMemory
+		// FullName:  Sand::Renderer::GetAvailableVideoMemory
+		// Access:    public 
+		// Returns:   UINT64
+		// Qualifier: 获取可用显存大小
+		//************************************
 		UINT64 GetAvailableVideoMemory();
+		//-------------------------------------------------------------------------------------------------------------------------------------
 
+
+		// --------------------------------------------------------Swap Chain------------------------------------------------------------------
 		//************************************
 		// Method:    CreateSwapChain
 		// FullName:  Sand::Renderer::CreateSwapChain
@@ -77,7 +132,16 @@ namespace Sand
 		//************************************
 		int CreateSwapChain( SwapChainConfig* pConfig );
 
-		
+		//************************************
+		// Method:    GetSwapChainResource
+		// FullName:  Sand::Renderer::GetSwapChainResource
+		// Access:    public 
+		// Returns:   Sand::ResourceProxyPtr
+		// Qualifier: 根据索引获取与交换链相关联的渲染目标
+		// Parameter: int index
+		//************************************
+		ResourceProxyPtr GetSwapChainResource( int index );
+
 
 		// ---------------------------------------------------------Resource---------------------------------------------------------------------
 		
@@ -181,6 +245,29 @@ namespace Sand
 		// Parameter: D3D11_DEPTH_STENCIL_VIEW_DESC Desc
 		//************************************
 		int CreateDepthStencilView( int ResourceID , D3D11_DEPTH_STENCIL_VIEW_DESC* Desc );
+
+
+		// -------------------------------------------------------各类资源创建方法---------------------------------------------------------------------
+		
+		//************************************
+		// Method:    CreateTexture2D
+		// FullName:  Sand::Renderer::CreateTexture2D
+		// Access:    public 
+		// Returns:   Sand::ResourceProxyPtr
+		// Qualifier: 创建Texture2D纹理对象，并为其创建相应的视图对象
+		// Parameter: Texture2DConfig * pConfig
+		// Parameter: D3D11_SUBRESOURCE_DATA * pData
+		// Parameter: ShaderResourceViewConfig * pShaderResourceViewConfig
+		// Parameter: RenderTargetViewConfig * pRenderTargetViewConfig
+		// Parameter: UnorderedAccessViewConfig * pUnorderedAccessViewConfig
+		// Parameter: DepthStencilViewConfig * pDepthStencilViewConfig
+		//************************************
+		ResourceProxyPtr CreateTexture2D( Texture2DConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData ,
+										  ShaderResourceViewConfig* pShaderResourceViewConfig = NULL ,
+										  RenderTargetViewConfig* pRenderTargetViewConfig = NULL ,
+										  UnorderedAccessViewConfig* pUnorderedAccessViewConfig = NULL ,
+										  DepthStencilViewConfig* pDepthStencilViewConfig = NULL );
+
 
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
