@@ -1,3 +1,4 @@
+#include "PCH.h"
 #include "ShaderResourceViewConfig.h"
 #include "RenderTargetViewConfig.h"
 #include "UnorderedAccessViewConfig.h"
@@ -61,7 +62,7 @@ void ResourceProxy::CommonConstructor( UINT BindFlags , int ResourceID ,
 									   ShaderResourceViewConfig* pShaderResourceViewConfig , 
 									   RenderTargetViewConfig* pRenderTargetViewConfig , 
 									   UnorderedAccessViewConfig* pUnorderedAccessViewConfig , 
-									   DepthStencilViewConfig* pDepthStencilView )
+									   DepthStencilViewConfig* pDepthStencilViewConfig )
 {
 
 	// 初始化
@@ -87,11 +88,17 @@ void ResourceProxy::CommonConstructor( UINT BindFlags , int ResourceID ,
 	}
 	else
 	{
-		// 说明指定了D3D11_BIND_RENDER_TARGET
-		m_pRenderTargetViewConfig = new RenderTargetViewConfig;
-		*m_pRenderTargetViewConfig = *m_pRenderTargetViewConfig;
+		D3D11_RENDER_TARGET_VIEW_DESC* Desc = nullptr;
 
-		D3D11_RENDER_TARGET_VIEW_DESC* Desc = pRenderTargetViewConfig ? &pRenderTargetViewConfig->GetDesc() : nullptr;
+		if( pRenderTargetViewConfig )
+		{
+			// 说明指定了D3D11_BIND_RENDER_TARGET
+			m_pRenderTargetViewConfig = new RenderTargetViewConfig;
+			*m_pRenderTargetViewConfig = *pRenderTargetViewConfig;
+
+			Desc = &pRenderTargetViewConfig->GetDesc();
+		}
+		
 		m_RenderTargetViewID = pRenderer->CreateRenderTargetView( m_ResourceID , Desc );
 	}
 
@@ -102,11 +109,17 @@ void ResourceProxy::CommonConstructor( UINT BindFlags , int ResourceID ,
 	}
 	else
 	{
-		// 说明指定了D3D11_BIND_SHADER_RESOURCE
-		m_pShaderResourceViewConfig = new ShaderResourceViewConfig;
-		*m_pShaderResourceViewConfig = *pShaderResourceViewConfig;
+		D3D11_SHADER_RESOURCE_VIEW_DESC* Desc = nullptr;
 
-		D3D11_SHADER_RESOURCE_VIEW_DESC* Desc = pShaderResourceViewConfig ? &pShaderResourceViewConfig->GetDesc() : nullptr;
+		if( pShaderResourceViewConfig )
+		{
+			// 说明指定了D3D11_BIND_SHADER_RESOURCE
+			m_pShaderResourceViewConfig = new ShaderResourceViewConfig;
+			*m_pShaderResourceViewConfig = *pShaderResourceViewConfig;
+
+			Desc = &pShaderResourceViewConfig->GetDesc();
+		}
+
 		m_ShaderResourceViewID = pRenderer->CreateShaderResourceView( m_ResourceID , Desc );
 	}
 
@@ -117,11 +130,17 @@ void ResourceProxy::CommonConstructor( UINT BindFlags , int ResourceID ,
 	}
 	else
 	{
-		// 说明指定了D3D11)_BIND_UNORDERED_ACCESS
-		m_pUnorderedAccessViewConfig = new UnorderedAccessViewConfig;
-		*m_pUnorderedAccessViewConfig = *pUnorderedAccessViewConfig;
+		D3D11_UNORDERED_ACCESS_VIEW_DESC* Desc = nullptr;
 
-		D3D11_UNORDERED_ACCESS_VIEW_DESC* Desc = pUnorderedAccessViewConfig ? &pUnorderedAccessViewConfig->GetDesc() : nullptr;
+		if( pUnorderedAccessViewConfig )
+		{
+			// 说明指定了D3D11)_BIND_UNORDERED_ACCESS
+			m_pUnorderedAccessViewConfig = new UnorderedAccessViewConfig;
+			*m_pUnorderedAccessViewConfig = *pUnorderedAccessViewConfig;
+
+			Desc = &pUnorderedAccessViewConfig->GetDesc();
+		}
+
 		m_UnorderedAccessViewID = pRenderer->CreateUnorderedAccessView( m_ResourceID , Desc );
 	}
 
@@ -132,11 +151,17 @@ void ResourceProxy::CommonConstructor( UINT BindFlags , int ResourceID ,
 	}
 	else
 	{
-		// 说明指定了D3D11_BIND_DEPTH_STENCIL
-		m_pDepthStencilViewConfig = new DepthStencilViewConfig;
-		*m_pDepthStencilViewConfig = *pDepthStencilView;
+		D3D11_DEPTH_STENCIL_VIEW_DESC* Desc = nullptr;
 
-		D3D11_DEPTH_STENCIL_VIEW_DESC* Desc = pDepthStencilView ? &pDepthStencilView->GetDesc() : nullptr;
+		if( pDepthStencilViewConfig )
+		{
+			// 说明指定了D3D11_BIND_DEPTH_STENCIL
+			m_pDepthStencilViewConfig = new DepthStencilViewConfig;
+			*m_pDepthStencilViewConfig = *pDepthStencilViewConfig;
+
+			Desc = &pDepthStencilViewConfig->GetDesc();
+		}
+
 		m_DepthStencilViewID = pRenderer->CreateDepthStencilView( m_ResourceID , Desc );
 	}
 }

@@ -1,3 +1,4 @@
+#include "PCH.h"
 #include "SampleStateConfig.h"
 
 using namespace Sand;

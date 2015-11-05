@@ -1,5 +1,5 @@
-﻿#ifndef Vector2f_H
-#define Vector2f_H
+﻿#ifndef Vector2f_h
+#define Vector2f_h
 
 namespace Sand
 {

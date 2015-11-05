@@ -18,8 +18,6 @@ namespace Sand
 		void SetSisterState( OutputMergeStageState* pState );
 		void ResetUpdateFlags();
 
-		int GetRenderTargetCount() const;
-
 		// Blend State
 		TStateMonitor<int> BlendStates;
 
@@ -28,6 +26,7 @@ namespace Sand
 		TStateMonitor<unsigned int> StencilRef;
 
 		// Render Target View and Depth Stencil View
+		TStateMonitor<int> RenderTargetViewCount;
 		TStateArrayMonitor<int , D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT> RenderTargetViews;
 		TStateMonitor<int> DepthStencilViews;
 

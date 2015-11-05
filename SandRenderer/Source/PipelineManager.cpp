@@ -1,3 +1,4 @@
+#include "PCH.h"
 #include "PipelineManager.h"
 
 #include "ShaderResoruceView.h"
@@ -73,7 +74,7 @@ void PipelineManager::ClearBuffers( Vector4f& color , float depth , UINT stencil
 	ID3D11RenderTargetView* pRenderTargetViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT] = { nullptr };
 	ID3D11DepthStencilState* pDepthStencilView = nullptr;
 
-	int count = m_OutputMergeStage.GetCurrentState().GetRenderTargetCount();
+	int count = m_OutputMergeStage.GetCurrentState().RenderTargetViewCount.GetState();
 
 	// --------------------------Clear Render Target View--------------------------------
 	for( UINT i = 0; i < count; i++ )
@@ -83,7 +84,7 @@ void PipelineManager::ClearBuffers( Vector4f& color , float depth , UINT stencil
 		// 获取RenderTargetView对象
 		RenderTargetView& RTV = Renderer::Get()->GetRenderTargetViewByIndex( index );
 
-		pRenderTargetViews[i] = RTV.Get();
+		pRenderTargetViews[i] = RTV.GetRenderTargetView();
 
 		// 清除后的颜色
 		const float clearColors[] = { color.x , color.y , color.z , color.w };

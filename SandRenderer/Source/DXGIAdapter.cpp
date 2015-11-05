@@ -16,3 +16,8 @@ DXGIAdapter::DXGIAdapter( Microsoft::WRL::ComPtr<IDXGIAdapter1> pAdapter )
 		m_vOutputs.push_back( pOutput );
 	}
 }
+
+DXGIAdapter::~DXGIAdapter()
+{
+
+}

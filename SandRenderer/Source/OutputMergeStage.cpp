@@ -1,5 +1,9 @@
+#include "PCH.h"
 #include "OutputMergeStage.h"
 #include "Renderer.h"
+
+#include "RenderTargetView.h"
+#include "DepthStencilView.h"
 
 using namespace Sand;
 
@@ -35,33 +39,36 @@ void OutputMergeStage::ApplyDesiredRenderTargetStates( ID3D11DeviceContext* pCon
 	{
 		Renderer* pRenderer = Renderer::Get();
 
-		ID3D11RenderTargetView* pRenderTargetViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT];
+		std::vector<ID3D11RenderTargetView*> pRenderTargetViews;
 		ID3D11DepthStencilView* pDepthStencilView = 0;
 
 		// --------------------------Render Target View-------------------
-		for( int i = 0; i < D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; i++ )
+		for( int i = 0; i < DesiredState.RenderTargetViewCount.GetState(); i++ )
 		{
 			RenderTargetView& rtv = pRenderer->GetRenderTargetViewByIndex( DesiredState.RenderTargetViews.GetState( i ) );
 
-			pRenderTargetViews[i] = rtv.m_RenderTargetView.Get();
+			pRenderTargetViews.push_back( rtv.GetRenderTargetView() );
 		}
 
 
 		//-------------------Depth Stencil View-----------------------
 		DepthStencilView& DSV = pRenderer->GetDepthStencilViewByIndex( DesiredState.DepthStencilViews.GetState() );
-		pDepthStencilView = DSV.m_DepthStencilView.Get();
+		pDepthStencilView = DSV.Get();
 
-		pContext->OMSetRenderTargets( D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT , pRenderTargetViews , pDepthStencilView );
+		pContext->OMSetRenderTargets( DesiredState.RenderTargetViewCount.GetState() , &pRenderTargetViews[0] , pDepthStencilView );
 
 
-		// ----------------一种更好的将Desired State 拷贝给 Current State的方式------------------
-		for( int i = 0; i < D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; i++ )
+		// ----------------将Desired State 拷贝给 Current State的方式------------------
+		CurrentState.RenderTargetViewCount.SetState( DesiredState.RenderTargetViewCount.GetState() );
+		for( int i = 0; i < DesiredState.RenderTargetViewCount.GetState(); i++ )
 		{
 			CurrentState.RenderTargetViews.SetState( i , DesiredState.RenderTargetViews.GetState( i ) );
 		}
 
+
 		CurrentState.DepthStencilViews.SetState( DesiredState.DepthStencilViews.GetState() );
 
+		DesiredState.RenderTargetViewCount.ResetTracking();
 		DesiredState.RenderTargetViews.ResetTracking();
 		DesiredState.DepthStencilViews.ResetTracking();
 	}
@@ -118,4 +125,9 @@ void OutputMergeStage::ApplyDesiredBlendAndDepthStencilStates( ID3D11DeviceConte
 void OutputMergeStage::SetFeatureLevel( D3D_FEATURE_LEVEL Level )
 {
 	m_FeatureLevel = Level;
+}
+
+const OutputMergeStageState& Sand::OutputMergeStage::GetCurrentState() const
+{
+	return CurrentState;
 }

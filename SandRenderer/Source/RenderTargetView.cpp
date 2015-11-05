@@ -1,3 +1,4 @@
+#include "PCH.h"
 #include "RenderTargetView.h"
 #include "Renderer.h"
 
@@ -13,7 +14,7 @@ RenderTargetView::~RenderTargetView()
 
 }
 
-ID3D11RenderTargetView* RenderTargetView::Get()
+ID3D11RenderTargetView* RenderTargetView::GetRenderTargetView()
 {
 	return m_RenderTargetView.Get();
 }

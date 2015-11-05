@@ -11,7 +11,7 @@ namespace Sand
 		RenderTargetView( Microsoft::WRL::ComPtr<ID3D11RenderTargetView> pRenderTargetView );
 		virtual ~RenderTargetView();
 
-		ID3D11RenderTargetView* Get();
+		ID3D11RenderTargetView* GetRenderTargetView();
 
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_RenderTargetView;

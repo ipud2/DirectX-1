@@ -1,6 +1,9 @@
+#include "PCH.h"
 #include "Resource.h"
 
 using namespace Sand;
+
+unsigned short Resource::s_usResourceID = 0;
 
 Resource::Resource()
 {

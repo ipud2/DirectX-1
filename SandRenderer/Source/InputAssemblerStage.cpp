@@ -37,7 +37,7 @@ void InputAssemblerStage::ApplyDesiredState( ID3D11DeviceContext* pContext )
 {
 	Renderer* pRenderer = Renderer::Get();
 
-	if( DesiredState.InputLayout.IsUpdateNeeded )
+	if( DesiredState.InputLayout.IsUpdateNeeded() )
 	{	
 		
 	}

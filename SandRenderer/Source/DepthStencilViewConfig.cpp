@@ -1,3 +1,4 @@
+#include "PCH.h"
 #include "DepthStencilViewConfig.h"
 
 using namespace Sand;
@@ -65,7 +66,7 @@ void DepthStencilViewConfig::SetTexture2DMSArray( D3D11_TEX2DMS_ARRAY_DSV Textur
 	m_State.Texture2DMSArray = Texture2DMSArray;
 }
 
-D3D11_DEPTH_STENCIL_DESC& DepthStencilViewConfig::GetDesc()
+D3D11_DEPTH_STENCIL_VIEW_DESC& DepthStencilViewConfig::GetDesc()
 {
 	return m_State;
 }

@@ -1,3 +1,4 @@
+#include "PCH.h"
 #include "EventWindowMessage.h"
 
 using namespace Sand;

@@ -1,3 +1,4 @@
+#include "PCH.h"
 #include "Texture2DConfig.h"
 
 using namespace Sand;
@@ -27,7 +28,7 @@ void Texture2DConfig::SetDefaults()
 	m_State.Usage = D3D11_USAGE_DEFAULT;
 }
 
-void Sand::Texture2DConfig::SetDepthBuffer( UINT width , UINT height )
+void Texture2DConfig::SetDepthBuffer( UINT width , UINT height )
 {
 	m_State.Width = width;
 	m_State.Height = height;
@@ -35,7 +36,7 @@ void Sand::Texture2DConfig::SetDepthBuffer( UINT width , UINT height )
 	m_State.ArraySize = 1;
 	m_State.MiscFlags = 0;
 	m_State.CPUAccessFlags = 0;
-	m_State.Format = DXGI_FORMAT_R32_FLOAT;
+	m_State.Format = DXGI_FORMAT_D32_FLOAT;
 	m_State.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	m_State.SampleDesc.Count = 1;
 	m_State.SampleDesc.Quality = 0;

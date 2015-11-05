@@ -27,6 +27,8 @@
 #include "DepthStencilStateConfig.h"
 #include "SampleStateConfig.h"
 
+#include "ViewPort.h"
+
 #pragma comment(lib , "d3d11.lib")
 #pragma comment(lib , "DXGI.lib")
 
@@ -46,6 +48,8 @@ Renderer::Renderer()
 	m_DriveType = D3D_DRIVER_TYPE_NULL;
 
 	m_FeatureLevel = D3D_FEATURE_LEVEL_11_0;
+
+	m_pPipelineManager = nullptr;
 }
 
 Renderer::~Renderer()
@@ -156,11 +160,48 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 	DepthStencilStateConfig DepthStencilStateConfig;
 	m_pPipelineManager->m_OutputMergeStage.DesiredState.DepthStencilStates.SetState( CreateDepthStencilState( &DepthStencilStateConfig ) );
 
+	return true;
 }
 
 void Renderer::Shutdown()
 {
+	// 释放PipelineManager对象
+	SAFE_DELETE( m_pPipelineManager );
 
+	// -------------Resource View--------------------
+	m_vShaderResourceView.clear();
+	m_vRenderTargetView.clear();
+	m_vDepthStencilView.clear();
+	m_vUnorderedAccessView.clear();
+
+	// -------------------State------------------
+	m_vBlendStates.clear();
+	m_vRasterizerStates.clear();
+	m_vDepthStencilStates.clear();
+	m_vSamplerStates.clear();
+
+	// -------View Port---------------------
+	m_vViewPorts.clear();
+
+	// -----------Input Layout-----------------
+	m_vInputLayouts.clear();
+
+	// ------------Resource----------------------
+	for( auto pResource : m_vResource )
+	{
+		delete pResource;
+	}
+
+	// -----------SwapChain-------------------
+	for( auto pSwapChain : m_vSwapChain )
+	{
+		if( pSwapChain->m_SwapChain!= nullptr )
+		{
+			pSwapChain->m_SwapChain->SetFullscreenState( false , NULL );
+		}
+
+		delete pSwapChain;
+	}
 }
 
 void Renderer::Present( int SwapChainID /* = -1  */ , UINT SyncInterval /* = 0  */ , UINT PresentFlags /* = 0 */ )
@@ -177,22 +218,74 @@ void Renderer::Present( int SwapChainID /* = -1  */ , UINT SyncInterval /* = 0  
 	else
 	{
 		// 输出错误信息
+		Log::Get().Write( L"交换链索引无效！" );
 	}
 }
 
-D3D_FEATURE_LEVEL Renderer::GetAvailableFeatureLevel( D3D_DRIVER_TYPE DriveType )
+D3D_FEATURE_LEVEL Renderer::GetAvailableFeatureLevel( D3D_DRIVER_TYPE DriverType )
 {
+	D3D_FEATURE_LEVEL FeatureLevel;
+	HRESULT hr;
 
+	if( m_pDevice )
+	{
+		FeatureLevel = m_pDevice->GetFeatureLevel();
+	}
+	else
+	{
+		// 创建Device
+		hr = D3D11CreateDevice(
+			nullptr ,
+			DriverType ,
+			nullptr ,
+			0 ,
+			nullptr ,
+			0 ,
+			D3D11_SDK_VERSION ,
+			nullptr ,
+			&FeatureLevel ,
+			nullptr
+			);
+
+		if( FAILED( hr ) )
+		{
+			Log::Get().Write( L"GetAvailableFeatureLevel函数创建Device失败" );
+		}
+	}
+
+	return FeatureLevel;
 }
 
 D3D_FEATURE_LEVEL Renderer::GetCurrentFeatureLevel()
 {
-
+	return m_FeatureLevel;
 }
 
 UINT64 Renderer::GetAvailableVideoMemory()
 {
+	ComPtr<IDXGIDevice> pDXGIDevice;
+	ComPtr<IDXGIAdapter> pDXGIAdapter;
 
+	HRESULT hr = m_pDevice.CopyTo( pDXGIDevice.GetAddressOf() );
+	pDXGIDevice->GetAdapter( pDXGIAdapter.GetAddressOf() );
+
+	DXGI_ADAPTER_DESC AdapterDesc;
+	pDXGIAdapter->GetDesc( &AdapterDesc );
+
+	UINT64 AvaliableVideoMemory = 0;
+
+	if( AdapterDesc.DedicatedVideoMemory )
+	{
+		// 显存大小
+		AvaliableVideoMemory = AdapterDesc.DedicatedVideoMemory;
+	}
+	else
+	{
+		// 共享的系统内存数，系统内存中可以被adapter使用的最大值
+		AvaliableVideoMemory = AdapterDesc.SharedSystemMemory;
+	}
+
+	return AvaliableVideoMemory;
 }
 
 int Renderer::CreateSwapChain( SwapChainConfig* pConfig )
@@ -401,7 +494,7 @@ Resource* Renderer::GetResourceByIndex( int index )
 
 	
 	int inner = ( index & 0xffff0000 ) >> 16;
-	int id = ( index & 0xffff );
+	unsigned int id = static_cast<unsigned int>( index & 0xffff );
 
 	if( id < m_vResource.size() )
 	{
@@ -440,7 +533,7 @@ Sand::ResourceProxyPtr Sand::Renderer::CreateTexture2D( Texture2DConfig* pConfig
 {
 	// 创建ID3D11Texture2D纹理对象
 	Texturte2DComPtr pTexture;
-	HRESULT hr = m_pDevice->CreateTexture2D( &pConfig->m_State , pData , pTexture.GetAddressOf() );
+	HRESULT hr = m_pDevice->CreateTexture2D( &( pConfig->m_State ) , pData , pTexture.GetAddressOf() );
 
 	if( pTexture )
 	{
@@ -457,11 +550,13 @@ Sand::ResourceProxyPtr Sand::Renderer::CreateTexture2D( Texture2DConfig* pConfig
 		return Proxy;
 	}
 
-	return ResourceProxyPtr( new ResourceProxyPtr() );
+	return ResourceProxyPtr( new ResourceProxy() );
 }
 
-Sand::RasterizerStateComPtr Sand::Renderer::GetRasterizerState( int index )
+Sand::RasterizerStateComPtr Sand::Renderer::GetRasterizerState( int id )
 {
+	unsigned int index = static_cast< unsigned int >( id );
+
 	if( index >= 0 && index < m_vRasterizerStates.size())
 	{
 		return m_vRasterizerStates[index];
@@ -509,8 +604,10 @@ Sand::UnorderedAccessView Sand::Renderer::GetUnorderedAccessViewByIndex( int id 
 	return m_vUnorderedAccessView[index];
 }
 
-Sand::BlendStateComPtr Sand::Renderer::GetBlendState( int index )
+Sand::BlendStateComPtr Sand::Renderer::GetBlendState( int id )
 {
+	unsigned int index = static_cast< unsigned int >( id );
+
 	if( index < m_vBlendStates.size() )
 	{
 		return m_vBlendStates[index];
@@ -521,8 +618,10 @@ Sand::BlendStateComPtr Sand::Renderer::GetBlendState( int index )
 	}
 }
 
-Sand::DepthStencilStateComPtr Sand::Renderer::GetDepthStencilState( int index )
+Sand::DepthStencilStateComPtr Sand::Renderer::GetDepthStencilState( int id )
 {
+	unsigned int index = static_cast< unsigned int >( id );
+
 	if( index < m_vDepthStencilStates.size() )
 	{
 		return m_vDepthStencilStates[index];
@@ -631,7 +730,7 @@ int Renderer::GetUnusedResourceIndex()
 {
 	int index = -1;
 
-	for( int i = 0; i < m_vResource.size() - 1; i++ )
+	for( int i = 0; i < m_vResource.size(); i++ )
 	{
 		if( m_vResource[i] == nullptr )
 		{
@@ -640,5 +739,5 @@ int Renderer::GetUnusedResourceIndex()
 		}
 	}
 
-	return -1;
+	return index;
 }

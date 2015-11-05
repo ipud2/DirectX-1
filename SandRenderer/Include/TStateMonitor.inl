@@ -26,7 +26,7 @@ void TStateMonitor<T>::SetSister( TStateMonitor<T>* pSister )
 template<class T>
 bool TStateMonitor<T>::SameAsSister()
 {
-	return ( m_State == m_pSister->GetState );
+	return ( m_State == m_pSister->GetState() );
 }
 
 template<class T>
@@ -45,7 +45,7 @@ void TStateMonitor<T>::SetState( T state )
 }
 
 template<class T>
-T TStateMonitor<T>::GetState()
+T TStateMonitor<T>::GetState() const
 {
 	return m_State;
 }

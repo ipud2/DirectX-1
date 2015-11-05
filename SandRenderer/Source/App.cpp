@@ -1,3 +1,5 @@
+#include "PCH.h"
+
 #include "App.h"
 #include "Log.h"
 
@@ -65,10 +67,11 @@ bool App::ConfigureEngineComponents()
 	// 创建深度缓存，并为其生成深度模板视图
 	Texture2DConfig DepthConfig;
 	DepthConfig.SetDepthBuffer( m_pWindow->GetWidth() , m_pWindow->GetHeight() );
-	m_pDepthStencil = m_pRenderer->CreateTexture2D( &DepthConfig , 0 );
+	m_pDepthStencil = m_pRenderer->CreateTexture2D( &DepthConfig , nullptr );
 
 	// 设置render target view 和 depth stencil view
 	m_pRenderer->m_pPipelineManager->ClearRenderTargets();
+	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.RenderTargetViewCount.SetState( 1 );
 	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.RenderTargetViews.SetState( 0 , m_pRenderTarget->m_RenderTargetViewID );
 	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.DepthStencilViews.SetState( m_pDepthStencil->m_DepthStencilViewID );
 	m_pRenderer->m_pPipelineManager->ApplyRenderTargets();
@@ -115,7 +118,7 @@ void App::Initialize()
 
 void App::Update()
 {
-	m_pRenderer->m_pPipelineManager->ClearBuffers( Vector4f( 0.0f , 0.0f , 0.0f , 0.0f ) , 1.0f , 0 );
+	m_pRenderer->m_pPipelineManager->ClearBuffers( Vector4f( 0.0f , 1.0f , 0.0f , 0.5f ) , 1.0f , 0 );
 	m_pRenderer->Present( m_pWindow->GetSwapChain() );
 }
 
@@ -129,23 +132,12 @@ void App::TakeScreenShot()
 	if( m_bSaveScreenShot )
 	{
 		m_bSaveScreenShot = false;
-		m_pRenderer->m_pPipelineManager->SaveTextureScreenShot()
+		m_pRenderer->m_pPipelineManager->SaveTextureScreenShot( 0 , GetName() );
 	}
 }
 
 bool App::HandleEvent( EventPtr pEvent )
 {
-	EventType e = pEvent->GetEventType();
-
-	if( e == SYSTEM_KEY_DOWN )
-	{
-
-	}
-	else if( e == SYSTEM_KEY_UP )
-	{
-
-	}
-
 	return Application::HandleEvent( pEvent );
 }
 

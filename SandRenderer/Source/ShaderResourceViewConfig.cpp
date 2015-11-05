@@ -1,3 +1,4 @@
+#include "PCH.h"
 #include "ShaderResourceViewConfig.h"
 
 using namespace Sand;

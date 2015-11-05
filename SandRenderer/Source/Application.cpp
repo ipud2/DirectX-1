@@ -1,4 +1,5 @@
 #include "PCH.h"
+
 #include "Application.h"
 
 using namespace Sand;
@@ -86,7 +87,7 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 
 		case WM_SIZE:
 		{
-			EventWindowResizePtr pEvent = EventWindowResizePtr( new EventWindowResizePtr( hwnd , wParam , lParam ) );
+			EventWindowResizePtr pEvent = EventWindowResizePtr( new EventWindowResize( hwnd , wParam , lParam ) );
 			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
@@ -221,4 +222,11 @@ bool Application::HandleEvent( EventPtr pEvent )
 			return true;
 		}
 	}
+
+	return false;
+}
+
+void Sand::Application::BeforeRegisterWindowClass( WNDCLASSEX& wc )
+{
+
 }
