@@ -7,48 +7,32 @@
 
 namespace Sand
 {
-	class RasterizerState
+	class RasterizerStageState
 	{
 	public:
-		RasterizerState();
-		virtual ~RasterizerState();
+		RasterizerStageState();
+		virtual ~RasterizerStageState();
 
 		void SetFeatureLevel( D3D_FEATURE_LEVEL Level );
 		void ClearState();
-		void SetSisterState( RasterizerState* pState );
+		void SetSisterState( RasterizerStageState* pState );
 		void ResetUpdateFlags();
 
-		unsigned int GetAvaliableSlotCount();
-
+		// ------------------¹âÕ¤»¯×´Ì¬---------------------
 		TStateMonitor<int> RasterizerStates;
 
+		// -------------------Viewport--------------------------
 		TStateMonitor<int> ViewportCount;
 		TStateArrayMonitor<int , D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE> Viewports;
 
+		// -----------------Scissor Rect----------------------------
 		TStateMonitor<int> ScissorRectCount;
 		TStateArrayMonitor<D3D11_RECT , D3D11_VIEWPORT_AND_SCISSORRECT_OBJECT_COUNT_PER_PIPELINE> ScissorRects;
-
-		// -------------------Index Buffer----------------------
-		TStateMonitor<int> IndexBuffer;
-		TStateMonitor<DXGI_FORMAT> IndexBufferFormat;
-
-		// --------------------Vertex Buffer-------------------
-		TStateArrayMonitor<int , D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT> VertexBuffers;
-		TStateArrayMonitor<unsigned int , D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT> VertexBufferStrides;
-		TStateArrayMonitor<unsigned int , D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT > VertexBufferOffsets;
-
-		// ---------------Input Layout---------------------
-		TStateMonitor<int> InputLayout;
-
-		// -------------------Primitive Topology--------------------
-		TStateMonitor<D3D11_PRIMITIVE_TOPOLOGY> PrimitiveTopology;
 
 	protected:
 		D3D_FEATURE_LEVEL m_FeatureLevel;
 
-		RasterizerState* m_pSisterState;
-
-		unsigned int AvaliableSlotCount;
+		RasterizerStageState* m_pSisterState;
 	};
 }
 

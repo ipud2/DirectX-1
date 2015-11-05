@@ -33,6 +33,6 @@ namespace Sand
 	};
 
 #include "TStateMonitor.inl"
-}£»
 
+};
 #endif

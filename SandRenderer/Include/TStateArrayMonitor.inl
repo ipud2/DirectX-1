@@ -1,11 +1,11 @@
 template < class T , unsigned int N >
 TStateArrayMonitor<T , N>::TStateArrayMonitor( T initialState ) :
-m_uiStartSlot( 0 ) ,
-m_uiEndSlot( 0 ) ,
-m_bUpdateNeeded( false ) ,
+	m_uiStartSlot( 0 ) ,
+	m_uiEndSlot( 0 ) ,
+	m_bUpdateNeeded( false ) ,
 
-m_InitialState( initialState ) ,
-m_pSister( nullptr )
+	m_InitialState( initialState ) ,
+	m_pSister( nullptr )
 {
 	InitializeStates();
 

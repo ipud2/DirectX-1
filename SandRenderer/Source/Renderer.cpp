@@ -20,6 +20,13 @@
 
 #include "Log.h"
 
+#include "PipelineManager.h"
+
+#include "BlendStateConfig.h"
+#include "RasterizerStateConfig.h"
+#include "DepthStencilStateConfig.h"
+#include "SampleStateConfig.h"
+
 #pragma comment(lib , "d3d11.lib")
 #pragma comment(lib , "DXGI.lib")
 
@@ -134,6 +141,21 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 	}
 
 	m_FeatureLevel = m_pDevice->GetFeatureLevel();
+
+	m_pPipelineManager = new PipelineManager;
+	m_pPipelineManager->SetDeviceContext(pContext , m_FeatureLevel); 
+
+	// ----------------------初始化默认状态------------------------------------
+	// 将光栅化阶段和输出装配阶段的状态设为默认状态，并且使得Renderer中相应状态容器的0号索引的状态为默认值
+	RasterizerStateConfig RasterizerStateConfig;
+	m_pPipelineManager->m_RasterizerStage.DesiredState.RasterizerStates.SetState( CreateRasterizerState( &RasterizerStateConfig ) );
+
+	BlendStateConfig BlendStateConfig;
+	m_pPipelineManager->m_OutputMergeStage.DesiredState.BlendStates.SetState( CreateBlendState( &BlendStateConfig ) );
+
+	DepthStencilStateConfig DepthStencilStateConfig;
+	m_pPipelineManager->m_OutputMergeStage.DesiredState.DepthStencilStates.SetState( CreateDepthStencilState( &DepthStencilStateConfig ) );
+
 }
 
 void Renderer::Shutdown()
@@ -436,6 +458,152 @@ Sand::ResourceProxyPtr Sand::Renderer::CreateTexture2D( Texture2DConfig* pConfig
 	}
 
 	return ResourceProxyPtr( new ResourceProxyPtr() );
+}
+
+Sand::RasterizerStateComPtr Sand::Renderer::GetRasterizerState( int index )
+{
+	if( index >= 0 && index < m_vRasterizerStates.size())
+	{
+		return m_vRasterizerStates[index];
+	}
+	else
+	{
+		// 默认光栅化状态
+		return m_vRasterizerStates[0];
+	}
+}
+
+const ViewPort& Sand::Renderer::GetViewPort( int index )
+{
+	unsigned int id = static_cast< unsigned int >( index );
+
+	assert( id < m_vViewPorts.size() );
+
+	return m_vViewPorts[id];
+}
+
+Sand::RenderTargetView Sand::Renderer::GetRenderTargetViewByIndex( int id )
+{
+	unsigned int index = static_cast< unsigned int >( id );
+
+	assert( index < m_vRenderTargetView.size() );
+
+	return m_vRenderTargetView[index];
+}
+
+Sand::DepthStencilView Sand::Renderer::GetDepthStencilViewByIndex( int id )
+{
+	unsigned int index = static_cast< unsigned int >( id );
+
+	assert( index < m_vDepthStencilView.size() );
+
+	return m_vDepthStencilView[index];
+}
+
+Sand::UnorderedAccessView Sand::Renderer::GetUnorderedAccessViewByIndex( int id )
+{
+	unsigned int index = static_cast< unsigned int >( id );
+
+	assert( index < m_vUnorderedAccessView.size() );
+
+	return m_vUnorderedAccessView[index];
+}
+
+Sand::BlendStateComPtr Sand::Renderer::GetBlendState( int index )
+{
+	if( index < m_vBlendStates.size() )
+	{
+		return m_vBlendStates[index];
+	}
+	else
+	{
+		return m_vBlendStates[0];
+	}
+}
+
+Sand::DepthStencilStateComPtr Sand::Renderer::GetDepthStencilState( int index )
+{
+	if( index < m_vDepthStencilStates.size() )
+	{
+		return m_vDepthStencilStates[index];
+	}
+	else
+	{
+		return m_vDepthStencilStates[0];
+	}
+}
+
+int Sand::Renderer::CreateBlendState( BlendStateConfig* pConfig )
+{
+	BlendStateComPtr pState;
+	HRESULT hr = m_pDevice->CreateBlendState( dynamic_cast< D3D11_BLEND_DESC* >( pConfig ) , pState.GetAddressOf() );
+
+	if( FAILED( hr ) )
+	{
+		Log::Get().Write( L"创建BlendState失败" );
+		return -1;
+	}
+
+	m_vBlendStates.push_back( pState );
+
+	return m_vBlendStates.size() - 1;
+}
+
+int Sand::Renderer::CreateDepthStencilState( DepthStencilStateConfig* pConfig )
+{
+	DepthStencilStateComPtr pState;
+	HRESULT hr = m_pDevice->CreateDepthStencilState( dynamic_cast< D3D11_DEPTH_STENCIL_DESC* >( pConfig ) , pState.GetAddressOf() );
+
+	if( FAILED( hr ) )
+	{
+		Log::Get().Write( L"创建深度模板状态失败" );
+
+		return -1;
+	}
+
+	m_vDepthStencilStates.push_back( pState );
+
+	return ( m_vDepthStencilStates.size() - 1 );
+}
+
+int Sand::Renderer::CreateRasterizerState( RasterizerStateConfig* pConfig )
+{
+	RasterizerStateComPtr pState;
+	HRESULT hr = m_pDevice->CreateRasterizerState( dynamic_cast< D3D11_RASTERIZER_DESC* >( pConfig ) , pState.GetAddressOf() );
+
+	if( FAILED( hr ) )
+	{
+		Log::Get().Write( L"创建光栅化状态失败" );
+		return -1;
+	}
+
+	m_vRasterizerStates.push_back( pState );
+
+	return ( m_vRasterizerStates.size() - 1 );
+}
+
+int Sand::Renderer::CreateSampleState( SampleStateConfig* pConfig )
+{
+	SamplerStateComPtr pState;
+	HRESULT hr = m_pDevice->CreateSamplerState( dynamic_cast< D3D11_SAMPLER_DESC* >( pConfig ) , pState.GetAddressOf() );
+
+	if( FAILED( hr ) )
+	{
+		Log::Get().Write( L"创建采样状态失败" );
+
+		return -1;
+	}
+
+	m_vSamplerStates.push_back( pState );
+
+	return ( m_vSamplerStates.size() - 1 );
+}
+
+int Sand::Renderer::CreateViewPort( D3D11_VIEWPORT viewport )
+{
+	m_vViewPorts.emplace_back( viewport );
+
+	return ( m_vViewPorts.size() - 1 );
 }
 
 ResourceProxyPtr Renderer::GetSwapChainResource( int index )

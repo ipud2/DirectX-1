@@ -5,6 +5,8 @@
 
 #include "Texture2DConfig.h"
 
+#include "PipelineManager.h"
+
 using namespace Sand;
 
 App AppInstance;
@@ -32,7 +34,8 @@ bool App::ConfigureEngineComponents()
 	// 配置渲染器
 	m_pRenderer = new Renderer;
 
-	// 创建Device
+	// 创建Device & DeviceContext
+	// 配置默认的Rasterizer State 和 Blend State and DepthStencilState
 	if( !m_pRenderer->Initialize( D3D_DRIVER_TYPE_HARDWARE , D3D_FEATURE_LEVEL_11_0 ) )
 	{
 		Log::Get().Write( L"无法创建硬件设备，尝试创建reference设备" );
@@ -63,6 +66,29 @@ bool App::ConfigureEngineComponents()
 	Texture2DConfig DepthConfig;
 	DepthConfig.SetDepthBuffer( m_pWindow->GetWidth() , m_pWindow->GetHeight() );
 	m_pDepthStencil = m_pRenderer->CreateTexture2D( &DepthConfig , 0 );
+
+	// 设置render target view 和 depth stencil view
+	m_pRenderer->m_pPipelineManager->ClearRenderTargets();
+	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.RenderTargetViews.SetState( 0 , m_pRenderTarget->m_RenderTargetViewID );
+	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.DepthStencilViews.SetState( m_pDepthStencil->m_DepthStencilViewID );
+	m_pRenderer->m_pPipelineManager->ApplyRenderTargets();
+
+
+	// 设置Viewport
+	D3D11_VIEWPORT view_port;
+	view_port.Width = m_pWindow->GetWidth();
+	view_port.Height = m_pWindow->GetHeight();
+	view_port.TopLeftX = m_pWindow->GetLeft();
+	view_port.TopLeftY = m_pWindow->GetTop();
+	view_port.MinDepth = 0.0f;
+	view_port.MaxDepth = 1.0f;
+
+
+	int view_port_id = m_pRenderer->CreateViewPort( view_port );
+	m_pRenderer->m_pPipelineManager->m_RasterizerStage.DesiredState.ViewportCount.SetState( 1 );
+	m_pRenderer->m_pPipelineManager->m_RasterizerStage.DesiredState.Viewports.SetState( 0 , view_port_id );
+
+	return true;
 }
 
 void App::ShutdownEngineComponents()
@@ -89,17 +115,22 @@ void App::Initialize()
 
 void App::Update()
 {
-
+	m_pRenderer->m_pPipelineManager->ClearBuffers( Vector4f( 0.0f , 0.0f , 0.0f , 0.0f ) , 1.0f , 0 );
+	m_pRenderer->Present( m_pWindow->GetSwapChain() );
 }
 
 void App::Shutdown()
 {
-
+	
 }
 
 void App::TakeScreenShot()
 {
-
+	if( m_bSaveScreenShot )
+	{
+		m_bSaveScreenShot = false;
+		m_pRenderer->m_pPipelineManager->SaveTextureScreenShot()
+	}
 }
 
 bool App::HandleEvent( EventPtr pEvent )

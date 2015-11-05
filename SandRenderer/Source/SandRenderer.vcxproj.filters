@@ -96,6 +96,9 @@
     <Filter Include="Pipeline\Common">
       <UniqueIdentifier>{4b4fb4cb-4d40-41b9-8924-40b5ed7e0de1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render\Resource\State">
+      <UniqueIdentifier>{474f8e69-f094-4c41-94d1-47c97c67afe5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -266,6 +269,27 @@
     <ClInclude Include="..\Include\RasterizerStageState.h">
       <Filter>Pipeline\FixedStage\RasterizerStage</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\ViewPort.h">
+      <Filter>Render\Resource\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\PipelineManager.h">
+      <Filter>Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\RasterizerStateConfig.h">
+      <Filter>Render\Resource\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BlendStateConfig.h">
+      <Filter>Render\Resource\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\DepthStencilStateConfig.h">
+      <Filter>Render\Resource\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SampleStateConfig.h">
+      <Filter>Render\Resource\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Vector4f.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -418,6 +442,24 @@
     <ClCompile Include="RasterizerStageState.cpp">
       <Filter>Pipeline\FixedStage\RasterizerStage</Filter>
     </ClCompile>
+    <ClCompile Include="ViewPort.cpp">
+      <Filter>Render\Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PipelineManager.cpp">
+      <Filter>Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterizerStateConfig.cpp">
+      <Filter>Render\Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="BlendStateConfig.cpp">
+      <Filter>Render\Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencilStateConfig.cpp">
+      <Filter>Render\Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleStateConfig.cpp">
+      <Filter>Render\Resource\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Include\TStateMonitor.inl">
@@ -426,5 +468,6 @@
     <None Include="..\Include\TStateArrayMonitor.inl">
       <Filter>Pipeline\Common</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

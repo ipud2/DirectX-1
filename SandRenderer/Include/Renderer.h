@@ -16,6 +16,11 @@ namespace Sand
 
 	typedef Microsoft::WRL::ComPtr<ID3D11InputLayout> InputLayoutComPtr;
 
+	typedef Microsoft::WRL::ComPtr<ID3D11RasterizerState> RasterizerStateComPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11BlendState> BlendStateComPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11DepthStencilState> DepthStencilStateComPtr;
+	typedef Microsoft::WRL::ComPtr<ID3D11SamplerState> SamplerStateComPtr;
+
 	// ------------资源配置----------------
 	class SwapChainConfig;
 	class Texture2DConfig;
@@ -31,6 +36,15 @@ namespace Sand
 	class DepthStencilView;
 
 	class SwapChain;
+
+	class ViewPort;
+
+	class PipelineManager;
+
+	class BlendStateConfig;
+	class RasterizerStateConfig;
+	class DepthStencilStateConfig;
+	class SampleStateConfig;
 
 	enum ResourceType
 	{
@@ -127,7 +141,7 @@ namespace Sand
 		// FullName:  Sand::Renderer::CreateSwapChain
 		// Access:    public 
 		// Returns:   int
-		// Qualifier: 根据传入的交换链描述，创建交换链对象，将其保存在交换量仓库中，返回其索引
+		// Qualifier: 根据传入的交换链描述，创建交换链对象，将其保存在交换链仓库中，返回其索引
 		// Parameter: SwapChainConfig * pConfig
 		//************************************
 		int CreateSwapChain( SwapChainConfig* pConfig );
@@ -247,6 +261,37 @@ namespace Sand
 		int CreateDepthStencilView( int ResourceID , D3D11_DEPTH_STENCIL_VIEW_DESC* Desc );
 
 
+		//************************************
+		// Method:    GetRenderTargetViewByIndex
+		// FullName:  Sand::Renderer::GetRenderTargetViewByIndex
+		// Access:    public 
+		// Returns:   Sand::RenderTargetView
+		// Qualifier: 根据索引获取对应Render Target View
+		// Parameter: int id
+		//************************************
+		RenderTargetView GetRenderTargetViewByIndex( int id );
+
+		//************************************
+		// Method:    GetDepthStencilViewByIndex
+		// FullName:  Sand::Renderer::GetDepthStencilViewByIndex
+		// Access:    public 
+		// Returns:   Sand::DepthStencilView
+		// Qualifier: 根据索引获取对应的Depth Stencil View
+		// Parameter: int id
+		//************************************
+		DepthStencilView GetDepthStencilViewByIndex( int id );
+
+		//************************************
+		// Method:    GetUnorderedAccessViewByIndex
+		// FullName:  Sand::Renderer::GetUnorderedAccessViewByIndex
+		// Access:    public 
+		// Returns:   Sand::UnorderedAccessView
+		// Qualifier: 根据索引获取对应的UnorderedAccessView
+		// Parameter: int id
+		//************************************
+		UnorderedAccessView GetUnorderedAccessViewByIndex( int id );
+
+
 		// -------------------------------------------------------各类资源创建方法---------------------------------------------------------------------
 		
 		//************************************
@@ -268,6 +313,98 @@ namespace Sand
 										  UnorderedAccessViewConfig* pUnorderedAccessViewConfig = NULL ,
 										  DepthStencilViewConfig* pDepthStencilViewConfig = NULL );
 
+
+		// -------------------------------------------------状态--------------------------------------------
+		//************************************
+		// Method:    GetRasterizerState
+		// FullName:  Sand::Renderer::GetRasterizerState
+		// Access:    public 
+		// Returns:   Sand::RasterizerStateComPtr
+		// Qualifier: 根据index获取相应的光栅化状态，index不合理时，返回默认光栅化状态
+		// Parameter: int index
+		//************************************
+		RasterizerStateComPtr GetRasterizerState( int index );
+
+		//************************************
+		// Method:    GetBlendState
+		// FullName:  Sand::Renderer::GetBlendState
+		// Access:    public 
+		// Returns:   Sand::BlendStateComPtr
+		// Qualifier: 根据index获取相应的混合状态，index范围不合理时，返回默认混合状态
+		// Parameter: int index
+		//************************************
+		BlendStateComPtr GetBlendState( int index );
+
+		//************************************
+		// Method:    GetDepthStencilState
+		// FullName:  Sand::Renderer::GetDepthStencilState
+		// Access:    public 
+		// Returns:   Sand::DepthStencilStateComPtr
+		// Qualifier: 根据index获取相应的深度模板状态，index范围不合理时，返回默认深度模板状态
+		// Parameter: int index
+		//************************************
+		DepthStencilStateComPtr GetDepthStencilState( int index );
+
+		//************************************
+		// Method:    CreateBlendState
+		// FullName:  Sand::Renderer::CreateBlendState
+		// Access:    public 
+		// Returns:   int
+		// Qualifier: 创建混合状态，并返回索引
+		// Parameter: int index
+		//************************************
+		int CreateBlendState( BlendStateConfig* pConfig );
+
+		//************************************
+		// Method:    CreateDepthStencilState
+		// FullName:  Sand::Renderer::CreateDepthStencilState
+		// Access:    public 
+		// Returns:   int
+		// Qualifier: 创建深度模板状态，并返回索引
+		// Parameter: int index
+		//************************************
+		int CreateDepthStencilState( DepthStencilStateConfig* pConfig );
+
+		//************************************
+		// Method:    CreateRasterizerState
+		// FullName:  Sand::Renderer::CreateRasterizerState
+		// Access:    public 
+		// Returns:   int
+		// Qualifier: 创建光栅化状态对象，并返回索引
+		// Parameter: int index
+		//************************************
+		int CreateRasterizerState( RasterizerStateConfig* pConfig );
+
+		//************************************
+		// Method:    CreateSampleState
+		// FullName:  Sand::Renderer::CreateSampleState
+		// Access:    public 
+		// Returns:   int
+		// Qualifier: 创建采样状态对象，并返回索引
+		// Parameter: SampleStateConfig * pConfig
+		//************************************
+		int CreateSampleState( SampleStateConfig* pConfig );
+
+
+		//************************************
+		// Method:    GetViewPort
+		// FullName:  Sand::Renderer::GetViewPort
+		// Access:    public 
+		// Returns:   Sand::ViewPort
+		// Qualifier: 根据索引index获取相应的Viewport对象
+		// Parameter: int index
+		//************************************
+		const ViewPort& GetViewPort( int index );
+
+		//************************************
+		// Method:    CreateViewPort
+		// FullName:  Sand::Renderer::CreateViewPort
+		// Access:    public 
+		// Returns:   int
+		// Qualifier: 将该viewport添加到视口容器中，返回其索引
+		// Parameter: D3D11_VIEWPORT viewport
+		//************************************
+		int CreateViewPort( D3D11_VIEWPORT viewport );
 
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
@@ -292,6 +429,17 @@ namespace Sand
 		std::vector<UnorderedAccessView> m_vUnorderedAccessView;
 		std::vector<DepthStencilView> m_vDepthStencilView;
 
+		// 状态仓库
+		std::vector<RasterizerStateComPtr> m_vRasterizerStates;
+		std::vector<DepthStencilStateComPtr> m_vDepthStencilStates;
+		std::vector<BlendStateComPtr> m_vBlendStates;
+		std::vector<SamplerStateComPtr> m_vSamplerStates;
+
+		std::vector<InputLayoutComPtr> m_vInputLayouts;
+		std::vector<ViewPort> m_vViewPorts;
+
+	public:
+		PipelineManager* m_pPipelineManager;
 	};
 }
 
