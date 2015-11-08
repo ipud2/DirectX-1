@@ -43,7 +43,7 @@ void OutputMergeStage::ApplyDesiredRenderTargetStates( ID3D11DeviceContext* pCon
 		ID3D11DepthStencilView* pDepthStencilView = 0;
 
 		// --------------------------Render Target View-------------------
-		for( int i = 0; i < DesiredState.RenderTargetViewCount.GetState(); i++ )
+		for( int i = 0; i < DesiredState.GetRenderTargetCount(); i++ )
 		{
 			RenderTargetView& rtv = pRenderer->GetRenderTargetViewByIndex( DesiredState.RenderTargetViews.GetState( i ) );
 
@@ -55,20 +55,16 @@ void OutputMergeStage::ApplyDesiredRenderTargetStates( ID3D11DeviceContext* pCon
 		DepthStencilView& DSV = pRenderer->GetDepthStencilViewByIndex( DesiredState.DepthStencilViews.GetState() );
 		pDepthStencilView = DSV.Get();
 
-		pContext->OMSetRenderTargets( DesiredState.RenderTargetViewCount.GetState() , &pRenderTargetViews[0] , pDepthStencilView );
+		pContext->OMSetRenderTargets( DesiredState.GetRenderTargetCount() , &pRenderTargetViews[0] , pDepthStencilView );
 
 
 		// ----------------将Desired State 拷贝给 Current State的方式------------------
-		CurrentState.RenderTargetViewCount.SetState( DesiredState.RenderTargetViewCount.GetState() );
-		for( int i = 0; i < DesiredState.RenderTargetViewCount.GetState(); i++ )
+		for( int i = 0; i < DesiredState.GetRenderTargetCount(); i++ )
 		{
 			CurrentState.RenderTargetViews.SetState( i , DesiredState.RenderTargetViews.GetState( i ) );
 		}
-
-
 		CurrentState.DepthStencilViews.SetState( DesiredState.DepthStencilViews.GetState() );
 
-		DesiredState.RenderTargetViewCount.ResetTracking();
 		DesiredState.RenderTargetViews.ResetTracking();
 		DesiredState.DepthStencilViews.ResetTracking();
 	}

@@ -20,7 +20,7 @@ void Sand::Log::Open()
 {
 	FileSystem fs;
 	// Log文件路径
-	std::wstring FilePath = fs.GetLogFolder() + L"\\Log.txt";
+	std::wstring FilePath = fs.GetLogFolder() + L"Log.txt";
 
 	// 打开Log文件
 	LogFile.open( FilePath.c_str() );

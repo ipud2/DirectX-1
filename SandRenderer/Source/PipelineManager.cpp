@@ -74,7 +74,7 @@ void PipelineManager::ClearBuffers( Vector4f& color , float depth , UINT stencil
 	ID3D11RenderTargetView* pRenderTargetViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT] = { nullptr };
 	ID3D11DepthStencilState* pDepthStencilView = nullptr;
 
-	int count = m_OutputMergeStage.GetCurrentState().RenderTargetViewCount.GetState();
+	int count = m_OutputMergeStage.GetCurrentState().GetRenderTargetCount();
 
 	// --------------------------Clear Render Target View--------------------------------
 	for( UINT i = 0; i < count; i++ )

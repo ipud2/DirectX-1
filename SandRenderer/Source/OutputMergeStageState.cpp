@@ -9,7 +9,6 @@ BlendStates( -1 ) ,
 	DepthStencilStates( -1 ) ,
 	StencilRef( 0 ) ,
 
-	RenderTargetViewCount( 0 ) ,
 	RenderTargetViews( -1 ) ,
 	DepthStencilViews( -1 ) ,
 
@@ -37,7 +36,6 @@ void Sand::OutputMergeStageState::ClearState()
 	DepthStencilStates.InitializeState();
 	StencilRef.InitializeState();
 
-	RenderTargetViewCount.InitializeState();
 	RenderTargetViews.InitializeStates();
 	DepthStencilViews.InitializeState();
 }
@@ -51,7 +49,6 @@ void Sand::OutputMergeStageState::SetSisterState( OutputMergeStageState* pState 
 	DepthStencilStates.SetSister( &pState->DepthStencilStates );
 	StencilRef.SetSister( &pState->StencilRef );
 
-	RenderTargetViewCount.SetSister( &pState->RenderTargetViewCount );
 	RenderTargetViews.SetSister( &pState->RenderTargetViews );
 	DepthStencilViews.SetSister( &pState->DepthStencilViews );
 }
@@ -63,22 +60,21 @@ void Sand::OutputMergeStageState::ResetUpdateFlags()
 	DepthStencilStates.ResetTracking();
 	StencilRef.ResetTracking();
 
-	RenderTargetViewCount.ResetTracking();
 	RenderTargetViews.ResetTracking();
 	DepthStencilViews.ResetTracking();
 }
 
-//int OutputMergeStageState::GetRenderTargetCount() const
-//{
-//	unsigned int count = 0;
-//
-//	for( int i = 0; i < D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; i++ )
-//	{
-//		if( RenderTargetViews.GetState( i ) != -1 )
-//		{
-//			count++;
-//		}
-//	}
-//
-//	return count;
-//}
+int OutputMergeStageState::GetRenderTargetCount() const
+{
+	unsigned int count = 0;
+
+	for( int i = 0; i < D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT; i++ )
+	{
+		if( RenderTargetViews.GetState( i ) != -1 )
+		{
+			count++;
+		}
+	}
+
+	return count;
+}

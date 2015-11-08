@@ -97,6 +97,7 @@
     <ClInclude Include="..\Include\DepthStencilViewConfig.h" />
     <ClInclude Include="..\Include\DXGIAdapter.h" />
     <ClInclude Include="..\Include\DXGIOutput.h" />
+    <ClInclude Include="..\Include\Entity.h" />
     <ClInclude Include="..\Include\EventChar.h" />
     <ClInclude Include="..\Include\EventErrorMessage.h" />
     <ClInclude Include="..\Include\EventFrameStart.h" />
@@ -118,15 +119,23 @@
     <ClInclude Include="..\Include\EventWindowMessage.h" />
     <ClInclude Include="..\Include\EventWindowResize.h" />
     <ClInclude Include="..\Include\FileSystem.h" />
+    <ClInclude Include="..\Include\Geometry.h" />
+    <ClInclude Include="..\Include\GeometryLoader.h" />
+    <ClInclude Include="..\Include\IController.h" />
     <ClInclude Include="..\Include\IEvent.h" />
     <ClInclude Include="..\Include\IEventListener.h" />
     <ClInclude Include="..\Include\InputAssemblerStage.h" />
     <ClInclude Include="..\Include\InputAssemblerState.h" />
     <ClInclude Include="..\Include\IWindowProc.h" />
     <ClInclude Include="..\Include\Log.h" />
+    <ClInclude Include="..\Include\Matrix3f.h" />
+    <ClInclude Include="..\Include\Matrix4f.h" />
+    <ClInclude Include="..\Include\Node.h" />
+    <ClInclude Include="..\Include\OBJ.h" />
     <ClInclude Include="..\Include\OutputMergeStage.h" />
     <ClInclude Include="..\Include\OutputMergeStageState.h" />
     <ClInclude Include="..\Include\PCH.h" />
+    <ClInclude Include="..\Include\PickRecord.h" />
     <ClInclude Include="..\Include\PipelineManager.h" />
     <ClInclude Include="..\Include\RasterizerStage.h" />
     <ClInclude Include="..\Include\RasterizerStageState.h" />
@@ -137,13 +146,18 @@
     <ClInclude Include="..\Include\RenderWindow.h" />
     <ClInclude Include="..\Include\Resource.h" />
     <ClInclude Include="..\Include\ResourceProxy.h" />
+    <ClInclude Include="..\Include\RotationController.h" />
     <ClInclude Include="..\Include\SampleStateConfig.h" />
+    <ClInclude Include="..\Include\Scene.h" />
+    <ClInclude Include="..\Include\SceneGraph.h" />
     <ClInclude Include="..\Include\ShaderResoruceView.h" />
     <ClInclude Include="..\Include\ShaderResourceViewConfig.h" />
+    <ClInclude Include="..\Include\SpatialController.h" />
     <ClInclude Include="..\Include\SwapChain.h" />
     <ClInclude Include="..\Include\SwapChainConfig.h" />
     <ClInclude Include="..\Include\Texture2D.h" />
     <ClInclude Include="..\Include\Texture2DConfig.h" />
+    <ClInclude Include="..\Include\Transform.h" />
     <ClInclude Include="..\Include\TStateArrayMonitor.h" />
     <ClInclude Include="..\Include\TStateMonitor.h" />
     <ClInclude Include="..\Include\UnorderedAccessView.h" />
@@ -151,6 +165,7 @@
     <ClInclude Include="..\Include\Vector2f.h" />
     <ClInclude Include="..\Include\Vector3f.h" />
     <ClInclude Include="..\Include\Vector4f.h" />
+    <ClInclude Include="..\Include\VertexElement.h" />
     <ClInclude Include="..\Include\ViewPort.h" />
     <ClInclude Include="..\Include\Win32RenderWindow.h" />
   </ItemGroup>
@@ -163,6 +178,7 @@
     <ClCompile Include="DepthStencilViewConfig.cpp" />
     <ClCompile Include="DXGIAdapter.cpp" />
     <ClCompile Include="DXGIOutput.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EventChar.cpp" />
     <ClCompile Include="EventErrorMessage.cpp" />
     <ClCompile Include="EventFrameStart.cpp" />
@@ -184,17 +200,22 @@
     <ClCompile Include="EventWindowMessage.cpp" />
     <ClCompile Include="EventWindowResize.cpp" />
     <ClCompile Include="FileSystem.cpp" />
+    <ClCompile Include="GeometryLoader.cpp" />
     <ClCompile Include="IEventListener.cpp" />
     <ClCompile Include="InputAssemblerStage.cpp" />
     <ClCompile Include="InputAssemblerState.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix3f.cpp" />
+    <ClCompile Include="Matrix4f.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="OutputMergeStage.cpp" />
     <ClCompile Include="OutputMergeStageState.cpp" />
     <ClCompile Include="PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PickRecord.cpp" />
     <ClCompile Include="PipelineManager.cpp" />
     <ClCompile Include="RasterizerStage.cpp" />
     <ClCompile Include="RasterizerStageState.cpp" />
@@ -206,21 +227,28 @@
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceProxy.cpp" />
     <ClCompile Include="SampleStateConfig.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneGraph.cpp" />
     <ClCompile Include="ShaderResourceView.cpp" />
     <ClCompile Include="ShaderResourceViewConfig.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="SwapChainConfig.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="Texture2DConfig.cpp" />
+    <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UnorderedAccessView.cpp" />
     <ClCompile Include="UnorderedAccessViewConfig.cpp" />
     <ClCompile Include="Vector2f.cpp" />
     <ClCompile Include="Vector3f.cpp" />
     <ClCompile Include="Vector4f.cpp" />
+    <ClCompile Include="VertexElement.cpp" />
     <ClCompile Include="ViewPort.cpp" />
     <ClCompile Include="Win32RenderWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Include\IController.inl" />
+    <None Include="..\Include\RotationController.inl" />
+    <None Include="..\Include\SpatialController.inl" />
     <None Include="..\Include\TStateArrayMonitor.inl" />
     <None Include="..\Include\TStateMonitor.inl" />
     <None Include="packages.config" />

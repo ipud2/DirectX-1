@@ -71,7 +71,6 @@ bool App::ConfigureEngineComponents()
 
 	// ÉèÖÃrender target view ºÍ depth stencil view
 	m_pRenderer->m_pPipelineManager->ClearRenderTargets();
-	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.RenderTargetViewCount.SetState( 1 );
 	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.RenderTargetViews.SetState( 0 , m_pRenderTarget->m_RenderTargetViewID );
 	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.DepthStencilViews.SetState( m_pDepthStencil->m_DepthStencilViewID );
 	m_pRenderer->m_pPipelineManager->ApplyRenderTargets();
@@ -118,7 +117,7 @@ void App::Initialize()
 
 void App::Update()
 {
-	m_pRenderer->m_pPipelineManager->ClearBuffers( Vector4f( 0.0f , 1.0f , 0.0f , 0.5f ) , 1.0f , 0 );
+	m_pRenderer->m_pPipelineManager->ClearBuffers( Vector4f( 1.0f , 1.0f , 0.0f , 0.5f ) , 1.0f , 0 );
 	m_pRenderer->Present( m_pWindow->GetSwapChain() );
 }
 
