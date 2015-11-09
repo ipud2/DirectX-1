@@ -11,6 +11,7 @@ namespace Sand
 	class DepthStencilViewConfig;
 
 	class Texture2DConfig;
+	class BufferConfig;
 
 	class Renderer;
 
@@ -23,6 +24,13 @@ namespace Sand
 		ResourceProxy();
 
 		ResourceProxy( int ResourceID , Texture2DConfig* pConfig ,
+					   Renderer* pRenderer ,
+					   ShaderResourceViewConfig* pShaderResourceViewConfig = nullptr ,
+					   RenderTargetViewConfig* pRenderTargetViewConfig = nullptr ,
+					   UnorderedAccessViewConfig* pUnorderedAccessViewConfig = nullptr ,
+					   DepthStencilViewConfig* pDepthStencilViewConfig = nullptr );
+
+		ResourceProxy( int ResourceID , BufferConfig* pConfig ,
 					   Renderer* pRenderer ,
 					   ShaderResourceViewConfig* pShaderResourceViewConfig = nullptr ,
 					   RenderTargetViewConfig* pRenderTargetViewConfig = nullptr ,
@@ -44,6 +52,7 @@ namespace Sand
 		DepthStencilViewConfig* m_pDepthStencilViewConfig;
 
 		Texture2DConfig* m_pTexture2DConfig;
+		BufferConfig* m_pBufferConfig;
 
 	protected:
 		void CommonConstructor( UINT BindFlags , int ResourceID , Renderer* pRenderer ,

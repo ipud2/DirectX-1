@@ -21,9 +21,12 @@ namespace Sand
 	typedef Microsoft::WRL::ComPtr<ID3D11DepthStencilState> DepthStencilStateComPtr;
 	typedef Microsoft::WRL::ComPtr<ID3D11SamplerState> SamplerStateComPtr;
 
+	typedef Microsoft::WRL::ComPtr<ID3D11Buffer> BufferComPtr;
+
 	// ------------资源配置----------------
 	class SwapChainConfig;
 	class Texture2DConfig;
+	class BufferConfig;
 
 	// -------------资源类----------------
 	class Resource;		// 资源类的基类
@@ -312,6 +315,29 @@ namespace Sand
 										  RenderTargetViewConfig* pRenderTargetViewConfig = NULL ,
 										  UnorderedAccessViewConfig* pUnorderedAccessViewConfig = NULL ,
 										  DepthStencilViewConfig* pDepthStencilViewConfig = NULL );
+
+		//************************************
+		// Method:    CreateVertexBuffer
+		// FullName:  Sand::Renderer::CreateVertexBuffer
+		// Access:    public 
+		// Returns:   Sand::ResourceProxyPtr
+		// Qualifier: 创建Vertex Buffer并返回ResourceProxyPtr对象
+		// Parameter: BufferConfig * pConfig
+		// Parameter: D3D11_SUBRESOURCE_DATA * pData
+		//************************************
+		ResourceProxyPtr CreateVertexBuffer( BufferConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData );
+
+
+		//************************************
+		// Method:    CreateIndexBuffer
+		// FullName:  Sand::Renderer::CreateIndexBuffer
+		// Access:    public 
+		// Returns:   Sand::ResourceProxyPtr
+		// Qualifier: 创建Index Buffer并返回ResourceProxyPtr对象
+		// Parameter: BufferConfig * pConfig
+		// Parameter: D3D11_SUBRESOURCE_DATA * pData
+		//************************************
+		ResourceProxyPtr CreateIndexBuffer( BufferConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData );
 
 
 		// -------------------------------------------------状态--------------------------------------------

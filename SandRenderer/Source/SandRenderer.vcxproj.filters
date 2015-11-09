@@ -123,6 +123,27 @@
     <Filter Include="Pipeline\StageExecutor\Basic">
       <UniqueIdentifier>{0dcdfc2a-1e5b-4eaf-ad43-e05c1eb9888b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render\Resource\Buffer\Configure">
+      <UniqueIdentifier>{15bb4380-75e2-48f4-b21b-41b0ecb561c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter">
+      <UniqueIdentifier>{9dcf9708-6f4b-41ab-8ef1-441c3376731d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\ParameterWriter">
+      <UniqueIdentifier>{fb963b9e-5823-48a7-ba2f-40db1d4bbe6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\Parameters">
+      <UniqueIdentifier>{d889e48c-adc8-4fd5-b255-999d732ff324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\Parameters\Numeric">
+      <UniqueIdentifier>{9affd454-4fd7-4e03-a39a-e13cfdd451d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\Parameters\Object">
+      <UniqueIdentifier>{bdc297f1-0a64-4c48-8db4-54d48a3c7a6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\Parameters\BaseClass">
+      <UniqueIdentifier>{cc688bd5-c247-45f5-99f2-09b810e9006f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -362,6 +383,51 @@
     <ClInclude Include="..\Include\VertexElement.h">
       <Filter>Pipeline\StageExecutor\Basic</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Buffer.h">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\VertexBuffer.h">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\IndexBuffer.h">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ConstantBuffer.h">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\StructuredBuffer.h">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\VectorParameter.h">
+      <Filter>Parameter\Parameters\Numeric</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MatrixParameter.h">
+      <Filter>Parameter\Parameters\Numeric</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MatrixArrayParameter.h">
+      <Filter>Parameter\Parameters\Numeric</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ConstantBufferParameter.h">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ShaderResourceParameter.h">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\UnorderedAccessParameter.h">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\RenderParameter.h">
+      <Filter>Parameter\Parameters\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SamplerParameter.h">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BaseNumericTypeRenderParameter.h">
+      <Filter>Parameter\Parameters\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BufferConfig.h">
+      <Filter>Render\Resource\Buffer\Configure</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -576,6 +642,54 @@
     </ClCompile>
     <ClCompile Include="VertexElement.cpp">
       <Filter>Pipeline\StageExecutor\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBuffer.cpp">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="StructuredBuffer.cpp">
+      <Filter>Render\Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixArrayParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBufferParameter.cpp">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderResourceParameter.cpp">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="UnorderedAccessParameter.cpp">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderParameter.cpp">
+      <Filter>Parameter\Parameters\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="SamplerParameter.cpp">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseNumericTypeRenderParameter.cpp">
+      <Filter>Parameter\Parameters\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="BufferConfig.cpp">
+      <Filter>Render\Resource\Buffer\Configure</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

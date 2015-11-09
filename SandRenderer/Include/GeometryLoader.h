@@ -12,6 +12,10 @@ namespace Sand
 	{
 	public:
 		static GeometryPtr LoadOBJ( std::wstring filename );
+
+	private:
+		Vector3f ToVector3f( const std::vector<std::string>& tokens );
+		Vector2f ToVector2f( const std::vector<std::string>& tokens );
 	};
 };
 #endif

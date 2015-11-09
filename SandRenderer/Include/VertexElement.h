@@ -33,6 +33,10 @@ namespace Sand
 		Vector3f*	Get3fTupleDataPtr( int i );
 		Vector4f*	Get4fTupleDataPtr( int i );
 
+
+		float* operator[]( int i );
+		const float* operator[]( int i ) const;
+
 	public:
 		std::string					m_SemanticName;			// ×Ö¶ÎÃû
 		UINT						m_uiSemanticIndex;		// ×Ö¶ÎË÷Òı

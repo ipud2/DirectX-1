@@ -10,6 +10,8 @@
 
 #include "ResourceProxy.h"
 
+#include "BufferConfig.h"
+
 using namespace Sand;
 
 ResourceProxy::ResourceProxy()
@@ -50,6 +52,24 @@ ResourceProxy::ResourceProxy( int ResourceID , Texture2DConfig* pConfig ,
 	*/
 	m_pTexture2DConfig = new Texture2DConfig;
 	*m_pTexture2DConfig = *pConfig;
+}
+
+
+ResourceProxy::ResourceProxy( int ResourceID , BufferConfig* pConfig , Renderer* pRenderer , ShaderResourceViewConfig* pShaderResourceViewConfig /* = nullptr  */ , RenderTargetViewConfig* pRenderTargetViewConfig /* = nullptr  */ , UnorderedAccessViewConfig* pUnorderedAccessViewConfig /* = nullptr  */ , DepthStencilViewConfig* pDepthStencilViewConfig /* = nullptr */ )
+{
+	// 获取资源描述
+	D3D11_BUFFER_DESC desc = pConfig->GetBufferDesc();
+
+	CommonConstructor( desc.BindFlags , ResourceID , pRenderer , pShaderResourceViewConfig , pRenderTargetViewConfig , pUnorderedAccessViewConfig , pDepthStencilViewConfig );
+
+	/*
+		深拷贝
+		若只是m_pBufferConfig = pConfig的话
+		则m_pTexture2DConfig只是指向了pConfig指向的那个对象
+		若对象在外部被销毁，则m_pTexture2DConfig就无效了
+	*/
+	m_pBufferConfig = new BufferConfig;
+	*m_pBufferConfig = *pConfig;
 }
 
 ResourceProxy::~ResourceProxy()

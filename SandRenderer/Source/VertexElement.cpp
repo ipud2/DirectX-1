@@ -62,3 +62,13 @@ Vector4f* VertexElement::Get4fTupleDataPtr( int i )
 {
 	return ( ( Vector4f* )( &m_pfData[4 * i] ) );
 }
+
+float* VertexElement::operator[]( int i )
+{
+	return ( &m_pfData[m_iTuple * i] );
+}
+
+const float* VertexElement::operator[] ( int i ) const
+{
+	return ( &m_pfData[m_iTuple * i] );
+}

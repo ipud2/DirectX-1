@@ -6,6 +6,7 @@
 
 #include "SwapChainConfig.h"
 #include "Texture2DConfig.h"
+#include "BufferConfig.h"
 
 #include "Texture2D.h"
 
@@ -28,6 +29,9 @@
 #include "SampleStateConfig.h"
 
 #include "ViewPort.h"
+
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 #pragma comment(lib , "d3d11.lib")
 #pragma comment(lib , "DXGI.lib")
@@ -740,4 +744,47 @@ int Renderer::GetUnusedResourceIndex()
 	}
 
 	return index;
+}
+
+ResourceProxyPtr Renderer::CreateVertexBuffer( BufferConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData )
+{
+	BufferComPtr pBuffer;
+	HRESULT hr = m_pDevice->CreateBuffer( &pConfig->GetBufferDesc() , pData , pBuffer.GetAddressOf() );
+
+	if( pBuffer )
+	{
+		// 创建VertexBuffe类对象，因为VertexBuffer是继承自Buffer，Buffer是继承自Resource
+		// 因此我们可以将其保存到资源仓库中
+		VertexBuffer* pVertexBuffer = new VertexBuffer( pBuffer );
+		pVertexBuffer->SetDesiredBufferDesc( pConfig->GetBufferDesc() );
+
+		// 保存Vertex Buffer到资源仓库
+		int ResourceID = StoreNewResource( pVertexBuffer );
+
+		return ResourceProxyPtr( new ResourceProxy( ResourceID , pConfig , this ) );
+	}
+
+	return ResourceProxyPtr( new ResourceProxy() );
+}
+
+ResourceProxyPtr Renderer::CreateIndexBuffer( BufferConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData )
+{
+	// 创建Index Buffer
+	BufferComPtr pBuffer;
+	HRESULT hr = m_pDevice->CreateBuffer( &pConfig->GetBufferDesc() , pData , pBuffer.GetAddressOf() );
+
+	if( pBuffer )
+	{
+		// 创建Index Buffer类对象，因为Index Buffer是继承自Buffer , Buffer是继承自Resource
+		// 因此我们可以将其保存到资源仓库中
+		IndexBuffer* pIndexBuffer = new IndexBuffer( pBuffer );
+		pIndexBuffer->SetDesiredBufferDesc( pConfig->GetBufferDesc() );
+
+		// 保存至资源仓库
+		int ResourceID = StoreNewResource( pIndexBuffer );
+
+		return ResourceProxyPtr( new ResourceProxy( ResourceID , pConfig , this ) );
+	}
+
+	return ResourceProxyPtr( new ResourceProxy() );
 }
