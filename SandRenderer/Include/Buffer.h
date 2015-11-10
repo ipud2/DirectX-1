@@ -2,7 +2,7 @@
 #define Buffer_h
 
 #include "Resource.h"
-#include "BufferConfigure.h"
+#include "BufferConfig.h"
 
 namespace Sand
 {

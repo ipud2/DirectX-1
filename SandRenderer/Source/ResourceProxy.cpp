@@ -94,7 +94,8 @@ void ResourceProxy::CommonConstructor( UINT BindFlags , int ResourceID ,
 	m_UnorderedAccessViewID = 0;
 
 	m_pTexture2DConfig = nullptr;
-	
+	m_pBufferConfig = nullptr;
+
 	m_pShaderResourceViewConfig = nullptr;
 	m_pRenderTargetViewConfig = nullptr;
 	m_pUnorderedAccessViewConfig = nullptr;
@@ -184,4 +185,59 @@ void ResourceProxy::CommonConstructor( UINT BindFlags , int ResourceID ,
 
 		m_DepthStencilViewID = pRenderer->CreateDepthStencilView( m_ResourceID , Desc );
 	}
+}
+
+int ResourceProxy::GetResourceID()
+{
+	return m_ResourceID;
+}
+
+int ResourceProxy::GetDepthStencilViewID()
+{
+	return m_DepthStencilViewID;
+}
+
+int ResourceProxy::GetRenderTargetViewID()
+{
+	return m_RenderTargetViewID;
+}
+
+int ResourceProxy::GetShaderResourceViewID()
+{
+	return m_RenderTargetViewID;
+}
+
+int ResourceProxy::GetUnorderedAccessViewID()
+{
+	return m_UnorderedAccessViewID;
+}
+
+ShaderResourceViewConfig* ResourceProxy::GetShaderResourceViewConfig()
+{
+	return m_pShaderResourceViewConfig;
+}
+
+DepthStencilViewConfig* ResourceProxy::GetDepthStencilViewConfig()
+{
+	return m_pDepthStencilViewConfig;
+}
+
+RenderTargetViewConfig* ResourceProxy::GetRenderTargetViewConfig()
+{
+	return m_pRenderTargetViewConfig;
+}
+
+UnorderedAccessViewConfig* ResourceProxy::GetUnorderedAccessViewConfig()
+{
+	return m_pUnorderedAccessViewConfig;
+}
+
+Texture2DConfig* ResourceProxy::GetTexture2dConfig()
+{
+	return m_pTexture2DConfig;
+}
+
+BufferConfig* ResourceProxy::GetBufferConfig()
+{
+	return m_pBufferConfig;
 }

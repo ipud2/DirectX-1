@@ -43,6 +43,7 @@ namespace Sand
 	class ViewPort;
 
 	class PipelineManager;
+	class IParameterManager;
 
 	class BlendStateConfig;
 	class RasterizerStateConfig;
@@ -340,6 +341,17 @@ namespace Sand
 		ResourceProxyPtr CreateIndexBuffer( BufferConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData );
 
 
+		//************************************
+		// Method:    CreateConstantBuffer
+		// FullName:  Sand::Renderer::CreateConstantBuffer
+		// Access:    public 
+		// Returns:   Sand::ResourceProxyPtr
+		// Qualifier: 创建常量缓存对象
+		// Parameter: BufferConfig * pConfig
+		// Parameter: D3D11_SUBRESOURCE_DATA * pData
+		//************************************
+		ResourceProxyPtr CreateConstantBuffer( BufferConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData );
+
 		// -------------------------------------------------状态--------------------------------------------
 		//************************************
 		// Method:    GetRasterizerState
@@ -432,6 +444,17 @@ namespace Sand
 		//************************************
 		int CreateViewPort( D3D11_VIEWPORT viewport );
 
+		//************************************
+		// Method:    CreateInputLayout
+		// FullName:  Sand::Renderer::CreateInputLayout
+		// Access:    public 
+		// Returns:   int
+		// Qualifier: 创建InputLayout对象
+		// Parameter: std::vector<D3D11_INPUT_ELEMENT_DESC> & m_InputElementDesc
+		// Parameter: int ShaderID
+		//************************************
+		int CreateInputLayout( std::vector<D3D11_INPUT_ELEMENT_DESC>& InputElementDesc , int ShaderID );
+
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
 		Microsoft::WRL::ComPtr<ID3D11Debug> m_pDebugger;
@@ -465,7 +488,12 @@ namespace Sand
 		std::vector<ViewPort> m_vViewPorts;
 
 	public:
+		PipelineManager* GetPipelineManagerRef();
+		ParameterManager* GetParameterManagerRef();
+
+	protected:
 		PipelineManager* m_pPipelineManager;
+		ParameterManager* m_pParameterManager;
 	};
 }
 

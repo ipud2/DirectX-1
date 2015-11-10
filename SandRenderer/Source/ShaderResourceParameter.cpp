@@ -3,12 +3,14 @@
 
 using namespace Sand;
 
-ShaderResourceParameter::ShaderResourceParameter()
+ShaderResourceParameter::ShaderResourceParameter( std::wstring name )
+	:RenderParameter( name )
 {
 	m_iShaderResourceID = -1;
 }
 
 ShaderResourceParameter::ShaderResourceParameter( ShaderResourceParameter& copy )
+	: RenderParameter( copy )
 {
 	m_iShaderResourceID = copy.m_iShaderResourceID;
 }
@@ -18,7 +20,7 @@ ShaderResourceParameter::~ShaderResourceParameter()
 
 }
 
-void ShaderResourceParameter::SetParameter( void * pData )
+void ShaderResourceParameter::SetParameterData( void * pData )
 {
 	// 检测数据是否一致
 	if( 0 != memcmp( pData , &m_iShaderResourceID , sizeof( int ) ) )

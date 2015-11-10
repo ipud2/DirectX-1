@@ -8,11 +8,11 @@ namespace Sand
 	class UnorderedAccessParameter : public RenderParameter
 	{
 	public:
-		UnorderedAccessParameter();
+		UnorderedAccessParameter( std::wstring name );
 		UnorderedAccessParameter( UnorderedAccessParameter& copy );
 		virtual ~UnorderedAccessParameter();
 
-		virtual void SetParameter( void * pData );
+		virtual void SetParameterData( void * pData );
 
 		virtual const ParameterType GetParameterType();
 

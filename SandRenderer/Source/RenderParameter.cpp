@@ -3,9 +3,9 @@
 
 using namespace Sand;
 
-RenderParameter::RenderParameter()
+RenderParameter::RenderParameter( std::wstring name )
 {
-
+	m_Name = name;
 }
 
 RenderParameter::RenderParameter( RenderParameter & copy )
@@ -16,11 +16,6 @@ RenderParameter::RenderParameter( RenderParameter & copy )
 RenderParameter::~RenderParameter()
 {
 
-}
-
-void RenderParameter::SetName( const std::wstring & name )
-{
-	m_Name = name;
 }
 
 std::wstring& RenderParameter::GetName()

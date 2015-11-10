@@ -3,12 +3,14 @@
 
 using namespace Sand;
 
-UnorderedAccessParameter::UnorderedAccessParameter()
+UnorderedAccessParameter::UnorderedAccessParameter( std::wstring name )
+	:RenderParameter( name )
 {
 	m_iUnorderedAccessID = -1;
 }
 
 UnorderedAccessParameter::UnorderedAccessParameter( UnorderedAccessParameter& copy )
+	: RenderParameter( copy )
 {
 	m_iUnorderedAccessID = copy.m_iUnorderedAccessID;
 }
@@ -18,7 +20,7 @@ UnorderedAccessParameter::~UnorderedAccessParameter()
 
 }
 
-void UnorderedAccessParameter::SetParameter( void * pData )
+void UnorderedAccessParameter::SetParameterData( void * pData )
 {
 	// 检测数据是否发生变化
 	if( 0 != memcmp( pData , &m_iUnorderedAccessID , sizeof( int ) ) )

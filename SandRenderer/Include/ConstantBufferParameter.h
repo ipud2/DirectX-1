@@ -8,11 +8,11 @@ namespace Sand
 	class ConstantBufferParameter : public RenderParameter
 	{
 	public:
-		ConstantBufferParameter();
+		ConstantBufferParameter( std::wstring name );
 		ConstantBufferParameter( ConstantBufferParameter& copy );
 		virtual ~ConstantBufferParameter();
 
-		virtual void SetParameter( void * pData );
+		virtual void SetParameterData( void * pData );
 
 		virtual const ParameterType GetParameterType();
 

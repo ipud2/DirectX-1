@@ -23,14 +23,9 @@ namespace Sand
 	class RenderParameter
 	{
 	public:
-		RenderParameter();
+		RenderParameter( std::wstring name );
 		RenderParameter( RenderParameter& copy );
 		virtual ~RenderParameter();
-
-		/*
-			设置参数名
-		*/
-		void SetName( const std::wstring & name );
 
 		/*
 			获取参数名

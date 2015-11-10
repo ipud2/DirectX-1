@@ -9,12 +9,12 @@ namespace Sand
 	class MatrixArrayParameter : public BaseNumericTypeRenderParameter
 	{
 	public:
-		MatrixArrayParameter( int count );
+		MatrixArrayParameter( std::wstring name , int count );
 		MatrixArrayParameter( MatrixArrayParameter& copy );
 		MatrixArrayParameter& operator=( MatrixArrayParameter&  parameter );
 		virtual ~MatrixArrayParameter();
 
-		virtual void SetParameter( void *pData );
+		virtual void SetParameterData( void *pData );
 
 		virtual const ParameterType GetParameterType();
 

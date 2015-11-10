@@ -3,13 +3,15 @@
 
 using namespace Sand;
 
-VectorParameter::VectorParameter()
+VectorParameter::VectorParameter( std::wstring name )
+	:BaseNumericTypeRenderParameter( name )
 {
 	// «Â¡„
 	m_Vector.MakeZero();
 }
 
 VectorParameter::VectorParameter( VectorParameter& copy )
+	:BaseNumericTypeRenderParameter( copy )
 {
 	m_Vector = copy.m_Vector;
 }

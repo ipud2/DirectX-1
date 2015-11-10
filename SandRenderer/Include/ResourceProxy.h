@@ -40,21 +40,40 @@ namespace Sand
 		virtual ~ResourceProxy();
 
 	public:
+		int GetResourceID();
+		int GetShaderResourceViewID();
+		int GetUnorderedAccessViewID();
+		int GetDepthStencilViewID();
+		int GetRenderTargetViewID();
+
+	public:
+		ShaderResourceViewConfig* GetShaderResourceViewConfig();
+		RenderTargetViewConfig* GetRenderTargetViewConfig();
+		DepthStencilViewConfig* GetDepthStencilViewConfig();
+		UnorderedAccessViewConfig* GetUnorderedAccessViewConfig();
+
+	public:
+		Texture2DConfig* GetTexture2dConfig();
+		BufferConfig* GetBufferConfig();
+
+	private:
 		int m_ResourceID;
 		int m_ShaderResourceViewID;
 		int m_UnorderedAccessViewID;
 		int m_DepthStencilViewID;
 		int m_RenderTargetViewID;
 
+	private:
 		ShaderResourceViewConfig* m_pShaderResourceViewConfig;
 		RenderTargetViewConfig* m_pRenderTargetViewConfig;
 		UnorderedAccessViewConfig* m_pUnorderedAccessViewConfig;
 		DepthStencilViewConfig* m_pDepthStencilViewConfig;
 
+	private:
 		Texture2DConfig* m_pTexture2DConfig;
 		BufferConfig* m_pBufferConfig;
 
-	protected:
+	private:
 		void CommonConstructor( UINT BindFlags , int ResourceID , Renderer* pRenderer ,
 								ShaderResourceViewConfig* pShaderResourceViewConfig = nullptr ,
 								RenderTargetViewConfig* pRenderTargetViewConfig = nullptr ,

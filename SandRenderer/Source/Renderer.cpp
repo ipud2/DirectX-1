@@ -22,6 +22,7 @@
 #include "Log.h"
 
 #include "PipelineManager.h"
+#include "ParameterManager.h"
 
 #include "BlendStateConfig.h"
 #include "RasterizerStateConfig.h"
@@ -32,6 +33,7 @@
 
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "ConstantBuffer.h"
 
 #pragma comment(lib , "d3d11.lib")
 #pragma comment(lib , "DXGI.lib")
@@ -152,17 +154,18 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 
 	m_pPipelineManager = new PipelineManager;
 	m_pPipelineManager->SetDeviceContext(pContext , m_FeatureLevel); 
+	m_pParameterManager = new ParameterManager;
 
 	// ----------------------初始化默认状态------------------------------------
 	// 将光栅化阶段和输出装配阶段的状态设为默认状态，并且使得Renderer中相应状态容器的0号索引的状态为默认值
-	RasterizerStateConfig RasterizerStateConfig;
-	m_pPipelineManager->m_RasterizerStage.DesiredState.RasterizerStates.SetState( CreateRasterizerState( &RasterizerStateConfig ) );
+	RasterizerStateConfig RSConfig;
+	m_pPipelineManager->m_RasterizerStage.DesiredState.RasterizerStates.SetState( CreateRasterizerState( &RSConfig ) );
 
-	BlendStateConfig BlendStateConfig;
-	m_pPipelineManager->m_OutputMergeStage.DesiredState.BlendStates.SetState( CreateBlendState( &BlendStateConfig ) );
+	BlendStateConfig BSConfig;
+	m_pPipelineManager->m_OutputMergeStage.DesiredState.BlendStates.SetState( CreateBlendState( &BSConfig ) );
 
-	DepthStencilStateConfig DepthStencilStateConfig;
-	m_pPipelineManager->m_OutputMergeStage.DesiredState.DepthStencilStates.SetState( CreateDepthStencilState( &DepthStencilStateConfig ) );
+	DepthStencilStateConfig DSSConfig;
+	m_pPipelineManager->m_OutputMergeStage.DesiredState.DepthStencilStates.SetState( CreateDepthStencilState( &DSSConfig ) );
 
 	return true;
 }
@@ -709,6 +712,44 @@ int Sand::Renderer::CreateViewPort( D3D11_VIEWPORT viewport )
 	return ( m_vViewPorts.size() - 1 );
 }
 
+ResourceProxyPtr Renderer::CreateConstantBuffer( BufferConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData )
+{
+	BufferComPtr pBuffer;
+	HRESULT hr = m_pDevice->CreateBuffer( &pConfig->GetBufferDesc() , pData , pBuffer.GetAddressOf() );
+
+	if( pBuffer )
+	{
+		// 将资源保存到资源仓库中
+		// 我们需要创建ConstantBuffer对象，因此ConstantBuffer类是继承自Buffer类，Buffer类是继承自Resource类
+		ConstantBuffer* pCBuffer = new ConstantBuffer( pBuffer );
+		pCBuffer->SetDesiredBufferDesc( pConfig->GetBufferDesc() );
+
+		int ResourceID = StoreNewResource( pCBuffer );
+
+		// 创建ResourceProxyPtr
+		return ResourceProxyPtr( new ResourceProxy( ResourceID , pConfig , this ) );
+	}
+
+	return ResourceProxyPtr( new ResourceProxy() );
+}
+
+int Renderer::CreateInputLayout( std::vector<D3D11_INPUT_ELEMENT_DESC>& InputElementDesc , int ShaderID )
+{
+	// 将InputElementDesc中的数据全部拷贝出来
+	D3D11_INPUT_ELEMENT_DESC* pInputElementDesc = new D3D11_INPUT_ELEMENT_DESC[InputElementDesc.size()];
+	for( int i = 0; i < InputElementDesc.size(); i++ )
+	{
+		pInputElementDesc[i] = InputElementDesc[i];
+	}
+
+	// 获取shader的CompilerShader
+
+
+	// 创建ID3D11InputLayout对象
+	InputLayoutComPtr pInputLayout;
+	HRESULT hr = m_pDevice->CreateInputLayout( pInputElementDesc , InputElementDesc.size() )
+}
+
 ResourceProxyPtr Renderer::GetSwapChainResource( int index )
 {
 	unsigned int id = static_cast< unsigned int >( index );
@@ -727,7 +768,7 @@ ResourceProxyPtr Renderer::GetSwapChainResource( int index )
 
 void Renderer::DeleteResource( ResourceProxyPtr pResource )
 {
-	DeleteResource( pResource->m_ResourceID );
+	DeleteResource( pResource->GetResourceID() );
 }
 
 int Renderer::GetUnusedResourceIndex()
@@ -787,4 +828,14 @@ ResourceProxyPtr Renderer::CreateIndexBuffer( BufferConfig* pConfig , D3D11_SUBR
 	}
 
 	return ResourceProxyPtr( new ResourceProxy() );
+}
+
+PipelineManager* Renderer::GetPipelineManagerRef()
+{
+	return m_pPipelineManager;
+}
+
+ParameterManager* Renderer::GetParameterManagerRef()
+{
+	return m_pParameterManager;
 }

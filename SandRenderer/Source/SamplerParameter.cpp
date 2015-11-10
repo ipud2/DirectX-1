@@ -3,12 +3,14 @@
 
 using namespace Sand;
 
-SamplerParameter::SamplerParameter()
+SamplerParameter::SamplerParameter( std::wstring name )
+	:RenderParameter( name )
 {
 	m_iSamplerID = -1;
 }
 
 SamplerParameter::SamplerParameter( SamplerParameter& copy )
+	: RenderParameter( copy )
 {
 	m_iSamplerID = copy.m_iSamplerID;
 }
@@ -18,7 +20,7 @@ SamplerParameter::~SamplerParameter()
 
 }
 
-void SamplerParameter::SetParameter( void * pData )
+void SamplerParameter::SetParameterData( void * pData )
 {
 	// 检测数据是否发生变化
 	if( 0 != memcmp( pData , &m_iSamplerID , sizeof( int ) ) )

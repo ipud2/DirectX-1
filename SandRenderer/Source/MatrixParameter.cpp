@@ -3,12 +3,14 @@
 
 using namespace Sand;
 
-MatrixParameter::MatrixParameter()
+MatrixParameter::MatrixParameter( std::wstring name )
+	:BaseNumericTypeRenderParameter( name )
 {
 	m_Matrix.MakeIdentity();
 }
 
 MatrixParameter::MatrixParameter( MatrixParameter& copy )
+	: BaseNumericTypeRenderParameter( copy )
 {
 	m_Matrix = copy.m_Matrix;
 }

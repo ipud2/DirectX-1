@@ -8,11 +8,11 @@ namespace Sand
 	class ShaderResourceParameter : public RenderParameter
 	{
 	public:
-		ShaderResourceParameter();
+		ShaderResourceParameter( std::wstring name );
 		ShaderResourceParameter( ShaderResourceParameter& copy );
 		virtual ~ShaderResourceParameter();
 
-		virtual void SetParameter( void * pData );
+		virtual void SetParameterData( void * pData );
 
 		virtual const ParameterType GetParameterType();
 

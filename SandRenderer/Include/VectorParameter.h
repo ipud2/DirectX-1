@@ -9,7 +9,7 @@ namespace Sand
 	class VectorParameter : public BaseNumericTypeRenderParameter
 	{
 	public:
-		VectorParameter();
+		VectorParameter( std::wstring name );
 		VectorParameter( VectorParameter& copy );
 		virtual ~VectorParameter();
 

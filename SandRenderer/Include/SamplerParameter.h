@@ -8,11 +8,11 @@ namespace Sand
 	class SamplerParameter : public RenderParameter
 	{
 	public:
-		SamplerParameter();
+		SamplerParameter( std::wstring name );
 		SamplerParameter( SamplerParameter& copy );
 		virtual ~SamplerParameter();
 
-		virtual void SetParameter( void * pData );
+		virtual void SetParameterData( void * pData );
 
 		virtual const ParameterType GetParameterType();
 

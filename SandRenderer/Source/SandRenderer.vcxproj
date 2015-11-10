@@ -131,7 +131,9 @@
     <ClInclude Include="..\Include\IEventListener.h" />
     <ClInclude Include="..\Include\IndexBuffer.h" />
     <ClInclude Include="..\Include\InputAssemblerStage.h" />
+    <ClInclude Include="..\Include\InputAssemblerStageExecutor.h" />
     <ClInclude Include="..\Include\InputAssemblerState.h" />
+    <ClInclude Include="..\Include\IParameterManager.h" />
     <ClInclude Include="..\Include\IWindowProc.h" />
     <ClInclude Include="..\Include\Log.h" />
     <ClInclude Include="..\Include\Matrix3f.h" />
@@ -142,6 +144,7 @@
     <ClInclude Include="..\Include\OBJ.h" />
     <ClInclude Include="..\Include\OutputMergeStage.h" />
     <ClInclude Include="..\Include\OutputMergeStageState.h" />
+    <ClInclude Include="..\Include\ParameterManager.h" />
     <ClInclude Include="..\Include\PCH.h" />
     <ClInclude Include="..\Include\PickRecord.h" />
     <ClInclude Include="..\Include\PipelineManager.h" />
@@ -158,11 +161,16 @@
     <ClInclude Include="..\Include\RotationController.h" />
     <ClInclude Include="..\Include\SamplerParameter.h" />
     <ClInclude Include="..\Include\SampleStateConfig.h" />
+    <ClInclude Include="..\Include\SandString.h" />
     <ClInclude Include="..\Include\Scene.h" />
     <ClInclude Include="..\Include\SceneGraph.h" />
+    <ClInclude Include="..\Include\Shader.h" />
+    <ClInclude Include="..\Include\ShaderReflection.h" />
+    <ClInclude Include="..\Include\ShaderReflectionGenerator.h" />
     <ClInclude Include="..\Include\ShaderResoruceView.h" />
     <ClInclude Include="..\Include\ShaderResourceParameter.h" />
     <ClInclude Include="..\Include\ShaderResourceViewConfig.h" />
+    <ClInclude Include="..\Include\ShaderStructure.h" />
     <ClInclude Include="..\Include\SpatialController.h" />
     <ClInclude Include="..\Include\StructuredBuffer.h" />
     <ClInclude Include="..\Include\SwapChain.h" />
@@ -225,6 +233,7 @@
     <ClCompile Include="IEventListener.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputAssemblerStage.cpp" />
+    <ClCompile Include="InputAssemblerStageExecutor.cpp" />
     <ClCompile Include="InputAssemblerState.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
@@ -235,6 +244,7 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="OutputMergeStage.cpp" />
     <ClCompile Include="OutputMergeStageState.cpp" />
+    <ClCompile Include="ParameterManager.cpp" />
     <ClCompile Include="PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -253,8 +263,12 @@
     <ClCompile Include="ResourceProxy.cpp" />
     <ClCompile Include="SamplerParameter.cpp" />
     <ClCompile Include="SampleStateConfig.cpp" />
+    <ClCompile Include="SandString.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGraph.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderReflection.cpp" />
+    <ClCompile Include="ShaderReflectionGenerator.cpp" />
     <ClCompile Include="ShaderResourceParameter.cpp" />
     <ClCompile Include="ShaderResourceView.cpp" />
     <ClCompile Include="ShaderResourceViewConfig.cpp" />

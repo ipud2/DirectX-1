@@ -3,7 +3,8 @@
 
 using namespace Sand;
 
-MatrixArrayParameter::MatrixArrayParameter( int count )
+MatrixArrayParameter::MatrixArrayParameter( std::wstring name , int count )
+	:BaseNumericTypeRenderParameter( name )
 {
 	if( count < 1 )
 	{
@@ -16,6 +17,7 @@ MatrixArrayParameter::MatrixArrayParameter( int count )
 }
 
 MatrixArrayParameter::MatrixArrayParameter( MatrixArrayParameter& copy )
+	:BaseNumericTypeRenderParameter( copy )
 {
 	// 若矩阵个数不一致，则改为新的矩阵数
 	if( this->m_iMatrixCount != copy.m_iMatrixCount )
@@ -55,7 +57,7 @@ MatrixArrayParameter::~MatrixArrayParameter()
 	m_pMatrices = nullptr;
 }
 
-void MatrixArrayParameter::SetParameter( void *pData )
+void MatrixArrayParameter::SetParameterData( void *pData )
 {
 	// 默认个数一致
 	if( 0 != memcmp( pData , m_pMatrices , m_iMatrixCount * sizeof( Matrix4f ) ) )

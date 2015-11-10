@@ -3,12 +3,14 @@
 
 using namespace Sand;
 
-BaseNumericTypeRenderParameter::BaseNumericTypeRenderParameter()
+BaseNumericTypeRenderParameter::BaseNumericTypeRenderParameter( std::wstring name )
+	:RenderParameter( name )
 {
 	m_IdentifierChange = 0;
 }
 
 BaseNumericTypeRenderParameter::BaseNumericTypeRenderParameter( BaseNumericTypeRenderParameter& copy )
+	: RenderParameter( copy )
 {
 
 }

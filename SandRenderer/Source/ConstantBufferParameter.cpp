@@ -3,12 +3,14 @@
 
 using namespace Sand;
 
-ConstantBufferParameter::ConstantBufferParameter()
+ConstantBufferParameter::ConstantBufferParameter( std::wstring name )
+	:RenderParameter( name )
 {
 	m_iConstantBufferID = -1;
 }
 
 ConstantBufferParameter::ConstantBufferParameter( ConstantBufferParameter& copy )
+	: RenderParameter( copy )
 {
 	m_iConstantBufferID = copy.m_iConstantBufferID;
 }
@@ -18,7 +20,7 @@ ConstantBufferParameter::~ConstantBufferParameter()
 
 }
 
-void ConstantBufferParameter::SetParameter( void * pData )
+void ConstantBufferParameter::SetParameterData( void * pData )
 {
 	// 检测数据是否发生变化
 	if( 0 != memcmp( pData , &m_iConstantBufferID , sizeof( int ) ) )

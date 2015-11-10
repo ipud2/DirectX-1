@@ -9,7 +9,7 @@ namespace Sand
 	class MatrixParameter : public BaseNumericTypeRenderParameter
 	{
 	public:
-		MatrixParameter();
+		MatrixParameter( std::wstring name );
 		MatrixParameter( MatrixParameter& copy );
 		virtual ~MatrixParameter();
 

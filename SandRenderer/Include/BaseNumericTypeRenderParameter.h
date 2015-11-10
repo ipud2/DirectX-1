@@ -8,7 +8,7 @@ namespace Sand
 	class BaseNumericTypeRenderParameter : public RenderParameter
 	{
 	public:
-		BaseNumericTypeRenderParameter();
+		BaseNumericTypeRenderParameter( std::wstring name );
 		BaseNumericTypeRenderParameter( BaseNumericTypeRenderParameter& copy );
 		virtual ~BaseNumericTypeRenderParameter();
 
