@@ -27,7 +27,7 @@ void MatrixParameter::SetParameterData( void * pData )
 	{
 		// 不一致,则更新数据
 		m_Matrix = *reinterpret_cast< Matrix4f* >( pData );
-		m_IdentifierChange++;
+		m_Identifier++;
 	}
 }
 

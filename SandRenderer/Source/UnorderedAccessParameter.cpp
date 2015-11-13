@@ -35,7 +35,7 @@ const ParameterType UnorderedAccessParameter::GetParameterType()
 	return PT_UNORDERED_ACCESS;
 }
 
-int UnorderedAccessParameter::GetValue()
+int UnorderedAccessParameter::GetResourceViewID()
 {
 	return m_iUnorderedAccessID;
 }

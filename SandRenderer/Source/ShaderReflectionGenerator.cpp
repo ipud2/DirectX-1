@@ -18,7 +18,7 @@ ShaderReflectionGenerator::~ShaderReflectionGenerator()
 
 ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pCompiledShader )
 {
-	ParameterManager* pParameterManager = Renderer::Get()->GetParameterManagerRef();
+	IParameterManager* pParameterManager = Renderer::Get()->GetParameterManagerRef();
 
 	ShaderReflection* pShaderReflection = new ShaderReflection;
 
@@ -97,7 +97,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 				CBufferDesc.Types.push_back( TypeDesc );
 
 				// --------------------为每个variable创建参数对象-----------------------------------------
-				RenderParameter* pRenderParameter;
+				BaseNumericTypeRenderParameter* pRenderParameter;
 
 				if( TypeDesc.Class == D3D_SVC_VECTOR )
 				{
@@ -114,14 +114,14 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 					}
 					else
 					{
-						pRenderParameter = pParameterManager->GetMatrixArrayParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+						pRenderParameter = pParameterManager->GetMatrixArrayParameterRef( SandString::ToUnicode( VariableDesc.Name ) , count );
 					}
 				}
 
 				CBufferDesc.Parameters.push_back( pRenderParameter );
 			}
 
-			pShaderReflection->ConstantBuffersDesc.push_back( CBufferDesc );
+			pShaderReflection->ConstantBuffers.push_back( CBufferDesc );
 		}
 	}
 

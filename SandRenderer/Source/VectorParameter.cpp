@@ -27,7 +27,7 @@ void VectorParameter::SetParameterData( void* pData )
 	if( 0 != memcmp( pData , &m_Vector , sizeof( Vector4f ) ) )
 	{
 		// 非0表示是不一样的数据
-		m_IdentifierChange++;
+		m_Identifier++;
 		m_Vector = *reinterpret_cast< Vector4f* >( pData );
 	}
 }

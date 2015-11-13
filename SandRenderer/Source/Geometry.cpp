@@ -134,3 +134,148 @@ int Geometry::CalculateVertexStructureSize()
 
 	return VertexStructureSize;
 }
+
+void Geometry::GenerateInputLayout( int ShaderID )
+{
+	int ElementCount = m_vElements.size();
+
+	if( ElementCount == 0 )
+	{
+		// 这种情况我们认为顶点数据是由shader自动生成的。
+
+		std::vector<D3D11_INPUT_ELEMENT_DESC> Elements;
+
+		Renderer* pRenderer = Renderer::Get();
+
+		if( m_InputLayouts[ShaderID] == nullptr )
+		{
+			InputLayoutKey* pKey = new InputLayoutKey;
+			pKey->ShaderID = ShaderID;
+			pKey->InputLayoutID = pRenderer->CreateInputLayout( Elements , ShaderID );
+			m_InputLayouts[ShaderID] = pKey;
+		}
+	}
+	else
+	{
+		std::vector<D3D11_INPUT_ELEMENT_DESC> Elements;
+
+		for( unsigned int i = 0; i < m_vElements.size(); i++ )
+		{
+			D3D11_INPUT_ELEMENT_DESC Desc;
+			Desc.SemanticName = m_vElements[i]->m_SemanticName.c_str();
+			Desc.SemanticIndex = m_vElements[i]->m_uiSemanticIndex;
+			Desc.Format = m_vElements[i]->m_Format;
+			Desc.InputSlot = m_vElements[i]->m_uiInputSlot;
+			Desc.AlignedByteOffset = m_vElements[i]->m_InputSlotClass;
+			Desc.InstanceDataStepRate = m_vElements[i]->m_uiInstanceDataStepRate;
+
+			Elements.push_back( Desc );
+		}
+
+		Renderer* pRenderer = Renderer::Get();
+
+		if( m_InputLayouts[ShaderID] == 0 )
+		{
+			InputLayoutKey* pKey = new InputLayoutKey;
+			pKey->ShaderID = ShaderID;
+			pKey->InputLayoutID = pRenderer->CreateInputLayout( Elements , ShaderID );
+			m_InputLayouts[ShaderID] = pKey;
+		}
+	}
+}
+
+int Geometry::GetPrimitiveCount()
+{
+	UINT count = 0;
+	UINT indices = m_vIndices.size();
+
+	switch( m_PrimitiveTopology )
+	{
+		case D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED:
+			break;
+		case D3D11_PRIMITIVE_TOPOLOGY_POINTLIST:
+			count = indices; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_LINELIST:
+			count = indices / 2; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP:
+			count = indices - 1; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST:
+			count = indices / 3; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP:
+			count = indices - 2; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_LINELIST_ADJ:
+			count = indices / 4; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP_ADJ:
+			count = indices - 3; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST_ADJ:
+			count = indices / 6; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP_ADJ:
+			count = ( indices - 3 ) / 2; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_1_CONTROL_POINT_PATCHLIST:
+			count = indices; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_2_CONTROL_POINT_PATCHLIST:
+			count = indices / 2; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST:
+			count = indices / 3; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_4_CONTROL_POINT_PATCHLIST:
+			count = indices / 4; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_5_CONTROL_POINT_PATCHLIST:
+			count = indices / 5; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_6_CONTROL_POINT_PATCHLIST:
+			count = indices / 6; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_7_CONTROL_POINT_PATCHLIST:
+			count = indices / 7; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_8_CONTROL_POINT_PATCHLIST:
+			count = indices / 8; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_9_CONTROL_POINT_PATCHLIST:
+			count = indices / 9; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_10_CONTROL_POINT_PATCHLIST:
+			count = indices / 10; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_11_CONTROL_POINT_PATCHLIST:
+			count = indices / 11; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_12_CONTROL_POINT_PATCHLIST:
+			count = indices / 12; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_13_CONTROL_POINT_PATCHLIST:
+			count = indices / 13; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_14_CONTROL_POINT_PATCHLIST:
+			count = indices / 14; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_15_CONTROL_POINT_PATCHLIST:
+			count = indices / 15; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_16_CONTROL_POINT_PATCHLIST:
+			count = indices / 16; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_17_CONTROL_POINT_PATCHLIST:
+			count = indices / 17; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_18_CONTROL_POINT_PATCHLIST:
+			count = indices / 18; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_19_CONTROL_POINT_PATCHLIST:
+			count = indices / 19; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_20_CONTROL_POINT_PATCHLIST:
+			count = indices / 20; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_21_CONTROL_POINT_PATCHLIST:
+			count = indices / 21; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_22_CONTROL_POINT_PATCHLIST:
+			count = indices / 22; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_23_CONTROL_POINT_PATCHLIST:
+			count = indices / 23; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_24_CONTROL_POINT_PATCHLIST:
+			count = indices / 24; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_25_CONTROL_POINT_PATCHLIST:
+			count = indices / 25; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_26_CONTROL_POINT_PATCHLIST:
+			count = indices / 26; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_27_CONTROL_POINT_PATCHLIST:
+			count = indices / 27; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_28_CONTROL_POINT_PATCHLIST:
+			count = indices / 28; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_29_CONTROL_POINT_PATCHLIST:
+			count = indices / 29; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_30_CONTROL_POINT_PATCHLIST:
+			count = indices / 30; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_31_CONTROL_POINT_PATCHLIST:
+			count = indices / 31; break;
+		case D3D11_PRIMITIVE_TOPOLOGY_32_CONTROL_POINT_PATCHLIST:
+			count = indices / 32; break;
+	}
+
+	return( count );
+}

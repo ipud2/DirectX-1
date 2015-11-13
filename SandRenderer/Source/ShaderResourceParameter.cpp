@@ -35,7 +35,7 @@ const ParameterType ShaderResourceParameter::GetParameterType()
 	return PT_SHADER_RESOURCE;
 }
 
-int ShaderResourceParameter::GetValue()
+int ShaderResourceParameter::GetResourceViewID()
 {
 	return m_iShaderResourceID;
 }

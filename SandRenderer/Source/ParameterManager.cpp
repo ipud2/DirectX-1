@@ -515,7 +515,7 @@ int ParameterManager::GetUnorderedAccessParameterData( const std::wstring& name 
 	{
 		if( pParameter->GetParameterType() == PT_UNORDERED_ACCESS )
 		{
-			result = reinterpret_cast< UnorderedAccessParameter* >( pParameter )->GetValue();
+			result = reinterpret_cast< UnorderedAccessParameter* >( pParameter )->GetResourceViewID();
 		}
 	}
 
@@ -538,7 +538,7 @@ int ParameterManager::GetShaderResourceParameterData( const std::wstring& name )
 	{
 		if( pParameter->GetParameterType() == PT_SHADER_RESOURCE )
 		{
-			result = reinterpret_cast< ShaderResourceParameter* >( pParameter )->GetValue();
+			result = reinterpret_cast< ShaderResourceParameter* >( pParameter )->GetResourceViewID();
 		}
 	}
 
@@ -561,7 +561,7 @@ int ParameterManager::GetConstantBufferParameterData( const std::wstring& name )
 	{
 		if( pParameter->GetParameterType() == PT_CONSTANT_BUFFER )
 		{
-			result = reinterpret_cast< ConstantBufferParameter* >( pParameter )->GetValue();
+			result = reinterpret_cast< ConstantBufferParameter* >( pParameter )->GetResourceID();
 		}
 	}
 
@@ -584,7 +584,7 @@ int ParameterManager::GetSamplerStateParameterData( const std::wstring& name )
 	{
 		if( pParameter->GetParameterType() == PT_SAMPLER )
 		{
-			result = reinterpret_cast< SamplerParameter* >( pParameter )->GetValue();
+			result = reinterpret_cast< SamplerParameter* >( pParameter )->GetSamplerResourceID();
 		}
 	}
 
@@ -644,7 +644,7 @@ int ParameterManager::GetShaderResourceParameterData( RenderParameter* pParamete
 
 	if( pParameter->GetParameterType() == PT_SHADER_RESOURCE )
 	{
-		result = reinterpret_cast< ShaderResourceParameter* >( pParameter )->GetValue();
+		result = reinterpret_cast< ShaderResourceParameter* >( pParameter )->GetResourceViewID();
 	}
 
 	return result;
@@ -658,7 +658,7 @@ int ParameterManager::GetUnorderedAccessParameterData( RenderParameter* pParamet
 
 	if( pParameter->GetParameterType() == PT_UNORDERED_ACCESS )
 	{
-		result = reinterpret_cast< UnorderedAccessParameter* >( pParameter )->GetValue();
+		result = reinterpret_cast< UnorderedAccessParameter* >( pParameter )->GetResourceViewID();
 	}
 
 	return result;
@@ -672,7 +672,7 @@ int ParameterManager::GetSamplerStateParameterData( RenderParameter* pParameter 
 
 	if( pParameter->GetParameterType() == PT_SAMPLER )
 	{
-		result = reinterpret_cast< SamplerParameter* >( pParameter )->GetValue();
+		result = reinterpret_cast< SamplerParameter* >( pParameter )->GetSamplerResourceID();
 	}
 
 	return result;
@@ -686,7 +686,7 @@ int ParameterManager::GetConstantBufferParameterData( RenderParameter* pParamete
 
 	if( pParameter->GetParameterType() == PT_CONSTANT_BUFFER )
 	{
-		result = reinterpret_cast< ConstantBufferParameter* >( pParameter )->GetValue();
+		result = reinterpret_cast< ConstantBufferParameter* >( pParameter )->GetResourceID();
 	}
 
 	return result;

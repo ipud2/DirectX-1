@@ -5,13 +5,14 @@
 
 #include "ResourceProxy.h"
 #include "VertexElement.h"
+#include "InputAssemblerStageExecutor.h"
 
 namespace Sand
 {
 	/*
 		管理图元数据 
 	*/
-	class Geometry
+	class Geometry : public InputAssemblerStageExecutor
 	{
 	public:
 		Geometry();
@@ -46,7 +47,7 @@ namespace Sand
 		int CalculateVertexCount();
 		// 计算顶点结构大小
 		int CalculateVertexStructureSize();
-		
+
 	protected:
 		// 顶点数据
 		std::vector<VertexElement*> m_vElements;

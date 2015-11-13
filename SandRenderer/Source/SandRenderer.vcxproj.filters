@@ -117,24 +117,6 @@
     <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages">
       <UniqueIdentifier>{77fef6cc-7d90-4bcf-a081-08354931f107}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages\HullStage">
-      <UniqueIdentifier>{91fa35fa-a7b8-4d89-a3f4-2ebf73e394c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages\PixelStage">
-      <UniqueIdentifier>{a7e93cf8-67d4-47b4-8144-25631b832f0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages\VertexStage">
-      <UniqueIdentifier>{e9f460d4-ef71-4c4c-b18d-d6f0fb61da8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages\DomainStage">
-      <UniqueIdentifier>{5bb5e15b-62cf-4d3f-98ce-80c6762b12ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages\GeometryStage">
-      <UniqueIdentifier>{0f830ed3-4929-44c7-9002-90d11df1634d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages\ComputeStage">
-      <UniqueIdentifier>{27f29bf7-aaa4-4012-abd1-16e90fee85a3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection">
       <UniqueIdentifier>{69fe48b1-e4a7-42a2-9f0d-2e01d95b49ea}</UniqueIdentifier>
     </Filter>
@@ -152,6 +134,12 @@
     </Filter>
     <Filter Include="Pipeline\PipelineStage\FixedStages\RasterizerStage">
       <UniqueIdentifier>{15b1236c-e895-4fdb-a62a-08cc7f43f5e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage">
+      <UniqueIdentifier>{33c3a479-7aef-4842-b451-c29cfd5ceaea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages\State">
+      <UniqueIdentifier>{c8cf6663-43c7-411a-ba02-98dd24bbed1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -437,9 +425,6 @@
     <ClInclude Include="..\Include\BufferConfig.h">
       <Filter>Render\Resource\Buffer\Configure</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\InputAssemblerStageExecutor.h">
-      <Filter>Pipeline\StageExecutor</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\ShaderReflection.h">
       <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
     </ClInclude>
@@ -460,6 +445,69 @@
     </ClInclude>
     <ClInclude Include="..\Include\Shader.h">
       <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ShaderStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ShaderStageState.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\VertexStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\HullStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\DomainStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\GeometryStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\PixelStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ComputeStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\VertexShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\HullShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\DomainShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\GeometryShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\PixelShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ComputeShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\InputAssemblerStageExecutor.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\GeometryGenerator.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ParameterWriter.h">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\VectorParameterWriter.h">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MatrixParameterWriter.h">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MatrixArrayParameterWriter.h">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ShaderResourceParameterWriter.h">
+      <Filter>Parameter\ParameterWriter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -724,9 +772,6 @@
     <ClCompile Include="BufferConfig.cpp">
       <Filter>Render\Resource\Buffer\Configure</Filter>
     </ClCompile>
-    <ClCompile Include="InputAssemblerStageExecutor.cpp">
-      <Filter>Pipeline\StageExecutor</Filter>
-    </ClCompile>
     <ClCompile Include="SandString.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
@@ -741,6 +786,66 @@
     </ClCompile>
     <ClCompile Include="ShaderReflectionGenerator.cpp">
       <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStageState.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\State</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="HullStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="DomainStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputeStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="HullShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="DomainShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputeShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="InputAssemblerStageExecutor.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryGenerator.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClCompile>
+    <ClCompile Include="ParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixArrayParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

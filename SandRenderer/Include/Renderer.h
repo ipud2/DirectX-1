@@ -31,6 +31,7 @@ namespace Sand
 	// -------------资源类----------------
 	class Resource;		// 资源类的基类
 	class Texture2D;	
+	class ConstantBuffer;
 
 	// ------------视图类-------------
 	class ShaderResourceView;
@@ -50,12 +51,14 @@ namespace Sand
 	class DepthStencilStateConfig;
 	class SampleStateConfig;
 
+	class Shader;
+
 	enum ResourceType
 	{
 		// ---------Buffer------------------
 		RT_VERTEXBUFFER , 
 		RT_INDEXBUFFER ,
-		RT_CONSTANTBUFFER , 
+		RT_CONSTANT_BUFFER , 
 		RT_STRUCTUREDBUFFER , 
 
 		// ----------Texture----------------
@@ -295,6 +298,15 @@ namespace Sand
 		//************************************
 		UnorderedAccessView GetUnorderedAccessViewByIndex( int id );
 
+		//************************************
+		// Method:    GetShaderResourceViewByIndex
+		// FullName:  Sand::Renderer::GetShaderResourceViewByIndex
+		// Access:    public 
+		// Returns:   Sand::ShaderResourceView
+		// Qualifier: 根据索引获取对应的ShaderResourceView对象
+		// Parameter: int id
+		//************************************
+		ShaderResourceView GetShaderResourceViewByIndex( int id );
 
 		// -------------------------------------------------------各类资源创建方法---------------------------------------------------------------------
 		
@@ -352,6 +364,17 @@ namespace Sand
 		//************************************
 		ResourceProxyPtr CreateConstantBuffer( BufferConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData );
 
+
+		//************************************
+		// Method:    GetConstantBufferByIndex
+		// FullName:  Sand::Renderer::GetConstantBufferByIndex
+		// Access:    public 
+		// Returns:   ConstantBuffer*
+		// Qualifier: 根据索引获取Constant Buffer资源
+		// Parameter: int index
+		//************************************
+		ConstantBuffer* GetConstantBufferByIndex( int index );
+
 		// -------------------------------------------------状态--------------------------------------------
 		//************************************
 		// Method:    GetRasterizerState
@@ -382,6 +405,16 @@ namespace Sand
 		// Parameter: int index
 		//************************************
 		DepthStencilStateComPtr GetDepthStencilState( int index );
+
+		//************************************
+		// Method:    GetSamplerState
+		// FullName:  Sand::Renderer::GetSamplerState
+		// Access:    public 
+		// Returns:   Sand::SamplerStateComPtr
+		// Qualifier:
+		// Parameter: int index
+		//************************************
+		SamplerStateComPtr GetSamplerState( int index );
 
 		//************************************
 		// Method:    CreateBlendState
@@ -455,6 +488,9 @@ namespace Sand
 		//************************************
 		int CreateInputLayout( std::vector<D3D11_INPUT_ELEMENT_DESC>& InputElementDesc , int ShaderID );
 
+		// ----------------------------------------Shader-----------------------------------------------
+		Shader* GetShader( int index );
+
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
 		Microsoft::WRL::ComPtr<ID3D11Debug> m_pDebugger;
@@ -473,10 +509,10 @@ namespace Sand
 		std::vector<Resource*> m_vResource;
 
 		// 视图对象仓库
-		std::vector<ShaderResourceView> m_vShaderResourceView;
-		std::vector<RenderTargetView> m_vRenderTargetView;
-		std::vector<UnorderedAccessView> m_vUnorderedAccessView;
-		std::vector<DepthStencilView> m_vDepthStencilView;
+		std::vector<ShaderResourceView> m_vShaderResourceViews;
+		std::vector<RenderTargetView> m_vRenderTargetViews;
+		std::vector<UnorderedAccessView> m_vUnorderedAccessViews;
+		std::vector<DepthStencilView> m_vDepthStencilViews;
 
 		// 状态仓库
 		std::vector<RasterizerStateComPtr> m_vRasterizerStates;
@@ -487,14 +523,16 @@ namespace Sand
 		std::vector<InputLayoutComPtr> m_vInputLayouts;
 		std::vector<ViewPort> m_vViewPorts;
 
+		// Shader仓库
+		std::vector<Shader*> m_vShaders;
+
 	public:
 		PipelineManager* GetPipelineManagerRef();
-		ParameterManager* GetParameterManagerRef();
+		IParameterManager* GetParameterManagerRef();
 
 	protected:
 		PipelineManager* m_pPipelineManager;
-		ParameterManager* m_pParameterManager;
+		IParameterManager* m_pParameterManager;
 	};
-}
-
+};
 #endif

@@ -1,5 +1,7 @@
 #include "PCH.h"
 #include "ConstantBuffer.h"
+#include "PipelineManager.h"
+#include "Log.h"
 
 using namespace Sand;
 
@@ -13,17 +15,122 @@ ConstantBuffer::~ConstantBuffer()
 
 }
 
+ResourceType ConstantBuffer::GetType()
+{
+	return RT_CONSTANT_BUFFER;
+}
+
 void ConstantBuffer::AddElement( ConstantBufferElementDesc element )
 {
 	m_vElements.push_back( element );
 }
 
-ResourceType ConstantBuffer::GetType()
+void ConstantBuffer::EvaluateElements( PipelineManager* pPipelineManager , IParameterManager* pParameterManager )
 {
-	return RT_CONSTANTBUFFER;
+	// 判断pParamRef的Identifier是否与当前的Identifier相同，若不同，则说明需要更新
+	if( m_bAutoUpdate )		// 只有当需要自动更新时，才执行以下操作
+	{
+		bool doUpdate = false;	// 默认不需要更新
+
+		for( int i = 0; i < m_vElements.size(); i++ )
+		{
+			if( m_vElements[i].pParamRef->GetIdentifier() != m_vElements[i].Identifier )
+			{
+				// 说明数据以及被更新
+				doUpdate = true;
+				break;
+			}
+		}
+
+		if( doUpdate )
+		{
+			// Map Resource
+			D3D11_MAPPED_SUBRESOURCE MappedResource;
+			pPipelineManager->MapResource( this , 0 , D3D11_MAP_WRITE_DISCARD , 0 , &MappedResource );
+
+			for( int i = 0; i < m_vElements.size(); i++ )
+			{
+				m_vElements[i].Identifier = m_vElements[i].pParamRef->GetIdentifier();
+
+				unsigned int Offset = m_vElements[i].Offset;
+
+				if( m_vElements[i].VarClass == D3D_SVC_VECTOR )
+				{
+					// 该元素为变量
+					Vector4f vector = pParameterManager->GetVectorParameterData( m_vElements[i].pParamRef );
+					Vector4f* pBuf = ( Vector4f* )( ( char* )MappedResource.pData + Offset );
+					*pBuf = vector;
+				}
+				else if( m_vElements[i].VarClass == D3D_SVC_MATRIX_COLUMNS || m_vElements[i].VarClass == D3D_SVC_MATRIX_ROWS )
+				{
+					unsigned int count = m_vElements[i].ElementCount;
+
+					if( count == 0 )
+					{
+						Matrix4f matrix = pParameterManager->GetMatrixParameterData( m_vElements[i].pParamRef );
+						Matrix4f* pBuf = ( Matrix4f* )( ( char* )MappedResource.pData + Offset );
+						*pBuf = matrix;
+					}
+					else
+					{
+						unsigned int size = m_vElements[i].Size;
+
+						if( size == count * sizeof( Matrix4f ) )
+						{
+							Matrix4f* pMatrices = pParameterManager->GetMatrixArrayParameterData( m_vElements[i].pParamRef );
+							memcpy( ( char* )MappedResource.pData + Offset , ( char* )pMatrices , size );
+						}
+						else
+						{
+							Log::Get().Write( L"MisMatch in matrix array count , update will not be performed!!" );
+						}
+						
+					}
+				}
+				else
+				{
+					// 其他类型不予处理
+				}
+			}
+
+			// UnMap Resource
+			pPipelineManager->UnMapResource( this , 0 );
+		}
+
+	}
 }
 
-void ConstantBuffer::Update( PipelineManager* pPipelineManager )
+void ConstantBuffer::EmptyElements()
 {
+	m_vElements.clear();
+}
 
+bool ConstantBuffer::ConstainElement( int index , const ConstantBufferElementDesc & element )
+{
+	// 首先判断index是否合理
+	assert( index < m_vElements.size() );
+
+	ConstantBufferElementDesc e = m_vElements[index];
+
+	// Identifier的作用是用于比较判断参数的值是否发生了判断
+	if( ( e.ElementCount == element.ElementCount ) &&
+		( e.Offset == element.Offset ) &&
+		( e.Size == element.Size ) &&
+		( e.VarClass == element.VarClass ) &&
+		( e.pParamRef = element.pParamRef ) )
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void ConstantBuffer::SetAutoUpdate( bool bAutoUpdate )
+{
+	m_bAutoUpdate = bAutoUpdate;
+}
+
+bool ConstantBuffer::GetAutoUpdate()
+{
+	return m_bAutoUpdate;
 }

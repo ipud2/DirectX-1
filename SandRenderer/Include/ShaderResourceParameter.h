@@ -16,7 +16,7 @@ namespace Sand
 
 		virtual const ParameterType GetParameterType();
 
-		int GetValue();
+		int GetResourceViewID();
 
 	protected:
 		int m_iShaderResourceID;

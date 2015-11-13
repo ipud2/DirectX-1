@@ -70,10 +70,10 @@ bool App::ConfigureEngineComponents()
 	m_pDepthStencil = m_pRenderer->CreateTexture2D( &DepthConfig , nullptr );
 
 	// ÉèÖÃrender target view ºÍ depth stencil view
-	m_pRenderer->m_pPipelineManager->ClearRenderTargets();
-	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.RenderTargetViews.SetState( 0 , m_pRenderTarget->GetRenderTargetViewID() );
-	m_pRenderer->m_pPipelineManager->m_OutputMergeStage.DesiredState.DepthStencilViews.SetState( m_pDepthStencil->GetDepthStencilViewID() );
-	m_pRenderer->m_pPipelineManager->ApplyRenderTargets();
+	m_pRenderer->GetPipelineManagerRef()->ClearRenderTargets();
+	m_pRenderer->GetPipelineManagerRef()->GetOutputMergeStageRef().DesiredState.RenderTargetViews.SetState( 0 , m_pRenderTarget->GetRenderTargetViewID() );
+	m_pRenderer->GetPipelineManagerRef()->GetOutputMergeStageRef().DesiredState.DepthStencilViews.SetState( m_pDepthStencil->GetDepthStencilViewID() );
+	m_pRenderer->GetPipelineManagerRef()->ApplyRenderTargets();
 
 
 	// ÉèÖÃViewport
@@ -87,8 +87,8 @@ bool App::ConfigureEngineComponents()
 
 
 	int view_port_id = m_pRenderer->CreateViewPort( view_port );
-	m_pRenderer->m_pPipelineManager->m_RasterizerStage.DesiredState.ViewportCount.SetState( 1 );
-	m_pRenderer->m_pPipelineManager->m_RasterizerStage.DesiredState.Viewports.SetState( 0 , view_port_id );
+	m_pRenderer->GetPipelineManagerRef()->GetRasterizerStageRef().DesiredState.ViewportCount.SetState( 1 );
+	m_pRenderer->GetPipelineManagerRef()->GetRasterizerStageRef().DesiredState.Viewports.SetState( 0 , view_port_id );
 
 	return true;
 }
@@ -117,7 +117,7 @@ void App::Initialize()
 
 void App::Update()
 {
-	m_pRenderer->m_pPipelineManager->ClearBuffers( Vector4f( 1.0f , 1.0f , 0.0f , 0.5f ) , 1.0f , 0 );
+	m_pRenderer->GetPipelineManagerRef()->ClearBuffers( Vector4f( 1.0f , 1.0f , 0.0f , 0.5f ) , 1.0f , 0 );
 	m_pRenderer->Present( m_pWindow->GetSwapChain() );
 }
 
@@ -131,7 +131,7 @@ void App::TakeScreenShot()
 	if( m_bSaveScreenShot )
 	{
 		m_bSaveScreenShot = false;
-		m_pRenderer->m_pPipelineManager->SaveTextureScreenShot( 0 , GetName() );
+		m_pRenderer->GetPipelineManagerRef()->SaveTextureScreenShot( 0 , GetName() );
 	}
 }
 

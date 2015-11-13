@@ -35,7 +35,7 @@ const ParameterType SamplerParameter::GetParameterType()
 	return PT_SAMPLER;
 }
 
-int SamplerParameter::GetValue()
+int SamplerParameter::GetSamplerResourceID()
 {
 	return m_iSamplerID;
 }

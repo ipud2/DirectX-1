@@ -16,7 +16,7 @@ namespace Sand
 
 		virtual const ParameterType GetParameterType();
 
-		int GetValue();
+		int GetSamplerResourceID();
 
 	protected:
 		int m_iSamplerID;

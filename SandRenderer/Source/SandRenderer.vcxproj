@@ -95,11 +95,15 @@
     <ClInclude Include="..\Include\BlendStateConfig.h" />
     <ClInclude Include="..\Include\Buffer.h" />
     <ClInclude Include="..\Include\BufferConfig.h" />
+    <ClInclude Include="..\Include\ComputeShader.h" />
+    <ClInclude Include="..\Include\ComputeStage.h" />
     <ClInclude Include="..\Include\ConstantBuffer.h" />
     <ClInclude Include="..\Include\ConstantBufferParameter.h" />
     <ClInclude Include="..\Include\DepthStencilStateConfig.h" />
     <ClInclude Include="..\Include\DepthStencilView.h" />
     <ClInclude Include="..\Include\DepthStencilViewConfig.h" />
+    <ClInclude Include="..\Include\DomainShader.h" />
+    <ClInclude Include="..\Include\DomainStage.h" />
     <ClInclude Include="..\Include\DXGIAdapter.h" />
     <ClInclude Include="..\Include\DXGIOutput.h" />
     <ClInclude Include="..\Include\Entity.h" />
@@ -125,7 +129,12 @@
     <ClInclude Include="..\Include\EventWindowResize.h" />
     <ClInclude Include="..\Include\FileSystem.h" />
     <ClInclude Include="..\Include\Geometry.h" />
+    <ClInclude Include="..\Include\GeometryGenerator.h" />
     <ClInclude Include="..\Include\GeometryLoader.h" />
+    <ClInclude Include="..\Include\GeometryShader.h" />
+    <ClInclude Include="..\Include\GeometryStage.h" />
+    <ClInclude Include="..\Include\HullShader.h" />
+    <ClInclude Include="..\Include\HullStage.h" />
     <ClInclude Include="..\Include\IController.h" />
     <ClInclude Include="..\Include\IEvent.h" />
     <ClInclude Include="..\Include\IEventListener.h" />
@@ -139,15 +148,20 @@
     <ClInclude Include="..\Include\Matrix3f.h" />
     <ClInclude Include="..\Include\Matrix4f.h" />
     <ClInclude Include="..\Include\MatrixArrayParameter.h" />
+    <ClInclude Include="..\Include\MatrixArrayParameterWriter.h" />
     <ClInclude Include="..\Include\MatrixParameter.h" />
+    <ClInclude Include="..\Include\MatrixParameterWriter.h" />
     <ClInclude Include="..\Include\Node.h" />
     <ClInclude Include="..\Include\OBJ.h" />
     <ClInclude Include="..\Include\OutputMergeStage.h" />
     <ClInclude Include="..\Include\OutputMergeStageState.h" />
     <ClInclude Include="..\Include\ParameterManager.h" />
+    <ClInclude Include="..\Include\ParameterWriter.h" />
     <ClInclude Include="..\Include\PCH.h" />
     <ClInclude Include="..\Include\PickRecord.h" />
     <ClInclude Include="..\Include\PipelineManager.h" />
+    <ClInclude Include="..\Include\PixelShader.h" />
+    <ClInclude Include="..\Include\PixelStage.h" />
     <ClInclude Include="..\Include\RasterizerStage.h" />
     <ClInclude Include="..\Include\RasterizerStageState.h" />
     <ClInclude Include="..\Include\RasterizerStateConfig.h" />
@@ -169,7 +183,10 @@
     <ClInclude Include="..\Include\ShaderReflectionGenerator.h" />
     <ClInclude Include="..\Include\ShaderResoruceView.h" />
     <ClInclude Include="..\Include\ShaderResourceParameter.h" />
+    <ClInclude Include="..\Include\ShaderResourceParameterWriter.h" />
     <ClInclude Include="..\Include\ShaderResourceViewConfig.h" />
+    <ClInclude Include="..\Include\ShaderStage.h" />
+    <ClInclude Include="..\Include\ShaderStageState.h" />
     <ClInclude Include="..\Include\ShaderStructure.h" />
     <ClInclude Include="..\Include\SpatialController.h" />
     <ClInclude Include="..\Include\StructuredBuffer.h" />
@@ -187,8 +204,11 @@
     <ClInclude Include="..\Include\Vector3f.h" />
     <ClInclude Include="..\Include\Vector4f.h" />
     <ClInclude Include="..\Include\VectorParameter.h" />
+    <ClInclude Include="..\Include\VectorParameterWriter.h" />
     <ClInclude Include="..\Include\VertexBuffer.h" />
     <ClInclude Include="..\Include\VertexElement.h" />
+    <ClInclude Include="..\Include\VertexShader.h" />
+    <ClInclude Include="..\Include\VertexStage.h" />
     <ClInclude Include="..\Include\ViewPort.h" />
     <ClInclude Include="..\Include\Win32RenderWindow.h" />
   </ItemGroup>
@@ -199,11 +219,15 @@
     <ClCompile Include="BlendStateConfig.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferConfig.cpp" />
+    <ClCompile Include="ComputeShader.cpp" />
+    <ClCompile Include="ComputeStage.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="ConstantBufferParameter.cpp" />
     <ClCompile Include="DepthStencilStateConfig.cpp" />
     <ClCompile Include="DepthStencilView.cpp" />
     <ClCompile Include="DepthStencilViewConfig.cpp" />
+    <ClCompile Include="DomainShader.cpp" />
+    <ClCompile Include="DomainStage.cpp" />
     <ClCompile Include="DXGIAdapter.cpp" />
     <ClCompile Include="DXGIOutput.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -228,8 +252,13 @@
     <ClCompile Include="EventWindowMessage.cpp" />
     <ClCompile Include="EventWindowResize.cpp" />
     <ClCompile Include="FileSystem.cpp" />
+    <ClCompile Include="GeometryGenerator.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometryLoader.cpp" />
+    <ClCompile Include="GeometryShader.cpp" />
+    <ClCompile Include="GeometryStage.cpp" />
+    <ClCompile Include="HullShader.cpp" />
+    <ClCompile Include="HullStage.cpp" />
     <ClCompile Include="IEventListener.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputAssemblerStage.cpp" />
@@ -240,17 +269,22 @@
     <ClCompile Include="Matrix3f.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
     <ClCompile Include="MatrixArrayParameter.cpp" />
+    <ClCompile Include="MatrixArrayParameterWriter.cpp" />
     <ClCompile Include="MatrixParameter.cpp" />
+    <ClCompile Include="MatrixParameterWriter.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="OutputMergeStage.cpp" />
     <ClCompile Include="OutputMergeStageState.cpp" />
     <ClCompile Include="ParameterManager.cpp" />
+    <ClCompile Include="ParameterWriter.cpp" />
     <ClCompile Include="PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PickRecord.cpp" />
     <ClCompile Include="PipelineManager.cpp" />
+    <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="PixelStage.cpp" />
     <ClCompile Include="RasterizerStage.cpp" />
     <ClCompile Include="RasterizerStageState.cpp" />
     <ClCompile Include="RasterizerStateConfig.cpp" />
@@ -272,6 +306,8 @@
     <ClCompile Include="ShaderResourceParameter.cpp" />
     <ClCompile Include="ShaderResourceView.cpp" />
     <ClCompile Include="ShaderResourceViewConfig.cpp" />
+    <ClCompile Include="ShaderStage.cpp" />
+    <ClCompile Include="ShaderStageState.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="SwapChainConfig.cpp" />
@@ -285,8 +321,11 @@
     <ClCompile Include="Vector3f.cpp" />
     <ClCompile Include="Vector4f.cpp" />
     <ClCompile Include="VectorParameter.cpp" />
+    <ClCompile Include="VectorParameterWriter.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexElement.cpp" />
+    <ClCompile Include="VertexShader.cpp" />
+    <ClCompile Include="VertexStage.cpp" />
     <ClCompile Include="ViewPort.cpp" />
     <ClCompile Include="Win32RenderWindow.cpp" />
   </ItemGroup>

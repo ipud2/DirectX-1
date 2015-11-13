@@ -6,7 +6,7 @@ using namespace Sand;
 BaseNumericTypeRenderParameter::BaseNumericTypeRenderParameter( std::wstring name )
 	:RenderParameter( name )
 {
-	m_IdentifierChange = 0;
+	m_Identifier = 0;
 }
 
 BaseNumericTypeRenderParameter::BaseNumericTypeRenderParameter( BaseNumericTypeRenderParameter& copy )
@@ -20,7 +20,7 @@ BaseNumericTypeRenderParameter::~BaseNumericTypeRenderParameter()
 
 }
 
-unsigned int BaseNumericTypeRenderParameter::GetValueID()
+unsigned int BaseNumericTypeRenderParameter::GetIdentifier()
 {
-	return m_IdentifierChange;
+	return m_Identifier;
 }

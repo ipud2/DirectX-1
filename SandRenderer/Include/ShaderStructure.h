@@ -2,8 +2,8 @@
 #define ShaderStructure_h
 
 #include "PCH.h"
-#include "RenderParameter.h"
 #include "SandString.h"
+#include "BaseNumericTypeRenderParameter.h"
 
 namespace Sand
 {
@@ -113,7 +113,7 @@ namespace Sand
 		D3D11_SHADER_BUFFER_DESC Description;
 		std::vector<D3D11_SHADER_VARIABLE_DESC> Variables;
 		std::vector<D3D11_SHADER_TYPE_DESC> Types;
-		std::vector<RenderParameter*> Parameters;
+		std::vector<BaseNumericTypeRenderParameter*> Parameters;
 
 		RenderParameter* pParamRef;					// Constant Buffer保存一个参数对象指针
 	};

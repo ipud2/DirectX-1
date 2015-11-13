@@ -35,7 +35,7 @@ const ParameterType ConstantBufferParameter::GetParameterType()
 	return PT_CONSTANT_BUFFER;
 }
 
-int ConstantBufferParameter::GetValue()
+int ConstantBufferParameter::GetResourceID()
 {
 	return m_iConstantBufferID;
 }

@@ -159,13 +159,13 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 	// ----------------------初始化默认状态------------------------------------
 	// 将光栅化阶段和输出装配阶段的状态设为默认状态，并且使得Renderer中相应状态容器的0号索引的状态为默认值
 	RasterizerStateConfig RSConfig;
-	m_pPipelineManager->m_RasterizerStage.DesiredState.RasterizerStates.SetState( CreateRasterizerState( &RSConfig ) );
+	m_pPipelineManager->GetRasterizerStageRef().DesiredState.RasterizerStates.SetState( CreateRasterizerState( &RSConfig ) );
 
 	BlendStateConfig BSConfig;
-	m_pPipelineManager->m_OutputMergeStage.DesiredState.BlendStates.SetState( CreateBlendState( &BSConfig ) );
+	m_pPipelineManager->GetOutputMergeStageRef().DesiredState.BlendStates.SetState( CreateBlendState( &BSConfig ) );
 
 	DepthStencilStateConfig DSSConfig;
-	m_pPipelineManager->m_OutputMergeStage.DesiredState.DepthStencilStates.SetState( CreateDepthStencilState( &DSSConfig ) );
+	m_pPipelineManager->GetOutputMergeStageRef().DesiredState.DepthStencilStates.SetState( CreateDepthStencilState( &DSSConfig ) );
 
 	return true;
 }
@@ -176,10 +176,10 @@ void Renderer::Shutdown()
 	SAFE_DELETE( m_pPipelineManager );
 
 	// -------------Resource View--------------------
-	m_vShaderResourceView.clear();
-	m_vRenderTargetView.clear();
-	m_vDepthStencilView.clear();
-	m_vUnorderedAccessView.clear();
+	m_vShaderResourceViews.clear();
+	m_vRenderTargetViews.clear();
+	m_vDepthStencilViews.clear();
+	m_vUnorderedAccessViews.clear();
 
 	// -------------------State------------------
 	m_vBlendStates.clear();
@@ -368,8 +368,8 @@ int Renderer::CreateShaderResourceView( int ResourceID , D3D11_SHADER_RESOURCE_V
 
 			if( SUCCEEDED( hr ) )
 			{
-				m_vShaderResourceView.push_back( pShaderResourceView );
-				return ( m_vShaderResourceView.size() - 1 );
+				m_vShaderResourceViews.push_back( pShaderResourceView );
+				return ( m_vShaderResourceViews.size() - 1 );
 			}
 		}
 	}
@@ -399,8 +399,8 @@ int Renderer::CreateRenderTargetView( int ResourceID , D3D11_RENDER_TARGET_VIEW_
 
 			if( SUCCEEDED( hr ) )
 			{
-				m_vRenderTargetView.push_back( pRenderTargetView );
-				return ( m_vRenderTargetView.size() - 1 );
+				m_vRenderTargetViews.push_back( pRenderTargetView );
+				return ( m_vRenderTargetViews.size() - 1 );
 			}
 		}
 	}
@@ -430,8 +430,8 @@ int Renderer::CreateDepthStencilView( int ResourceID , D3D11_DEPTH_STENCIL_VIEW_
 
 			if( SUCCEEDED( hr ) )
 			{
-				m_vDepthStencilView.push_back( pDepthStencilView );
-				return ( m_vDepthStencilView.size() - 1 );
+				m_vDepthStencilViews.push_back( pDepthStencilView );
+				return ( m_vDepthStencilViews.size() - 1 );
 			}
 		}
 	}
@@ -461,8 +461,8 @@ int Renderer::CreateUnorderedAccessView( int ResourceID , D3D11_UNORDERED_ACCESS
 
 			if( SUCCEEDED( hr ) )
 			{
-				m_vUnorderedAccessView.push_back( pUnorderedAccessView );
-				return ( m_vUnorderedAccessView.size() - 1 );
+				m_vUnorderedAccessViews.push_back( pUnorderedAccessView );
+				return ( m_vUnorderedAccessViews.size() - 1 );
 			}
 		}
 	}
@@ -560,7 +560,7 @@ Sand::ResourceProxyPtr Sand::Renderer::CreateTexture2D( Texture2DConfig* pConfig
 	return ResourceProxyPtr( new ResourceProxy() );
 }
 
-Sand::RasterizerStateComPtr Sand::Renderer::GetRasterizerState( int id )
+RasterizerStateComPtr Renderer::GetRasterizerState( int id )
 {
 	unsigned int index = static_cast< unsigned int >( id );
 
@@ -573,6 +573,13 @@ Sand::RasterizerStateComPtr Sand::Renderer::GetRasterizerState( int id )
 		// 默认光栅化状态
 		return m_vRasterizerStates[0];
 	}
+}
+
+SamplerStateComPtr Renderer::GetSamplerState( int index )
+{	
+	// Sampler State不存在默认状态
+
+	return m_vSamplerStates[index];
 }
 
 const ViewPort& Sand::Renderer::GetViewPort( int index )
@@ -588,29 +595,37 @@ Sand::RenderTargetView Sand::Renderer::GetRenderTargetViewByIndex( int id )
 {
 	unsigned int index = static_cast< unsigned int >( id );
 
-	assert( index < m_vRenderTargetView.size() );
+	assert( index < m_vRenderTargetViews.size() );
 
-	return m_vRenderTargetView[index];
+	return m_vRenderTargetViews[index];
 }
 
 Sand::DepthStencilView Sand::Renderer::GetDepthStencilViewByIndex( int id )
 {
 	unsigned int index = static_cast< unsigned int >( id );
 
-	assert( index < m_vDepthStencilView.size() );
+	assert( index < m_vDepthStencilViews.size() );
 
-	return m_vDepthStencilView[index];
+	return m_vDepthStencilViews[index];
 }
 
 Sand::UnorderedAccessView Sand::Renderer::GetUnorderedAccessViewByIndex( int id )
 {
 	unsigned int index = static_cast< unsigned int >( id );
 
-	assert( index < m_vUnorderedAccessView.size() );
+	assert( index < m_vUnorderedAccessViews.size() );
 
-	return m_vUnorderedAccessView[index];
+	return m_vUnorderedAccessViews[index];
 }
 
+ShaderResourceView Renderer::GetShaderResourceViewByIndex( int id )
+{
+	unsigned int index = static_cast< unsigned int >( id );
+
+	assert( index < m_vShaderResourceViews.size() );
+
+	return m_vShaderResourceViews[index];
+}
 Sand::BlendStateComPtr Sand::Renderer::GetBlendState( int id )
 {
 	unsigned int index = static_cast< unsigned int >( id );
@@ -712,6 +727,21 @@ int Sand::Renderer::CreateViewPort( D3D11_VIEWPORT viewport )
 	return ( m_vViewPorts.size() - 1 );
 }
 
+ConstantBuffer* Renderer::GetConstantBufferByIndex( int index )
+{
+	Resource* pResource = GetResourceByIndex( index );
+
+	if( pResource != nullptr )
+	{
+		if( pResource->GetType() == RT_CONSTANT_BUFFER )
+		{
+			return reinterpret_cast< ConstantBuffer* >( m_vResource[index] );
+		}
+	}
+	
+	return nullptr;
+}
+
 ResourceProxyPtr Renderer::CreateConstantBuffer( BufferConfig* pConfig , D3D11_SUBRESOURCE_DATA* pData )
 {
 	BufferComPtr pBuffer;
@@ -743,11 +773,23 @@ int Renderer::CreateInputLayout( std::vector<D3D11_INPUT_ELEMENT_DESC>& InputEle
 	}
 
 	// 获取shader的CompilerShader
-
+	Shader* pShader = GetShader( ShaderID );
+	ID3DBlob* pCompiledShader = pShader->GetCompiledShader();
 
 	// 创建ID3D11InputLayout对象
 	InputLayoutComPtr pInputLayout;
-	HRESULT hr = m_pDevice->CreateInputLayout( pInputElementDesc , InputElementDesc.size() )
+	HRESULT hr = m_pDevice->CreateInputLayout( pInputElementDesc , InputElementDesc.size() , pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , pInputLayout.GetAddressOf() );
+
+	delete[] pInputElementDesc;
+
+	if( FAILED( hr ) )
+	{
+		Log::Get().Write( L"创建InputLayout失败！！" );
+	}
+
+	m_vInputLayouts.push_back( pInputLayout );
+	
+	return ( m_vInputLayouts.size() - 1 );
 }
 
 ResourceProxyPtr Renderer::GetSwapChainResource( int index )
@@ -835,7 +877,22 @@ PipelineManager* Renderer::GetPipelineManagerRef()
 	return m_pPipelineManager;
 }
 
-ParameterManager* Renderer::GetParameterManagerRef()
+IParameterManager* Renderer::GetParameterManagerRef()
 {
 	return m_pParameterManager;
+}
+
+Shader* Renderer::GetShader( int index )
+{
+	unsigned int ID = static_cast< unsigned int >( index );
+
+	if( ID < m_vShaders.size() )
+	{
+		return m_vShaders[ID];
+	}
+	else
+	{
+		return nullptr;
+	}
+	
 }
