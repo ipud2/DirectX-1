@@ -21,7 +21,7 @@ namespace Sand
 		unsigned int GetAvaliableSlotCount();
 
 		// -------------------Index Buffer----------------------
-		TStateMonitor<int> IndexBuffer;
+		TStateMonitor<int> IndexBuffers;
 		TStateMonitor<DXGI_FORMAT> IndexBufferFormat;
 
 		// --------------------Vertex Buffer-------------------

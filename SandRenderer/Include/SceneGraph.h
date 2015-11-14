@@ -48,6 +48,5 @@ namespace Sand
 	}
 
 	void GetAllEntities( Node* node , std::vector<Entity*>& set );
-}
-
+};
 #endif

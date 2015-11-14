@@ -24,8 +24,15 @@ namespace Sand
 		ID3DBlob* GetCompiledShader();
 		ShaderReflection* GetShaderReflection();
 
+		void SetShaderFileName( std::wstring& FileName );
+		void SetShaderFunctionName( std::wstring& Function );
+		void SetShaderModelName( std::wstring& Model );
+		void SetShaderTex( std::string ShaderTex );
+		void SetCompiledShader( ID3DBlob* pCompiledShader );
+		void SetShaderReflection( ShaderReflection* pShaderReflection );
+
 	private:
-		std::wstring		m_Name;
+		std::wstring		m_FileName;
 		std::wstring		m_FunctionName;
 		std::wstring		m_ShaderModelName;
 		std::string			m_ShaderText;

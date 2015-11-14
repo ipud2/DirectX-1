@@ -28,6 +28,5 @@ namespace Sand
 
 		InputAssemblerState CurrentState;
 	};
-}
-
+};
 #endif

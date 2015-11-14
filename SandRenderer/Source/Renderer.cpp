@@ -35,6 +35,17 @@
 #include "IndexBuffer.h"
 #include "ConstantBuffer.h"
 
+#include "ShaderFactory.h"
+
+#include "VertexShader.h"
+#include "HullShader.h"
+#include "DomainShader.h"
+#include "GeometryShader.h"
+#include "PixelShader.h"
+#include "ComputeShader.h"
+
+#include "ShaderReflectionGenerator.h"
+
 #pragma comment(lib , "d3d11.lib")
 #pragma comment(lib , "DXGI.lib")
 
@@ -895,4 +906,170 @@ Shader* Renderer::GetShader( int index )
 		return nullptr;
 	}
 	
+}
+
+InputLayoutComPtr Renderer::GetInputLayout( int index )
+{
+	return m_vInputLayouts[index];
+}
+
+VertexBuffer* Renderer::GetVertexBufferByIndex( int ID )
+{
+	VertexBuffer* pResult = nullptr;
+
+	Resource* pResource = GetResourceByIndex( ID );
+
+	if( pResource != nullptr )
+	{
+		if( pResource->GetType() != RT_VERTEXBUFFER )
+		{
+			Log::Get().Write( L"Trying to access a non-vertex buffer resource!!" );
+		}
+		else
+		{
+			pResult = reinterpret_cast< VertexBuffer* >( pResource );
+		}
+	}
+
+	return pResult;
+}
+
+IndexBuffer* Renderer::GetIndexBufferByIndex( int ID )
+{
+	IndexBuffer* pResult = nullptr;
+
+	Resource* pResource = GetResourceByIndex( ID );
+
+	if( pResource != nullptr )
+	{
+		if( pResource->GetType() != RT_INDEXBUFFER )
+		{
+			Log::Get().Write( L"Trying to access a non-index buffer resource!!!" );
+		}
+		else
+		{
+			pResult = reinterpret_cast< IndexBuffer* >( pResource );
+		}
+	}
+
+	return pResult;
+}
+
+int Renderer::LoadShader( ShaderType Type , std::wstring& Filename , std::wstring& Function , std::wstring& Model , bool EnableLogging )
+{
+	return LoadShader( Type , Filename , Function , Model , nullptr , EnableLogging );
+}
+
+int Renderer::LoadShader( ShaderType Type , std::wstring& Filename , std::wstring& Function , std::wstring& Model , const D3D_SHADER_MACRO* pDefines , bool EnableLogging )
+{
+	// ------------------------------------------------------------------
+	// 首先判断该shader是否已经存在
+	for( unsigned int i = 0; i < m_vShaders.size(); i++ )
+	{
+		Shader* pShader = m_vShaders[i];
+
+		if( pShader->GetShaderFileName().compare( Filename ) == 0 &&
+			pShader->GetFunctionName().compare( Function ) == 0 &&
+			pShader->GetShaderModelName().compare( Model ) == 0 )
+		{
+			return i;
+		}
+	}
+
+	// ----------------------------------------------------------------------
+
+	HRESULT hr = S_OK;
+	ID3DBlob* pCompiledShader = nullptr;
+
+	// 编译shader
+	pCompiledShader = ShaderFactory::GenerateShader( Type , Filename , Function , Model , pDefines , EnableLogging );
+	if( pCompiledShader == nullptr )
+	{
+		return -1;
+	}
+
+
+	// -------------------------创建shader----------------------
+	Shader* pShaderWrapper = nullptr;
+
+	switch( Type )
+	{
+		case ST_VERTEX_SHADER:
+		{
+			ID3D11VertexShader* pShader = nullptr;
+
+			hr = m_pDevice->CreateVertexShader( pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , nullptr , &pShader );
+
+			pShaderWrapper = new VertexShader( pShader );
+			break;
+		}
+
+		case ST_HULL_SHADER:
+		{
+			ID3D11HullShader* pShader = nullptr;
+			hr = m_pDevice->CreateHullShader( pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , nullptr , &pShader );
+
+			pShaderWrapper = new HullShader( pShader );
+			break;
+		}
+
+		case ST_DOMAIN_SHADER:
+		{
+			ID3D11DomainShader* pShader = nullptr;
+			hr = m_pDevice->CreateDomainShader( pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , nullptr , &pShader );
+
+			pShaderWrapper = new DomainShader( pShader );
+			break;
+		}
+
+		case ST_GEOMETRY_SHADER:
+		{
+			ID3D11GeometryShader* pShader = nullptr;
+			hr = m_pDevice->CreateGeometryShader( pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , nullptr , &pShader );
+
+			pShaderWrapper = new GeometryShader( pShader );
+			break;
+		}
+
+		case ST_PIXEL_SHADER:
+		{
+			ID3D11PixelShader* pShader = nullptr;
+			hr = m_pDevice->CreatePixelShader( pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , nullptr , &pShader );
+
+			pShaderWrapper = new PixelShader( pShader );
+			break;
+		}
+
+		case ST_COMPUTE_SHADER:
+		{
+			ID3D11ComputeShader* pShader = nullptr;
+			hr = m_pDevice->CreateComputeShader( pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , nullptr , &pShader );
+
+			pShaderWrapper = new ComputeShader( pShader );
+			break;
+		}
+	}
+
+
+	if( FAILED( hr ) )
+	{
+		Log::Get().Write( L"Failed to Create Shader" );
+		pCompiledShader->Release();
+		delete pShaderWrapper;
+		return -1;
+	}
+
+	// --------------------保存shader的信息----------------------------
+	pShaderWrapper->SetShaderFileName( Filename );
+	pShaderWrapper->SetShaderFunctionName( Function );
+	pShaderWrapper->SetShaderModelName( Model );
+	pShaderWrapper->SetCompiledShader( pCompiledShader );
+
+	m_vShaders.push_back( pShaderWrapper );
+
+	ShaderReflection* pReflection = ShaderReflectionGenerator::GenerateReflection( pCompiledShader );
+
+	pShaderWrapper->SetShaderReflection( pReflection );
+
+	return ( m_vShaders.size() - 1 );
 }

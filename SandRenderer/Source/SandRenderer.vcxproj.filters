@@ -141,6 +141,9 @@
     <Filter Include="Pipeline\PipelineStage\ProgrammableStage\Stages\State">
       <UniqueIdentifier>{c8cf6663-43c7-411a-ba02-98dd24bbed1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Actor">
+      <UniqueIdentifier>{cc6b5c2a-44be-4876-b3f9-27b1d5cfd3da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -509,6 +512,30 @@
     <ClInclude Include="..\Include\ShaderResourceParameterWriter.h">
       <Filter>Parameter\ParameterWriter</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\ConstantBufferParameterWriter.h">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\UnorderedAccessParameterWriter.h">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SamplerParameterWriter.h">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ShaderFactory.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\FileLoader.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Actor.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ParameterContainer.h">
+      <Filter>Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Light.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -846,6 +873,30 @@
     </ClCompile>
     <ClCompile Include="MatrixArrayParameterWriter.cpp">
       <Filter>Parameter\ParameterWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderResourceParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBufferParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="UnorderedAccessParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="SamplerParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFactory.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoader.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="ParameterContainer.cpp">
+      <Filter>Parameter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

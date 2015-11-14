@@ -5,7 +5,7 @@ using namespace Sand;
 
 
 InputAssemblerState::InputAssemblerState() :
-	IndexBuffer( -1 ) ,
+	IndexBuffers( -1 ) ,
 	IndexBufferFormat( DXGI_FORMAT_R32_UINT ) ,
 
 	VertexBuffers( -1 ) ,
@@ -47,7 +47,7 @@ void InputAssemblerState::SetFeatureLevel( D3D_FEATURE_LEVEL Level )
 
 void InputAssemblerState::ClearState()
 {
-	IndexBuffer.InitializeState();
+	IndexBuffers.InitializeState();
 	IndexBufferFormat.InitializeState();
 
 	VertexBuffers.InitializeStates();
@@ -63,7 +63,7 @@ void InputAssemblerState::SetSisterState( InputAssemblerState* pState )
 {
 	m_pSisterState = pState;
 
-	IndexBuffer.SetSister( &pState->IndexBuffer );
+	IndexBuffers.SetSister( &pState->IndexBuffers );
 	IndexBufferFormat.SetSister( &pState->IndexBufferFormat );
 	
 	VertexBuffers.SetSister( &pState->VertexBuffers );
@@ -77,7 +77,7 @@ void InputAssemblerState::SetSisterState( InputAssemblerState* pState )
 
 void InputAssemblerState::ResetUpdateFlags()
 {
-	IndexBuffer.ResetTracking();
+	IndexBuffers.ResetTracking();
 	IndexBufferFormat.ResetTracking();
 
 	VertexBuffers.ResetTracking();

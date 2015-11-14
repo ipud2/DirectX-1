@@ -3,6 +3,7 @@
 
 #include "PCH.h"
 #include "ResourceProxy.h"
+#include "Shader.h"
 
 namespace Sand
 {
@@ -32,6 +33,8 @@ namespace Sand
 	class Resource;		// 资源类的基类
 	class Texture2D;	
 	class ConstantBuffer;
+	class VertexBuffer;
+	class IndexBuffer;
 
 	// ------------视图类-------------
 	class ShaderResourceView;
@@ -375,6 +378,18 @@ namespace Sand
 		//************************************
 		ConstantBuffer* GetConstantBufferByIndex( int index );
 
+		//************************************
+		// Method:    GetVertexBufferByIndex
+		// FullName:  Sand::Renderer::GetVertexBufferByIndex
+		// Access:    public 
+		// Returns:   VertexBuffer*
+		// Qualifier: 获取VertexBuffer
+		// Parameter: int ID
+		//************************************
+		VertexBuffer* GetVertexBufferByIndex( int ID );
+
+		IndexBuffer* GetIndexBufferByIndex( int ID );
+
 		// -------------------------------------------------状态--------------------------------------------
 		//************************************
 		// Method:    GetRasterizerState
@@ -487,9 +502,22 @@ namespace Sand
 		// Parameter: int ShaderID
 		//************************************
 		int CreateInputLayout( std::vector<D3D11_INPUT_ELEMENT_DESC>& InputElementDesc , int ShaderID );
+		
+		//************************************
+		// Method:    GetInputLayout
+		// FullName:  Sand::Renderer::GetInputLayout
+		// Access:    public 
+		// Returns:   Sand::InputLayoutComPtr
+		// Qualifier: 获取InputLayout对象
+		// Parameter: int index
+		//************************************
+		InputLayoutComPtr GetInputLayout( int index );
 
 		// ----------------------------------------Shader-----------------------------------------------
 		Shader* GetShader( int index );
+
+		int LoadShader( ShaderType Type , std::wstring& Filename , std::wstring& Function , std::wstring& Model , bool EnableLogging = true );
+		int LoadShader( ShaderType Type , std::wstring& Filename , std::wstring& Function , std::wstring& Model , const D3D_SHADER_MACRO* pDefines , bool EnableLogging = true );
 
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;

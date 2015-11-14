@@ -11,7 +11,7 @@ namespace Sand
 		ShaderResourceParameterWriter();
 		virtual ~ShaderResourceParameterWriter();
 
-		virtual void WriterParameter( IParameterManager* pParamMgr );
+		virtual void WriteParameter( IParameterManager* pParamMgr );
 		virtual void InitializeParameter();
 
 		virtual RenderParameter* GetRenderParameterRef();
