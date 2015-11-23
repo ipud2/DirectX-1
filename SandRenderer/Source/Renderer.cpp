@@ -27,7 +27,7 @@
 #include "BlendStateConfig.h"
 #include "RasterizerStateConfig.h"
 #include "DepthStencilStateConfig.h"
-#include "SampleStateConfig.h"
+#include "SamplerStateConfig.h"
 
 #include "ViewPort.h"
 
@@ -45,6 +45,13 @@
 #include "ComputeShader.h"
 
 #include "ShaderReflectionGenerator.h"
+
+#include "FileSystem.h"
+
+#include "DDSTextureLoader.h"
+#include "WICTextureLoader.h"
+
+#include "Task.h"
 
 #pragma comment(lib , "d3d11.lib")
 #pragma comment(lib , "DXGI.lib")
@@ -67,6 +74,7 @@ Renderer::Renderer()
 	m_FeatureLevel = D3D_FEATURE_LEVEL_11_0;
 
 	m_pPipelineManager = nullptr;
+	m_pParameterManager = nullptr;
 }
 
 Renderer::~Renderer()
@@ -103,9 +111,6 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 	}
 
 	UINT CreateDeviceFlags = 0;
-#ifdef _DEBUG
-	CreateDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
 
 	DeviceContextComPtr pContext;
 
@@ -714,7 +719,7 @@ int Sand::Renderer::CreateRasterizerState( RasterizerStateConfig* pConfig )
 	return ( m_vRasterizerStates.size() - 1 );
 }
 
-int Sand::Renderer::CreateSampleState( SampleStateConfig* pConfig )
+int Sand::Renderer::CreateSamplerState( SamplerStateConfig* pConfig )
 {
 	SamplerStateComPtr pState;
 	HRESULT hr = m_pDevice->CreateSamplerState( dynamic_cast< D3D11_SAMPLER_DESC* >( pConfig ) , pState.GetAddressOf() );
@@ -736,6 +741,90 @@ int Sand::Renderer::CreateViewPort( D3D11_VIEWPORT viewport )
 	m_vViewPorts.emplace_back( viewport );
 
 	return ( m_vViewPorts.size() - 1 );
+}
+
+ResourceProxyPtr Renderer::LoadTexture( std::wstring filename , bool sRGB /*= false */ )
+{
+	ComPtr<ID3D11Resource> pResource;
+
+	FileSystem fs;
+	filename = fs.GetTextureFolder() + filename;
+
+	// check whether file format is dds
+	std::wstring extension = filename.substr( filename.size() - 3 , 3 );
+	// transform to lower case letters
+	std::transform( extension.begin() , extension.end() , extension.begin() , ::tolower );
+
+	HRESULT hr = S_OK;
+
+	if( extension == L"dds" )
+	{
+		hr = DirectX::CreateDDSTextureFromFile( m_pDevice.Get() , 
+												filename.c_str() , 
+												pResource.GetAddressOf() , 
+												nullptr );
+	}
+	else
+	{
+		hr = DirectX::CreateWICTextureFromFileEx( m_pDevice.Get() , 
+												  m_pPipelineManager->GetDeviceContext() , 
+												  filename.c_str() , 
+												  0 , 
+												  D3D11_USAGE_DEFAULT , 
+												  D3D11_BIND_SHADER_RESOURCE , 
+												  0 , 
+												  0 , 
+												  sRGB , 
+												  pResource.GetAddressOf() , 
+												  0 );
+	}
+
+	if( FAILED( hr ) )
+	{
+		Log::Get().Write( L"Failed to load texture from file" );
+
+		return ResourceProxyPtr( new ResourceProxy );
+	}
+
+
+	ComPtr<ID3D11Texture2D> pTexture;
+	pResource.CopyTo( pTexture.GetAddressOf() );
+
+	int ResourceID = StoreNewResource( new Texture2D( pTexture ) );
+
+	Texture2DConfig TextureConfig;
+	pTexture->GetDesc( &TextureConfig.m_State );
+
+	return ResourceProxyPtr( new ResourceProxy( ResourceID , &TextureConfig , this ) );
+}
+
+ResourceProxyPtr Renderer::LoadTexture( void* pData , SIZE_T SizeInByte )
+{
+	ComPtr<ID3D11Resource> pResource;
+
+	HRESULT hr = DirectX::CreateWICTextureFromMemory( m_pDevice.Get() ,
+													  m_pPipelineManager->m_pContext.Get() ,
+													  static_cast< uint8_t* >( pData ) ,
+													  SizeInByte ,
+													  pResource.GetAddressOf() ,
+													  0 );
+
+	if( FAILED( hr ) )
+	{
+		Log::Get().Write( L"Failed to load texture from file" );
+		return ResourceProxyPtr( new ResourceProxy );
+	}
+
+	ComPtr<ID3D11Texture2D> pTexture;
+	pResource.CopyTo( pTexture.GetAddressOf() );
+
+	// store resource
+	int ResourceID = StoreNewResource( new Texture2D( pTexture ) );
+
+	Texture2DConfig TextureConfig;
+	pTexture->GetDesc( &TextureConfig.m_State );
+
+	return ( ResourceProxyPtr( new ResourceProxy( ResourceID , &TextureConfig , this ) ) );
 }
 
 ConstantBuffer* Renderer::GetConstantBufferByIndex( int index )
@@ -1069,7 +1158,25 @@ int Renderer::LoadShader( ShaderType Type , std::wstring& Filename , std::wstrin
 
 	ShaderReflection* pReflection = ShaderReflectionGenerator::GenerateReflection( pCompiledShader );
 
+	// init constant buffer
+	pReflection->InitConstantBufferParameter( m_pParameterManager );
+
 	pShaderWrapper->SetShaderReflection( pReflection );
 
 	return ( m_vShaders.size() - 1 );
+}
+
+void Renderer::QueueTask( Task* pTask )
+{
+	m_vQueuedTasks.push_back( pTask );
+}
+
+void Renderer::ProcessTaskQueue()
+{
+	for( int i = m_vQueuedTasks.size() - 1; i >= 0; i-- )
+	{
+		m_vQueuedTasks[i]->ExecuteTask( m_pPipelineManager , m_pParameterManager );
+	}
+
+	m_vQueuedTasks.clear();
 }

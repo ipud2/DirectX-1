@@ -32,6 +32,10 @@
 // 事件管理器
 #include "EventManager.h"
 
+#include "Scene.h"
+
+#include "Timer.h"
+
 // 应用程序框架类
 namespace Sand
 {
@@ -73,6 +77,10 @@ namespace Sand
 		bool m_bSaveScreenShot;
 
 		EventManager m_EventManager;
+
+		Scene* m_pScene;
+
+		Timer* m_pTimer;
 
 	protected:
 		static Application* m_spApplication;

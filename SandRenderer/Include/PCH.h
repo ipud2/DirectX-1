@@ -25,7 +25,7 @@
 
 // DirectX м╥нд╪Ч
 #include <d3d11.h>
-#include <d3dcompiler.h>
+#include <d3dCompiler.h>
 
 #include <wrl.h>
 
@@ -33,6 +33,6 @@
 #define SAFE_DELETE(x) {if(x){delete (x); (x) = NULL;}}
 #define SAFE_DELETE_ARRAY(x) {if(x){delete[] x; (x) = NULL;}}
 
-#define SAND_PI 3.14159265f;
+#define SAND_PI 3.14159265f
 
 #endif // PCH_h

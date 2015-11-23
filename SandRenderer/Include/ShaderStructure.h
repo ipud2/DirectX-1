@@ -54,6 +54,15 @@ namespace Sand
 		cbuffer组成（cbuffer是个结构体，内部由多种数据） : 描述CBuffer的构成，如上面的Transform是由哪些组成的
 	*/
 
+	enum ShaderMask
+	{
+		SM_VERTEX_SHADER = 0x0001 ,
+		SM_HULL_SHADER = 0x0002 ,
+		SM_DOMAIN_SHADER = 0x0004 ,
+		SM_GEOMETRY_SHADER = 0x0008 ,
+		SM_PIXEL_SHADER = 0x0010 , 
+		SM_COMPUTE_SHADER = 0x0020
+	};
 
 	// shader类型
 	enum ShaderType

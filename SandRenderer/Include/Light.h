@@ -16,10 +16,19 @@ namespace Sand
 		void SetSpecular( const Vector4f& Value );
 		void SetAmbient( const Vector4f& Value );
 
+		Vector4f GetDiffuse() const;
+		Vector4f GetAmbient() const;
+		Vector4f GetSpecular() const;
+
+		ParameterContainer Parameters;
+
 	protected:
 		VectorParameterWriter* m_DiffuseWriter;
 		VectorParameterWriter* m_AmbientWriter;
 		VectorParameterWriter* m_SpecularWriter;
+
+		// µ∆π‚Œª÷√
+		VectorParameterWriter* m_PositionWriter;
 	};
 };
 #endif

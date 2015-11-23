@@ -84,6 +84,5 @@ namespace Sand
 	private:
 		static std::map<std::wstring , RenderParameter*> Parameters;
 	};
-}
-
+};
 #endif

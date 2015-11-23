@@ -14,9 +14,6 @@ namespace Sand
 
 		virtual ShaderType GetType() = 0;
 
-		void SetShaderReflection( ShaderReflection* pShaderReflection );
-		ShaderReflection* GetShaderReflection();
-
 		std::wstring GetShaderFileName();
 		std::wstring GetFunctionName();
 		std::wstring GetShaderModelName();

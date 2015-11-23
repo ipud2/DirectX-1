@@ -6,7 +6,7 @@
 namespace Sand
 {
 	class PipelineManager;
-	class ParameterManager;
+	class IParameterManager;
 
 	// 将Shader和InputLayout结合在一起
 	struct InputLayoutKey
@@ -21,9 +21,9 @@ namespace Sand
 		InputAssemblerStageExecutor();
 		virtual ~InputAssemblerStageExecutor();
 
-		virtual void Execute( PipelineManager* pPipelineManager , ParameterManager* pParameterManager ) = 0;
+		virtual void Execute( PipelineManager* pPipelineManager , IParameterManager* pParameterManager ) = 0;
 
-		virtual void GeneratorInputLayout( int ShaderID );
+		virtual void GenerateInputLayout( int ShaderID );
 
 		virtual void SetInputElementsDesc( int count , D3D11_INPUT_ELEMENT_DESC* pInputElementsDesc );
 

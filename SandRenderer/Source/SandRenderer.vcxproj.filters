@@ -144,6 +144,18 @@
     <Filter Include="Object\Actor">
       <UniqueIdentifier>{cc6b5c2a-44be-4876-b3f9-27b1d5cfd3da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Actor\Light">
+      <UniqueIdentifier>{b891001b-eefc-4f15-97b1-a830122792c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Material">
+      <UniqueIdentifier>{67959f32-2d08-47ee-b8b5-5d7bea8a56b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Material\Task">
+      <UniqueIdentifier>{fcd4562c-b2c3-43d5-8dcd-568a14415fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Actor\Camera">
+      <UniqueIdentifier>{716defe4-89f0-4e85-9567-8633f051ed2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -229,9 +241,6 @@
     </ClInclude>
     <ClInclude Include="..\Include\Vector2f.h">
       <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\App.h">
-      <Filter>Application</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Renderer.h">
       <Filter>Render</Filter>
@@ -327,9 +336,6 @@
       <Filter>Render\Resource\State</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\DepthStencilStateConfig.h">
-      <Filter>Render\Resource\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SampleStateConfig.h">
       <Filter>Render\Resource\State</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Vector4f.h">
@@ -534,7 +540,46 @@
       <Filter>Parameter</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Light.h">
-      <Filter>Object\Actor</Filter>
+      <Filter>Object\Actor\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\PointLight.h">
+      <Filter>Object\Actor\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\PositionExtractorController.h">
+      <Filter>Object\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\RenderEffect.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Material.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Task.h">
+      <Filter>Material\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SceneRenderTask.h">
+      <Filter>Material\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Renderable.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MaterialGenerator.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SamplerStateConfig.h">
+      <Filter>Render\Resource\State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ViewPerspective.h">
+      <Filter>Material\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Camera.h">
+      <Filter>Object\Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MS3D.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler\FileFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Timer.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,9 +653,6 @@
       <Filter>Application</Filter>
     </ClCompile>
     <ClCompile Include="Win32RenderWindow.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="App.cpp">
       <Filter>Application</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
@@ -701,9 +743,6 @@
       <Filter>Render\Resource\State</Filter>
     </ClCompile>
     <ClCompile Include="DepthStencilStateConfig.cpp">
-      <Filter>Render\Resource\State</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleStateConfig.cpp">
       <Filter>Render\Resource\State</Filter>
     </ClCompile>
     <ClCompile Include="Vector2f.cpp">
@@ -898,6 +937,42 @@
     <ClCompile Include="ParameterContainer.cpp">
       <Filter>Parameter</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Object\Actor\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLight.cpp">
+      <Filter>Object\Actor\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEffect.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Task.cpp">
+      <Filter>Material\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialGenerator.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="SamplerStateConfig.cpp">
+      <Filter>Render\Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneRenderTask.cpp">
+      <Filter>Material\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewPerspective.cpp">
+      <Filter>Material\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Object\Actor\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Include\TStateMonitor.inl">
@@ -914,6 +989,9 @@
       <Filter>Object\Controller</Filter>
     </None>
     <None Include="..\Include\RotationController.inl">
+      <Filter>Object\Controller</Filter>
+    </None>
+    <None Include="..\Include\PositionExtractorController.inl">
       <Filter>Object\Controller</Filter>
     </None>
   </ItemGroup>

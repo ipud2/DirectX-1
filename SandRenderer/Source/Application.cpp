@@ -1,6 +1,7 @@
 #include "PCH.h"
 
 #include "Application.h"
+#include "Log.h"
 
 using namespace Sand;
 
@@ -21,11 +22,21 @@ Application::Application()
 	RequestEvent( SYSTEM_KEY_CHAR );
 	RequestEvent( INFO_MESSAGE );
 	RequestEvent( ERROR_MESSAGE );
+
+	m_pScene = new Scene();
+
+	m_pTimer = new Timer;
+	m_pTimer->Update();
 }
 
 Application::~Application()
 {
-	
+	if( m_pScene != nullptr )
+	{
+		delete m_pScene;
+	}
+
+	Log::Get().Close();
 }
 
 Application* Application::Get()

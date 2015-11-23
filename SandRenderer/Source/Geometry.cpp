@@ -2,6 +2,7 @@
 #include "Geometry.h"
 #include "BufferConfig.h"
 #include "Renderer.h"
+#include "PipelineManager.h"
 
 using namespace Sand;
 
@@ -16,6 +17,30 @@ Geometry::Geometry()
 Geometry::~Geometry()
 {
 
+}
+
+void Geometry::Execute( PipelineManager* pPipelineManager , IParameterManager* pParameterManager )
+{
+	// 清除设置
+	pPipelineManager->GetInputAssemblerStageRef().ClearDesiredState();
+
+	// -----------------------------------------Input Layout-----------------------------------------------
+	int layout = GetInputLayout( pPipelineManager->ShaderStages[ST_VERTEX_SHADER]->DesiredState.ShaderProgramID.GetState() );
+	pPipelineManager->GetInputAssemblerStageRef().DesiredState.InputLayout.SetState( layout );
+	pPipelineManager->GetInputAssemblerStageRef().DesiredState.PrimitiveTopology.SetState( m_PrimitiveTopology );
+	
+	// ---------------------------------------Vertex Buffer----------------------------------------------
+	pPipelineManager->GetInputAssemblerStageRef().DesiredState.VertexBuffers.SetState( 0 , m_VertexBuffer->GetResourceID() );
+	pPipelineManager->GetInputAssemblerStageRef().DesiredState.VertexBufferStrides.SetState( 0 , m_iVertexStructureSize );
+	pPipelineManager->GetInputAssemblerStageRef().DesiredState.VertexBufferOffsets.SetState( 0 , 0 );
+
+	// --------------------------------------Index Buffer-----------------------------------------------
+	pPipelineManager->GetInputAssemblerStageRef().DesiredState.IndexBuffers.SetState( m_IndexBuffer->GetResourceID() );
+	pPipelineManager->GetInputAssemblerStageRef().DesiredState.IndexBufferFormat.SetState( DXGI_FORMAT_R32_UINT );
+
+	pPipelineManager->ApplyInputResource();
+
+	pPipelineManager->DrawIndexed( GetIndexCount() , 0 , 0 );
 }
 
 void Geometry::AddFace( int index_1 , int index_2 , int index_3 )
@@ -80,28 +105,31 @@ void Geometry::LoadToBuffer()
 
 		// -------------------------------创建顶点缓存----------------------------------
 
-		D3D11_SUBRESOURCE_DATA data;
-		data.pSysMem = reinterpret_cast< void* >( pData );
-		data.SysMemPitch = 0;
-		data.SysMemSlicePitch = 0;
+		D3D11_SUBRESOURCE_DATA VertexInitData;
+		VertexInitData.pSysMem = reinterpret_cast< void* >( pData );
+		VertexInitData.SysMemPitch = 0;
+		VertexInitData.SysMemSlicePitch = 0;
 
 		// 创建顶点缓存描述
-		BufferConfig config;
-		config.SetDefaultVertexBuffer( length , false );
+		BufferConfig VertexBufferConfig;
+		VertexBufferConfig.SetDefaultVertexBuffer( length , false );
 
 		// 创建Vertex Buffer
-		m_VertexBuffer = Renderer::Get()->CreateVertexBuffer( &config , &data );
+		m_VertexBuffer = Renderer::Get()->CreateVertexBuffer( &VertexBufferConfig , &VertexInitData );
+
+		delete[] pData;
 
 		// -----------------------------创建索引缓存-----------------------------------
-		D3D11_SUBRESOURCE_DATA data;
-		data.pSysMem = &m_vIndices[0];
-		data.SysMemPitch = 0;
-		data.SysMemSlicePitch = 0;
+		D3D11_SUBRESOURCE_DATA IndexInitData;
+		IndexInitData.pSysMem = reinterpret_cast< void* >( &m_vIndices[0] );
+		IndexInitData.SysMemPitch = 0;
+		IndexInitData.SysMemSlicePitch = 0;
 
-		BufferConfig config;
-		config.SetDefaultIndexBuffer( m_vIndices.size() * sizeof( unsigned int ) , false );
+		BufferConfig IndexBufferConfig;
+		IndexBufferConfig.SetDefaultIndexBuffer( m_vIndices.size() * sizeof( unsigned int ) , false );
+
 		// 创建Index Buffer
-		m_IndexBuffer = Renderer::Get()->CreateIndexBuffer( &config , &data );
+		m_IndexBuffer = Renderer::Get()->CreateIndexBuffer( &IndexBufferConfig , &IndexInitData );
 	}
 }
 
@@ -118,21 +146,21 @@ int Geometry::CalculateVertexCount()
 		m_iVertexCount = 0;
 	}
 
-	return 0;
+	return m_iVertexCount;
 }
 
 int Geometry::CalculateVertexStructureSize()
 {
 	// 计算顶点结构大小
 
-	int VertexStructureSize = 0;
+	m_iVertexStructureSize = 0;
 
 	for( auto pVertexElement : m_vElements )
 	{
-		VertexStructureSize += pVertexElement->GetElementSizeInBytes();
+		m_iVertexStructureSize += pVertexElement->GetElementSizeInBytes();
 	}
 
-	return VertexStructureSize;
+	return m_iVertexStructureSize;
 }
 
 void Geometry::GenerateInputLayout( int ShaderID )
@@ -278,4 +306,19 @@ int Geometry::GetPrimitiveCount()
 	}
 
 	return( count );
+}
+
+UINT Geometry::GetIndexCount()
+{
+	return m_vIndices.size();
+}
+
+void Geometry::SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY PrimitiveTopology )
+{
+	m_PrimitiveTopology = PrimitiveTopology;
+}
+
+D3D11_PRIMITIVE_TOPOLOGY Geometry::GetPrimitiveTopology()
+{
+	return m_PrimitiveTopology;
 }

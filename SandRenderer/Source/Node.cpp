@@ -1,3 +1,4 @@
+#include "PCH.h"
 #include "Node.h"
 #include "Entity.h"
 
@@ -115,4 +116,68 @@ Transform& Node::GetTransformRef()
 ControllerPack<Node>& Node::GetControllersRef()
 {
 	return m_Controllers;
+}
+
+void Node::Render( PipelineManager* pPipelineManager , IParameterManager* pParameterManager , VIEW_TYPE ViewType )
+{
+	for( auto pChild : m_Leafs )
+	{
+		if( pChild )
+		{
+			// 渲染Entity
+			pChild->Render( pPipelineManager , pParameterManager , ViewType );
+		}
+	}
+
+	for( auto pNode : m_Nodes )
+	{
+		if( pNode )
+		{
+			// 渲染该节点下的Entity
+			pNode->Render( pPipelineManager , pParameterManager , ViewType );
+		}
+	}
+}
+
+void Node::Update( float time )
+{
+	UpdateLocal( time );
+	UpdateWorld();
+
+	for( auto pChild : m_Leafs )
+	{
+		if( pChild )
+		{
+			pChild->Update( time );
+		}
+	}
+
+	for( auto pChild : m_Nodes )
+	{
+		if( pChild )
+		{
+			pChild->Update( time );
+		}
+	}
+}
+
+void Node::UpdateLocal( float time )
+{
+	// 各控制器更新Node的局部位置
+	m_Controllers.Update( time );
+
+	// 使用Rotation和Translate构造新的LocalMatrix
+	m_Transform.UpdateLocal();
+}
+
+void Node::UpdateWorld()
+{
+	if( m_pParent )
+	{
+		m_Transform.UpdateWorld( m_pParent->GetTransformRef().GetWorldMatrix() );
+	}
+	else
+	{
+		m_Transform.UpdateWorld();
+	}
 }

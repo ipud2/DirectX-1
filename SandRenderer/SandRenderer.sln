@@ -5,6 +5,16 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SandRenderer", "Source\SandRenderer.vcxproj", "{BB479591-72DE-41F0-8FD2-66852B7C4F87}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BasicWindow", "Application\BasicWindow\BasicWindow.vcxproj", "{819BB9F6-EA45-4133-BE9F-206DFFD13024}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BB479591-72DE-41F0-8FD2-66852B7C4F87} = {BB479591-72DE-41F0-8FD2-66852B7C4F87}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BasicScene", "Application\BasicScene\BasicScene.vcxproj", "{02C29F7D-FD5B-4153-BA2E-A38AAC290FFF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BB479591-72DE-41F0-8FD2-66852B7C4F87} = {BB479591-72DE-41F0-8FD2-66852B7C4F87}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +29,18 @@ Global
 		{BB479591-72DE-41F0-8FD2-66852B7C4F87}.Release|Win32.ActiveCfg = Release|Win32
 		{BB479591-72DE-41F0-8FD2-66852B7C4F87}.Release|Win32.Build.0 = Release|Win32
 		{BB479591-72DE-41F0-8FD2-66852B7C4F87}.Release|x64.ActiveCfg = Release|Win32
+		{819BB9F6-EA45-4133-BE9F-206DFFD13024}.Debug|Win32.ActiveCfg = Debug|Win32
+		{819BB9F6-EA45-4133-BE9F-206DFFD13024}.Debug|Win32.Build.0 = Debug|Win32
+		{819BB9F6-EA45-4133-BE9F-206DFFD13024}.Debug|x64.ActiveCfg = Debug|Win32
+		{819BB9F6-EA45-4133-BE9F-206DFFD13024}.Release|Win32.ActiveCfg = Release|Win32
+		{819BB9F6-EA45-4133-BE9F-206DFFD13024}.Release|Win32.Build.0 = Release|Win32
+		{819BB9F6-EA45-4133-BE9F-206DFFD13024}.Release|x64.ActiveCfg = Release|Win32
+		{02C29F7D-FD5B-4153-BA2E-A38AAC290FFF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{02C29F7D-FD5B-4153-BA2E-A38AAC290FFF}.Debug|Win32.Build.0 = Debug|Win32
+		{02C29F7D-FD5B-4153-BA2E-A38AAC290FFF}.Debug|x64.ActiveCfg = Debug|Win32
+		{02C29F7D-FD5B-4153-BA2E-A38AAC290FFF}.Release|Win32.ActiveCfg = Release|Win32
+		{02C29F7D-FD5B-4153-BA2E-A38AAC290FFF}.Release|Win32.Build.0 = Release|Win32
+		{02C29F7D-FD5B-4153-BA2E-A38AAC290FFF}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

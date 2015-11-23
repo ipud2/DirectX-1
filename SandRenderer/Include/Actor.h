@@ -30,5 +30,5 @@ namespace Sand
 		std::vector<Entity*> m_vEntityElements;
 		std::vector<Node*> m_vNodeElements;
 	};
-}
+};
 #endif

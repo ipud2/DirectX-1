@@ -36,3 +36,8 @@ void MatrixArrayParameterWriter::SetValue( Matrix4f* pValue , int Count )
 
 	m_iCount = Count;
 }
+
+RenderParameter* MatrixArrayParameterWriter::GetRenderParameterRef()
+{
+	return m_pParameter;
+}

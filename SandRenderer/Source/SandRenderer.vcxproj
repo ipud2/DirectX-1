@@ -18,13 +18,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -45,14 +45,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)Include;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)Application\Bin\</OutDir>
-    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>..\Library\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)Include;$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)Application\Bin\</OutDir>
-    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>..\Library\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -63,6 +65,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>..\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -80,6 +83,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>..\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -90,12 +94,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Actor.h" />
-    <ClInclude Include="..\Include\App.h" />
     <ClInclude Include="..\Include\Application.h" />
     <ClInclude Include="..\Include\BaseNumericTypeRenderParameter.h" />
     <ClInclude Include="..\Include\BlendStateConfig.h" />
     <ClInclude Include="..\Include\Buffer.h" />
     <ClInclude Include="..\Include\BufferConfig.h" />
+    <ClInclude Include="..\Include\Camera.h" />
     <ClInclude Include="..\Include\ComputeShader.h" />
     <ClInclude Include="..\Include\ComputeStage.h" />
     <ClInclude Include="..\Include\ConstantBuffer.h" />
@@ -149,12 +153,15 @@
     <ClInclude Include="..\Include\IWindowProc.h" />
     <ClInclude Include="..\Include\Light.h" />
     <ClInclude Include="..\Include\Log.h" />
+    <ClInclude Include="..\Include\Material.h" />
+    <ClInclude Include="..\Include\MaterialGenerator.h" />
     <ClInclude Include="..\Include\Matrix3f.h" />
     <ClInclude Include="..\Include\Matrix4f.h" />
     <ClInclude Include="..\Include\MatrixArrayParameter.h" />
     <ClInclude Include="..\Include\MatrixArrayParameterWriter.h" />
     <ClInclude Include="..\Include\MatrixParameter.h" />
     <ClInclude Include="..\Include\MatrixParameterWriter.h" />
+    <ClInclude Include="..\Include\MS3D.h" />
     <ClInclude Include="..\Include\Node.h" />
     <ClInclude Include="..\Include\OBJ.h" />
     <ClInclude Include="..\Include\OutputMergeStage.h" />
@@ -167,9 +174,13 @@
     <ClInclude Include="..\Include\PipelineManager.h" />
     <ClInclude Include="..\Include\PixelShader.h" />
     <ClInclude Include="..\Include\PixelStage.h" />
+    <ClInclude Include="..\Include\PointLight.h" />
+    <ClInclude Include="..\Include\PositionExtractorController.h" />
     <ClInclude Include="..\Include\RasterizerStage.h" />
     <ClInclude Include="..\Include\RasterizerStageState.h" />
     <ClInclude Include="..\Include\RasterizerStateConfig.h" />
+    <ClInclude Include="..\Include\Renderable.h" />
+    <ClInclude Include="..\Include\RenderEffect.h" />
     <ClInclude Include="..\Include\Renderer.h" />
     <ClInclude Include="..\Include\RenderParameter.h" />
     <ClInclude Include="..\Include\RenderTargetView.h" />
@@ -180,10 +191,11 @@
     <ClInclude Include="..\Include\RotationController.h" />
     <ClInclude Include="..\Include\SamplerParameter.h" />
     <ClInclude Include="..\Include\SamplerParameterWriter.h" />
-    <ClInclude Include="..\Include\SampleStateConfig.h" />
+    <ClInclude Include="..\Include\SamplerStateConfig.h" />
     <ClInclude Include="..\Include\SandString.h" />
     <ClInclude Include="..\Include\Scene.h" />
     <ClInclude Include="..\Include\SceneGraph.h" />
+    <ClInclude Include="..\Include\SceneRenderTask.h" />
     <ClInclude Include="..\Include\Shader.h" />
     <ClInclude Include="..\Include\ShaderFactory.h" />
     <ClInclude Include="..\Include\ShaderReflection.h" />
@@ -199,8 +211,10 @@
     <ClInclude Include="..\Include\StructuredBuffer.h" />
     <ClInclude Include="..\Include\SwapChain.h" />
     <ClInclude Include="..\Include\SwapChainConfig.h" />
+    <ClInclude Include="..\Include\Task.h" />
     <ClInclude Include="..\Include\Texture2D.h" />
     <ClInclude Include="..\Include\Texture2DConfig.h" />
+    <ClInclude Include="..\Include\Timer.h" />
     <ClInclude Include="..\Include\Transform.h" />
     <ClInclude Include="..\Include\TStateArrayMonitor.h" />
     <ClInclude Include="..\Include\TStateMonitor.h" />
@@ -217,17 +231,18 @@
     <ClInclude Include="..\Include\VertexElement.h" />
     <ClInclude Include="..\Include\VertexShader.h" />
     <ClInclude Include="..\Include\VertexStage.h" />
+    <ClInclude Include="..\Include\ViewPerspective.h" />
     <ClInclude Include="..\Include\ViewPort.h" />
     <ClInclude Include="..\Include\Win32RenderWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="App.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BaseNumericTypeRenderParameter.cpp" />
     <ClCompile Include="BlendStateConfig.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferConfig.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ComputeShader.cpp" />
     <ClCompile Include="ComputeStage.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
@@ -275,8 +290,11 @@
     <ClCompile Include="InputAssemblerStage.cpp" />
     <ClCompile Include="InputAssemblerStageExecutor.cpp" />
     <ClCompile Include="InputAssemblerState.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialGenerator.cpp" />
     <ClCompile Include="Matrix3f.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
     <ClCompile Include="MatrixArrayParameter.cpp" />
@@ -297,9 +315,12 @@
     <ClCompile Include="PipelineManager.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="PixelStage.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="RasterizerStage.cpp" />
     <ClCompile Include="RasterizerStageState.cpp" />
     <ClCompile Include="RasterizerStateConfig.cpp" />
+    <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="RenderEffect.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderParameter.cpp" />
     <ClCompile Include="RenderTargetView.cpp" />
@@ -309,10 +330,11 @@
     <ClCompile Include="ResourceProxy.cpp" />
     <ClCompile Include="SamplerParameter.cpp" />
     <ClCompile Include="SamplerParameterWriter.cpp" />
-    <ClCompile Include="SampleStateConfig.cpp" />
+    <ClCompile Include="SamplerStateConfig.cpp" />
     <ClCompile Include="SandString.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGraph.cpp" />
+    <ClCompile Include="SceneRenderTask.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderFactory.cpp" />
     <ClCompile Include="ShaderReflection.cpp" />
@@ -326,8 +348,10 @@
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="SwapChainConfig.cpp" />
+    <ClCompile Include="Task.cpp" />
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="Texture2DConfig.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UnorderedAccessParameter.cpp" />
     <ClCompile Include="UnorderedAccessParameterWriter.cpp" />
@@ -342,11 +366,13 @@
     <ClCompile Include="VertexElement.cpp" />
     <ClCompile Include="VertexShader.cpp" />
     <ClCompile Include="VertexStage.cpp" />
+    <ClCompile Include="ViewPerspective.cpp" />
     <ClCompile Include="ViewPort.cpp" />
     <ClCompile Include="Win32RenderWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Include\IController.inl" />
+    <None Include="..\Include\PositionExtractorController.inl" />
     <None Include="..\Include\RotationController.inl" />
     <None Include="..\Include\SpatialController.inl" />
     <None Include="..\Include\TStateArrayMonitor.inl" />

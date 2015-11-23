@@ -6,6 +6,7 @@
 #include "ResourceProxy.h"
 #include "VertexElement.h"
 #include "InputAssemblerStageExecutor.h"
+#include "IParameterManager.h"
 
 namespace Sand
 {
@@ -17,6 +18,8 @@ namespace Sand
 	public:
 		Geometry();
 		virtual ~Geometry();
+
+		virtual void Execute( PipelineManager* pPipelineManager , IParameterManager* pParameterManager );
 
 		// ---------------------图元拓扑结构-----------------------
 		void SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY PrimitiveTopology );
@@ -47,6 +50,8 @@ namespace Sand
 		int CalculateVertexCount();
 		// 计算顶点结构大小
 		int CalculateVertexStructureSize();
+
+		UINT GetIndexCount();
 
 	protected:
 		// 顶点数据

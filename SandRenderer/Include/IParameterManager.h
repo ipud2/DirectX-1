@@ -15,8 +15,15 @@ namespace Sand
 	class IParameterManager
 	{
 	public:
-		IParameterManager();
-		virtual ~IParameterManager();
+		IParameterManager()
+		{
+
+		}
+
+		virtual ~IParameterManager()
+		{
+
+		}
 
 		// ----------------------------------------------------------设置参数值---------------------------------------------------------------------
 

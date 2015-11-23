@@ -1,5 +1,5 @@
 template<typename T>
-SpatialController::SpatialController()
+SpatialController< T >::SpatialController()
 	:m_Rotation( 0.0f , 0.0f , 0.0f ) ,
 	m_Translate( 0.0f , 0.0f , 0.0f )
 {
@@ -7,104 +7,104 @@ SpatialController::SpatialController()
 }
 
 template<typename T>
-SpatialController::SpatialController( const Vector3f& Rotation , const Vector3f& Translate )
+SpatialController<T>::SpatialController( const Vector3f& Rotation , const Vector3f& Translate )
 {
 	m_Rotation = Rotation;
 	m_Translate = Translate;
 }
 
 template<typename T>
-SpatialController::~SpatialController()
+SpatialController< T >::~SpatialController()
 {
 
 }
 
 template<typename T>
-void SpatialController::Update( float time )
+void SpatialController< T >::Update( float time )
 {
 	// 让物体的发生旋转和平移
 	if( m_pEntity )
 	{
 		// 设置旋转和平移
-		m_pEntity->GetTransformRef().GetRotation().Rotate( m_Rotation );
-		m_pEntity->GetTransformRef().GetTranslate() = m_Translate;
+		m_pEntity->GetTransformRef().GetRotationRef().Rotation( m_Rotation );
+		m_pEntity->GetTransformRef().GetPositionRef() = m_Translate;
 	}
 }
 
 template<typename T>
-void SpatialController::SetRotation( const Vector3f& xyz )
+void SpatialController< T >::SetRotation( const Vector3f& xyz )
 {
 	m_Rotation = xyz;
 }
 
 template<typename T>
-void SpatialController::SetTranslation( const Vector3f& translation )
+void SpatialController< T >::SetTranslation( const Vector3f& translation )
 {
 	m_Translate = translation;
 }
 
 template<typename T>
-Vector3f SpatialController::GetRotation()
+Vector3f SpatialController< T >::GetRotation()
 {
 	return m_Rotation;
 }
 
 template<typename T>
-Vector3f SpatialController::GetTranslation()
+Vector3f SpatialController< T >::GetTranslation()
 {
 	return m_Translate;
 }
 
 template<typename T>
-void SpatialController::RotateBy( const Vector3f& xyz )
+void SpatialController< T >::RotateBy( const Vector3f& xyz )
 {
 	m_Rotation += xyz;
 }
 
 template<typename T>
-void SpatialController::RotateXBy( const Vector3f& x )
+void SpatialController< T >::RotateXBy( const Vector3f& x )
 {
 	m_Rotation.x += x;
 }
 
 template<typename T>
-void SpatialController::RotateYBy( const Vector3f& y )
+void SpatialController< T >::RotateYBy( const Vector3f& y )
 {
 	m_Rotation.y += y;
 }
 
 template<typename T>
-void SpatialController::RotateZBy( const Vector3f& z )
+void SpatialController< T >::RotateZBy( const Vector3f& z )
 {
 	m_Rotation.z += z;
 }
 
 template<typename T>
-void SpatialController::TranslateBy( Vector3f& xyz )
+void SpatialController< T >::TranslateBy( Vector3f& xyz )
 {
 	m_Translate += xyz;
 }
 
 template<typename T>
-void SpatialController::TranslateXBy( const float x )
+void SpatialController< T >::TranslateXBy( const float x )
 {
 	m_Translate.x += x;
 }
 
 template<typename T>
-void SpatialController::TranslateYBy( const float y )
+void SpatialController< T >::TranslateYBy( const float y )
 {
 	m_Translate.y += y;
 }
 
 template<typename T>
-void SpatialController::TranslateZBy( const float z )
+void SpatialController< T >::TranslateZBy( const float z )
 {
 	m_Translate.z += z;
 }
 
 template<typename T>
-void SpatialController::MoveForward( const float dist )
+void SpatialController< T >::MoveForward( const float dist )
 {
 	if( m_pEntity )
 	{
@@ -113,7 +113,7 @@ void SpatialController::MoveForward( const float dist )
 }
 
 template<typename T>
-void SpatialController::MoveBackward( const float dist )
+void SpatialController< T >::MoveBackward( const float dist )
 {
 	// TO DO-----------
 	if( m_pEntity )
@@ -123,7 +123,7 @@ void SpatialController::MoveBackward( const float dist )
 }
 
 template<typename T>
-void SpatialController::MoveLeft( const float dist )
+void SpatialController< T >::MoveLeft( const float dist )
 {
 	// TO DO-----------
 	if( m_pEntity )
@@ -133,7 +133,7 @@ void SpatialController::MoveLeft( const float dist )
 }
 
 template<typename T>
-void SpatialController::MoveRight( const float dist )
+void SpatialController< T >::MoveRight( const float dist )
 {
 	if( m_pEntity )
 	{
@@ -142,7 +142,7 @@ void SpatialController::MoveRight( const float dist )
 }
 
 template<typename T>
-void SpatialController::MoveUp( const float dist )
+void SpatialController< T >::MoveUp( const float dist )
 {
 	if( m_pEntity )
 	{
@@ -151,7 +151,7 @@ void SpatialController::MoveUp( const float dist )
 }
 
 template<typename T>
-void SpatialController::MoveDown( const float dist )
+void SpatialController< T >::MoveDown( const float dist )
 {
 	// TO DO-----------
 	if( m_pEntity )

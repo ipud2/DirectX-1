@@ -19,17 +19,17 @@ Transform::~Transform()
 
 }
 
-Vector3f& Transform::GetTranslate()
+Vector3f& Transform::GetPositionRef()
 {
 	return m_Translate;
 }
 
-Matrix3f& Transform::GetRotation()
+Matrix3f& Transform::GetRotationRef()
 {
 	return m_Rotate;
 }
 
-Vector3f& Transform::GetScale()
+Vector3f& Transform::GetScaleRef()
 {
 	return m_Scaled;
 }
@@ -122,7 +122,7 @@ Vector3f Transform::TransformPointLocalToWorld( const Vector3f& input )
 	return result.xyz();
 }
 
-Vector3f Transform::TransformVectorWorldToLocal( const Vector3f& input )
+Vector3f Transform::TransformPointWorldToLocal( const Vector3f& input )
 {
 	Vector4f result = WorldToLocalSpace( Vector4f( input , 1.0f ) );
 

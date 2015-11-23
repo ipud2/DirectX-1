@@ -29,7 +29,7 @@ namespace Sand
 	protected:
 		D3D11_BUFFER_DESC m_State;
 
-		friend Renderer;
+		friend class Renderer;
 	};
 }
 

@@ -1,3 +1,4 @@
+#pragma warning(disable : 4244)
 #include "PCH.h"
 #include "ShaderFactory.h"
 #include "Log.h"
@@ -30,8 +31,8 @@ ID3DBlob* ShaderFactory::GenerateShader( ShaderType type , std::wstring& Filenam
 	WideCharToMultiByte( CP_ACP , 0 , Model.c_str() , -1 , AsciiModel , 1024 , NULL , NULL );
 
 	UINT Flags = D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
-#ifndef _DEBUG
-	flags |= D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#ifdef _DEBUG
+	Flags |= D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
 
 	// ------------------构造文件路径------------------
@@ -49,7 +50,8 @@ ID3DBlob* ShaderFactory::GenerateShader( ShaderType type , std::wstring& Filenam
 	ID3DBlob* pCompiledShader = nullptr;
 	ID3DBlob* pErrorMessage = nullptr;
 
-	if( FAILED( hr = D3DCompile( SourceFile.GetDataPtr() ,
+	if( FAILED( hr = D3DCompile( 
+		SourceFile.GetDataPtr() ,
 		SourceFile.GetDataSize() ,
 		nullptr ,
 		pDefines ,

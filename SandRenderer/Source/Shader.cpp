@@ -13,11 +13,6 @@ Shader::~Shader()
 
 }
 
-void Shader::SetShaderReflection( ShaderReflection* pShaderReflection )
-{
-	m_ShaderReflection = pShaderReflection;
-}
-
 ShaderReflection* Shader::GetShaderReflection()
 {
 	return m_ShaderReflection;
@@ -46,11 +41,6 @@ std::string Shader::GetShaderTex()
 ID3DBlob* Shader::GetCompiledShader()
 {
 	return m_pCompiledShader;
-}
-
-ShaderReflection* Shader::GetShaderReflection()
-{
-	return m_ShaderReflection;
 }
 
 void Shader::SetShaderFileName( std::wstring& FileName )

@@ -5,6 +5,7 @@
 
 #include "RasterizerStage.h"
 #include "OutputMergeStage.h"
+#include "InputAssemblerStage.h"
 
 #include "Vector4f.h"
 #include "ShaderStructure.h"
@@ -91,6 +92,15 @@ namespace Sand
 		void BindShader( ShaderType type , int ID , IParameterManager* pParameterManager );
 
 		
+		// --------------------------------------------------------------------------------------
+		void ApplyPipelineResource();
+
+		void ClearPipelineResource();
+
+		void ApplyInputResource();
+
+		// --------------------------Draw----------------------------
+		void DrawIndexed( int IndexCount , int StartIndex , int VertexOffset );
 
 	public:
 		D3D_FEATURE_LEVEL m_FeatureLevel;
@@ -100,13 +110,15 @@ namespace Sand
 	protected:
 		RasterizerStage m_RasterizerStage;
 		OutputMergeStage m_OutputMergeStage;
+		InputAssemblerStage m_InputAssemblerStage;
 
 	public:
 		RasterizerStage& GetRasterizerStageRef();
 		OutputMergeStage& GetOutputMergeStageRef();
+		InputAssemblerStage& GetInputAssemblerStageRef();
 
 	public:
-		ShaderStage* m_ShaderStages[6];
+		ShaderStage* ShaderStages[6];
 
 		VertexStage VertexShaderStage;
 		HullStage HullShaderStage;

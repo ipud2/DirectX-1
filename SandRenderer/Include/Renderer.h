@@ -52,9 +52,11 @@ namespace Sand
 	class BlendStateConfig;
 	class RasterizerStateConfig;
 	class DepthStencilStateConfig;
-	class SampleStateConfig;
+	class SamplerStateConfig;
 
 	class Shader;
+
+	class Task;
 
 	enum ResourceType
 	{
@@ -313,6 +315,9 @@ namespace Sand
 
 		// -------------------------------------------------------各类资源创建方法---------------------------------------------------------------------
 		
+		ResourceProxyPtr LoadTexture( std::wstring filename , bool sRGB = false );
+		ResourceProxyPtr LoadTexture( void* pData , SIZE_T SizeInBytes );
+
 		//************************************
 		// Method:    CreateTexture2D
 		// FullName:  Sand::Renderer::CreateTexture2D
@@ -388,7 +393,16 @@ namespace Sand
 		//************************************
 		VertexBuffer* GetVertexBufferByIndex( int ID );
 
+		//************************************
+		// Method:    GetIndexBufferByIndex
+		// FullName:  Sand::Renderer::GetIndexBufferByIndex
+		// Access:    public 
+		// Returns:   IndexBuffer*
+		// Qualifier: 获取IndexBuffer
+		// Parameter: int ID
+		//************************************
 		IndexBuffer* GetIndexBufferByIndex( int ID );
+
 
 		// -------------------------------------------------状态--------------------------------------------
 		//************************************
@@ -469,7 +483,7 @@ namespace Sand
 		// Qualifier: 创建采样状态对象，并返回索引
 		// Parameter: SampleStateConfig * pConfig
 		//************************************
-		int CreateSampleState( SampleStateConfig* pConfig );
+		int CreateSamplerState( SamplerStateConfig* pConfig );
 
 
 		//************************************
@@ -519,6 +533,9 @@ namespace Sand
 		int LoadShader( ShaderType Type , std::wstring& Filename , std::wstring& Function , std::wstring& Model , bool EnableLogging = true );
 		int LoadShader( ShaderType Type , std::wstring& Filename , std::wstring& Function , std::wstring& Model , const D3D_SHADER_MACRO* pDefines , bool EnableLogging = true );
 
+		void QueueTask( Task* pTask );
+		void ProcessTaskQueue();
+
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
 		Microsoft::WRL::ComPtr<ID3D11Debug> m_pDebugger;
@@ -553,6 +570,8 @@ namespace Sand
 
 		// Shader仓库
 		std::vector<Shader*> m_vShaders;
+
+		std::vector<Task*> m_vQueuedTasks;
 
 	public:
 		PipelineManager* GetPipelineManagerRef();

@@ -13,7 +13,7 @@ InputAssemblerStageExecutor::~InputAssemblerStageExecutor()
 {
 	std::map<int , InputLayoutKey*>::iterator it = m_InputLayouts.begin();
 
-	for( ; it != m_InputLayouts.end; it++ )
+	for( ; it != m_InputLayouts.end(); it++ )
 	{
 		SAFE_DELETE( ( *it ).second );
 	}
@@ -27,7 +27,7 @@ void InputAssemblerStageExecutor::SetInputElementsDesc( int count , D3D11_INPUT_
 	}
 }
 
-void InputAssemblerStageExecutor::GeneratorInputLayout( int ShaderID )
+void InputAssemblerStageExecutor::GenerateInputLayout( int ShaderID )
 {
 	Renderer* pRenderer = Renderer::Get();
 	if( m_InputLayouts[ShaderID] == nullptr )
@@ -45,7 +45,7 @@ int InputAssemblerStageExecutor::GetInputLayout( int ShaderID )
 
 	if( m_InputLayouts[ShaderID] == 0 )
 	{
-		GeneratorInputLayout( ShaderID );
+		GenerateInputLayout( ShaderID );
 	}
 
 	layout = m_InputLayouts[ShaderID]->InputLayoutID;

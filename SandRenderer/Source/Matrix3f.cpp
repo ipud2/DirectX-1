@@ -41,6 +41,8 @@ Matrix3f::Matrix3f( float fM11 , float fM12 , float fM13 ,
 Matrix3f& Matrix3f::operator= ( const Matrix3f& Matrix )
 {
 	memcpy( m_afEntry , Matrix.m_afEntry , 9 * sizeof( float ) );
+
+	return *this;
 }
 
 void Matrix3f::RotationX( float fRadians )

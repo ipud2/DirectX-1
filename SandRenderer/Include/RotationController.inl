@@ -28,8 +28,8 @@ void RotationController::Update( float time )
 		Matrix3f delta;
 		delta.RotationEuler( m_Axis , time * m_Speed );
 
-		Matrix3f rotation = m_pEntity->GetTransformRef().GetRotation();
-		m_pEntity->GetTransform().GetRotation() = rotation * delta;
+		Matrix3f rotation = m_pEntity->GetTransformRef().GetRotationRef();
+		m_pEntity->GetTransformRef().GetRotationRef() = rotation * delta;
 	}
 }
 

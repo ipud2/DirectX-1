@@ -18,9 +18,9 @@ namespace Sand
 		~Transform();
 
 		// access
-		Vector3f& GetTranslate();
-		Matrix3f& GetRotation();
-		Vector3f& GetScale();
+		Vector3f& GetPositionRef();
+		Matrix3f& GetRotationRef();
+		Vector3f& GetScaleRef();
 
 		void UpdateLocal();
 		void UpdateWorld( const Matrix4f& parent );

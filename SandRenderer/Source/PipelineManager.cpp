@@ -18,16 +18,19 @@
 #include "UnorderedAccessParameter.h"
 #include "SamplerParameter.h"
 
+#include <d3d9.h>
+#pragma comment(lib , "d3d9.lib")
+
 using namespace Sand;
 
 PipelineManager::PipelineManager()
 {
-	m_ShaderStages[ST_VERTEX_SHADER] = &VertexShaderStage;
-	m_ShaderStages[ST_HULL_SHADER] = &HullShaderStage;
-	m_ShaderStages[ST_DOMAIN_SHADER] = &DomainShaderStage;
-	m_ShaderStages[ST_GEOMETRY_SHADER] = &GeometryShaderStage;
-	m_ShaderStages[ST_PIXEL_SHADER] = &PixelShaderStage;
-	m_ShaderStages[ST_COMPUTE_SHADER] = &ComputeShaderStage;
+	ShaderStages[ST_VERTEX_SHADER] = &VertexShaderStage;
+	ShaderStages[ST_HULL_SHADER] = &HullShaderStage;
+	ShaderStages[ST_DOMAIN_SHADER] = &DomainShaderStage;
+	ShaderStages[ST_GEOMETRY_SHADER] = &GeometryShaderStage;
+	ShaderStages[ST_PIXEL_SHADER] = &PixelShaderStage;
+	ShaderStages[ST_COMPUTE_SHADER] = &ComputeShaderStage;
 }
 
 PipelineManager::~PipelineManager()
@@ -41,12 +44,12 @@ void PipelineManager::SetDeviceContext( DeviceContextComPtr pContext , D3D_FEATU
 	m_FeatureLevel = FeatureLevel;
 
 	// 可编程阶段SetFeatureLevel
-	m_ShaderStages[ST_VERTEX_SHADER]->SetFeatureLevel( FeatureLevel );
-	m_ShaderStages[ST_HULL_SHADER]->SetFeatureLevel( FeatureLevel );
-	m_ShaderStages[ST_DOMAIN_SHADER]->SetFeatureLevel( FeatureLevel );
-	m_ShaderStages[ST_GEOMETRY_SHADER]->SetFeatureLevel( FeatureLevel );
-	m_ShaderStages[ST_PIXEL_SHADER]->SetFeatureLevel( FeatureLevel );
-	m_ShaderStages[ST_COMPUTE_SHADER]->SetFeatureLevel( FeatureLevel );
+	ShaderStages[ST_VERTEX_SHADER]->SetFeatureLevel( FeatureLevel );
+	ShaderStages[ST_HULL_SHADER]->SetFeatureLevel( FeatureLevel );
+	ShaderStages[ST_DOMAIN_SHADER]->SetFeatureLevel( FeatureLevel );
+	ShaderStages[ST_GEOMETRY_SHADER]->SetFeatureLevel( FeatureLevel );
+	ShaderStages[ST_PIXEL_SHADER]->SetFeatureLevel( FeatureLevel );
+	ShaderStages[ST_COMPUTE_SHADER]->SetFeatureLevel( FeatureLevel );
 
 	// 固定阶段调用SetFeatureLevel
 	m_RasterizerStage.SetFeatureLevel( FeatureLevel );
@@ -86,6 +89,16 @@ void Sand::PipelineManager::SaveTextureScreenShot( int ID , std::wstring filenam
 	}
 }
 
+void PipelineManager::ClearPipelineResource()
+{
+	VertexShaderStage.ClearDesiredState();
+	HullShaderStage.ClearDesiredState();
+	DomainShaderStage.ClearDesiredState();
+	GeometryShaderStage.ClearDesiredState();
+	PixelShaderStage.ClearDesiredState();
+	ComputeShaderStage.ClearDesiredState();
+}
+
 void PipelineManager::BindConstantBufferResourceToShaderStage( ShaderType type , RenderParameter* pRenderParameter , UINT slot , IParameterManager* pParameterManager )
 {
 	// 首先判断参数是否为nullptr
@@ -113,7 +126,7 @@ void PipelineManager::BindConstantBufferResourceToShaderStage( ShaderType type ,
 				}
 			}
 
-			m_ShaderStages[type]->DesiredState.ConstantBuffers.SetState( slot , pConstanBuffer );
+			ShaderStages[type]->DesiredState.ConstantBuffers.SetState( slot , pConstanBuffer );
 		}
 	}
 }
@@ -135,7 +148,7 @@ void PipelineManager::BindSamplerResourceToShaderStage( ShaderType type , Render
 				pSamplerState = pState.Get();
 			}
 
-			m_ShaderStages[type]->DesiredState.SamplerStates.SetState( slot , pSamplerState );
+			ShaderStages[type]->DesiredState.SamplerStates.SetState( slot , pSamplerState );
 		}
 	}
 }
@@ -154,7 +167,7 @@ void PipelineManager::BindShaderResourceViewResourceToShaderStage( ShaderType ty
 
 			ShaderResourceView& pShaderResourceView = Renderer::Get()->GetShaderResourceViewByIndex( ID );
 
-			m_ShaderStages[type]->DesiredState.ShaderResourceViews.SetState( slot , pShaderResourceView.Get() );
+			ShaderStages[type]->DesiredState.ShaderResourceViews.SetState( slot , pShaderResourceView.Get() );
 		}
 	}
 }
@@ -173,14 +186,14 @@ void PipelineManager::BindUnorderedAccessViewResourceToShaderStage( ShaderType t
 
 			UnorderedAccessView& pUnorderedAccessView = Renderer::Get()->GetUnorderedAccessViewByIndex( ID );
 
-			m_ShaderStages[type]->DesiredState.UnorderedAccessViews.SetState( slot , pUnorderedAccessView.Get() );
+			ShaderStages[type]->DesiredState.UnorderedAccessViews.SetState( slot , pUnorderedAccessView.Get() );
 		}
 	}
 }
 
 void PipelineManager::BindShader( ShaderType type , int ID , IParameterManager* pParameterManager )
 {
-	m_ShaderStages[type]->DesiredState.ShaderProgramID.SetState( ID );
+	ShaderStages[type]->DesiredState.ShaderProgramID.SetState( ID );
 
 	Shader* pShader = Renderer::Get()->GetShader( ID );
 
@@ -276,4 +289,32 @@ RasterizerStage& PipelineManager::GetRasterizerStageRef()
 OutputMergeStage& PipelineManager::GetOutputMergeStageRef()
 {
 	return m_OutputMergeStage;
+}
+
+void PipelineManager::ApplyPipelineResource()
+{
+	VertexShaderStage.ApplyDesiredState( m_pContext.Get() );
+	HullShaderStage.ApplyDesiredState( m_pContext.Get() );
+	DomainShaderStage.ApplyDesiredState( m_pContext.Get() );
+	GeometryShaderStage.ApplyDesiredState( m_pContext.Get() );
+	PixelShaderStage.ApplyDesiredState( m_pContext.Get() );
+	ComputeShaderStage.ApplyDesiredState( m_pContext.Get() );
+
+	m_RasterizerStage.ApplyDesiredState( m_pContext.Get() );
+	m_OutputMergeStage.ApplyDesiredBlendAndDepthStencilStates( m_pContext.Get() );
+}
+
+InputAssemblerStage& PipelineManager::GetInputAssemblerStageRef()
+{
+	return m_InputAssemblerStage;
+}
+
+void PipelineManager::ApplyInputResource()
+{
+	m_InputAssemblerStage.ApplyDesiredState( m_pContext.Get() );
+}
+
+void PipelineManager::DrawIndexed( int IndexCount , int StartIndex , int VertexOffset )
+{
+	m_pContext->DrawIndexed( IndexCount , StartIndex , VertexOffset );
 }

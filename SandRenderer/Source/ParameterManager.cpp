@@ -5,6 +5,7 @@
 using namespace Sand;
 
 std::map<std::wstring , RenderParameter*> ParameterManager::Parameters;
+
 ParameterManager::ParameterManager()
 {
 	m_pParent = nullptr;

@@ -4,6 +4,7 @@
 #include "PCH.h"
 #include "Transform.h"
 #include "IController.h"
+#include "SceneRenderTask.h"
 
 namespace Sand
 {
@@ -14,6 +15,15 @@ namespace Sand
 	public:
 		Node();
 		~Node();
+
+		void Render( PipelineManager* pPipelineManager , IParameterManager* pParameterManager , VIEW_TYPE ViewType );
+
+		/*
+			自顶而下遍历，更新Local , World Matrix
+		*/
+		void Update( float time );
+		void UpdateLocal( float time );
+		void UpdateWorld();
 
 		// attach / detach
 		void AttachChild( Entity* Child );
@@ -52,5 +62,5 @@ namespace Sand
 
 		ControllerPack<Node> m_Controllers;
 	};
-}
+};
 #endif

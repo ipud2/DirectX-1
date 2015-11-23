@@ -32,14 +32,15 @@ Node* Actor::GetRootNode() const
 	return m_pRoot;
 }
 
-Node* Actor::GetRootNode()
-{
-	return m_pRoot;
-}
-
 Entity* Actor::GetBody() const
 {
 	return m_pBody;
+}
+
+
+Node* Actor::GetRootNode()
+{
+	return m_pRoot;
 }
 
 Entity* Actor::GetBody()
