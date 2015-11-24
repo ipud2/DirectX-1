@@ -163,7 +163,7 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 	if( FAILED( hr ) )
 	{
 		// 输出错误信息
-		Log::Get().Write( L"无法从Device获取ID3D11Debug接口对象" );
+		Log::Get().Write( L"can't getch ID3D11Debug Interface from Device" );
 	}
 
 	m_FeatureLevel = m_pDevice->GetFeatureLevel();
@@ -498,7 +498,7 @@ int Renderer::StoreNewResource( Resource* pResource )
 	{
 		// 说明资源容器中并无元素为nullptr，因此将该资源插入列表最后方
 		m_vResource.push_back( pResource );
-		return ( m_vResource.size() - 1 );
+		index = m_vResource.size() - 1;
 	}
 	else
 	{
@@ -835,7 +835,7 @@ ConstantBuffer* Renderer::GetConstantBufferByIndex( int index )
 	{
 		if( pResource->GetType() == RT_CONSTANT_BUFFER )
 		{
-			return reinterpret_cast< ConstantBuffer* >( m_vResource[index] );
+			return reinterpret_cast< ConstantBuffer* >( pResource );
 		}
 	}
 	

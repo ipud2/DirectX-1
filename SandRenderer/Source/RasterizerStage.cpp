@@ -70,7 +70,7 @@ void Sand::RasterizerStage::ApplyDesiredState( ID3D11DeviceContext* pContext )
 	}
 
 	DesiredState.ResetUpdateFlags();
-	DesiredState = CurrentState;
+	CurrentState = DesiredState;
 }
 
 void Sand::RasterizerStage::SetFeatureLevel( D3D_FEATURE_LEVEL level )

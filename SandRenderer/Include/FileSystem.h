@@ -49,7 +49,6 @@ namespace Sand
 		static std::wstring sModelSubFolder;
 		static std::wstring sShaderSubFolder;
 		static std::wstring sTextureSubFolder;
-
 		static std::wstring sLogSubFolder;
 	};
 }

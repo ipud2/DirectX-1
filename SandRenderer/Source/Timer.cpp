@@ -19,6 +19,7 @@ Timer::Timer()
 
 	m_StartupTicks64 = m_CurrentTicks64;
 	m_OneSecTicks64 = m_CurrentTicks64;
+	m_LastTicks64 = m_CurrentTicks64;
 }
 
 Timer::~Timer()
@@ -68,7 +69,6 @@ void Timer::Update()
 	// m_OneSecTicks64是这一秒最开始时的Ticks
 	if( ( float )( ( __int64 )m_CurrentTicks64 - ( __int64 )m_OneSecTicks64 ) / ( __int64 )m_TicksPerSecond64 < 1.0f )
 	{
-		// 如果没经过一秒，则该秒的帧数加1
 		m_iFrameCount++;
 	}
 	else
@@ -110,4 +110,9 @@ int Timer::MaxFramerate()
 int Timer::FrameCount()
 {
 	return m_iFrameCount;
+}
+
+float Timer::FrameTime()
+{
+	return ( 1.0f / static_cast< float >( m_iFramesPerSecond ) );
 }

@@ -63,16 +63,16 @@ void InputAssemblerState::SetSisterState( InputAssemblerState* pState )
 {
 	m_pSisterState = pState;
 
-	IndexBuffers.SetSister( &pState->IndexBuffers );
-	IndexBufferFormat.SetSister( &pState->IndexBufferFormat );
+	IndexBuffers.SetSister( &m_pSisterState->IndexBuffers );
+	IndexBufferFormat.SetSister( &m_pSisterState->IndexBufferFormat );
 	
-	VertexBuffers.SetSister( &pState->VertexBuffers );
-	VertexBufferStrides.SetSister( &pState->VertexBufferStrides );
-	VertexBufferOffsets.SetSister( &pState->VertexBufferOffsets );
+	VertexBuffers.SetSister( &m_pSisterState->VertexBuffers );
+	VertexBufferStrides.SetSister( &m_pSisterState->VertexBufferStrides );
+	VertexBufferOffsets.SetSister( &m_pSisterState->VertexBufferOffsets );
 
-	InputLayout.SetSister( &pState->InputLayout );
+	InputLayout.SetSister( &m_pSisterState->InputLayout );
 
-	PrimitiveTopology.SetSister( &pState->PrimitiveTopology );
+	PrimitiveTopology.SetSister( &m_pSisterState->PrimitiveTopology );
 }
 
 void InputAssemblerState::ResetUpdateFlags()

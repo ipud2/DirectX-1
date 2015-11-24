@@ -314,7 +314,8 @@ Matrix4f Matrix4f::LookAtLHMatrix( Vector3f& eye , Vector3f& at , Vector3f& up )
 	zAxis.Normalize();
 
 	Vector3f xAxis = up.Cross( zAxis );
-
+	xAxis.Normalize();
+	
 	Vector3f yAxis = zAxis.Cross( xAxis );
 
 	ret.m_afEntry[0] = xAxis.x;		ret.m_afEntry[1] = yAxis.x;		ret.m_afEntry[2] = zAxis.x;		ret.m_afEntry[3] = 0.0f;
@@ -327,7 +328,7 @@ Matrix4f Matrix4f::LookAtLHMatrix( Vector3f& eye , Vector3f& at , Vector3f& up )
 
 	ret.m_afEntry[14] = -( zAxis.Dot( eye ) );
 
-	ret.m_afEntry[15] = 0.0f;
+	ret.m_afEntry[15] = 1.0f;
 
 	return ret;
 }
@@ -410,7 +411,7 @@ Matrix4f Matrix4f::operator* ( const Matrix4f& Matrix ) const
 			prod.m_afEntry[i] = 0.0f;
 			for( int iMid = 0; iMid < 4; iMid++ )
 			{
-				prod.m_afEntry[i] += m_afEntry[I( iRow , iMid )] * m_afEntry[I( iMid , iCol )];
+				prod.m_afEntry[i] += m_afEntry[I( iRow , iMid )] * Matrix.m_afEntry[I( iMid , iCol )];
 			}
 		}
 	}

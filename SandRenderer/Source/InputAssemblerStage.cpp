@@ -61,15 +61,11 @@ void InputAssemblerStage::ApplyDesiredState( ID3D11DeviceContext* pContext )
 		{
 			int index = DesiredState.VertexBuffers.GetState( i );
 
-			VertexBuffer* pBuffer = pRenderer->GetVertexBufferByIndex( i );
+			VertexBuffer* pBuffer = pRenderer->GetVertexBufferByIndex( index );
 
 			if( pBuffer )
 			{
 				pBuffers[i] = reinterpret_cast< ID3D11Buffer* >( pBuffer->GetResource() );
-			}
-			else
-			{
-				pBuffers[i] = nullptr;
 			}
 		}
 

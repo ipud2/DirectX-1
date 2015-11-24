@@ -16,11 +16,11 @@ Log& Log::Get()
 	return log;
 }
 
-void Sand::Log::Open()
+void Log::Open()
 {
 	FileSystem fs;
 	// Log文件路径
-	std::wstring FilePath = fs.GetLogFolder() + L"Log.txt";
+	std::wstring FilePath = fs.GetLogFolder() + std::wstring( L"log.txt" );
 
 	// 打开Log文件
 	LogFile.open( FilePath.c_str() );
@@ -29,23 +29,23 @@ void Sand::Log::Open()
 	Write( L"Log file opened" );
 }
 
-void Sand::Log::Close()
+void Log::Close()
 {
 	Write( L"close Log File" );
 
 	LogFile.close();
 }
 
-void Sand::Log::Write( const wchar_t* TextString )
+void Log::Write( const wchar_t* TextString )
 {
 	LogFile << TextString << "\n";
 
-	LogFile.flush();
+	/*LogFile.flush();*/
 }
 
 void Sand::Log::WriteSeparator()
 {
 	LogFile << L"------------------------------------------------------------------------------\n";
 
-	LogFile.flush();
+	/*LogFile.flush();*/
 }

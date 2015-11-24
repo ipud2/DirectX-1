@@ -4,7 +4,7 @@
 using namespace Sand;
 
 std::string VertexElement::PositionSemantic = "POSITION";
-std::string VertexElement::NormalSemantic = "NORMAL";
+std::string VertexElement::NormalSemantic = "NORMALS";
 std::string VertexElement::TexCoordSemantic = "TEXCOORD";
 std::string VertexElement::TangentSemantic = "TANGENT";
 

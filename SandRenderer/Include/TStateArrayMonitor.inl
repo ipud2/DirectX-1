@@ -126,7 +126,7 @@ bool TStateArrayMonitor<T , N>::SameAsSister( unsigned int slot )
 {
 	assert( slot < N );
 
-	return ( m_States[slot] == m_pSister->GetState(slot) );
+	return ( m_States[slot] == m_pSister->m_States[slot] );
 }
 
 template < class T , unsigned int N >

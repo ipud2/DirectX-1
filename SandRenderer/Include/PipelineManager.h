@@ -65,6 +65,7 @@ namespace Sand
 		// Parameter: D3D11_MAPPED_SUBRESOURCE * pMappedResource
 		//************************************
 		void MapResource( Resource* pResource , UINT SubResource , D3D11_MAP MapType , UINT MapFlag , D3D11_MAPPED_SUBRESOURCE* pMappedResource );
+		D3D11_MAPPED_SUBRESOURCE MapResource( Resource* pResource , UINT SubResource , D3D11_MAP MapType , UINT MapFlag );
 
 		//************************************
 		// Method:    UnMapResource

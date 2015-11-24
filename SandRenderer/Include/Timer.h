@@ -17,6 +17,7 @@ namespace Sand
 		int Framerate();
 		int MaxFramerate();
 		int FrameCount();
+		float FrameTime();
 
 		void SetFixedTimeStep( float step );
 

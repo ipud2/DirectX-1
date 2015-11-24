@@ -1,6 +1,7 @@
 #include "PCH.h"
 
 #include "Application.h"
+#include "Log.h"
 
 using namespace Sand;
 

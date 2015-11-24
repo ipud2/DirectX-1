@@ -194,7 +194,8 @@ void Geometry::GenerateInputLayout( int ShaderID )
 			Desc.SemanticIndex = m_vElements[i]->m_uiSemanticIndex;
 			Desc.Format = m_vElements[i]->m_Format;
 			Desc.InputSlot = m_vElements[i]->m_uiInputSlot;
-			Desc.AlignedByteOffset = m_vElements[i]->m_InputSlotClass;
+			Desc.AlignedByteOffset = m_vElements[i]->m_uiAlignedByteOffset;
+			Desc.InputSlotClass = m_vElements[i]->m_InputSlotClass;
 			Desc.InstanceDataStepRate = m_vElements[i]->m_uiInstanceDataStepRate;
 
 			Elements.push_back( Desc );

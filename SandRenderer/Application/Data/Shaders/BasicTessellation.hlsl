@@ -13,8 +13,7 @@ cbuffer TessellationParameters
 
 cbuffer RenderingParameters
 {
-	// 白色
-	float4 FinalColor = float4(1.0f , 1.0f , 1.0f , 1.0f);
+	float4 FinalColor = float4(1.0f , 0.0f , 0.0f , 1.0f);
 };
 
 struct VertexIn
@@ -105,5 +104,5 @@ float4 PSMAIN(in DS_OUTPUT input) : SV_Target
 {
 	float4 color = FinalColor;
 
-	return float4(1.0f , 1.0f , 1.0f , 1.0f);
+	return color;
 }

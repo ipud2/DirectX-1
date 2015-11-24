@@ -386,6 +386,10 @@ GeometryPtr GeometryLoader::LoadMS3D( std::wstring filename )
 	}
 
 	// normalize
+	for( int i = 0; i < TriangleCount * 3; i++ )
+	{
+		pNormal[i].Normalize();
+	}
 
 	MeshPtr->AddElement( pPosition );
 	MeshPtr->AddElement( pTexcoords );

@@ -29,7 +29,7 @@ bool App::ConfigureEngineComponents()
 {
 	// 创建Win32RenderWindow对象，用于创建窗口，并设置窗口信息
 	m_pWindow = new Win32RenderWindow;
-	m_pWindow->SetSize( 800 , 600 );
+	m_pWindow->SetSize( 640 , 320 );
 	m_pWindow->SetPosition( 100 , 100 );
 	m_pWindow->SetCaption( GetName() );
 	m_pWindow->Initialize( this );		// 创建窗口
@@ -56,6 +56,8 @@ bool App::ConfigureEngineComponents()
 
 		m_pTimer->SetFixedTimeStep( 1.0f / 10.0f );
 	}
+
+	m_pTimer->SetFixedTimeStep( 1.0f / 80.0f );
 
 	// 创建交换链
 	SwapChainConfig config;
@@ -128,16 +130,16 @@ void App::Initialize()
 
 	// --------------------------------create render view object--------------------------------------------
 	m_pRenderView = new ViewPerspective( *m_pRenderer , m_pRenderTarget , m_pDepthStencilTarget );
-	m_pRenderView->SetBackColor( Vector4f( 1.0f , 0.6f , 0.6f , 0.6f ) );
+	m_pRenderView->SetBackColor( Vector4f( 0.75f , 0.75f , 0.75f , 1.0f ) );
 
 	// ---------------------------------------Camera----------------------------------------------
 	m_pCameras = new Camera();
 	// set camera position , so we can generate view matrix
 	m_pCameras->Spatial().SetTranslation( Vector3f( 0.0f , 0.0f , -15.0f ) );
-	// set project matrix params , so we can generate project matrix
-	m_pCameras->SetPerspectiveProjectionParams( 0.1f , 100.0f , 640.0f / 320.0f , static_cast< float >( SAND_PI ) / 2.0f );
 	// set render view into camera
 	m_pCameras->SetRenderView( m_pRenderView );
+	// set project matrix params , so we can generate project matrix
+	m_pCameras->SetPerspectiveProjectionParams( 0.1f , 100.0f , 640.0f / 320.0f , static_cast< float >( SAND_PI ) / 2.0f );
 	
 
 	m_pActor = new Actor;
@@ -159,6 +161,8 @@ void App::Initialize()
 
 void App::Update()
 {
+	m_pTimer->Update();
+
 	// rotate node
 	Matrix3f rotation;
 	rotation.RotationX( m_pTimer->Elapsed() );
@@ -176,6 +180,10 @@ void App::Shutdown()
 	{
 		SAFE_DELETE( m_pEntity[i] );
 	}
+
+	std::wstringstream out;
+	out << L"Max FPS: " << m_pTimer->MaxFramerate();
+	Log::Get().Write( out.str().c_str() );
 }
 
 void App::TakeScreenShot()

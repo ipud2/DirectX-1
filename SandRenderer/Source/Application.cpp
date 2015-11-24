@@ -14,6 +14,11 @@ Application::Application()
 {
 	m_spApplication = this;
 
+	m_pTimer = new Timer;
+	m_pTimer->Update();
+
+	Log::Get().Open();
+
 	SetEventManager( &m_EventManager );
 
 	// 需要监视的事件
@@ -24,19 +29,21 @@ Application::Application()
 	RequestEvent( ERROR_MESSAGE );
 
 	m_pScene = new Scene();
-
-	m_pTimer = new Timer;
-	m_pTimer->Update();
 }
 
 Application::~Application()
 {
+	Log::Get().Close();
+
 	if( m_pScene != nullptr )
 	{
 		delete m_pScene;
 	}
 
-	Log::Get().Close();
+	if( m_pTimer != nullptr )
+	{
+		delete m_pTimer;
+	}	
 }
 
 Application* Application::Get()
