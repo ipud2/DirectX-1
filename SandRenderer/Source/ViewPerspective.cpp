@@ -101,16 +101,9 @@ void ViewPerspective::SetRenderTargets( ResourceProxyPtr RenderTarget , Resource
 				DepthConfig.SetDepthBuffer( Desc.Width , Desc.Height );
 				m_DepthTarget = Renderer::Get()->CreateTexture2D( &DepthConfig , 0 );
 			}
-
-			D3D11_VIEWPORT ViewPort;
-			ViewPort.Width = static_cast< float >( Desc.Width );
-			ViewPort.Height = static_cast< float >( Desc.Height );
-			ViewPort.MinDepth = 0.0f;
-			ViewPort.MaxDepth = 1.0f;
-			ViewPort.TopLeftX = 0;
-			ViewPort.TopLeftY = 0;
-
-			SetViewPortID( Renderer::Get()->CreateViewPort( ViewPort ) );
 		}
 	}
+
+	// 设置默认的视图
+	SetViewPortID( 0 );
 }

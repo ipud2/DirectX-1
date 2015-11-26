@@ -29,7 +29,7 @@ bool App::ConfigureEngineComponents()
 {
 	// 创建Win32RenderWindow对象，用于创建窗口，并设置窗口信息
 	m_pWindow = new Win32RenderWindow;
-	m_pWindow->SetSize( 640 , 320 );
+	m_pWindow->SetSize( 800 , 600 );
 	m_pWindow->SetPosition( 100 , 100 );
 	m_pWindow->SetCaption( GetName() );
 	m_pWindow->Initialize( this );		// 创建窗口
@@ -57,7 +57,7 @@ bool App::ConfigureEngineComponents()
 		m_pTimer->SetFixedTimeStep( 1.0f / 10.0f );
 	}
 
-	m_pTimer->SetFixedTimeStep( 1.0f / 80.0f );
+	m_pTimer->SetFixedTimeStep( 1.0f / 150.0f );
 
 	// 创建交换链
 	SwapChainConfig config;
@@ -117,7 +117,7 @@ void App::ShutdownEngineComponents()
 void App::Initialize()
 {
 	// create GeometryPtr Object
-	m_pGeometry = GeometryLoader::LoadMS3D( std::wstring( L"box.ms3d" ) );
+	m_pGeometry = GeometryLoader::LoadOBJ( std::wstring( L"Cube.OBJ" ) );
 	m_pGeometry->LoadToBuffer();
 	m_pGeometry->SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST );
 
@@ -139,7 +139,7 @@ void App::Initialize()
 	// set render view into camera
 	m_pCameras->SetRenderView( m_pRenderView );
 	// set project matrix params , so we can generate project matrix
-	m_pCameras->SetPerspectiveProjectionParams( 0.1f , 100.0f , 640.0f / 320.0f , static_cast< float >( SAND_PI ) / 2.0f );
+	m_pCameras->SetPerspectiveProjectionParams( 1.0f , 100.0f , (float)m_pWindow->GetWidth() / (float)m_pWindow->GetHeight() , static_cast< float >( SAND_PI ) / 4.0f );
 	
 
 	m_pActor = new Actor;
@@ -149,7 +149,7 @@ void App::Initialize()
 		m_pEntity[i]->GetRenderableRef().SetGeometry( m_pGeometry );
 		m_pEntity[i]->GetRenderableRef().SetMaterial( m_pMaterial );
 		// relative to parent node
-		m_pEntity[i]->GetTransformRef().GetPositionRef() = Vector3f( static_cast< float >( i )* 4.0f , 4.0f * ( i % 2 ) - 2.0f , 0.0f );
+		m_pEntity[i]->GetTransformRef().GetPositionRef() = Vector3f( static_cast< float >( i )* 2.0f - 10.0f, 2.0f * ( i % 2 ) - 1.0f , 0.0f );
 
 		// add to root node
 		m_pActor->GetRootNode()->AttachChild( m_pEntity[i] );

@@ -337,17 +337,19 @@ Matrix4f Matrix4f::PerspectiveFovLHMatrix( float fovy , float aspect , float zn 
 {
 	Matrix4f ret;
 
-	float tanY = tanf( fovy / 2.0f );
+	float tanY = tan( fovy / 2.0f );
 	if( 0.0f == tanY )	tanY = 0.001f;
 	float yScale = 1.0f / tanY;
 
 	if( 0.0f == aspect )	aspect = 0.001f;
 	float xScale = yScale / aspect;
 
+	float range = zf / ( zf - zn );
+
 	ret.m_afEntry[0] = xScale;		ret.m_afEntry[1] = 0.0f;	ret.m_afEntry[2] = 0.0f;					ret.m_afEntry[3] = 0.0f;
 	ret.m_afEntry[4] = 0.0f;		ret.m_afEntry[5] = yScale;	ret.m_afEntry[6] = 0.0f;					ret.m_afEntry[7] = 0.0f;
-	ret.m_afEntry[8] = 0.0f;		ret.m_afEntry[9] = 0.0f;	ret.m_afEntry[10] = zf / ( zf - zn );		ret.m_afEntry[11] = 1.0f;
-	ret.m_afEntry[12] = 0.0f;		ret.m_afEntry[13] = 0.0f;	ret.m_afEntry[14] = -zn * zf / ( zf - zn );	ret.m_afEntry[15] = 0.0f;
+	ret.m_afEntry[8] = 0.0f;		ret.m_afEntry[9] = 0.0f;	ret.m_afEntry[10] = range;					ret.m_afEntry[11] = 1.0f;
+	ret.m_afEntry[12] = 0.0f;		ret.m_afEntry[13] = 0.0f;	ret.m_afEntry[14] = -range * zn;			ret.m_afEntry[15] = 0.0f;
 
 	return ret;
 }
