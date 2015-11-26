@@ -2,4 +2,3 @@ Log file opened
 AMD Radeon HD 6520G
 Microsoft Basic Render Driver
 can't getch ID3D11Debug Interface from Device
-close Log File

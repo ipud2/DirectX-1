@@ -19,6 +19,8 @@
 #include "PixelStage.h"
 #include "ComputeStage.h"
 
+#include "RenderEffect.h"
+
 namespace Sand
 {
 	/*
@@ -102,6 +104,7 @@ namespace Sand
 
 		// --------------------------Draw----------------------------
 		void DrawIndexed( int IndexCount , int StartIndex , int VertexOffset );
+		void Draw( RenderEffect& effect , ResourceProxyPtr VB , ResourceProxyPtr IB , int InputLayout , D3D11_PRIMITIVE_TOPOLOGY PrimitiveTye , UINT VertexStride , UINT NumIndices , IParameterManager* pParamManager );
 
 	public:
 		D3D_FEATURE_LEVEL m_FeatureLevel;

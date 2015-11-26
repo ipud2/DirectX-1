@@ -90,6 +90,36 @@ void Sand::PipelineManager::SaveTextureScreenShot( int ID , std::wstring filenam
 	}
 }
 
+void PipelineManager::Draw( RenderEffect& effect , ResourceProxyPtr VB , ResourceProxyPtr IB , int InputLayout , D3D11_PRIMITIVE_TOPOLOGY PrimitiveTye , UINT VertexStride , UINT NumIndices , IParameterManager* pParamManager )
+{
+	m_InputAssemblerStage.ClearDesiredState();
+
+	m_InputAssemblerStage.DesiredState.PrimitiveTopology.SetState( PrimitiveTye );
+
+	if( VB != nullptr )
+	{
+		m_InputAssemblerStage.DesiredState.VertexBuffers.SetState( 0 , VB->GetResourceID() );
+		m_InputAssemblerStage.DesiredState.VertexBufferOffsets.SetState( 0 , 0 );
+		m_InputAssemblerStage.DesiredState.VertexBufferStrides.SetState( 0 , VertexStride );
+
+		m_InputAssemblerStage.DesiredState.InputLayout.SetState( InputLayout );
+	}
+
+	if( IB != nullptr )
+	{
+		m_InputAssemblerStage.DesiredState.IndexBuffers.SetState( IB->GetResourceID() );
+		m_InputAssemblerStage.DesiredState.IndexBufferFormat.SetState( DXGI_FORMAT_R32_UINT );
+	}
+
+	m_InputAssemblerStage.ApplyDesiredState( m_pContext.Get() );
+
+	ClearPipelineResource();
+	effect.ConfigurePipeline( this , pParamManager );
+	ApplyPipelineResource();
+
+	m_pContext->DrawIndexed( NumIndices , 0 , 0 );
+}
+
 void PipelineManager::ClearPipelineResource()
 {
 	VertexShaderStage.ClearDesiredState();

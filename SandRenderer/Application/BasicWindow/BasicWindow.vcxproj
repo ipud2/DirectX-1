@@ -101,11 +101,6 @@
     <ClCompile Include="App.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\SandRenderer.vcxproj">
-      <Project>{bb479591-72de-41f0-8fd2-66852b7c4f87}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
