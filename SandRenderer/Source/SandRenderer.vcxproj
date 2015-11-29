@@ -96,6 +96,7 @@
     <ClInclude Include="..\Include\Actor.h" />
     <ClInclude Include="..\Include\Application.h" />
     <ClInclude Include="..\Include\BaseNumericTypeRenderParameter.h" />
+    <ClInclude Include="..\Include\BasicSurfaceProperty.h" />
     <ClInclude Include="..\Include\BlendStateConfig.h" />
     <ClInclude Include="..\Include\Buffer.h" />
     <ClInclude Include="..\Include\BufferConfig.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="..\Include\DepthStencilStateConfig.h" />
     <ClInclude Include="..\Include\DepthStencilView.h" />
     <ClInclude Include="..\Include\DepthStencilViewConfig.h" />
+    <ClInclude Include="..\Include\DirectionalLight.h" />
     <ClInclude Include="..\Include\DomainShader.h" />
     <ClInclude Include="..\Include\DomainStage.h" />
     <ClInclude Include="..\Include\DXGIAdapter.h" />
@@ -174,7 +176,6 @@
     <ClInclude Include="..\Include\PipelineManager.h" />
     <ClInclude Include="..\Include\PixelShader.h" />
     <ClInclude Include="..\Include\PixelStage.h" />
-    <ClInclude Include="..\Include\PointLight.h" />
     <ClInclude Include="..\Include\PositionExtractorController.h" />
     <ClInclude Include="..\Include\RasterizerStage.h" />
     <ClInclude Include="..\Include\RasterizerStageState.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="..\Include\ShaderStructure.h" />
     <ClInclude Include="..\Include\SpatialController.h" />
     <ClInclude Include="..\Include\StructuredBuffer.h" />
+    <ClInclude Include="..\Include\SurfaceProperty.h" />
     <ClInclude Include="..\Include\SwapChain.h" />
     <ClInclude Include="..\Include\SwapChainConfig.h" />
     <ClInclude Include="..\Include\Task.h" />
@@ -239,6 +241,7 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BaseNumericTypeRenderParameter.cpp" />
+    <ClCompile Include="BasicSurfaceProperty.cpp" />
     <ClCompile Include="BlendStateConfig.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferConfig.cpp" />
@@ -251,6 +254,7 @@
     <ClCompile Include="DepthStencilStateConfig.cpp" />
     <ClCompile Include="DepthStencilView.cpp" />
     <ClCompile Include="DepthStencilViewConfig.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="DomainShader.cpp" />
     <ClCompile Include="DomainStage.cpp" />
     <ClCompile Include="DXGIAdapter.cpp" />
@@ -315,7 +319,6 @@
     <ClCompile Include="PipelineManager.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="PixelStage.cpp" />
-    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="RasterizerStage.cpp" />
     <ClCompile Include="RasterizerStageState.cpp" />
     <ClCompile Include="RasterizerStateConfig.cpp" />
@@ -346,6 +349,7 @@
     <ClCompile Include="ShaderStage.cpp" />
     <ClCompile Include="ShaderStageState.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
+    <ClCompile Include="SurfaceProperty.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="SwapChainConfig.cpp" />
     <ClCompile Include="Task.cpp" />

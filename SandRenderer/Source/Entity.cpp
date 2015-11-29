@@ -101,7 +101,14 @@ void Entity::Render( PipelineManager* pPipelineManager , IParameterManager* pPar
 		// 判断该视图是否可渲染
 		if( Visual.Mat->Params[View].bRender )
 		{
+			// 设置渲染管线相关参数
 			Visual.Mat->SetRenderParams( pParamManager , View );
+			
+			if ( Visual.Property != nullptr )
+			{
+				// 设置物体表面属性参数
+				Visual.Property->SetRenderParams( pParamManager );
+			}
 
 			this->SetRenderParams( pParamManager );
 
@@ -122,10 +129,10 @@ void Entity::SetRenderParams( IParameterManager* pParameterManager )
 	pParameterManager->SetWorldMatrixParameterData( &m_Transform.GetWorldMatrix() );
 
 	// 逐层的遍历参数，并进行设置
-	m_Parameters.SetRenderParams( pParameterManager );
+	m_EntityParameterWriters.SetRenderParams( pParameterManager );
 }
 
-ParameterContainer& Entity::GetParametersRef()
+ParameterContainer& Entity::GetParameterWritersRef()
 {
-	return m_Parameters;
+	return m_EntityParameterWriters;
 }

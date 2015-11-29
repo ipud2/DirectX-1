@@ -46,10 +46,8 @@ void ConstantBuffer::EvaluateElements( PipelineManager* pPipelineManager , IPara
 		if( doUpdate )
 		{
 			// Map Resource
-			/*D3D11_MAPPED_SUBRESOURCE MappedResource;
-			pPipelineManager->MapResource( this , 0 , D3D11_MAP_WRITE_DISCARD , 0 , &MappedResource );*/
-
-			D3D11_MAPPED_SUBRESOURCE MappedResource = pPipelineManager->MapResource( this , 0 , D3D11_MAP_WRITE_DISCARD , 0 );
+			D3D11_MAPPED_SUBRESOURCE MappedResource;
+			pPipelineManager->MapResource( this , 0 , D3D11_MAP_WRITE_DISCARD , 0 , &MappedResource );
 
 			for( int i = 0; i < m_vElements.size(); i++ )
 			{

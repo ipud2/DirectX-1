@@ -80,6 +80,7 @@ namespace Sand
 		MatrixParameter* m_pWorldProjMatrix;
 		MatrixParameter* m_pViewProjMatrix;
 		MatrixParameter* m_pWorldViewProjMatrix;
+		MatrixParameter* m_pWorldInvTransposeMatrix;
 
 	private:
 		static std::map<std::wstring , RenderParameter*> Parameters;

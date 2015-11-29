@@ -6,11 +6,7 @@ using namespace Sand;
 Actor::Actor()
 {
 	m_pRoot = new Node;
-	m_pBody = new Entity;
 
-	m_pRoot->AttachChild( m_pBody );
-
-	AddElement( m_pBody );
 	AddElement( m_pRoot );
 }
 
@@ -32,20 +28,9 @@ Node* Actor::GetRootNode() const
 	return m_pRoot;
 }
 
-Entity* Actor::GetBody() const
-{
-	return m_pBody;
-}
-
-
 Node* Actor::GetRootNode()
 {
 	return m_pRoot;
-}
-
-Entity* Actor::GetBody()
-{
-	return m_pBody;
 }
 
 void Actor::AddElement( Node* pElement )

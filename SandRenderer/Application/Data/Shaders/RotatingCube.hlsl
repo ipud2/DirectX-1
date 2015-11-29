@@ -2,7 +2,7 @@ cbuffer Transforms
 {
 	matrix WorldViewProjMatrix;
 };
-
+							
 struct VertexIn
 {
 	float4 Position : 	POSITION;

@@ -13,7 +13,7 @@ cbuffer TessellationParameters
 
 cbuffer RenderingParameters
 {
-	float4 FinalColor = float4(1.0f , 0.0f , 0.0f , 1.0f);
+	float4 FinalColor = float4(1.0f , 0.3f , 0.6f , 1.0f);
 };
 
 struct VertexIn

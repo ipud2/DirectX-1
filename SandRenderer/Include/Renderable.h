@@ -3,23 +3,13 @@
 
 #include "InputAssemblerStageExecutor.h"
 #include "Material.h"
+#include "SurfaceProperty.h"
 
 namespace Sand
 {
 	class Renderable
 	{
 	public:
-		enum ENTITYTYPE
-		{
-			GUI_TEXT , 
-			GUI , 
-			ALPHA , 
-			SKY , 
-			BACKGROUND , 
-			GEOMETRY , 
-			NUMPASSES
-		};
-
 		Renderable();
 		~Renderable();
 
@@ -30,12 +20,15 @@ namespace Sand
 		void SetGeometry( InputAssemblerStageExecutorPtr pExecutor );
 		InputAssemblerStageExecutorPtr GetGeometry();
 
-	public:
-		ENTITYTYPE iPass;
+		void SetSurfaceProperty( SurfacePropertyPtr pSurfaceProperty );
+		SurfacePropertyPtr GetSurfaceProperty();
 
+	public:
 		InputAssemblerStageExecutorPtr IAStageExecutor;
 
 		MaterialPtr Mat;
+
+		SurfacePropertyPtr Property;
 	};
 }
 #endif

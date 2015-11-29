@@ -17,6 +17,7 @@ ParameterManager::ParameterManager()
 	m_pWorldProjMatrix = GetMatrixParameterRef( std::wstring( L"WorldProjMatrix" ) );
 	m_pViewProjMatrix = GetMatrixParameterRef( std::wstring( L"ViewProjMatrix" ) );
 	m_pWorldViewProjMatrix = GetMatrixParameterRef( std::wstring( L"WorldViewProjMatrix" ) );
+	m_pWorldInvTransposeMatrix = GetMatrixParameterRef( std::wstring( L"WorldInvTransposeMatrix" ) );
 }
 
 ParameterManager::~ParameterManager()
@@ -703,13 +704,13 @@ void Sand::ParameterManager::SetWorldMatrixParameterData( Matrix4f* pMatrix )
 
 	Matrix4f WorldViewMatrix = WorldMatrix * ViewMatrix;
 	Matrix4f WorldProjMatrix = WorldMatrix * ProjMatrix;
-	Matrix4f ViewProjMatrix = ViewMatrix * ProjMatrix;
 	Matrix4f WorldViewProjMatrix = WorldMatrix * ViewMatrix * ProjMatrix;
+	Matrix4f WorldInvTranspose = WorldMatrix.Inverse().Transpose();
 
 	SetMatrixParameterData( m_pWorldViewMatrix , &WorldViewMatrix );
 	SetMatrixParameterData( m_pWorldProjMatrix , &WorldProjMatrix );
-	SetMatrixParameterData( m_pViewProjMatrix , &ViewProjMatrix );
 	SetMatrixParameterData( m_pWorldViewProjMatrix , &WorldViewProjMatrix );
+	SetMatrixParameterData( m_pWorldInvTransposeMatrix , &WorldInvTranspose );
 }
 
 void Sand::ParameterManager::SetViewMatrixParameterData( Matrix4f* pMatrix )
@@ -721,12 +722,10 @@ void Sand::ParameterManager::SetViewMatrixParameterData( Matrix4f* pMatrix )
 	Matrix4f ProjMatrix = GetMatrixParameterData( m_pProjMatrix );
 
 	Matrix4f WorldViewMatrix = WorldMatrix * ViewMatrix;
-	Matrix4f WorldProjMatrix = WorldMatrix * ProjMatrix;
 	Matrix4f ViewProjMatrix = ViewMatrix * ProjMatrix;
 	Matrix4f WorldViewProjMatrix = WorldMatrix * ViewMatrix * ProjMatrix;
 
 	SetMatrixParameterData( m_pWorldViewMatrix , &WorldViewMatrix );
-	SetMatrixParameterData( m_pWorldProjMatrix , &WorldProjMatrix );
 	SetMatrixParameterData( m_pViewProjMatrix , &ViewProjMatrix );
 	SetMatrixParameterData( m_pWorldViewProjMatrix , &WorldViewProjMatrix );
 }
@@ -739,12 +738,10 @@ void Sand::ParameterManager::SetProjMatrixParameterData( Matrix4f* pMatrix )
 	Matrix4f ViewMatrix = GetMatrixParameterData( m_pViewMatrix );
 	Matrix4f ProjMatrix = GetMatrixParameterData( m_pProjMatrix );
 
-	Matrix4f WorldViewMatrix = WorldMatrix * ViewMatrix;
 	Matrix4f WorldProjMatrix = WorldMatrix * ProjMatrix;
 	Matrix4f ViewProjMatrix = ViewMatrix * ProjMatrix;
 	Matrix4f WorldViewProjMatrix = WorldMatrix * ViewMatrix * ProjMatrix;
 
-	SetMatrixParameterData( m_pWorldViewMatrix , &WorldViewMatrix );
 	SetMatrixParameterData( m_pWorldProjMatrix , &WorldProjMatrix );
 	SetMatrixParameterData( m_pViewProjMatrix , &ViewProjMatrix );
 	SetMatrixParameterData( m_pWorldViewProjMatrix , &WorldViewProjMatrix );

@@ -5,9 +5,9 @@
 using namespace Sand;
 
 Renderable::Renderable()
-	:iPass( GEOMETRY ) ,
-	IAStageExecutor( nullptr ) ,
-	Mat( nullptr )
+	:IAStageExecutor( nullptr ) ,
+	Mat( nullptr ) ,
+	Property( nullptr )
 {
 
 }
@@ -16,6 +16,7 @@ Renderable::~Renderable()
 {
 	IAStageExecutor = nullptr;
 	Mat = nullptr;
+	Property = nullptr;
 }
 
 void Renderable::SetMaterial( MaterialPtr pMaterial )
@@ -59,4 +60,14 @@ void Renderable::SetGeometry( InputAssemblerStageExecutorPtr pExecutor )
 			IAStageExecutor->GenerateInputLayout( idList[i] );
 		}
 	}
+}
+
+void Renderable::SetSurfaceProperty( SurfacePropertyPtr pSurfaceProperty )
+{
+	Property = pSurfaceProperty;
+}
+
+SurfacePropertyPtr Renderable::GetSurfaceProperty()
+{
+	return Property;
 }

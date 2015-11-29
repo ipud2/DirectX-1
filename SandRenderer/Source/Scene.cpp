@@ -104,7 +104,7 @@ void Scene::Render( Renderer* pRenderer )
 	{
 		// 每次以一种新的ViewType渲染场景时
 		// 都初始化渲染参数
-		Parameters.InitRenderParams();
+		SceneParameterWriters.InitRenderParams();
 		pCamera->RenderFrame( pRenderer );
 	}
 }

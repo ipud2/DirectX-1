@@ -41,7 +41,8 @@ namespace Sand
 		std::vector< Actor* > m_vActors;
 
 	public:
-		ParameterContainer Parameters;
+		// paramter writers for the whole scene
+		ParameterContainer SceneParameterWriters;
 	};
 };
 #endif

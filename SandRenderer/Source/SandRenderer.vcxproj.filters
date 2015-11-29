@@ -156,6 +156,9 @@
     <Filter Include="Object\Actor\Camera">
       <UniqueIdentifier>{716defe4-89f0-4e85-9567-8633f051ed2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SurfaceProperty">
+      <UniqueIdentifier>{4765c87c-372e-447f-9ec7-925a4dc2aa1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -542,9 +545,6 @@
     <ClInclude Include="..\Include\Light.h">
       <Filter>Object\Actor\Light</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\PointLight.h">
-      <Filter>Object\Actor\Light</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\PositionExtractorController.h">
       <Filter>Object\Controller</Filter>
     </ClInclude>
@@ -572,14 +572,23 @@
     <ClInclude Include="..\Include\ViewPerspective.h">
       <Filter>Material\Task</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Camera.h">
-      <Filter>Object\Actor\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\MS3D.h">
       <Filter>Pipeline\StageExecutor\InputAssembler\FileFormat</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Timer.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Camera.h">
+      <Filter>Object\Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\DirectionalLight.h">
+      <Filter>Object\Actor\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SurfaceProperty.h">
+      <Filter>SurfaceProperty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BasicSurfaceProperty.h">
+      <Filter>SurfaceProperty</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -940,9 +949,6 @@
     <ClCompile Include="Light.cpp">
       <Filter>Object\Actor\Light</Filter>
     </ClCompile>
-    <ClCompile Include="PointLight.cpp">
-      <Filter>Object\Actor\Light</Filter>
-    </ClCompile>
     <ClCompile Include="RenderEffect.cpp">
       <Filter>Material</Filter>
     </ClCompile>
@@ -967,11 +973,20 @@
     <ClCompile Include="ViewPerspective.cpp">
       <Filter>Material\Task</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Object\Actor\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Utility</Filter>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Object\Actor\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceProperty.cpp">
+      <Filter>SurfaceProperty</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicSurfaceProperty.cpp">
+      <Filter>SurfaceProperty</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

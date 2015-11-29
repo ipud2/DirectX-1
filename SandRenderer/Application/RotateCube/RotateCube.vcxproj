@@ -91,7 +91,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="..\BoxWithTexture\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />

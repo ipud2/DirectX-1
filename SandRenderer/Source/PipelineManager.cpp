@@ -281,37 +281,6 @@ void PipelineManager::MapResource( Resource* pSandResource , UINT SubResource , 
 	}
 }
 
-D3D11_MAPPED_SUBRESOURCE PipelineManager::MapResource( Resource* pSandResource , UINT SubResource , D3D11_MAP MapType , UINT MapFlag )
-{
-	D3D11_MAPPED_SUBRESOURCE Data;
-	// ³õÊ¼»¯MappedResource
-	Data.pData = NULL;
-	Data.DepthPitch = 0;
-	Data.RowPitch = 0;
-
-	if( pSandResource == nullptr )
-	{
-		Log::Get().Write( L"trying to map a subresource doesn't exist!" );
-		return Data;
-	}
-
-	ID3D11Resource* pResource = pSandResource->GetResource();
-
-	if( nullptr == pResource )
-	{
-		Log::Get().Write( L"Trying to map a subresource that has no native resource in it!! " );
-		return Data;
-	}
-
-	HRESULT hr = m_pContext->Map( pResource , SubResource , MapType , MapFlag , &Data );
-	if( FAILED( hr ) )
-	{
-		Log::Get().Write( L"Failed to map resource!" );
-	}
-
-	return Data;
-}
-
 void PipelineManager::ClearBuffers( Vector4f& color , float depth , UINT stencil )
 {
 	ID3D11RenderTargetView* pRenderTargetViews[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT] = { nullptr };

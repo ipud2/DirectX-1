@@ -18,18 +18,24 @@ namespace Sand
 		
 		// 空间相关数据与功能
 		void Update( float time );
-		void UpdateLocal( float time );
-		void UpdateWorld();
+		
+		void Render(PipelineManager* pPipelineManager, IParameterManager* pParamManager, VIEW_TYPE View);
 
-		void SetRenderParams( IParameterManager* pParameterManager );
-		void Render( PipelineManager* pPipelineManager , IParameterManager* pParamManager , VIEW_TYPE View );
-
+	public:
 		void AttachParent( Node* pParent );
 		void DetachParent();
 		Node* GetParent();
 
+	protected:
+		void SetRenderParams(IParameterManager* pParameterManager);
+
+	public:
 		std::wstring GetName();
 		void SetName( std::wstring name );
+
+	protected:
+		void UpdateLocal(float time);
+		void UpdateWorld();
 
 	protected:
 		std::wstring m_Name;
@@ -45,14 +51,15 @@ namespace Sand
 
 		Renderable Visual;
 
-		ParameterContainer m_Parameters;
+		ParameterContainer m_EntityParameterWriters;
 
+		// Obtain Class Data Member Object Reference
 	public:
 		ControllerPack<Entity>& GetControllersRef();
 
 		Renderable& GetRenderableRef();
 
-		ParameterContainer& GetParametersRef();
+		ParameterContainer& GetParameterWritersRef();
 
 		Transform& GetTransformRef();
 	};

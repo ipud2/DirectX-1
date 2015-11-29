@@ -15,17 +15,24 @@ namespace Sand
 	public:
 		Node();
 		~Node();
-
+		
+		/*
+			Recursive Rendering
+		*/
 		void Render( PipelineManager* pPipelineManager , IParameterManager* pParameterManager , VIEW_TYPE ViewType );
 
 		/*
 			自顶而下遍历，更新Local , World Matrix
 		*/
 		void Update( float time );
+
+	protected:
 		void UpdateLocal( float time );
 		void UpdateWorld();
 
-		// attach / detach
+
+		// ---------------Attach or Detach Node------------------
+	public:
 		void AttachChild( Entity* Child );
 		void AttachChild( Node* Child );
 		void DetachChild( Entity* Child );
@@ -35,11 +42,13 @@ namespace Sand
 		void DetachParent();
 		Node* GetParent();
 
-		// ------------Name--------------
+		// -------------------Name--------------------------
+	public:
 		void SetName( const std::wstring& name );
 		std::wstring GetName() const;
 
-		// ----------引用--------------------
+		// Get Class Data Member Object Reference
+	public:
 		const std::vector<Entity*>& GetLeafsRef();
 		const std::vector<Node*>& GetNodesRef();
 
@@ -50,12 +59,11 @@ namespace Sand
 	protected:
 		std::wstring m_Name;
 
+		Node* m_pParent;
+
 		// 所有的叶子节点都是Entity
 		std::vector<Entity*> m_Leafs;
 		std::vector<Node*> m_Nodes;
-
-		// 父节点
-		Node* m_pParent;
 
 		// 控制变换
 		Transform m_Transform;

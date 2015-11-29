@@ -13,13 +13,40 @@
 
 #include "SamplerStateConfig.h"
 
+#include "BasicSurfaceProperty.h"
+
+#include "DirectionalLight.h"
+
 using namespace Sand;
 
 App AppInstance;
 
 App::App()
 {
+	m_pWindow = nullptr;
+	m_pRenderer = nullptr;
 
+	m_iSwapChain = -1;
+
+	m_pRenderTarget = nullptr;
+	m_pDepthStencilTarget = nullptr;
+
+	m_pRenderView = nullptr;
+
+	m_pActor = nullptr;
+	m_pEntity = nullptr;
+
+	m_pGeometry = nullptr;
+	m_pMaterial = nullptr;
+	m_pSurfaceProperty = nullptr;
+
+	m_pLight = nullptr;
+	m_pCameras = nullptr;
+
+	m_pWoodCrateTexture = nullptr;
+	m_iLinearSampler = -1;
+
+	m_TexTransform.MakeIdentity();
 }
 
 App::~App()
@@ -58,7 +85,7 @@ bool App::ConfigureEngineComponents()
 		m_pTimer->SetFixedTimeStep( 1.0f / 10.0f );
 	}
 
-	m_pTimer->SetFixedTimeStep( 1.0f / 150.0f );
+	m_pTimer->SetFixedTimeStep( 1.0f / 400.0f );
 
 	// ´´½¨½»»»Á´
 	SwapChainConfig config;
@@ -128,6 +155,9 @@ void App::Initialize()
 	// create the material for use by the entities
 	CreateMaterial();
 
+	// create surface property
+	m_pSurfaceProperty = SurfacePropertyPtr( new BasicSurfaceProperty );
+
 	// --------------------------------create render view object--------------------------------------------
 	m_pRenderView = new ViewPerspective( *m_pRenderer , m_pRenderTarget , m_pDepthStencilTarget );
 	m_pRenderView->SetBackColor( Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );
@@ -141,19 +171,25 @@ void App::Initialize()
 	// set project matrix params , so we can generate project matrix
 	m_pCameras->SetPerspectiveProjectionParams( 1.0f , 100.0f , ( float )m_pWindow->GetWidth() / ( float )m_pWindow->GetHeight() , static_cast< float >( SAND_PI ) / 4.0f );
 
+	// ---------------------------------Directional Light---------------------------------
+	m_pLight = new DirectionalLight;
 
+	// --------------------------------Actor and Entity------------------------------
 	m_pActor = new Actor;
 	m_pEntity = new Entity;
 	m_pEntity->GetRenderableRef().SetGeometry( m_pGeometry );
 	m_pEntity->GetRenderableRef().SetMaterial( m_pMaterial );
+	m_pEntity->GetRenderableRef().SetSurfaceProperty( m_pSurfaceProperty );
 	// relative to parent node
 	m_pEntity->GetTransformRef().GetPositionRef() = Vector3f( 0.0f , 0.0f , 0.0f );
 
 	// add to root node
 	m_pActor->GetRootNode()->AttachChild( m_pEntity );
 
+	// -------------------Add to Scene-------------------
 	m_pScene->AddActor( m_pActor );
 	m_pScene->AddCamera( m_pCameras );
+	m_pScene->AddLight( m_pLight );
 }
 
 void App::Update()

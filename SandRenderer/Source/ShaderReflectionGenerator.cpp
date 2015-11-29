@@ -102,6 +102,12 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 				if( TypeDesc.Class == D3D_SVC_VECTOR )
 				{
 					pRenderParameter = pParameterManager->GetVectorParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+
+					// shader中D3D_SVC_VECTOR的变量若存在默认值，则用于初始化
+					if ( VariableDesc.DefaultValue != nullptr )
+					{
+						pRenderParameter->SetParameterData( reinterpret_cast< void* >( VariableDesc.DefaultValue ) );
+					}
 				}
 				else if( TypeDesc.Class == D3D_SVC_MATRIX_ROWS || TypeDesc.Class == D3D_SVC_MATRIX_COLUMNS )
 				{

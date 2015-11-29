@@ -10,13 +10,13 @@ Camera::Camera()
 
 	m_fNear( 0.1f ) ,
 	m_fFar( 100.0f ) ,
-	m_fAspect( 1280.0f / 800.0f ) ,
-	m_fFov( static_cast< float >( SAND_PI ) / 4.0f ) , 
-	m_fWidth(1280.0f) , 
-	m_fHeight(800.0f) , 
-	m_ProjMatrix() , 
-	m_pViewPositionWriter(nullptr) , 
-	m_pSpatialController(nullptr)
+	m_fAspect( 800.0f / 600.0f ) ,
+	m_fFov( static_cast< float >( SAND_PI ) / 4.0f ) ,
+	m_fWidth( 800.0f ) ,
+	m_fHeight( 600.0f ) ,
+	m_ProjMatrix() ,
+	m_pViewPositionWriter( nullptr ) ,
+	m_pSpatialController( nullptr )
 {
 	m_pSpatialController = new SpatialController < Node >();
 	GetRootNode()->GetControllersRef().Attach( m_pSpatialController );
@@ -58,13 +58,14 @@ void Camera::RenderFrame( Renderer* pRenderer )
 {
 	if( m_pCameraView )
 	{
+		// so we can change ViewType and scene
 		if( m_pScene )
 		{
 			m_pCameraView->SetScene( m_pScene );
 		}
 
 		// 计算相机的位置
-		Vector3f p = GetRootNode()->GetTransformRef().GetPositionRef();
+		Vector3f p = GetRootNode()->GetTransformRef().GetWorldMatrix().GetTranslate();
 		m_pViewPositionWriter->SetValue( Vector4f( p.x , p.y , p.z , 1.0f ) );
 
 		// 初始化渲染参数的值
@@ -84,7 +85,7 @@ void Camera::SetPerspectiveProjectionParams( float Near , float Far , float Aspe
 	m_fAspect = Aspect;
 	m_fFov = Fov;
 
-	ApplyPerspectiveProjectParams();
+	ApplyPerspectiveProjectionParams();
 }
 
 void Camera::SetOrthogonalProjectionParams( float Near , float Far , float Width , float Height )
@@ -136,21 +137,21 @@ void Camera::SetClipPlane( float Near , float Far )
 
 	m_fFar = Far;
 
-	ApplyPerspectiveProjectParams();
+	ApplyPerspectiveProjectionParams();
 }
 
 void Camera::SetAspect( float Aspect )
 {
 	m_fAspect = Aspect;
 
-	ApplyPerspectiveProjectParams();
+	ApplyPerspectiveProjectionParams();
 }
 
 void Camera::SetFieldOfView( float Fov )
 {
 	m_fFov = Fov;
 
-	ApplyPerspectiveProjectParams();
+	ApplyPerspectiveProjectionParams();
 }
 
 float Camera::GetNearClipPlane()
@@ -173,7 +174,7 @@ float Camera::GetFieldOfView()
 	return m_fFov;
 }
 
-void Camera::ApplyPerspectiveProjectParams()
+void Camera::ApplyPerspectiveProjectionParams()
 {
 	m_ProjMatrix = Matrix4f::PerspectiveFovLHMatrix( m_fFov , m_fAspect , m_fNear , m_fFar );
 

@@ -20,15 +20,15 @@ namespace Sand
 		Vector4f GetAmbient() const;
 		Vector4f GetSpecular() const;
 
-		ParameterContainer Parameters;
+		void SetRenderParams( IParameterManager* pParamMgr );
+		
+	protected:
+		ParameterContainer LightParameters;
 
 	protected:
 		VectorParameterWriter* m_DiffuseWriter;
 		VectorParameterWriter* m_AmbientWriter;
 		VectorParameterWriter* m_SpecularWriter;
-
-		// µ∆π‚Œª÷√
-		VectorParameterWriter* m_PositionWriter;
 	};
 };
 #endif

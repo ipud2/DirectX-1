@@ -16,37 +16,37 @@ namespace Sand
 		Camera();
 		virtual ~Camera();
 
+	public:
 		SceneRenderTask* GetRenderView();
 		void SetRenderView( SceneRenderTask* pSceneTask );
 
 		Scene* GetScene();
 		void SetScene( Scene* pScene );
-		
-		// render a frame
+
 		void RenderFrame( Renderer* pRenderer );
 
-		// -------------------设置投影相关数据------------------------
+	public:
 		void SetPerspectiveProjectionParams( float Near , float Far , float Aspect , float Fov );
 		void SetOrthogonalProjectionParams( float Near , float Far , float Width , float Height );
 		void SetOffsetProjectionParams( float Left , float Right , float Bottom , float Up , float Near , float Far );
 
 		const Matrix4f& GetProjectionMatrix() const;
 
-		// ------------------设置相机相关属性---------------------
 		void SetClipPlane( float Near , float Far );
 		void SetAspect( float Aspect );
 		void SetFieldOfView( float Fov );
-
+		
 		float GetNearClipPlane();
 		float GetFarClipPlane();
 		float GetAspect();
 		float GetFieldOfView();
 
-
 		SpatialController<Node>& Spatial();
-		
+
 	protected:
-		void ApplyPerspectiveProjectParams();
+		// set perspective project matrix to RenderView for render scene
+		void ApplyPerspectiveProjectionParams();
+		// set orthogonal project matrix to RenderView for render scene
 		void ApplyOrthogonalProjectionParams();
 
 	public:
@@ -54,24 +54,22 @@ namespace Sand
 
 	protected:
 		SceneRenderTask* m_pCameraView;
-		
 		Scene* m_pScene;
 
-		// -----------相机相关数据----------------
+	protected:
 		float m_fNear;
 		float m_fFar;
 		float m_fAspect;
 		float m_fFov;
-
 		float m_fWidth;
 		float m_fHeight;
-		// ----------------------------------------
-
+		
+	protected:
 		Matrix4f m_ProjMatrix;
 
+	protected:
 		VectorParameterWriter* m_pViewPositionWriter;
-
 		SpatialController<Node>* m_pSpatialController;
 	};
-};
+}
 #endif

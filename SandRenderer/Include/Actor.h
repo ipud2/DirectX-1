@@ -14,8 +14,6 @@ namespace Sand
 
 		Node* GetRootNode() const;
 		Node* GetRootNode();
-		Entity* GetBody() const;
-		Entity* GetBody();
 
 	public:
 		void AddElement( Entity* pElement );
@@ -25,7 +23,6 @@ namespace Sand
 
 	protected:
 		Node* m_pRoot;
-		Entity* m_pBody;
 
 		std::vector<Entity*> m_vEntityElements;
 		std::vector<Node*> m_vNodeElements;
