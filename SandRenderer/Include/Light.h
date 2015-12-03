@@ -12,23 +12,10 @@ namespace Sand
 		Light();
 		virtual ~Light();
 
-		void SetDiffuse( const Vector4f& Value );
-		void SetSpecular( const Vector4f& Value );
-		void SetAmbient( const Vector4f& Value );
-
-		Vector4f GetDiffuse() const;
-		Vector4f GetAmbient() const;
-		Vector4f GetSpecular() const;
-
-		void SetRenderParams( IParameterManager* pParamMgr );
-		
-	protected:
-		ParameterContainer LightParameters;
+		void UpdateRenderParams( IParameterManager* pParamMgr );
 
 	protected:
-		VectorParameterWriter* m_DiffuseWriter;
-		VectorParameterWriter* m_AmbientWriter;
-		VectorParameterWriter* m_SpecularWriter;
+		ParameterContainer m_LightParameterWriters;
 	};
 };
 #endif

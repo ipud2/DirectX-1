@@ -18,7 +18,7 @@ void UnorderedAccessParameterWriter::SetRenderParameterRef( UnorderedAccessParam
 	m_pParameter = pParam;
 }
 
-void UnorderedAccessParameterWriter::WriteParameter( IParameterManager* pParamMgr )
+void UnorderedAccessParameterWriter::UpdateValueToParameter( IParameterManager* pParamMgr )
 {
 	pParamMgr->SetUnorderedAccessParameterData( m_pParameter , m_Value );
 }
@@ -26,7 +26,7 @@ void UnorderedAccessParameterWriter::WriteParameter( IParameterManager* pParamMg
 void UnorderedAccessParameterWriter::InitializeParameter()
 {
 	int ResourceID = m_Value->GetResourceID();
-	m_pParameter->InitializeParameterData( &ResourceID );
+	m_pParameter->SetParameterData( &ResourceID );
 }
 
 RenderParameter* UnorderedAccessParameterWriter::GetRenderParameterRef()

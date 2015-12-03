@@ -9,6 +9,7 @@
 #include "SamplerParameter.h"
 #include "ShaderResourceParameter.h"
 #include "UnorderedAccessParameter.h"
+#include "StructureParameter.h"
 
 namespace Sand
 {
@@ -31,6 +32,7 @@ namespace Sand
 		virtual void SetVectorParameterData( const std::wstring& name , Vector4f* pVector ) = 0;
 		virtual void SetMatrixParameterData( const std::wstring& name , Matrix4f* pMatrix ) = 0;
 		virtual void SetMatrixArrayParameterData( const std::wstring& name , int count , Matrix4f* pMatrices ) = 0;
+		virtual void SetStructureParameterData( const std::wstring& name , int size , char* pStructure ) = 0;
 		virtual void SetShaderResourceParameterData( const std::wstring& name , ResourceProxyPtr resource ) = 0;
 		virtual void SetUnorderedAccessParameterData( const std::wstring& name , ResourceProxyPtr reosurce , unsigned int initialize = -1 ) = 0;
 		virtual void SetConstantBufferParameterData( const std::wstring& name , ResourceProxyPtr resource ) = 0;
@@ -40,6 +42,7 @@ namespace Sand
 		virtual void SetVectorParameterData( RenderParameter* pParameter , Vector4f* pVector ) = 0;
 		virtual void SetMatrixParameterData( RenderParameter* pParameter , Matrix4f* pMatrix ) = 0;
 		virtual void SetMatrixArrayParameterData( RenderParameter* pParameter , Matrix4f* pMatrices ) = 0;
+		virtual void SetStructureParameterData( RenderParameter* pParameters , char* pStructure ) = 0;
 		virtual void SetShaderResourceParameterData( RenderParameter* pParameter , ResourceProxyPtr resource ) = 0;
 		virtual void SetUnorderedAccessParameterData( RenderParameter* pParameter , ResourceProxyPtr resource ) = 0;
 		virtual void SetConstantBufferParameterData( RenderParameter* pParameter , ResourceProxyPtr resource ) = 0;
@@ -52,6 +55,7 @@ namespace Sand
 		virtual VectorParameter* GetVectorParameterRef( const std::wstring& name ) = 0;
 		virtual MatrixParameter* GetMatrixParameterRef( const std::wstring& name ) = 0;
 		virtual MatrixArrayParameter* GetMatrixArrayParameterRef( const std::wstring& name , int count ) = 0;
+		virtual StructureParameter* GetStructureParameterRef( const std::wstring& name , int size ) = 0;
 		virtual ShaderResourceParameter* GetShaderResourceParameterRef( const std::wstring& name ) = 0;
 		virtual UnorderedAccessParameter* GetUnorderedAccessParameterRef( const std::wstring& name ) = 0;
 		virtual ConstantBufferParameter* GetConstantBufferParameterRef( const std::wstring& name ) = 0;
@@ -61,6 +65,7 @@ namespace Sand
 		virtual Vector4f GetVectorParameterData( const std::wstring& name ) = 0;
 		virtual Matrix4f GetMatrixParameterData( const std::wstring& name ) = 0;
 		virtual Matrix4f* GetMatrixArrayParameterData( const std::wstring& name , int count ) = 0;
+		virtual char* GetStructureParameterData( const std::wstring& name , int size ) = 0;
 		virtual int GetUnorderedAccessParameterData( const std::wstring& name ) = 0;
 		virtual int GetShaderResourceParameterData( const std::wstring& name ) = 0;
 		virtual int GetConstantBufferParameterData( const std::wstring& name ) = 0;
@@ -69,6 +74,7 @@ namespace Sand
 		virtual Vector4f GetVectorParameterData( RenderParameter* pParameter ) = 0;
 		virtual Matrix4f GetMatrixParameterData( RenderParameter* pParameter ) = 0;
 		virtual Matrix4f* GetMatrixArrayParameterData( RenderParameter* pParameter ) = 0;
+		virtual char* GetStructureParameterData( RenderParameter* pParameter ) = 0;
 		virtual int GetShaderResourceParameterData( RenderParameter* pParameter ) = 0;
 		virtual int GetUnorderedAccessParameterData( RenderParameter* pParameter ) = 0;
 		virtual int GetSamplerStateParameterData( RenderParameter* pParameter ) = 0;

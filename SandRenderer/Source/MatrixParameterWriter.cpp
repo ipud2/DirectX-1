@@ -18,14 +18,14 @@ void MatrixParameterWriter::SetRenderParameterRef( MatrixParameter* pParam )
 	m_pParameter = pParam;
 }
 
-void MatrixParameterWriter::WriteParameter( IParameterManager* pParamMgr )
+void MatrixParameterWriter::UpdateValueToParameter( IParameterManager* pParamMgr )
 {
 	pParamMgr->SetMatrixParameterData( m_pParameter , &m_Value );
 }
 
 void MatrixParameterWriter::InitializeParameter()
 {
-	m_pParameter->InitializeParameterData( &m_Value );
+	m_pParameter->SetParameterData( &m_Value );
 }
 
 RenderParameter* MatrixParameterWriter::GetRenderParameterRef()

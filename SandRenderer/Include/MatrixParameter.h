@@ -31,6 +31,5 @@ namespace Sand
 	protected:
 		Matrix4f m_Matrix;
 	};
-}
-
+};
 #endif

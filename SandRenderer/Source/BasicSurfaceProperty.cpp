@@ -5,30 +5,36 @@ using namespace Sand;
 
 
 BasicSurfaceProperty::BasicSurfaceProperty()
+	:m_pData( nullptr )
 {
-	m_pAmbientMaterialWriter = Parameters.SetValueToVectorParameterWriter( L"AmbientMaterial" , Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) );
-	m_pDiffuseMaterialWriter = Parameters.SetValueToVectorParameterWriter( L"DiffuseMaterial" , Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) );
-	m_pSpecularMaterialWriter = Parameters.SetValueToVectorParameterWriter( L"SpecularMaterial" , Vector4f( 0.6f , 0.6f , 0.6f , 16.0f ) );
+	m_pData = new BasicSurfacePropertyStructure;
+
+	// ÓÃÓÚ²âÊÔ
+	m_pData->AmbientMaterial = Vector4f( 0.5f , 0.5f , 0.5f , 1.0f );
+
+	m_pData->DiffuseMaterial = Vector4f( 1.0f , 1.0f , 1.0f , 1.0f );
+
+	m_pData->SpecularMaterial = Vector4f( 0.6f , 0.6f , 0.6f , 16.0f );
+
+	m_pSurfacePropertyStructureWriter = Parameters.SetValueToStructureParameterWriter( L"BasicSurfaceProperty" , reinterpret_cast< char* >( m_pData ) , sizeof( BasicSurfacePropertyStructure ) );
+
+	
+
+	m_pSurfacePropertyStructureWriter->SetValue( reinterpret_cast< char* >( m_pData ) , sizeof( BasicSurfacePropertyStructure ) );
 }
 
 BasicSurfaceProperty::~BasicSurfaceProperty()
 {
-	m_pAmbientMaterialWriter = nullptr;
-	m_pDiffuseMaterialWriter = nullptr;
-	m_pSpecularMaterialWriter = nullptr;
+	
 }
 
-void BasicSurfaceProperty::SetSurfaceAmbientProperty( const Vector4f& value )
+void BasicSurfaceProperty::SetSurfaceProperty( const Vector4f& AmbientMaterial , const Vector4f& DiffuseMaterial , const Vector4f& SpecularMaterial )
 {
-	m_pAmbientMaterialWriter->SetValue( value );
-}
+	m_pData->AmbientMaterial = AmbientMaterial;
 
-void BasicSurfaceProperty::SetSurfaceDiffuseProperty( const Vector4f& value )
-{
-	m_pDiffuseMaterialWriter->SetValue( value );
-}
+	m_pData->DiffuseMaterial = DiffuseMaterial;
 
-void BasicSurfaceProperty::SetSurfaceSpecularProperty( const Vector4f& value )
-{
-	m_pSpecularMaterialWriter->SetValue( value );
+	m_pData->SpecularMaterial = SpecularMaterial;
+
+	m_pSurfacePropertyStructureWriter->SetValue( reinterpret_cast< char* >( m_pData ) , sizeof( BasicSurfacePropertyStructure ) );
 }

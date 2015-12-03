@@ -11,7 +11,7 @@ namespace Sand
 		UnorderedAccessParameterWriter();
 		virtual ~UnorderedAccessParameterWriter();
 
-		virtual void WriteParameter( IParameterManager* pParamMgr );
+		virtual void UpdateValueToParameter( IParameterManager* pParamMgr );
 		virtual void InitializeParameter();
 
 		virtual RenderParameter* GetRenderParameterRef();

@@ -13,7 +13,7 @@ ShaderResourceParameterWriter::~ShaderResourceParameterWriter()
 
 }
 
-void ShaderResourceParameterWriter::WriteParameter( IParameterManager* pParamMgr )
+void ShaderResourceParameterWriter::UpdateValueToParameter( IParameterManager* pParamMgr )
 {
 	pParamMgr->SetShaderResourceParameterData( m_pParameter , m_Value );
 }
@@ -21,7 +21,7 @@ void ShaderResourceParameterWriter::WriteParameter( IParameterManager* pParamMgr
 void ShaderResourceParameterWriter::InitializeParameter()
 {
 	int ResourceID = m_Value->GetResourceID();
-	m_pParameter->InitializeParameterData( &ResourceID );
+	m_pParameter->SetParameterData( &ResourceID );
 }
 
 RenderParameter* ShaderResourceParameterWriter::GetRenderParameterRef()

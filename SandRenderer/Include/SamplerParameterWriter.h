@@ -11,7 +11,7 @@ namespace Sand
 		SamplerParameterWriter();
 		virtual ~SamplerParameterWriter();
 
-		virtual void WriteParameter( IParameterManager* pParamMgr );
+		virtual void UpdateValueToParameter( IParameterManager* pParamMgr );
 		virtual void InitializeParameter();
 		virtual RenderParameter* GetRenderParameterRef();
 

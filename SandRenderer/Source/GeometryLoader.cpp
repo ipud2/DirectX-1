@@ -166,6 +166,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring filename )
 
 		Normal[3 * i + 0].x = Normals[Faces[i].NormalIndices[0]].x;
 		Normal[3 * i + 0].y = Normals[Faces[i].NormalIndices[0]].y;
+		Normal[3 * i + 0].z = Normals[Faces[i].NormalIndices[0]].z;
 
 		// ---------------------第二个顶点------------------------------
 		Pos[3 * i + 1].x = Positions[Faces[i].PositionIndices[1]].x;
@@ -177,6 +178,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring filename )
 
 		Normal[3 * i + 1].x = Normals[Faces[i].NormalIndices[1]].x;
 		Normal[3 * i + 1].y = Normals[Faces[i].NormalIndices[1]].y;
+		Normal[3 * i + 1].z = Normals[Faces[i].NormalIndices[1]].z;
 
 		// ---------------------第三个顶点------------------------------
 		Pos[3 * i + 2].x = Positions[Faces[i].PositionIndices[2]].x;
@@ -188,6 +190,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring filename )
 
 		Normal[3 * i + 2].x = Normals[Faces[i].NormalIndices[2]].x;
 		Normal[3 * i + 2].y = Normals[Faces[i].NormalIndices[2]].y;
+		Normal[3 * i + 2].z = Normals[Faces[i].NormalIndices[2]].z;
 
 		// 添加面的索引
 		MeshPtr->AddFace( index_1 , index_2 , index_3 );

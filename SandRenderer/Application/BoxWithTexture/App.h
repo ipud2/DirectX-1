@@ -16,6 +16,8 @@
 #include "Geometry.h"
 #include "GeometryLoader.h"
 
+#include "SurfaceProperty.h"
+
 namespace Sand
 {
 	class App : public Application
@@ -65,7 +67,6 @@ namespace Sand
 
 		GeometryPtr m_pGeometry;
 		MaterialPtr m_pMaterial;
-		SurfacePropertyPtr m_pSurfaceProperty;
 
 		Camera* m_pCameras;
 
@@ -75,6 +76,8 @@ namespace Sand
 		int m_iLinearSampler;
 
 		Matrix4f m_TexTransform;
+
+		SurfaceProperty* m_pBoxSurfaceProperty;
 	};
 };
 #endif

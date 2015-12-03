@@ -23,7 +23,7 @@ void ConstantBufferParameterWriter::SetValue( ResourceProxyPtr Value )
 	m_Value = Value;
 }
 
-void ConstantBufferParameterWriter::WriteParameter( IParameterManager* pParamMgr )
+void ConstantBufferParameterWriter::UpdateValueToParameter( IParameterManager* pParamMgr )
 {
 	pParamMgr->SetConstantBufferParameterData( m_pParameter , m_Value );
 }
@@ -31,7 +31,7 @@ void ConstantBufferParameterWriter::WriteParameter( IParameterManager* pParamMgr
 void ConstantBufferParameterWriter::InitializeParameter()
 {
 	int ResourceID = m_Value->GetResourceID();
-	m_pParameter->InitializeParameterData( &ResourceID );
+	m_pParameter->SetParameterData( &ResourceID );
 }
 
 RenderParameter* ConstantBufferParameterWriter::GetRenderParameterRef()

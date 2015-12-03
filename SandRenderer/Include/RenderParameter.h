@@ -11,6 +11,7 @@ namespace Sand
 		PT_VECTOR , 
 		PT_MATRIX , 
 		PT_MATRIX_ARRAY , 
+		PT_STRUCTURE , 
 
 		// 对象类型
 		PT_SHADER_RESOURCE , 
@@ -36,11 +37,6 @@ namespace Sand
 			获取参数类型
 		*/
 		virtual const ParameterType GetParameterType() = 0;
-
-		/*
-			使用pData初始化参数
-		*/
-		void InitializeParameterData( void* pData );
 
 		/*
 			写入参数值

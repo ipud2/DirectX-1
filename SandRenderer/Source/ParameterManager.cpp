@@ -37,7 +37,7 @@ void ParameterManager::SetVectorParameterData( const std::wstring& name , Vector
 		pParameter = new VectorParameter( name );
 		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
 
-		pParameter->InitializeParameterData( reinterpret_cast< void* >( pVector ) );
+		pParameter->SetParameterData( reinterpret_cast< void* >( pVector ) );
 	}
 	else
 	{
@@ -65,7 +65,7 @@ void ParameterManager::SetMatrixParameterData( const std::wstring& name , Matrix
 		pParameter = new MatrixParameter( name );
 		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
 
-		pParameter->InitializeParameterData( reinterpret_cast< void* >( pMatrix ) );
+		pParameter->SetParameterData( reinterpret_cast< void* >( pMatrix ) );
 	}
 	else
 	{
@@ -93,7 +93,7 @@ void ParameterManager::SetMatrixArrayParameterData( const std::wstring& name , i
 		pParameter = new MatrixArrayParameter( name , count );
 		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
 
-		pParameter->InitializeParameterData( reinterpret_cast< void* >( pMatrices ) );
+		pParameter->SetParameterData( reinterpret_cast< void* >( pMatrices ) );
 	}
 	else
 	{
@@ -111,6 +111,33 @@ void ParameterManager::SetMatrixArrayParameterData( const std::wstring& name , i
 	}
 }
 
+void ParameterManager::SetStructureParameterData( const std::wstring& name , int size , char* pStructure )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		// 不存在该参数，则新建一个
+		pParameter = new StructureParameter( name , size );
+		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
+
+		pParameter->SetParameterData( reinterpret_cast< void* >( pStructure ) );
+	}
+	else
+	{
+		// 参数存在
+		if ( pParameter->GetParameterType() == PT_STRUCTURE )
+		{
+			// 设置值
+			pParameter->SetParameterData( reinterpret_cast< void* >( pStructure ) );
+		}
+		else
+		{
+			Log::Get().Write( L"trying to set value to non-struct parameter object" );
+		}
+	}
+}
+
 void ParameterManager::SetShaderResourceParameterData( const std::wstring& name , ResourceProxyPtr resource )
 {
 	RenderParameter* pParameter = Parameters[name];
@@ -122,7 +149,7 @@ void ParameterManager::SetShaderResourceParameterData( const std::wstring& name 
 		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
 
 		int data = resource->GetShaderResourceViewID();
-		pParameter->InitializeParameterData( reinterpret_cast< void* >( &data ) );
+		pParameter->SetParameterData( reinterpret_cast< void* >( &data ) );
 	}
 	else
 	{
@@ -152,7 +179,7 @@ void ParameterManager::SetUnorderedAccessParameterData( const std::wstring& name
 		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
 
 		int data = resource->GetUnorderedAccessViewID();
-		pParameter->InitializeParameterData( reinterpret_cast< void* >( &data ) );
+		pParameter->SetParameterData( reinterpret_cast< void* >( &data ) );
 	}
 	else
 	{
@@ -182,7 +209,7 @@ void ParameterManager::SetConstantBufferParameterData( const std::wstring& name 
 		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
 
 		int data = resource->GetResourceID();
-		pParameter->InitializeParameterData( reinterpret_cast< void* >( &data ) );
+		pParameter->SetParameterData( reinterpret_cast< void* >( &data ) );
 	}
 	else
 	{
@@ -211,7 +238,7 @@ void ParameterManager::SetSamplerStateParameterData( const std::wstring& name , 
 		pParameter = new SamplerParameter( name );
 		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
 
-		pParameter->InitializeParameterData( reinterpret_cast< void* >( pID ) );
+		pParameter->SetParameterData( reinterpret_cast< void* >( pID ) );
 	}
 	else
 	{
@@ -264,6 +291,18 @@ void ParameterManager::SetMatrixArrayParameterData( RenderParameter* pParameter 
 	else
 	{
 		Log::Get().Write( L"参数类型不符，该参数不是MatrixArray类型" );
+	}
+}
+
+void ParameterManager::SetStructureParameterData( RenderParameter* pParameter , char* pStructure )
+{
+	if ( pParameter->GetParameterType() == PT_STRUCTURE )
+	{
+		pParameter->SetParameterData( reinterpret_cast< void* >( pStructure ) );
+	}
+	else
+	{
+		Log::Get().Write( L"type can't match , isn't structure parameter object" );
 	}
 }
 
@@ -372,6 +411,19 @@ MatrixArrayParameter* ParameterManager::GetMatrixArrayParameterRef( const std::w
 	}
 
 	return reinterpret_cast< MatrixArrayParameter* >( pParameter );
+}
+
+StructureParameter* ParameterManager::GetStructureParameterRef( const std::wstring& name , int size )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		pParameter = new StructureParameter( name , size );
+		Parameters[name] = pParameter;
+	}
+
+	return reinterpret_cast< StructureParameter* >( pParameter );
 }
 
 ShaderResourceParameter* ParameterManager::GetShaderResourceParameterRef( const std::wstring& name )
@@ -501,6 +553,29 @@ Matrix4f* ParameterManager::GetMatrixArrayParameterData( const std::wstring& nam
 	return result;
 }
 
+char* ParameterManager::GetStructureParameterData( const std::wstring& name , int size )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	char* result = nullptr;
+
+	if ( pParameter == nullptr )
+	{
+		// 创建StructureParameter对象
+		pParameter = new StructureParameter( name , size );
+		Parameters[name] = pParameter;
+	}
+	else
+	{
+		if ( pParameter->GetParameterType() == PT_STRUCTURE )
+		{
+			result = reinterpret_cast< StructureParameter* >( pParameter )->GetStructureData();
+		}
+	}
+
+	return result;
+}
+
 int ParameterManager::GetUnorderedAccessParameterData( const std::wstring& name )
 {
 	RenderParameter* pParameter = Parameters[name];
@@ -593,7 +668,6 @@ int ParameterManager::GetSamplerStateParameterData( const std::wstring& name )
 	return result;
 }
 
-
 Vector4f ParameterManager::GetVectorParameterData( RenderParameter* pParameter )
 {
 	assert( pParameter != 0 );
@@ -633,6 +707,20 @@ Matrix4f* ParameterManager::GetMatrixArrayParameterData( RenderParameter* pParam
 	if( pParameter->GetParameterType() == PT_MATRIX_ARRAY )
 	{
 		result = reinterpret_cast< MatrixArrayParameter* >( pParameter )->GetMatrices();
+	}
+
+	return result;
+}
+
+char* ParameterManager::GetStructureParameterData( RenderParameter* pParameter )
+{
+	assert( pParameter != nullptr );
+
+	char* result = nullptr;
+
+	if ( pParameter->GetParameterType() == PT_STRUCTURE )
+	{
+		result = reinterpret_cast< StructureParameter* >( pParameter )->GetStructureData();
 	}
 
 	return result;
@@ -705,6 +793,9 @@ void Sand::ParameterManager::SetWorldMatrixParameterData( Matrix4f* pMatrix )
 	Matrix4f WorldViewMatrix = WorldMatrix * ViewMatrix;
 	Matrix4f WorldProjMatrix = WorldMatrix * ProjMatrix;
 	Matrix4f WorldViewProjMatrix = WorldMatrix * ViewMatrix * ProjMatrix;
+
+	// -----------------逆转置矩阵---------------------------------------
+	WorldMatrix.SetTranslate( Vector3f( 0.0f , 0.0f , 0.0f ) );
 	Matrix4f WorldInvTranspose = WorldMatrix.Inverse().Transpose();
 
 	SetMatrixParameterData( m_pWorldViewMatrix , &WorldViewMatrix );

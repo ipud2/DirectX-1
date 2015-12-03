@@ -17,10 +17,10 @@ MatrixArrayParameterWriter::~MatrixArrayParameterWriter()
 
 void MatrixArrayParameterWriter::InitializeParameter()
 {
-	m_pParameter->InitializeParameterData( &m_pValue );
+	m_pParameter->SetParameterData( &m_pValue );
 }
 
-void MatrixArrayParameterWriter::WriteParameter( IParameterManager* pParamMgr )
+void MatrixArrayParameterWriter::UpdateValueToParameter( IParameterManager* pParamMgr )
 {
 	pParamMgr->SetMatrixArrayParameterData( m_pParameter , m_pValue );
 }

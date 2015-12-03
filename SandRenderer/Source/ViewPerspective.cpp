@@ -55,7 +55,7 @@ void ViewPerspective::ExecuteTask( PipelineManager* pPipelineManager , IParamete
 		if( m_pScene->GetLightCount() > 0 )
 		{
 			// 设置灯光参数，只支持0号灯光
-			m_pScene->GetLight( 0 )->SetRenderParams( pParameterManager );
+			m_pScene->GetLight( 0 )->UpdateRenderParams( pParameterManager );
 		}
 
 		// 清除管线资源

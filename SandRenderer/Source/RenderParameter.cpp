@@ -22,8 +22,3 @@ std::wstring& RenderParameter::GetName()
 {
 	return m_Name;
 }
-
-void RenderParameter::InitializeParameterData( void* pData )
-{
-	SetParameterData( pData );
-}

@@ -5,21 +5,28 @@
 
 namespace Sand
 {
+	struct BasicSurfacePropertyStructure
+	{
+		Vector4f AmbientMaterial;
+		Vector4f DiffuseMaterial;
+		Vector4f SpecularMaterial;
+	};
+
 	class BasicSurfaceProperty : public SurfaceProperty
 	{
 	public:
 		BasicSurfaceProperty();
 		virtual ~BasicSurfaceProperty();
 
-		void SetSurfaceAmbientProperty( const Vector4f& value );
-		void SetSurfaceDiffuseProperty( const Vector4f& value );
-		void SetSurfaceSpecularProperty( const Vector4f& value );
+		void SetSurfaceProperty( const Vector4f& AmbientMaterial , const Vector4f& DiffuseMaterial , const Vector4f& SpecularMaterial );
 
 	protected:
-		VectorParameterWriter* m_pAmbientMaterialWriter;
-		VectorParameterWriter* m_pDiffuseMaterialWriter;
-		VectorParameterWriter* m_pSpecularMaterialWriter;
-	};
-}
+		/*
+			Êý¾ÝÖ¸Õë
+		*/
+		BasicSurfacePropertyStructure* m_pData;
 
+		StructureParameterWriter* m_pSurfacePropertyStructureWriter;
+	};
+};
 #endif

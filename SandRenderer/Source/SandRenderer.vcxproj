@@ -210,6 +210,8 @@
     <ClInclude Include="..\Include\ShaderStructure.h" />
     <ClInclude Include="..\Include\SpatialController.h" />
     <ClInclude Include="..\Include\StructuredBuffer.h" />
+    <ClInclude Include="..\Include\StructureParameter.h" />
+    <ClInclude Include="..\Include\StructureParameterWriter.h" />
     <ClInclude Include="..\Include\SurfaceProperty.h" />
     <ClInclude Include="..\Include\SwapChain.h" />
     <ClInclude Include="..\Include\SwapChainConfig.h" />
@@ -349,6 +351,8 @@
     <ClCompile Include="ShaderStage.cpp" />
     <ClCompile Include="ShaderStageState.cpp" />
     <ClCompile Include="StructuredBuffer.cpp" />
+    <ClCompile Include="StructureParameter.cpp" />
+    <ClCompile Include="StructureParameterWriter.cpp" />
     <ClCompile Include="SurfaceProperty.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="SwapChainConfig.cpp" />

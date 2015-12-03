@@ -11,12 +11,10 @@ namespace Sand
 		SurfaceProperty();
 		virtual ~SurfaceProperty();
 
-		void SetRenderParams( IParameterManager* pParameterManager );
+		void UpdateRenderParams( IParameterManager* pParameterManager );
 
 	protected:
 		ParameterContainer Parameters;
 	};
-
-	typedef std::shared_ptr<SurfaceProperty> SurfacePropertyPtr;
 };
 #endif

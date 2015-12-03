@@ -107,10 +107,10 @@ void Entity::Render( PipelineManager* pPipelineManager , IParameterManager* pPar
 			if ( Visual.Property != nullptr )
 			{
 				// 设置物体表面属性参数
-				Visual.Property->SetRenderParams( pParamManager );
+				Visual.Property->UpdateRenderParams( pParamManager );
 			}
 
-			this->SetRenderParams( pParamManager );
+			this->UpdateRenderParams( pParamManager );
 
 			// 配置渲染状态，各shader阶段资源
 			Visual.Mat->Params[View].pEffect->ConfigurePipeline( pPipelineManager , pParamManager );
@@ -123,13 +123,13 @@ void Entity::Render( PipelineManager* pPipelineManager , IParameterManager* pPar
 	}
 }
 
-void Entity::SetRenderParams( IParameterManager* pParameterManager )
+void Entity::UpdateRenderParams( IParameterManager* pParameterManager )
 {
 	// 设置世界矩阵
 	pParameterManager->SetWorldMatrixParameterData( &m_Transform.GetWorldMatrix() );
 
 	// 逐层的遍历参数，并进行设置
-	m_EntityParameterWriters.SetRenderParams( pParameterManager );
+	m_EntityParameterWriters.UpdateRenderParam( pParameterManager );
 }
 
 ParameterContainer& Entity::GetParameterWritersRef()

@@ -15,8 +15,15 @@ namespace Sand
 
 		virtual RenderParameter* GetRenderParameterRef() = 0;
 
-		virtual void WriteParameter( IParameterManager* pParamMgr ) = 0;
+		/*
+			After Set Value
+			We need call the function to Update Value of Parameter
+		*/
+		virtual void UpdateValueToParameter( IParameterManager* pParamMgr ) = 0;
 
+		/*
+			Set Current Value to Parameter
+		*/
 		virtual void InitializeParameter() = 0;
 	};
 };

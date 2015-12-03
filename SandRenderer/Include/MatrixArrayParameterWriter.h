@@ -12,7 +12,7 @@ namespace Sand
 		virtual ~MatrixArrayParameterWriter();
 
 		virtual void InitializeParameter();
-		virtual void WriteParameter( IParameterManager* pParamMgr );
+		virtual void UpdateValueToParameter( IParameterManager* pParamMgr );
 		virtual RenderParameter* GetRenderParameterRef();
 
 		void SetRenderParameterRef( MatrixArrayParameter* pParameter );

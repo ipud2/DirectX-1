@@ -21,10 +21,11 @@ RenderParameter* VectorParameterWriter::GetRenderParameterRef()
 
 void VectorParameterWriter::InitializeParameter()
 {
-	m_pParameter->InitializeParameterData( &m_Value );
+	// 将当前的值设置到参数对象中
+	m_pParameter->SetParameterData( &m_Value );
 }
 
-void VectorParameterWriter::WriteParameter( IParameterManager* pParamMgr )
+void VectorParameterWriter::UpdateValueToParameter( IParameterManager* pParamMgr )
 {
 	pParamMgr->SetVectorParameterData( m_pParameter , &m_Value );
 }

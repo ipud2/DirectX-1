@@ -63,6 +63,7 @@ void MatrixArrayParameter::SetParameterData( void *pData )
 	if( 0 != memcmp( pData , m_pMatrices , m_iMatrixCount * sizeof( Matrix4f ) ) )
 	{
 		memcpy( m_pMatrices , pData , m_iMatrixCount * sizeof( Matrix4f ) );
+		m_Identifier++;
 	}
 }
 

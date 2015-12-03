@@ -28,7 +28,7 @@ void Material::Update( float time )
 
 void Material::SetRenderParams( IParameterManager* pParameterManager , VIEW_TYPE Type )
 {
-	Parameters.SetRenderParams( pParameterManager );
+	Parameters.UpdateRenderParam( pParameterManager );
 }
 
 void Material::GetAllVertexShaderIDs( std::vector<int>& idList )

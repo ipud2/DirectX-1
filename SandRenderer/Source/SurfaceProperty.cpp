@@ -13,7 +13,7 @@ SurfaceProperty::~SurfaceProperty()
 	
 }
 
-void SurfaceProperty::SetRenderParams( IParameterManager* pParameterManager )
+void SurfaceProperty::UpdateRenderParams( IParameterManager* pParameterManager )
 {
-	Parameters.SetRenderParams( pParameterManager );
+	Parameters.UpdateRenderParam( pParameterManager );
 }

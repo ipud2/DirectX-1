@@ -5,7 +5,8 @@ using namespace Sand;
 
 SamplerParameterWriter::SamplerParameterWriter()
 {
-
+	m_pParameter = nullptr;
+	m_Value = -1;
 }
 
 SamplerParameterWriter::~SamplerParameterWriter()
@@ -13,14 +14,14 @@ SamplerParameterWriter::~SamplerParameterWriter()
 
 }
 
-void SamplerParameterWriter::WriteParameter( IParameterManager* pParamMgr )
+void SamplerParameterWriter::UpdateValueToParameter( IParameterManager* pParamMgr )
 {
 	pParamMgr->SetSamplerStateParameterData( m_pParameter , &m_Value );
 }
 
 void SamplerParameterWriter::InitializeParameter()
 {
-	m_pParameter->InitializeParameterData( &m_Value );
+	m_pParameter->SetParameterData( &m_Value );
 }
 
 RenderParameter* SamplerParameterWriter::GetRenderParameterRef()

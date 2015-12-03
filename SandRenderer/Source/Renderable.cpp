@@ -62,12 +62,12 @@ void Renderable::SetGeometry( InputAssemblerStageExecutorPtr pExecutor )
 	}
 }
 
-void Renderable::SetSurfaceProperty( SurfacePropertyPtr pSurfaceProperty )
+void Renderable::SetSurfaceProperty( SurfaceProperty* pSurfaceProperty )
 {
 	Property = pSurfaceProperty;
 }
 
-SurfacePropertyPtr Renderable::GetSurfaceProperty()
+SurfaceProperty* Renderable::GetSurfaceProperty()
 {
 	return Property;
 }

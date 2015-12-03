@@ -38,7 +38,7 @@ App::App()
 
 	m_pGeometry = nullptr;
 	m_pMaterial = nullptr;
-	m_pSurfaceProperty = nullptr;
+	m_pBoxSurfaceProperty = nullptr;
 
 	m_pLight = nullptr;
 	m_pCameras = nullptr;
@@ -155,12 +155,15 @@ void App::Initialize()
 	// create the material for use by the entities
 	CreateMaterial();
 
-	// create surface property
-	m_pSurfaceProperty = SurfacePropertyPtr( new BasicSurfaceProperty );
+	// -----------------------------SurfaceProperty---------------------------------
+	m_pBoxSurfaceProperty = new BasicSurfaceProperty;
+	/*dynamic_cast< BasicSurfaceProperty* >( m_pBoxSurfaceProperty )->SetSurfaceProperty( Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) ,
+																					 Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+																					 Vector4f( 0.6f , 0.6f , 0.6f , 16.0f ) );*/
 
 	// --------------------------------create render view object--------------------------------------------
 	m_pRenderView = new ViewPerspective( *m_pRenderer , m_pRenderTarget , m_pDepthStencilTarget );
-	m_pRenderView->SetBackColor( Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );
+	m_pRenderView->SetBackColor( Vector4f( 0.69f , 0.77f , 0.87f , 1.0f ) );
 
 	// ---------------------------------------Camera----------------------------------------------
 	m_pCameras = new Camera();
@@ -172,14 +175,19 @@ void App::Initialize()
 	m_pCameras->SetPerspectiveProjectionParams( 1.0f , 100.0f , ( float )m_pWindow->GetWidth() / ( float )m_pWindow->GetHeight() , static_cast< float >( SAND_PI ) / 4.0f );
 
 	// ---------------------------------Directional Light---------------------------------
-	m_pLight = new DirectionalLight;
+	m_pLight = new DirectionalLight( 2 );
+	/*dynamic_cast< DirectionalLight* >( m_pLight )->SetDirectionalLight( Vector4f( 0.25f , 0.25f , 0.25f , 0.25f ) ,
+																		Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) ,
+																		Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+																		Vector4f( 0.707f , -0.707f , 0.0f , 1.0f ) ,
+																		0 );*/
 
 	// --------------------------------Actor and Entity------------------------------
 	m_pActor = new Actor;
 	m_pEntity = new Entity;
 	m_pEntity->GetRenderableRef().SetGeometry( m_pGeometry );
 	m_pEntity->GetRenderableRef().SetMaterial( m_pMaterial );
-	m_pEntity->GetRenderableRef().SetSurfaceProperty( m_pSurfaceProperty );
+	m_pEntity->GetRenderableRef().SetSurfaceProperty( m_pBoxSurfaceProperty );
 	// relative to parent node
 	m_pEntity->GetTransformRef().GetPositionRef() = Vector3f( 0.0f , 0.0f , 0.0f );
 
@@ -255,7 +263,7 @@ void App::CreateMaterial()
 	m_pMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
 
 	// --------------------------------set texture-----------------------------
-	m_pWoodCrateTexture = m_pRenderer->LoadTexture( L"WoodCrate.jpg" );
+	m_pWoodCrateTexture = m_pRenderer->LoadTexture( L"WoodCrate01.dds" );
 	m_pMaterial->Parameters.SetValueToShaderResourceParameterWriter( L"WoodCrateTexture" , m_pWoodCrateTexture );
 
 	SamplerStateConfig config;

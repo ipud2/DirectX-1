@@ -9,6 +9,7 @@
 #include "VectorParameterWriter.h"
 #include "MatrixParameterWriter.h"
 #include "MatrixArrayParameterWriter.h"
+#include "StructureParameterWriter.h"
 
 namespace Sand
 {
@@ -30,24 +31,26 @@ namespace Sand
 		VectorParameterWriter* GetVectorParameterWriter( const std::wstring& name );
 		MatrixParameterWriter* GetMatrixParameterWriter( const std::wstring& name );
 		MatrixArrayParameterWriter* GetMatrixArrayParameterWriter( const std::wstring& name );
+		StructureParameterWriter* GetStructureParameterWriter( const std::wstring& name );
 		UnorderedAccessParameterWriter* GetUnorderedAccessParameterWriter( const std::wstring& name );
 		ShaderResourceParameterWriter* GetShaderResourceParameterWriter( const std::wstring& name );
 		ConstantBufferParameterWriter* GetConstantBufferParameterWriter( const std::wstring& name );
 		SamplerParameterWriter* GetSamplerParameterWriter( const std::wstring& name );
 
 		/*
-		功能：为指定名称的参数的Writer设置value
-		name:参数名
-		value:名字为name的参数的值
+			功能：为指定名称的参数的Writer设置value
+			name:参数名
+			value:名字为name的参数的值
 
-		method:
-		根据name查询相应的ParameterWriter
-		若不存在，则新建一个，并添加到Container中,然后初始化
-		若已存在，则设置其Writer的value成员
+			method:
+			根据name查询相应的ParameterWriter
+			若不存在，则新建一个，并添加到Container中,然后初始化
+			若已存在，则设置其Writer的value成员
 		*/
 		VectorParameterWriter* SetValueToVectorParameterWriter( const std::wstring& name , const Vector4f& Value );
 		MatrixParameterWriter* SetValueToMatrixParameterWriter( const std::wstring& name , const Matrix4f& Value );
 		MatrixArrayParameterWriter* SetValueToMatrixArrayParameterWriter( const std::wstring& name , Matrix4f* Value , int count );
+		StructureParameterWriter* SetValueToStructureParameterWriter( const std::wstring& name , char* Value , int Size );
 		UnorderedAccessParameterWriter* SetValueToUnorderedAccessParameterWriter( const std::wstring& name , const ResourceProxyPtr& Value );
 		ShaderResourceParameterWriter* SetValueToShaderResourceParameterWriter( const std::wstring& name , const ResourceProxyPtr& Value );
 		ConstantBufferParameterWriter* SetValueToConstantBufferParameterWriter( const std::wstring& name , const ResourceProxyPtr& Value );
@@ -63,7 +66,7 @@ namespace Sand
 			我们通过SetXXXParameter来设置相应参数值需要更新的值
 			最后通过SetRenderParams将这些更新参数值应用到参数中
 		*/
-		void SetRenderParams( IParameterManager* pParameterManager );
+		void UpdateRenderParam( IParameterManager* pParameterManager );
 		void InitRenderParams();
 
 	protected:

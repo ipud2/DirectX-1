@@ -12,7 +12,7 @@ namespace Sand
 		virtual ~VectorParameterWriter();
 
 		virtual RenderParameter* GetRenderParameterRef();
-		virtual void WriteParameter( IParameterManager* pParamMgr );
+		virtual void UpdateValueToParameter( IParameterManager* pParamMgr );
 		virtual void InitializeParameter();
 
 		void SetValue( const Vector4f& Value );

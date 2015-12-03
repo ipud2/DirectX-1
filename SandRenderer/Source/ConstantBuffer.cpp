@@ -88,9 +88,10 @@ void ConstantBuffer::EvaluateElements( PipelineManager* pPipelineManager , IPara
 						
 					}
 				}
-				else
+				else if ( m_vElements[i].VarClass == D3D_SVC_STRUCT )
 				{
-					// 其他类型不予处理
+					char* pStructure = pParameterManager->GetStructureParameterData( m_vElements[i].pParamRef );
+					memcpy( ( char* )MappedResource.pData + Offset , pStructure , m_vElements[i].Size );
 				}
 			}
 

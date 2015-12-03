@@ -309,7 +309,7 @@ void PipelineManager::ClearBuffers( Vector4f& color , float depth , UINT stencil
 	// 获取DepthStencilView对象
 	DepthStencilView& DSV = Renderer::Get()->GetDepthStencilViewByIndex( index );
 
-	m_pContext->ClearDepthStencilView( DSV.Get() , D3D11_CLEAR_DEPTH || D3D11_CLEAR_STENCIL , depth , stencil );
+	m_pContext->ClearDepthStencilView( DSV.Get() , D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL , depth , stencil );
 }
 
 RasterizerStage& PipelineManager::GetRasterizerStageRef()

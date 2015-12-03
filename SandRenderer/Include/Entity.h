@@ -27,7 +27,7 @@ namespace Sand
 		Node* GetParent();
 
 	protected:
-		void SetRenderParams(IParameterManager* pParameterManager);
+		void UpdateRenderParams(IParameterManager* pParameterManager);
 
 	public:
 		std::wstring GetName();

@@ -151,7 +151,7 @@ MatrixArrayParameterWriter* ParameterContainer::GetMatrixArrayParameterWriter( c
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a vector in a non-matrixarray parameter writers!!" );
+				Log::Get().Write( L"Error: Trying to access a matrixarray in a non-matrixarray parameter writers!!" );
 			}
 		}
 		else
@@ -162,6 +162,40 @@ MatrixArrayParameterWriter* ParameterContainer::GetMatrixArrayParameterWriter( c
 	}
 
 	return pMatrixArrayParameterWriter;
+}
+
+StructureParameterWriter* ParameterContainer::GetStructureParameterWriter( const std::wstring& name )
+{
+	// 我们要返回的对象
+	StructureParameterWriter* pStructureParameterWriter = nullptr;
+
+	// 首先获取该名字对应的ParameterWriter
+	ParameterWriter* pParameterWriter = GetRenderParameterWriter( name );
+
+	if ( pParameterWriter )
+	{
+		// 获取该ParameterWriter中存储的Parameter对象
+		RenderParameter* pParameter = pParameterWriter->GetRenderParameterRef();
+
+		if ( pParameter )
+		{
+			// 判断类型是否相符
+			if ( pParameter->GetParameterType() == PT_STRUCTURE )
+			{
+				pStructureParameterWriter = dynamic_cast< StructureParameterWriter* >( pParameterWriter );
+			}
+			else
+			{
+				Log::Get().Write( L"Error: Trying to access a structure Parameter Writer in non-StructureParameterWriter" );
+			}
+		}
+		else
+		{
+			Log::Get().Write( L"Error: Trying to access a Parameter writer without any reference set" );
+		}
+	}
+
+	return pStructureParameterWriter;
 }
 
 SamplerParameterWriter* ParameterContainer::GetSamplerParameterWriter( const std::wstring& name )
@@ -292,11 +326,11 @@ ConstantBufferParameterWriter* ParameterContainer::GetConstantBufferParameterWri
 	return pConstantBufferParameterWriter;
 }
 
-void ParameterContainer::SetRenderParams( IParameterManager* pParamMgr )
+void ParameterContainer::UpdateRenderParam( IParameterManager* pParamMgr )
 {
 	for( auto pParamWriter : m_RenderParameter )
 	{
-		pParamWriter->WriteParameter( pParamMgr );
+		pParamWriter->UpdateValueToParameter( pParamMgr );
 	}
 }
 
@@ -420,4 +454,21 @@ MatrixArrayParameterWriter* ParameterContainer::SetValueToMatrixArrayParameterWr
 	pMatrixArrayParameterWriter->SetValue( Value , count );
 
 	return pMatrixArrayParameterWriter;
+}
+
+StructureParameterWriter* ParameterContainer::SetValueToStructureParameterWriter( const std::wstring& name , char* Value , int Size )
+{
+	StructureParameterWriter* pStructureParameterWriter = GetStructureParameterWriter( name );
+
+	if ( nullptr == pStructureParameterWriter )
+	{
+		pStructureParameterWriter = new StructureParameterWriter;
+		// 创建StructureParameterWriter的RenderParameterRef
+		pStructureParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetStructureParameterRef( name , Size ) );
+		AddRenderParameter( pStructureParameterWriter );
+	}
+
+	pStructureParameterWriter->SetValue( Value , Size );
+
+	return pStructureParameterWriter;
 }

@@ -20,7 +20,7 @@ void BlendStateConfig::SetDefault()
 	// 该参数为false，则所有的render target使用RenderTarget[0]进行混合
 	IndependentBlendEnable = false;
 
-	// color = color_src * SrcBlend BlendOp color_dest * .DestBlend
+	// color = color_src * SrcBlend BlendOp color_dest * DestBlend
 	// alpha = a_src * SrcBlendAlpha BlendOpAlpha a_dest * DestBlendAlpha
 	for( int i = 0; i < 8; i++ )
 	{

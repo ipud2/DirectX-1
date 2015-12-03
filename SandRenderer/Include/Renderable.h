@@ -20,15 +20,15 @@ namespace Sand
 		void SetGeometry( InputAssemblerStageExecutorPtr pExecutor );
 		InputAssemblerStageExecutorPtr GetGeometry();
 
-		void SetSurfaceProperty( SurfacePropertyPtr pSurfaceProperty );
-		SurfacePropertyPtr GetSurfaceProperty();
+		void SetSurfaceProperty( SurfaceProperty* pSurfaceProperty );
+		SurfaceProperty* GetSurfaceProperty();
 
 	public:
 		InputAssemblerStageExecutorPtr IAStageExecutor;
 
 		MaterialPtr Mat;
 
-		SurfacePropertyPtr Property;
+		SurfaceProperty* Property;
 	};
 }
 #endif

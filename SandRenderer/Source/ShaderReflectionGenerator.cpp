@@ -123,6 +123,10 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 						pRenderParameter = pParameterManager->GetMatrixArrayParameterRef( SandString::ToUnicode( VariableDesc.Name ) , count );
 					}
 				}
+				else if ( TypeDesc.Class == D3D_SVC_STRUCT )
+				{
+					pRenderParameter = pParameterManager->GetStructureParameterRef( SandString::ToUnicode( VariableDesc.Name ) , VariableDesc.Size );
+				}
 
 				CBufferDesc.Parameters.push_back( pRenderParameter );
 			}

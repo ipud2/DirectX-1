@@ -11,7 +11,7 @@ namespace Sand
 		ConstantBufferParameterWriter();
 		virtual ~ConstantBufferParameterWriter();
 
-		virtual void WriteParameter( IParameterManager* pParamMgr );
+		virtual void UpdateValueToParameter( IParameterManager* pParamMgr );
 		virtual void InitializeParameter();
 
 		virtual RenderParameter* GetRenderParameterRef();
