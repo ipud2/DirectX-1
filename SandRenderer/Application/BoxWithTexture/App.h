@@ -18,6 +18,10 @@
 
 #include "SurfaceProperty.h"
 
+#include "DirectionalLight.h"
+
+#include "BasicSurfaceProperty.h"
+
 namespace Sand
 {
 	class App : public Application
@@ -70,14 +74,14 @@ namespace Sand
 
 		Camera* m_pCameras;
 
-		Light* m_pLight;
+		DirectionalLight* m_pLight;
 
 		ResourceProxyPtr m_pWoodCrateTexture;
 		int m_iLinearSampler;
 
 		Matrix4f m_TexTransform;
 
-		SurfaceProperty* m_pBoxSurfaceProperty;
+		BasicSurfaceProperty* m_pBoxSurfaceProperty;
 	};
 };
 #endif

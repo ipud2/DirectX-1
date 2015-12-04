@@ -23,12 +23,8 @@ Camera::Camera()
 
 	m_ProjMatrix.MakeIdentity();
 
-	/*
-		用于将View Position写入到对应参数的Writer中
-		这里是第一次调用，因此会在参数管理器中创建一个名字为ViewPosition的参数对象
-		并设置其初始值
-	*/
-	m_pViewPositionWriter = Parameters.SetValueToVectorParameterWriter( L"ViewPosition" , Vector4f( 0.0f , 0.0f , 0.0f , 0.0f ) );
+	m_pViewPositionWriter = Parameters.GetVectorParameterWriter( L"ViewPosition" );
+	m_pViewPositionWriter->SetValue( Vector4f( 0.0f , 0.0f , 0.0f , 0.0f ) );			
 }
 
 Camera::~Camera()

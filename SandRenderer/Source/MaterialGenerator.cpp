@@ -150,7 +150,8 @@ MaterialPtr MaterialGenerator::GenerateTexMaterial( Renderer& renderer )
 
 
 	ResourceProxyPtr ColorTexture = renderer.LoadTexture( L"EyeOfHorus_128.png" );
-	pMaterial->Parameters.SetValueToShaderResourceParameterWriter( L"ColorTexture" , ColorTexture );
+	ShaderResourceParameterWriter* pShaderResourceParameterWriter = pMaterial->Parameters.GetShaderResourceParameterWriter( L"ColorTexture" );
+	pShaderResourceParameterWriter->SetValue( ColorTexture );
 
 
 	// 创建采样器对象
@@ -161,7 +162,8 @@ MaterialPtr MaterialGenerator::GenerateTexMaterial( Renderer& renderer )
 	SamplerConfigure.MaxAnisotropy = 0;
 
 	int LinearSampler = renderer.CreateSamplerState( &SamplerConfigure );
-	pMaterial->Parameters.SetValueToSamplerParameterWriter( L"LinearSampler" , LinearSampler );
+	SamplerParameterWriter* pSamplerParameterWriter = pMaterial->Parameters.GetSamplerParameterWriter( L"LinearSampler" );
+	pSamplerParameterWriter->SetValue( LinearSampler );
 
 	return pMaterial;
 }

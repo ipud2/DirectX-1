@@ -43,7 +43,6 @@ void ParameterContainer::AddRenderParameter( ParameterWriter* pWriter )
 		{
 			Log::Get().Write( L"tried to add a parameter writer to an entity that was already there" );
 		}
-
 	}
 }
 
@@ -96,6 +95,16 @@ VectorParameterWriter* ParameterContainer::GetVectorParameterWriter( const std::
 		}
 
 	}
+	
+	/*
+		若不存在，则创建
+	*/
+	if ( pVectorParameterWriter == nullptr )
+	{
+		pVectorParameterWriter = new VectorParameterWriter;
+		pVectorParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetVectorParameterRef( name ) );
+		AddRenderParameter( pVectorParameterWriter );
+	}
 
 	return pVectorParameterWriter;
 }
@@ -129,10 +138,18 @@ MatrixParameterWriter* ParameterContainer::GetMatrixParameterWriter( const std::
 
 	}
 
+
+	if ( nullptr == pMatrixParameterWriter )
+	{
+		pMatrixParameterWriter = new MatrixParameterWriter;
+		pMatrixParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetMatrixParameterRef( name ) );
+		AddRenderParameter( pMatrixParameterWriter );
+	}
+
 	return pMatrixParameterWriter;
 }
 
-MatrixArrayParameterWriter* ParameterContainer::GetMatrixArrayParameterWriter( const std::wstring& name )
+MatrixArrayParameterWriter* ParameterContainer::GetMatrixArrayParameterWriter( const std::wstring& name , int count )
 {
 	// 获取name对应的ParameterWriter
 	ParameterWriter* pParameterWriter = GetRenderParameterWriter( name );
@@ -161,10 +178,17 @@ MatrixArrayParameterWriter* ParameterContainer::GetMatrixArrayParameterWriter( c
 
 	}
 
+	if ( nullptr == pMatrixArrayParameterWriter )
+	{
+		pMatrixArrayParameterWriter = new MatrixArrayParameterWriter;
+		pMatrixArrayParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetMatrixArrayParameterRef( name , count ) );
+		AddRenderParameter( pMatrixArrayParameterWriter );
+	}
+
 	return pMatrixArrayParameterWriter;
 }
 
-StructureParameterWriter* ParameterContainer::GetStructureParameterWriter( const std::wstring& name )
+StructureParameterWriter* ParameterContainer::GetStructureParameterWriter( const std::wstring& name , int Size )
 {
 	// 我们要返回的对象
 	StructureParameterWriter* pStructureParameterWriter = nullptr;
@@ -193,6 +217,14 @@ StructureParameterWriter* ParameterContainer::GetStructureParameterWriter( const
 		{
 			Log::Get().Write( L"Error: Trying to access a Parameter writer without any reference set" );
 		}
+	}
+
+	if ( nullptr == pStructureParameterWriter )
+	{
+		pStructureParameterWriter = new StructureParameterWriter;
+		// 创建StructureParameterWriter的RenderParameterRef
+		pStructureParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetStructureParameterRef( name , Size ) );
+		AddRenderParameter( pStructureParameterWriter );
 	}
 
 	return pStructureParameterWriter;
@@ -227,6 +259,13 @@ SamplerParameterWriter* ParameterContainer::GetSamplerParameterWriter( const std
 
 	}
 
+	if ( nullptr == pSamplerParameterWriter )
+	{
+		pSamplerParameterWriter = new SamplerParameterWriter;
+		pSamplerParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetSamplerStateParameterRef( name ) );
+		AddRenderParameter( pSamplerParameterWriter );
+	}
+
 	return pSamplerParameterWriter;
 }
 
@@ -257,6 +296,14 @@ ShaderResourceParameterWriter* ParameterContainer::GetShaderResourceParameterWri
 			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
+	}
+
+
+	if ( nullptr == pShaderResourceParameterWriter )
+	{
+		pShaderResourceParameterWriter = new ShaderResourceParameterWriter;
+		pShaderResourceParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetShaderResourceParameterRef( name ) );
+		AddRenderParameter( pShaderResourceParameterWriter );
 	}
 
 	return pShaderResourceParameterWriter;
@@ -291,6 +338,13 @@ UnorderedAccessParameterWriter* ParameterContainer::GetUnorderedAccessParameterW
 
 	}
 
+	if ( nullptr == pUnorderedAccessParameterWriter )
+	{
+		pUnorderedAccessParameterWriter = new UnorderedAccessParameterWriter;
+		pUnorderedAccessParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetUnorderedAccessParameterRef( name ) );
+		AddRenderParameter( pUnorderedAccessParameterWriter );
+	}
+
 	return pUnorderedAccessParameterWriter;
 }
 
@@ -323,6 +377,13 @@ ConstantBufferParameterWriter* ParameterContainer::GetConstantBufferParameterWri
 
 	}
 
+	if ( nullptr == pConstantBufferParameterWriter )
+	{
+		pConstantBufferParameterWriter = new ConstantBufferParameterWriter;
+		pConstantBufferParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetConstantBufferParameterRef( name ) );
+		AddRenderParameter( pConstantBufferParameterWriter );
+	}
+
 	return pConstantBufferParameterWriter;
 }
 
@@ -340,135 +401,4 @@ void ParameterContainer::InitRenderParams()
 	{
 		pParamWriter->InitializeParameter();
 	}
-}
-
-ConstantBufferParameterWriter* ParameterContainer::SetValueToConstantBufferParameterWriter( const std::wstring& name , const ResourceProxyPtr& Value )
-{
-	ConstantBufferParameterWriter* pConstantBufferWriter = GetConstantBufferParameterWriter( name );
-
-	if( nullptr == pConstantBufferWriter )
-	{
-		pConstantBufferWriter = new ConstantBufferParameterWriter;
-		pConstantBufferWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetConstantBufferParameterRef( name ) );
-		AddRenderParameter( pConstantBufferWriter );
-	}
-
-
-	pConstantBufferWriter->SetValue( Value );
-
-	return pConstantBufferWriter;
-}
-
-ShaderResourceParameterWriter* ParameterContainer::SetValueToShaderResourceParameterWriter( const std::wstring& name , const ResourceProxyPtr& Value )
-{
-	ShaderResourceParameterWriter* pShaderResourceWriter = GetShaderResourceParameterWriter( name );
-
-	if( nullptr == pShaderResourceWriter )
-	{
-		pShaderResourceWriter = new ShaderResourceParameterWriter;
-		pShaderResourceWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetShaderResourceParameterRef( name ) );
-		AddRenderParameter( pShaderResourceWriter );
-	}
-
-
-	pShaderResourceWriter->SetValue( Value );
-
-	return pShaderResourceWriter;
-}
-
-UnorderedAccessParameterWriter* ParameterContainer::SetValueToUnorderedAccessParameterWriter( const std::wstring& name , const ResourceProxyPtr& Value )
-{
-	UnorderedAccessParameterWriter* pUnorderedAccessParameterWriter = GetUnorderedAccessParameterWriter( name );
-
-	if( nullptr == pUnorderedAccessParameterWriter )
-	{
-		pUnorderedAccessParameterWriter = new UnorderedAccessParameterWriter;
-		pUnorderedAccessParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetUnorderedAccessParameterRef( name ) );
-		AddRenderParameter( pUnorderedAccessParameterWriter );
-	}
-
-	pUnorderedAccessParameterWriter->SetValue( Value );
-
-	return pUnorderedAccessParameterWriter;
-}
-
-SamplerParameterWriter* ParameterContainer::SetValueToSamplerParameterWriter( const std::wstring& name , int Value )
-{
-	SamplerParameterWriter* pSamplerParameterWriter = GetSamplerParameterWriter( name );
-
-	if( nullptr == pSamplerParameterWriter )
-	{
-		pSamplerParameterWriter = new SamplerParameterWriter;
-		pSamplerParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetSamplerStateParameterRef( name ) );
-		AddRenderParameter( pSamplerParameterWriter );
-	}
-
-	pSamplerParameterWriter->SetValue( Value );
-
-	return pSamplerParameterWriter;
-}
-
-VectorParameterWriter* ParameterContainer::SetValueToVectorParameterWriter( const std::wstring& name , const Vector4f& Value )
-{
-	VectorParameterWriter* pVectorParameterWriter = GetVectorParameterWriter( name );
-
-	if( nullptr == pVectorParameterWriter )
-	{
-		pVectorParameterWriter = new VectorParameterWriter;
-		pVectorParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetVectorParameterRef( name ) );
-		AddRenderParameter( pVectorParameterWriter );
-	}
-
-	pVectorParameterWriter->SetValue( Value );
-
-	return pVectorParameterWriter;
-}
-
-MatrixParameterWriter* ParameterContainer::SetValueToMatrixParameterWriter( const std::wstring& name , const Matrix4f& Value )
-{
-	MatrixParameterWriter* pMatrixParameterWriter = GetMatrixParameterWriter( name );
-
-	if( nullptr == pMatrixParameterWriter )
-	{
-		pMatrixParameterWriter = new MatrixParameterWriter;
-		pMatrixParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetMatrixParameterRef( name ) );
-		AddRenderParameter( pMatrixParameterWriter );
-	}
-
-	pMatrixParameterWriter->SetValue( Value );
-
-	return pMatrixParameterWriter;
-}
-
-MatrixArrayParameterWriter* ParameterContainer::SetValueToMatrixArrayParameterWriter( const std::wstring& name , Matrix4f* Value , int count )
-{
-	MatrixArrayParameterWriter* pMatrixArrayParameterWriter = GetMatrixArrayParameterWriter( name );
-
-	if( nullptr == pMatrixArrayParameterWriter )
-	{
-		pMatrixArrayParameterWriter = new MatrixArrayParameterWriter;
-		pMatrixArrayParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetMatrixArrayParameterRef( name , count ) );
-		AddRenderParameter( pMatrixArrayParameterWriter );
-	}
-
-	pMatrixArrayParameterWriter->SetValue( Value , count );
-
-	return pMatrixArrayParameterWriter;
-}
-
-StructureParameterWriter* ParameterContainer::SetValueToStructureParameterWriter( const std::wstring& name , char* Value , int Size )
-{
-	StructureParameterWriter* pStructureParameterWriter = GetStructureParameterWriter( name );
-
-	if ( nullptr == pStructureParameterWriter )
-	{
-		pStructureParameterWriter = new StructureParameterWriter;
-		// 创建StructureParameterWriter的RenderParameterRef
-		pStructureParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetStructureParameterRef( name , Size ) );
-		AddRenderParameter( pStructureParameterWriter );
-	}
-
-	pStructureParameterWriter->SetValue( Value , Size );
-
-	return pStructureParameterWriter;
 }

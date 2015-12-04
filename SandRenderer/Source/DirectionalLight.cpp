@@ -8,19 +8,7 @@ DirectionalLight::DirectionalLight( int ElementCount )
 	m_pDirectionLightStructure( nullptr )
 {
 	m_pDirectionLightStructure = new DirectionalLightStructure[m_iElementCount];
-	m_pDirectionalLightStructureWriter = m_LightParameterWriters.SetValueToStructureParameterWriter( L"Light" , reinterpret_cast< char* >( m_pDirectionLightStructure ) , sizeof( DirectionalLightStructure ) * m_iElementCount );
-
-	m_pDirectionLightStructure[0].AmbientLight = Vector4f( 0.25f , 0.25f , 0.25f , 0.25f );
-	m_pDirectionLightStructure[0].DiffuseLight = Vector4f( 0.5f , 0.5f , 0.5f , 1.0f );
-	m_pDirectionLightStructure[0].SpecularLight = Vector4f( 1.0f , 1.0f , 1.0f , 1.0f );
-	m_pDirectionLightStructure[0].LightDirection = Vector4f( 0.707f , -0.707f , 0.0f , 1.0f );
-
-	m_pDirectionLightStructure[1].AmbientLight = Vector4f( 0.2f , 0.2f , 0.2f , 1.0f );
-	m_pDirectionLightStructure[1].DiffuseLight = Vector4f( 1.4f , 1.4f , 1.4f , 1.0f );
-	m_pDirectionLightStructure[1].SpecularLight = Vector4f( 0.3f , 0.3f , 0.3f , 16.0f );
-	m_pDirectionLightStructure[1].LightDirection = Vector4f( -0.707f , 0.0f , 0.707f , 1.0f );
-
-	m_pDirectionalLightStructureWriter->SetValue( reinterpret_cast< char* >( m_pDirectionLightStructure ) , sizeof( DirectionalLightStructure ) * 2 );
+	m_pDirectionalLightStructureWriter = m_LightParameterWriters.GetStructureParameterWriter( L"Light", sizeof( DirectionalLightStructure ) * m_iElementCount );
 }
 
 DirectionalLight::~DirectionalLight()

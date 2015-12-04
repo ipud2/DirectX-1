@@ -13,10 +13,6 @@
 
 #include "SamplerStateConfig.h"
 
-#include "BasicSurfaceProperty.h"
-
-#include "DirectionalLight.h"
-
 using namespace Sand;
 
 App AppInstance;
@@ -157,9 +153,9 @@ void App::Initialize()
 
 	// -----------------------------SurfaceProperty---------------------------------
 	m_pBoxSurfaceProperty = new BasicSurfaceProperty;
-	/*dynamic_cast< BasicSurfaceProperty* >( m_pBoxSurfaceProperty )->SetSurfaceProperty( Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) ,
-																					 Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
-																					 Vector4f( 0.6f , 0.6f , 0.6f , 16.0f ) );*/
+	m_pBoxSurfaceProperty->SetSurfaceProperty( Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) ,
+											   Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+											   Vector4f( 0.6f , 0.6f , 0.6f , 16.0f ) );
 
 	// --------------------------------create render view object--------------------------------------------
 	m_pRenderView = new ViewPerspective( *m_pRenderer , m_pRenderTarget , m_pDepthStencilTarget );
@@ -176,11 +172,16 @@ void App::Initialize()
 
 	// ---------------------------------Directional Light---------------------------------
 	m_pLight = new DirectionalLight( 2 );
-	/*dynamic_cast< DirectionalLight* >( m_pLight )->SetDirectionalLight( Vector4f( 0.25f , 0.25f , 0.25f , 0.25f ) ,
-																		Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) ,
-																		Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
-																		Vector4f( 0.707f , -0.707f , 0.0f , 1.0f ) ,
-																		0 );*/
+	m_pLight->SetDirectionalLight( Vector4f( 0.25f , 0.25f , 0.25f , 0.25f ) ,
+								   Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) ,
+								   Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+								   Vector4f( 0.707f , -0.707f , 0.0f , 1.0f ) ,
+								   0 );
+	m_pLight->SetDirectionalLight( Vector4f( 0.2f , 0.2f , 0.2f , 1.0f ) ,
+								   Vector4f( 1.4f , 1.4f , 1.4f , 1.0f ) ,
+								   Vector4f( 0.3f , 0.3f , 0.3f , 16.0f ) ,
+								   Vector4f( -0.707f , 0.0f , 0.707f , 1.0f ) ,
+								   1 );
 
 	// --------------------------------Actor and Entity------------------------------
 	m_pActor = new Actor;
@@ -264,9 +265,11 @@ void App::CreateMaterial()
 
 	// --------------------------------set texture-----------------------------
 	m_pWoodCrateTexture = m_pRenderer->LoadTexture( L"WoodCrate01.dds" );
-	m_pMaterial->Parameters.SetValueToShaderResourceParameterWriter( L"WoodCrateTexture" , m_pWoodCrateTexture );
+	ShaderResourceParameterWriter* pShaderResourceWriter = m_pMaterial->Parameters.GetShaderResourceParameterWriter( L"WoodCrateTexture" );
+	pShaderResourceWriter->SetValue( m_pWoodCrateTexture );
 
 	SamplerStateConfig config;
 	m_iLinearSampler = m_pRenderer->CreateSamplerState( &config );
-	m_pMaterial->Parameters.SetValueToSamplerParameterWriter( L"LinearSampler" , m_iLinearSampler );
+	SamplerParameterWriter* pSamplerWriter = m_pMaterial->Parameters.GetSamplerParameterWriter( L"LinearSampler" );
+	pSamplerWriter->SetValue( m_iLinearSampler );
 }
