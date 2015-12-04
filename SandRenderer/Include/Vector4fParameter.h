@@ -1,17 +1,17 @@
-#ifndef VectorParameter_h
-#define VectorParameter_h
+#ifndef Vector4fParameter_h
+#define Vector4fParameter_h
 
 #include "BaseNumericTypeRenderParameter.h"
 #include "Vector4f.h"
 
 namespace Sand
 {
-	class VectorParameter : public BaseNumericTypeRenderParameter
+	class Vector4fParameter : public BaseNumericTypeRenderParameter
 	{
 	public:
-		VectorParameter( std::wstring name );
-		VectorParameter( VectorParameter& copy );
-		virtual ~VectorParameter();
+		Vector4fParameter( std::wstring name );
+		Vector4fParameter( Vector4fParameter& copy );
+		virtual ~Vector4fParameter();
 
 		/*
 			设置数据，将会改变标识符

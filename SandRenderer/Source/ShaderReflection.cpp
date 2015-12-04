@@ -58,6 +58,8 @@ void ShaderReflection::InitConstantBufferParameter( IParameterManager* pParamete
 					element.Size = ConstantBuffers[i].Variables[j].Size;
 					element.ElementCount = ConstantBuffers[i].Types[j].Elements;
 					element.VarClass = ConstantBuffers[i].Types[j].Class;
+					element.VarType = ConstantBuffers[i].Types[j].Type;
+					element.Columns = ConstantBuffers[i].Types[j].Columns;
 					element.Identifier = -1;
 
 					cbuffer->AddElement( element );

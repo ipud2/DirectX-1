@@ -68,7 +68,7 @@ namespace Sand
 		Matrix4f m_ProjMatrix;
 
 	protected:
-		VectorParameterWriter* m_pViewPositionWriter;
+		Vector3fParameterWriter* m_pViewPositionWriter;
 		SpatialController<Node>* m_pSpatialController;
 	};
 }

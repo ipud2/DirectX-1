@@ -159,6 +159,33 @@
     <Filter Include="Resource\State">
       <UniqueIdentifier>{474f8e69-f094-4c41-94d1-47c97c67afe5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Parameter\Parameters\Numeric\Scalar">
+      <UniqueIdentifier>{8534860a-18df-4e8c-98e4-e53a04512bcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\Parameters\Numeric\Vector">
+      <UniqueIdentifier>{410c025b-c9e8-4245-b949-006a5de403a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\Parameters\Numeric\Matrix">
+      <UniqueIdentifier>{8a0aa56c-fc3e-4548-8c10-da029fe7bffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\Parameters\Struct">
+      <UniqueIdentifier>{c0a51dc7-44b9-42e8-a3bb-8e9441ceb528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\ParameterWriter\ScalarWriter">
+      <UniqueIdentifier>{9a762652-ac87-4dcc-b9fb-24735f5df56c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\ParameterWriter\VectorWriter">
+      <UniqueIdentifier>{0d3dfd70-7195-4b72-a7c4-c6553fe2f4c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\ParameterWriter\ObjectWriter">
+      <UniqueIdentifier>{c24940ee-f004-4778-a14d-47275609e7c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\ParameterWriter\MatrixWriter">
+      <UniqueIdentifier>{890ab011-dec5-45ca-b707-2d9da31f2108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter\ParameterWriter\StructWriter">
+      <UniqueIdentifier>{077bf1f6-345e-4e9b-abff-660a700726ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -407,15 +434,6 @@
     <ClInclude Include="..\Include\StructuredBuffer.h">
       <Filter>Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\VectorParameter.h">
-      <Filter>Parameter\Parameters\Numeric</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MatrixParameter.h">
-      <Filter>Parameter\Parameters\Numeric</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MatrixArrayParameter.h">
-      <Filter>Parameter\Parameters\Numeric</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\ConstantBufferParameter.h">
       <Filter>Parameter\Parameters\Object</Filter>
     </ClInclude>
@@ -509,27 +527,6 @@
     <ClInclude Include="..\Include\ParameterWriter.h">
       <Filter>Parameter\ParameterWriter</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\VectorParameterWriter.h">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MatrixParameterWriter.h">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MatrixArrayParameterWriter.h">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderResourceParameterWriter.h">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ConstantBufferParameterWriter.h">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\UnorderedAccessParameterWriter.h">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SamplerParameterWriter.h">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\ShaderFactory.h">
       <Filter>Pipeline\PipelineStage\ProgrammableStage</Filter>
     </ClInclude>
@@ -590,11 +587,53 @@
     <ClInclude Include="..\Include\BasicSurfaceProperty.h">
       <Filter>SurfaceProperty</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\MatrixArrayParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MatrixParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Vector2fParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Vector3fParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Vector4fParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClInclude>
     <ClInclude Include="..\Include\StructureParameter.h">
-      <Filter>Parameter\Parameters\Numeric</Filter>
+      <Filter>Parameter\Parameters\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ConstantBufferParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MatrixArrayParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MatrixParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SamplerParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ShaderResourceParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\UnorderedAccessParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Vector2fParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Vector3fParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Vector4fParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\StructureParameterWriter.h">
-      <Filter>Parameter\ParameterWriter</Filter>
+      <Filter>Parameter\ParameterWriter\StructWriter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -823,15 +862,6 @@
     <ClCompile Include="StructuredBuffer.cpp">
       <Filter>Resource\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="VectorParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixArrayParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric</Filter>
-    </ClCompile>
     <ClCompile Include="ConstantBufferParameter.cpp">
       <Filter>Parameter\Parameters\Object</Filter>
     </ClCompile>
@@ -919,27 +949,6 @@
     <ClCompile Include="ParameterWriter.cpp">
       <Filter>Parameter\ParameterWriter</Filter>
     </ClCompile>
-    <ClCompile Include="VectorParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixArrayParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderResourceParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstantBufferParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="UnorderedAccessParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="SamplerParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderFactory.cpp">
       <Filter>Pipeline\PipelineStage\ProgrammableStage</Filter>
     </ClCompile>
@@ -994,11 +1003,53 @@
     <ClCompile Include="BasicSurfaceProperty.cpp">
       <Filter>SurfaceProperty</Filter>
     </ClCompile>
+    <ClCompile Include="MatrixArrayParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2fParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3fParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4fParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClCompile>
     <ClCompile Include="StructureParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric</Filter>
+      <Filter>Parameter\Parameters\Struct</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstantBufferParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixArrayParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="SamplerParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderResourceParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="UnorderedAccessParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2fParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4fParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3fParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
     </ClCompile>
     <ClCompile Include="StructureParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter</Filter>
+      <Filter>Parameter\ParameterWriter\StructWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

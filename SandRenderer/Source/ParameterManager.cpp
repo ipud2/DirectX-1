@@ -27,14 +27,14 @@ ParameterManager::~ParameterManager()
 
 
 // ------------------------------------------------Set Paramter Data-------------------------------------------------------------
-void ParameterManager::SetVectorParameterData( const std::wstring& name , Vector4f* pVector )
+void ParameterManager::SetVector4fParameterData( const std::wstring& name , Vector4f* pVector )
 {
 	RenderParameter* pParameter = Parameters[name];
 
 	if( pParameter == nullptr )
 	{
 		// 不存在该参数，则新建一个
-		pParameter = new VectorParameter( name );
+		pParameter = new Vector4fParameter( name );
 		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
 
 		pParameter->SetParameterData( reinterpret_cast< void* >( pVector ) );
@@ -44,7 +44,63 @@ void ParameterManager::SetVectorParameterData( const std::wstring& name , Vector
 		// 该参数存在
 
 		// 验证类型是否符合
-		if( Parameters[name]->GetParameterType() == PT_VECTOR )
+		if( Parameters[name]->GetParameterType() == PT_VECTOR_4F )
+		{
+			Parameters[name]->SetParameterData( reinterpret_cast< void* >( pVector ) );
+		}
+		else
+		{
+			Log::Get().Write( L"尝试将Vector值赋给非Vector型参数" );
+		}
+	}
+}
+
+void ParameterManager::SetVector3fParameterData( const std::wstring& name , Vector3f* pVector )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		// 不存在该参数，则新建一个
+		pParameter = new Vector3fParameter( name );
+		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
+
+		pParameter->SetParameterData( reinterpret_cast< void* >( pVector ) );
+	}
+	else
+	{
+		// 该参数存在
+
+		// 验证类型是否符合
+		if ( Parameters[name]->GetParameterType() == PT_VECTOR_3F )
+		{
+			Parameters[name]->SetParameterData( reinterpret_cast< void* >( pVector ) );
+		}
+		else
+		{
+			Log::Get().Write( L"尝试将Vector值赋给非Vector型参数" );
+		}
+	}
+}
+
+void ParameterManager::SetVector2fParameterData( const std::wstring& name , Vector2f* pVector )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		// 不存在该参数，则新建一个
+		pParameter = new Vector2fParameter( name );
+		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
+
+		pParameter->SetParameterData( reinterpret_cast< void* >( pVector ) );
+	}
+	else
+	{
+		// 该参数存在
+
+		// 验证类型是否符合
+		if ( Parameters[name]->GetParameterType() == PT_VECTOR_2F )
 		{
 			Parameters[name]->SetParameterData( reinterpret_cast< void* >( pVector ) );
 		}
@@ -257,10 +313,37 @@ void ParameterManager::SetSamplerStateParameterData( const std::wstring& name , 
 }
 
 
-void ParameterManager::SetVectorParameterData( RenderParameter* pParameter , Vector4f* pVector )
+void ParameterManager::SetVector4fParameterData( RenderParameter* pParameter , Vector4f* pVector )
 {
 	// 检测类型是否符合
-	if( pParameter->GetParameterType() == PT_VECTOR )
+	if( pParameter->GetParameterType() == PT_VECTOR_4F )
+	{
+		pParameter->SetParameterData( reinterpret_cast< void* >( pVector ) );
+	}
+	else
+	{
+		Log::Get().Write( L"参数类型不符，该参数不是Vector类型" );
+	}
+}
+
+
+void ParameterManager::SetVector3fParameterData( RenderParameter* pParameter , Vector3f* pVector )
+{
+	// 检测类型是否符合
+	if ( pParameter->GetParameterType() == PT_VECTOR_3F )
+	{
+		pParameter->SetParameterData( reinterpret_cast< void* >( pVector ) );
+	}
+	else
+	{
+		Log::Get().Write( L"参数类型不符，该参数不是Vector类型" );
+	}
+}
+
+void ParameterManager::SetVector2fParameterData( RenderParameter* pParameter , Vector2f* pVector )
+{
+	// 检测类型是否符合
+	if ( pParameter->GetParameterType() == PT_VECTOR_2F )
 	{
 		pParameter->SetParameterData( reinterpret_cast< void* >( pVector ) );
 	}
@@ -371,18 +454,46 @@ RenderParameter* ParameterManager::GetParameterRef( const std::wstring& name )
 	return pParameter;
 }
 
-VectorParameter* ParameterManager::GetVectorParameterRef( const std::wstring& name )
+Vector4fParameter* ParameterManager::GetVector4fParameterRef( const std::wstring& name )
 {
 	RenderParameter* pParameter = Parameters[name];
 
 	if( pParameter == nullptr )
 	{
 		// 创建参数对象
-		pParameter = new VectorParameter( name );
+		pParameter = new Vector4fParameter( name );
 		Parameters[name] = pParameter;
 	}
 
-	return reinterpret_cast< VectorParameter* >( pParameter );
+	return reinterpret_cast< Vector4fParameter* >( pParameter );
+}
+
+Vector3fParameter* ParameterManager::GetVector3fParameterRef( const std::wstring& name )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		// 创建参数对象
+		pParameter = new Vector3fParameter( name );
+		Parameters[name] = pParameter;
+	}
+
+	return reinterpret_cast< Vector3fParameter* >( pParameter );
+}
+
+Vector2fParameter* ParameterManager::GetVector2fParameterRef( const std::wstring& name )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		// 创建参数对象
+		pParameter = new Vector2fParameter( name );
+		Parameters[name] = pParameter;
+	}
+
+	return reinterpret_cast< Vector2fParameter* >( pParameter );
 }
 
 MatrixParameter* ParameterManager::GetMatrixParameterRef( const std::wstring& name )
@@ -483,7 +594,7 @@ SamplerParameter* ParameterManager::GetSamplerStateParameterRef( const std::wstr
 }
 
 // --------------------------------------------------获取参数对象的值---------------------------------------
-Vector4f ParameterManager::GetVectorParameterData( const std::wstring& name )
+Vector4f ParameterManager::GetVector4fParameterData( const std::wstring& name )
 {
 	RenderParameter* pParameter = Parameters[name];
 
@@ -492,14 +603,60 @@ Vector4f ParameterManager::GetVectorParameterData( const std::wstring& name )
 
 	if( pParameter == nullptr )
 	{
-		pParameter = new VectorParameter( name );
+		pParameter = new Vector4fParameter( name );
 		Parameters[name] = pParameter;
 	}
 	else
 	{
-		if( pParameter->GetParameterType() == PT_VECTOR )
+		if( pParameter->GetParameterType() == PT_VECTOR_4F )
 		{
-			result = reinterpret_cast< VectorParameter* >( pParameter )->GetVector();
+			result = reinterpret_cast< Vector4fParameter* >( pParameter )->GetVector();
+		}
+	}
+
+	return result;
+}
+
+Vector3f ParameterManager::GetVector3fParameterData( const std::wstring& name )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	Vector3f result;
+	result.MakeZero();
+
+	if ( pParameter == nullptr )
+	{
+		pParameter = new Vector3fParameter( name );
+		Parameters[name] = pParameter;
+	}
+	else
+	{
+		if ( pParameter->GetParameterType() == PT_VECTOR_3F )
+		{
+			result = reinterpret_cast< Vector3fParameter* >( pParameter )->GetVector();
+		}
+	}
+
+	return result;
+}
+
+Vector2f ParameterManager::GetVector2fParameterData( const std::wstring& name )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	Vector2f result;
+	result.MakeZero();
+
+	if ( pParameter == nullptr )
+	{
+		pParameter = new Vector2fParameter( name );
+		Parameters[name] = pParameter;
+	}
+	else
+	{
+		if ( pParameter->GetParameterType() == PT_VECTOR_2F )
+		{
+			result = reinterpret_cast< Vector2fParameter* >( pParameter )->GetVector();
 		}
 	}
 
@@ -668,16 +825,46 @@ int ParameterManager::GetSamplerStateParameterData( const std::wstring& name )
 	return result;
 }
 
-Vector4f ParameterManager::GetVectorParameterData( RenderParameter* pParameter )
+Vector4f ParameterManager::GetVector4fParameterData( RenderParameter* pParameter )
 {
 	assert( pParameter != 0 );
 	
 	Vector4f result;
 	result.MakeZero();
 
-	if( pParameter->GetParameterType() == PT_VECTOR )
+	if( pParameter->GetParameterType() == PT_VECTOR_4F )
 	{
-		result = reinterpret_cast< VectorParameter* >( pParameter )->GetVector();
+		result = reinterpret_cast< Vector4fParameter* >( pParameter )->GetVector();
+	}
+
+	return result;
+}
+
+Vector3f ParameterManager::GetVector3fParameterData( RenderParameter* pParameter )
+{
+	assert( pParameter != 0 );
+
+	Vector3f result;
+	result.MakeZero();
+
+	if ( pParameter->GetParameterType() == PT_VECTOR_3F )
+	{
+		result = reinterpret_cast< Vector3fParameter* >( pParameter )->GetVector();
+	}
+
+	return result;
+}
+
+Vector2f ParameterManager::GetVector2fParameterData( RenderParameter* pParameter )
+{
+	assert( pParameter != 0 );
+
+	Vector2f result;
+	result.MakeZero();
+
+	if ( pParameter->GetParameterType() == PT_VECTOR_2F )
+	{
+		result = reinterpret_cast< Vector2fParameter* >( pParameter )->GetVector();
 	}
 
 	return result;

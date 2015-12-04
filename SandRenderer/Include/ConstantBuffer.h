@@ -13,9 +13,10 @@ namespace Sand
 
 		unsigned int Offset;
 		unsigned int Size;
-		D3D_SHADER_VARIABLE_CLASS VarClass;
-		unsigned int ElementCount;
-
+		unsigned int ElementCount;				// 用于数组元素个数
+		D3D_SHADER_VARIABLE_TYPE VarType;		// 变量类型：float , bool , int
+		D3D_SHADER_VARIABLE_CLASS VarClass;		// 变量类：矢量，标量，矩阵
+		unsigned int Columns;					// float4的Columns为4
 		// ConstantBuffe中的每个Element必定都是数值型
 		// 正如数值型参数对象中所设计的那样，我们保存了一个标识符
 		// 每次往参数中写入数据时，该标识符将会自增

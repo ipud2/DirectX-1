@@ -55,12 +55,44 @@ void ConstantBuffer::EvaluateElements( PipelineManager* pPipelineManager , IPara
 
 				unsigned int Offset = m_vElements[i].Offset;
 
-				if( m_vElements[i].VarClass == D3D_SVC_VECTOR )
+				if ( m_vElements[i].VarClass == D3D_SVC_SCALAR )
 				{
-					// 该元素为变量
-					Vector4f vector = pParameterManager->GetVectorParameterData( m_vElements[i].pParamRef );
-					Vector4f* pBuf = ( Vector4f* )( ( char* )MappedResource.pData + Offset );
-					*pBuf = vector;
+					if ( m_vElements[i].VarType == D3D_SVT_FLOAT )
+					{
+						// ---------------float--------------
+					}
+					else if ( m_vElements[i].VarClass == D3D_SVT_BOOL )
+					{
+						// ---------------bool--------------
+					}
+					else if ( m_vElements[i].VarClass == D3D_SVT_INT )
+					{
+						// ---------------int------------------
+					}
+				}
+				else if( m_vElements[i].VarClass == D3D_SVC_VECTOR )
+				{
+					if ( m_vElements[i].Columns == 4 )
+					{
+						// -------------float4-----------------
+						Vector4f vector = pParameterManager->GetVector4fParameterData( m_vElements[i].pParamRef );
+						Vector4f* pBuf = ( Vector4f* )( ( char* )MappedResource.pData + Offset );
+						*pBuf = vector;
+					}
+					else if ( m_vElements[i].Columns == 3 )
+					{
+						// ----------------float2-----------------
+						Vector3f vector = pParameterManager->GetVector3fParameterData( m_vElements[i].pParamRef );
+						Vector3f* pBuf = ( Vector3f* )( ( char* )MappedResource.pData + Offset );
+						*pBuf = vector;
+					}
+					else if ( m_vElements[i].Columns == 2 )
+					{
+						// ------------float2-----------------
+						Vector2f vector = pParameterManager->GetVector2fParameterData( m_vElements[i].pParamRef );
+						Vector2f* pBuf = ( Vector2f* )( ( char* )MappedResource.pData + Offset );
+						*pBuf = vector;
+					}
 				}
 				else if( m_vElements[i].VarClass == D3D_SVC_MATRIX_COLUMNS || m_vElements[i].VarClass == D3D_SVC_MATRIX_ROWS )
 				{

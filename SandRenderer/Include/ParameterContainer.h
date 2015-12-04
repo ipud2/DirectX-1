@@ -6,7 +6,9 @@
 #include "ShaderResourceParameterWriter.h"
 #include "UnorderedAccessParameterWriter.h"
 #include "SamplerParameterWriter.h"
-#include "VectorParameterWriter.h"
+#include "Vector4fParameterWriter.h"
+#include "Vector3fParameterWriter.h"
+#include "Vector2fParameterWriter.h"
 #include "MatrixParameterWriter.h"
 #include "MatrixArrayParameterWriter.h"
 #include "StructureParameterWriter.h"
@@ -27,7 +29,9 @@ namespace Sand
 			若不存在，则创建
 		*/
 		ParameterWriter* GetRenderParameterWriter( const std::wstring& name );
-		VectorParameterWriter* GetVectorParameterWriter( const std::wstring& name );
+		Vector4fParameterWriter* GetVector4fParameterWriter( const std::wstring& name );
+		Vector3fParameterWriter* GetVector3fParameterWriter( const std::wstring& name );
+		Vector2fParameterWriter* GetVector2fParameterWriter( const std::wstring& name );
 		MatrixParameterWriter* GetMatrixParameterWriter( const std::wstring& name );
 		MatrixArrayParameterWriter* GetMatrixArrayParameterWriter( const std::wstring& name , int count );
 		StructureParameterWriter* GetStructureParameterWriter( const std::wstring& name , int Size );

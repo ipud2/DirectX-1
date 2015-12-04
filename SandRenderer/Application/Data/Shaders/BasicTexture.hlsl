@@ -68,7 +68,7 @@ cbuffer Transforms
 
 cbuffer PhongParameter
 {
-	float4 ViewPosition;
+	float3 ViewPosition;
 };
 
 SamplerState LinearSampler;
@@ -106,7 +106,7 @@ float4 PSMain(in PixelIn input) : SV_Target
 	input.NormalW = normalize(input.NormalW);
 
 	// 计算指向视点的向量
-	float3 ToEye = ViewPosition.xyz - input.PosW;
+	float3 ToEye = ViewPosition - input.PosW;
 
 	float dist = length(ToEye);
 

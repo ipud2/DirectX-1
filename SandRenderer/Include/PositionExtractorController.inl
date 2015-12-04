@@ -23,7 +23,7 @@ void PositionExtractorController<T>::Update( float fTime )
 }
 
 template<typename T>
-void PositionExtractorController<T>::SetParameterWriter( VectorParameterWriter* pWriter )
+void PositionExtractorController<T>::SetParameterWriter( Vector4fParameterWriter* pWriter )
 {
 	m_pWriter = pWriter;
 }

@@ -67,11 +67,11 @@ ParameterWriter* ParameterContainer::GetRenderParameterWriter( const std::wstrin
 	return result;
 }
 
-VectorParameterWriter* ParameterContainer::GetVectorParameterWriter( const std::wstring& name )
+Vector4fParameterWriter* ParameterContainer::GetVector4fParameterWriter( const std::wstring& name )
 {
 	// 获取name对应的ParameterWriter
 	ParameterWriter* pParameterWriter = GetRenderParameterWriter( name );
-	VectorParameterWriter* pVectorParameterWriter = nullptr;
+	Vector4fParameterWriter* pVectorParameterWriter = nullptr;
 
 	if( pParameterWriter )
 	{
@@ -80,9 +80,9 @@ VectorParameterWriter* ParameterContainer::GetVectorParameterWriter( const std::
 		if( pParameter )
 		{
 			// 检查其类型是否为Vector
-			if( pParameter->GetParameterType() == PT_VECTOR )
+			if( pParameter->GetParameterType() == PT_VECTOR_4F )
 			{
-				pVectorParameterWriter = dynamic_cast< VectorParameterWriter* >( pParameterWriter );
+				pVectorParameterWriter = dynamic_cast< Vector4fParameterWriter* >( pParameterWriter );
 			}
 			else
 			{
@@ -101,8 +101,92 @@ VectorParameterWriter* ParameterContainer::GetVectorParameterWriter( const std::
 	*/
 	if ( pVectorParameterWriter == nullptr )
 	{
-		pVectorParameterWriter = new VectorParameterWriter;
-		pVectorParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetVectorParameterRef( name ) );
+		pVectorParameterWriter = new Vector4fParameterWriter;
+		pVectorParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetVector4fParameterRef( name ) );
+		AddRenderParameter( pVectorParameterWriter );
+	}
+
+	return pVectorParameterWriter;
+}
+
+Vector3fParameterWriter* ParameterContainer::GetVector3fParameterWriter( const std::wstring& name )
+{
+	// 获取name对应的ParameterWriter
+	ParameterWriter* pParameterWriter = GetRenderParameterWriter( name );
+	Vector3fParameterWriter* pVectorParameterWriter = nullptr;
+
+	if ( pParameterWriter )
+	{
+		RenderParameter* pParameter = pParameterWriter->GetRenderParameterRef();
+
+		if ( pParameter )
+		{
+			// 检查其类型是否为Vector
+			if ( pParameter->GetParameterType() == PT_VECTOR_3F )
+			{
+				pVectorParameterWriter = dynamic_cast< Vector3fParameterWriter* >( pParameterWriter );
+			}
+			else
+			{
+				Log::Get().Write( L"Error: Trying to access a vector in a non-vector parameter writers!!" );
+			}
+		}
+		else
+		{
+			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+		}
+
+	}
+
+	/*
+		若不存在，则创建
+	*/
+	if ( pVectorParameterWriter == nullptr )
+	{
+		pVectorParameterWriter = new Vector3fParameterWriter;
+		pVectorParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetVector3fParameterRef( name ) );
+		AddRenderParameter( pVectorParameterWriter );
+	}
+
+	return pVectorParameterWriter;
+}
+
+Vector2fParameterWriter* ParameterContainer::GetVector2fParameterWriter( const std::wstring& name )
+{
+	// 获取name对应的ParameterWriter
+	ParameterWriter* pParameterWriter = GetRenderParameterWriter( name );
+	Vector2fParameterWriter* pVectorParameterWriter = nullptr;
+
+	if ( pParameterWriter )
+	{
+		RenderParameter* pParameter = pParameterWriter->GetRenderParameterRef();
+
+		if ( pParameter )
+		{
+			// 检查其类型是否为Vector
+			if ( pParameter->GetParameterType() == PT_VECTOR_2F )
+			{
+				pVectorParameterWriter = dynamic_cast< Vector2fParameterWriter* >( pParameterWriter );
+			}
+			else
+			{
+				Log::Get().Write( L"Error: Trying to access a vector in a non-vector parameter writers!!" );
+			}
+		}
+		else
+		{
+			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+		}
+
+	}
+
+	/*
+	若不存在，则创建
+	*/
+	if ( pVectorParameterWriter == nullptr )
+	{
+		pVectorParameterWriter = new Vector2fParameterWriter;
+		pVectorParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetVector2fParameterRef( name ) );
 		AddRenderParameter( pVectorParameterWriter );
 	}
 

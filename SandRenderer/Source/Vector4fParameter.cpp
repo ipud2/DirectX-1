@@ -1,27 +1,27 @@
 #include "PCH.h"
-#include "VectorParameter.h"
+#include "Vector4fParameter.h"
 
 using namespace Sand;
 
-VectorParameter::VectorParameter( std::wstring name )
+Vector4fParameter::Vector4fParameter( std::wstring name )
 	:BaseNumericTypeRenderParameter( name )
 {
 	// 清零
 	m_Vector.MakeZero();
 }
 
-VectorParameter::VectorParameter( VectorParameter& copy )
+Vector4fParameter::Vector4fParameter( Vector4fParameter& copy )
 	:BaseNumericTypeRenderParameter( copy )
 {
 	m_Vector = copy.m_Vector;
 }
 
-VectorParameter::~VectorParameter()
+Vector4fParameter::~Vector4fParameter()
 {
 
 }
 
-void VectorParameter::SetParameterData( void* pData )
+void Vector4fParameter::SetParameterData( void* pData )
 {
 	// 逐字节比较数据是否是一样的
 	if( 0 != memcmp( pData , &m_Vector , sizeof( Vector4f ) ) )
@@ -32,17 +32,17 @@ void VectorParameter::SetParameterData( void* pData )
 	}
 }
 
-const ParameterType VectorParameter::GetParameterType()
+const ParameterType Vector4fParameter::GetParameterType()
 {
-	return PT_VECTOR;
+	return PT_VECTOR_4F;
 }
 
-Vector4f VectorParameter::GetVector()
+Vector4f Vector4fParameter::GetVector()
 {
 	return m_Vector;
 }
 
-void VectorParameter::SetVector( Vector4f v )
+void Vector4fParameter::SetVector( Vector4f v )
 {
 	// 若不一致，则设置为新的值
 	if( m_Vector != v )

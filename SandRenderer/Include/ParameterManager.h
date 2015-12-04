@@ -14,7 +14,9 @@ namespace Sand
 	public:
 		// ----------------------------设置参数值---------------------------------------
 		// 根据name设置参数值
-		virtual void SetVectorParameterData( const std::wstring& name , Vector4f* pVector );
+		virtual void SetVector4fParameterData( const std::wstring& name , Vector4f* pVector );
+		virtual void SetVector3fParameterData( const std::wstring& name , Vector3f* pVector );
+		virtual void SetVector2fParameterData( const std::wstring& name , Vector2f* pVector );
 		virtual void SetMatrixParameterData( const std::wstring& name , Matrix4f* pMatrix );
 		virtual void SetMatrixArrayParameterData( const std::wstring& name , int count , Matrix4f* pMatrices );
 		virtual void SetStructureParameterData( const std::wstring& name , int size , char* pData );
@@ -24,7 +26,9 @@ namespace Sand
 		virtual void SetSamplerStateParameterData( const std::wstring& name , int* pID );
 
 		// 根据RenderParameterDX11设置参数值
-		virtual void SetVectorParameterData( RenderParameter* pParameter , Vector4f* pVector );
+		virtual void SetVector4fParameterData( RenderParameter* pParameter , Vector4f* pVector );
+		virtual void SetVector3fParameterData( RenderParameter* pParameter , Vector3f* pVector );
+		virtual void SetVector2fParameterData( RenderParameter* pParameter , Vector2f* pVector );
 		virtual void SetMatrixParameterData( RenderParameter* pParameter , Matrix4f* pMatrix );
 		virtual void SetMatrixArrayParameterData( RenderParameter* pParameter , Matrix4f* pMatrices );
 		virtual void SetStructureParameterData( RenderParameter* pParameters , char* pStructure );
@@ -37,7 +41,9 @@ namespace Sand
 	public:
 		// ------------------------获取参数引用---------------------------------------
 		virtual RenderParameter* GetParameterRef( const std::wstring& name );
-		virtual VectorParameter* GetVectorParameterRef( const std::wstring& name );
+		virtual Vector4fParameter* GetVector4fParameterRef( const std::wstring& name );
+		virtual Vector3fParameter* GetVector3fParameterRef( const std::wstring& name );
+		virtual Vector2fParameter* GetVector2fParameterRef( const std::wstring& name );
 		virtual MatrixParameter* GetMatrixParameterRef( const std::wstring& name );
 		virtual MatrixArrayParameter* GetMatrixArrayParameterRef( const std::wstring& name , int count );
 		virtual StructureParameter* GetStructureParameterRef( const std::wstring& name , int size );
@@ -48,7 +54,9 @@ namespace Sand
 
 	public:
 		// ---------------------获取参数值-----------------------------------
-		virtual Vector4f GetVectorParameterData( const std::wstring& name );
+		virtual Vector4f GetVector4fParameterData( const std::wstring& name );
+		virtual Vector3f GetVector3fParameterData( const std::wstring& name );
+		virtual Vector2f GetVector2fParameterData( const std::wstring& name );
 		virtual Matrix4f GetMatrixParameterData( const std::wstring& name );
 		virtual Matrix4f* GetMatrixArrayParameterData( const std::wstring& name , int count );
 		virtual char* GetStructureParameterData( const std::wstring& name , int size );
@@ -57,7 +65,9 @@ namespace Sand
 		virtual int GetConstantBufferParameterData( const std::wstring& name );
 		virtual int GetSamplerStateParameterData( const std::wstring& name );
 
-		virtual Vector4f GetVectorParameterData( RenderParameter* pParameter );
+		virtual Vector4f GetVector4fParameterData( RenderParameter* pParameter );
+		virtual Vector3f GetVector3fParameterData( RenderParameter* pParameter );
+		virtual Vector2f GetVector2fParameterData( RenderParameter* pParameter );
 		virtual Matrix4f GetMatrixParameterData( RenderParameter* pParameter );
 		virtual Matrix4f* GetMatrixArrayParameterData( RenderParameter* pParameter );
 		virtual char* GetStructureParameterData( RenderParameter* pParameter );

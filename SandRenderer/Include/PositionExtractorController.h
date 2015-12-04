@@ -12,10 +12,10 @@ namespace Sand
 
 		virtual void Update( float fTime );
 
-		void SetParameterWriter( VectorParameterWriter* pWriter );
+		void SetParameterWriter( Vector4fParameterWriter* pWriter );
 
 	protected:
-		VectorParameterWriter* m_pWriter;
+		Vector4fParameterWriter* m_pWriter;
 	};
 
 #include "PositionExtractorController.inl"

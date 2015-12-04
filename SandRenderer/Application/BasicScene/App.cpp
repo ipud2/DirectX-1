@@ -123,7 +123,7 @@ void App::Initialize()
 
 	// create tess parameter for tessllate effect
 	m_TessParams = Vector4f( 1.0f , 1.0f , 1.0f , 1.0f );
-	m_pRenderer->GetParameterManagerRef()->SetVectorParameterData( std::wstring( L"EdgeFactors" ) , &m_TessParams );
+	m_pRenderer->GetParameterManagerRef()->SetVector4fParameterData( std::wstring( L"EdgeFactors" ) , &m_TessParams );
 
 	// create the material for use by the entities
 	m_pMaterial = MaterialGenerator::GenerateWireFrame( *m_pRenderer );

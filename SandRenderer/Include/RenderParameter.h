@@ -8,7 +8,9 @@ namespace Sand
 	enum ParameterType
 	{
 		// ÊýÖµÐÍ
-		PT_VECTOR , 
+		PT_VECTOR_4F , 
+		PT_VECTOR_3F , 
+		PT_VECTOR_2F ,
 		PT_MATRIX , 
 		PT_MATRIX_ARRAY , 
 		PT_STRUCTURE , 

@@ -1,15 +1,15 @@
-#ifndef VectorParameterWriter_h
-#define VectorParameterWriter_h
+#ifndef Vector4fParameterWriter_h
+#define Vector4fParameterWriter_h
 
 #include "ParameterWriter.h"
 
 namespace Sand
 {
-	class VectorParameterWriter : public ParameterWriter
+	class Vector4fParameterWriter : public ParameterWriter
 	{
 	public:
-		VectorParameterWriter();
-		virtual ~VectorParameterWriter();
+		Vector4fParameterWriter();
+		virtual ~Vector4fParameterWriter();
 
 		virtual RenderParameter* GetRenderParameterRef();
 		virtual void UpdateValueToParameter( IParameterManager* pParamMgr );
@@ -18,10 +18,10 @@ namespace Sand
 		void SetValue( const Vector4f& Value );
 		Vector4f GetValue();
 
-		void SetRenderParameterRef( VectorParameter* pParam );
+		void SetRenderParameterRef( Vector4fParameter* pParam );
 
 	protected:
-		VectorParameter* m_pParameter;
+		Vector4fParameter* m_pParameter;
 		Vector4f m_Value;
 	};
 };

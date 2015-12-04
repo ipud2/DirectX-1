@@ -23,8 +23,8 @@ Camera::Camera()
 
 	m_ProjMatrix.MakeIdentity();
 
-	m_pViewPositionWriter = Parameters.GetVectorParameterWriter( L"ViewPosition" );
-	m_pViewPositionWriter->SetValue( Vector4f( 0.0f , 0.0f , 0.0f , 0.0f ) );			
+	m_pViewPositionWriter = Parameters.GetVector3fParameterWriter( L"ViewPosition" );
+	m_pViewPositionWriter->SetValue( Vector3f( 0.0f , 0.0f , 0.0f ) );			
 }
 
 Camera::~Camera()
@@ -63,8 +63,7 @@ void Camera::RenderFrame( Renderer* pRenderer )
 		}
 
 		// 计算相机的位置
-		Vector3f p = GetRootNode()->GetTransformRef().GetWorldMatrix().GetTranslate();
-		m_pViewPositionWriter->SetValue( Vector4f( p.x , p.y , p.z , 1.0f ) );
+		m_pViewPositionWriter->SetValue( GetRootNode()->GetTransformRef().GetWorldMatrix().GetTranslate() );
 
 		// 初始化渲染参数的值
 		Parameters.InitRenderParams();

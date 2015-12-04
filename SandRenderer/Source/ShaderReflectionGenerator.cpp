@@ -88,7 +88,6 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 
 				CBufferDesc.Variables.push_back( VariableDesc );
 
-
 				// 获取该变量的类型
 				ID3D11ShaderReflectionType* pType = pVariable->GetType();
 				D3D11_SHADER_TYPE_DESC TypeDesc;
@@ -99,14 +98,54 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 				// --------------------为每个variable创建参数对象-----------------------------------------
 				BaseNumericTypeRenderParameter* pRenderParameter;
 
-				if( TypeDesc.Class == D3D_SVC_VECTOR )
+				// -----------------------标量-------------------------
+				if ( TypeDesc.Class == D3D_SVC_SCALAR )
 				{
-					pRenderParameter = pParameterManager->GetVectorParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
-
-					// shader中D3D_SVC_VECTOR的变量若存在默认值，则用于初始化
-					if ( VariableDesc.DefaultValue != nullptr )
+					if ( TypeDesc.Type == D3D_SVT_FLOAT )
 					{
-						pRenderParameter->SetParameterData( reinterpret_cast< void* >( VariableDesc.DefaultValue ) );
+						// ---------------float-------------------
+					}
+					else if ( TypeDesc.Type == D3D_SVT_INT )
+					{
+						// -------------int----------------
+					}
+					else if ( TypeDesc.Type == D3D_SVT_BOOL )
+					{
+						// -----------bool----------------
+					}
+
+				}
+				else if( TypeDesc.Class == D3D_SVC_VECTOR )
+				{
+					if ( TypeDesc.Columns == 4 )
+					{
+						pRenderParameter = pParameterManager->GetVector4fParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+
+						// shader中D3D_SVC_VECTOR的变量若存在默认值，则用于初始化
+						if ( VariableDesc.DefaultValue != nullptr )
+						{
+							pRenderParameter->SetParameterData( reinterpret_cast< void* >( VariableDesc.DefaultValue ) );
+						}
+					}
+					else if ( TypeDesc.Columns == 3 )
+					{
+						// ----------------------float3-----------------------------
+						pRenderParameter = pParameterManager->GetVector3fParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+
+						if ( VariableDesc.DefaultValue != nullptr )
+						{
+							pRenderParameter->SetParameterData( reinterpret_cast< void* >( VariableDesc.DefaultValue ) );
+						}
+					}
+					else if ( TypeDesc.Columns == 2 )
+					{
+						// -----------------------float2-------------------------
+						pRenderParameter = pParameterManager->GetVector2fParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+
+						if ( VariableDesc.DefaultValue != nullptr )
+						{
+							pRenderParameter->SetParameterData( reinterpret_cast< void* >( VariableDesc.DefaultValue ) );
+						}
 					}
 				}
 				else if( TypeDesc.Class == D3D_SVC_MATRIX_ROWS || TypeDesc.Class == D3D_SVC_MATRIX_COLUMNS )
