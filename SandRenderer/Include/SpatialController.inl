@@ -108,7 +108,7 @@ void SpatialController< T >::MoveForward( const float dist )
 {
 	if( m_pEntity )
 	{
-		m_Translate += m_pEntity->GetTransformRef().GetRotation().GetRow( 2 ) * dist;
+		m_Translate += m_pEntity->GetTransformRef().GetRotationRef().GetRow( 2 ) * dist;
 	}
 }
 
@@ -118,7 +118,7 @@ void SpatialController< T >::MoveBackward( const float dist )
 	// TO DO-----------
 	if( m_pEntity )
 	{
-		m_Translate += m_pEntity->GetTransformRef().GetRotation().GetRow( 2 ) * dist;
+		m_Translate -= m_pEntity->GetTransformRef().GetRotationRef().GetRow( 2 ) * dist;
 	}
 }
 
@@ -128,7 +128,7 @@ void SpatialController< T >::MoveLeft( const float dist )
 	// TO DO-----------
 	if( m_pEntity )
 	{
-		m_Translate -= m_pEntity->GetTransformRef().GetRotation.GetRow( 0 ) * dist;
+		m_Translate -= m_pEntity->GetTransformRef().GetRotationRef().GetRow( 0 ) * dist;
 	}
 }
 
@@ -137,7 +137,7 @@ void SpatialController< T >::MoveRight( const float dist )
 {
 	if( m_pEntity )
 	{
-		m_Translate += m_pEntity->GetTransformRef().GetRotation.GetRow( 0 ) * dist;
+		m_Translate += m_pEntity->GetTransformRef().GetRotationRef().GetRow( 0 ) * dist;
 	}
 }
 
@@ -146,7 +146,7 @@ void SpatialController< T >::MoveUp( const float dist )
 {
 	if( m_pEntity )
 	{
-		m_Translate += m_pEntity->GetTransformRef().GetRotation.GetRow( 1 ) * dist;
+		m_Translate += m_pEntity->GetTransformRef().GetRotationRef().GetRow( 1 ) * dist;
 	}
 }
 
@@ -156,6 +156,6 @@ void SpatialController< T >::MoveDown( const float dist )
 	// TO DO-----------
 	if( m_pEntity )
 	{
-		m_Translate -= m_pEntity->GetTransformRef().GetRotation.GetRow( 1 ) * dist;
+		m_Translate -= m_pEntity->GetTransformRef().GetRotationRef().GetRow( 1 ) * dist;
 	}
 }

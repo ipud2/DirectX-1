@@ -248,3 +248,27 @@ void Sand::Application::BeforeRegisterWindowClass( WNDCLASSEX& wc )
 {
 
 }
+
+void Application::SetFrameRate( HWND hwnd )
+{
+	static int FrameCount = 0;
+	static float TimeElapsed = 0.0f;
+
+	FrameCount++;
+	if ( m_pTimer->TotalTime() - TimeElapsed >= 1.0f )
+	{
+		float fps = ( float )FrameCount;
+		float mspf = 1000.0f / fps;
+
+		std::wostringstream outs;
+		outs.precision( 6 );
+		outs << GetName() << L" "
+			<< L"FPS: " << fps << L" "
+			<< L"Frame Time: " << mspf << L" (ms)";
+
+		SetWindowText( hwnd , outs.str().c_str() );
+
+		FrameCount = 0;
+		TimeElapsed += 1.0f;
+	}
+}

@@ -9,32 +9,24 @@ namespace Sand
 		Timer();
 		~Timer();
 
-		void Update();
 		void Reset();
+		void Update();
 
-		float Runtimer();
-		float Elapsed();
-		int Framerate();
-		int MaxFramerate();
-		int FrameCount();
-		float FrameTime();
+		float TotalTime() const;
+		float DeltaTime() const;
 
-		void SetFixedTimeStep( float step );
+		void SetFixedTimeStep( float FixedTimeStep );
 
 	private:
-		float m_fDelta;
-		int m_iFramesPerSecond;
-		int m_iMaxFramesPerSecond;
-		int m_iFrameCount;
+		double m_SecondsPerCount;
+		double m_DeltaTime;
 
-		float m_fFixedDelta;
-		bool m_bUsedFixedStep;
+		__int64 m_BaseTime;
+		__int64 m_PrevTime;
+		__int64 m_CurrTime;
 
-		unsigned __int64 m_TicksPerSecond64;
-		unsigned __int64 m_StartupTicks64;
-		unsigned __int64 m_CurrentTicks64;
-		unsigned __int64 m_OneSecTicks64;
-		unsigned __int64 m_LastTicks64;
+		float m_FixedTimeStep;
+		bool m_bUseFixedTimeStep;
 	};
 };
 #endif

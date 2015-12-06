@@ -79,11 +79,7 @@ bool App::ConfigureEngineComponents()
 
 			return false;
 		}
-
-		m_pTimer->SetFixedTimeStep( 1.0f / 10.0f );
 	}
-
-	m_pTimer->SetFixedTimeStep( 1.0f / 400.0f );
 
 	// 创建交换链
 	SwapChainConfig config;
@@ -212,12 +208,34 @@ void App::Update()
 {
 	m_pTimer->Update();
 
-	// rotate node
+	// ----------------设置帧率-----------------
+	SetFrameRate( m_pWindow->GetHandle() );
+
+	if ( GetAsyncKeyState( 'W' ) & 0x8000 )
+	{
+		m_pCameras->Spatial().MoveForward( m_pTimer->DeltaTime() * 6.0f );
+	}
+	else if ( GetAsyncKeyState( 'S' ) & 0x8000 )
+	{
+		m_pCameras->Spatial().MoveBackward( m_pTimer->DeltaTime() * 6.0f );
+	}
+	else if ( GetAsyncKeyState( 'A' ) & 0x8000 )
+	{
+		m_pCameras->Spatial().MoveLeft( m_pTimer->DeltaTime() * 6.0f );
+	}
+	else if ( GetAsyncKeyState( 'D' ) & 0x8000 )
+	{
+		m_pCameras->Spatial().MoveRight( m_pTimer->DeltaTime() * 6.0f );
+	}
+
+	/*
+		让box自动旋转
+	*/
 	Matrix3f rotation;
-	rotation.RotationY( m_pTimer->Elapsed() * 0.1f );
+	rotation.RotationY( m_pTimer->DeltaTime() );
 	m_pActor->GetRootNode()->GetTransformRef().GetRotationRef() *= rotation;
 
-	m_pScene->Update( m_pTimer->Elapsed() );
+	m_pScene->Update( m_pTimer->DeltaTime() );
 	m_pScene->Render( m_pRenderer );
 
 	m_pRenderer->Present( m_pWindow->GetSwapChain() );
@@ -226,10 +244,6 @@ void App::Update()
 void App::Shutdown()
 {
 	SAFE_DELETE( m_pEntity );
-
-	std::wstringstream out;
-	out << L"Max FPS: " << m_pTimer->MaxFramerate();
-	Log::Get().Write( out.str().c_str() );
 }
 
 void App::TakeScreenShot()

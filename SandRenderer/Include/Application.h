@@ -73,6 +73,9 @@ namespace Sand
 		// 应用程序名
 		virtual std::wstring GetName() = 0;
 
+		// 设置帧率到窗口
+		void SetFrameRate( HWND hwnd );
+
 		bool m_bLoop;
 		bool m_bSaveScreenShot;
 

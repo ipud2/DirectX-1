@@ -293,7 +293,7 @@ void GeometryGenerator::GeneratorSphere( GeometryPtr pGeometry , unsigned int Sl
 	pTex[0] = Vector2f( 0.0f , 0.0f );
 
 	int CurrentVertex = 1;
-	for( UINT i = 0; i <= StackCount - 1; ++i )
+	for( UINT i = 1; i <= StackCount - 1; ++i )
 	{
 		float phi = i * phiStep;
 
