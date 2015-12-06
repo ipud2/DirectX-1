@@ -21,12 +21,17 @@ namespace Sand
 		/*
 			生成球面
 		*/
-		static void GeneratorSphere( GeometryPtr pGeometry , unsigned int URes , unsigned int VRes , float Radius );
+		static void GeneratorSphere( GeometryPtr pGeometry , unsigned int SliceCount , unsigned int StackCount , float Radius );
 
 		/*
 			生成坐标轴图元
 		*/
 		static void GeneratorAxisGeometry( GeometryPtr pGeometry );
+
+		/*
+			天空盒
+		*/
+		static void GeneratorSkyBox( GeometryPtr pGeometry , unsigned int SliceCount , unsigned int StackCount , float Radius );
 
 	private:
 		GeometryGenerator();

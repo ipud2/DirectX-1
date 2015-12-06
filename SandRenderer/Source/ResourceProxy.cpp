@@ -204,7 +204,7 @@ int ResourceProxy::GetRenderTargetViewID()
 
 int ResourceProxy::GetShaderResourceViewID()
 {
-	return m_RenderTargetViewID;
+	return m_ShaderResourceViewID;
 }
 
 int ResourceProxy::GetUnorderedAccessViewID()

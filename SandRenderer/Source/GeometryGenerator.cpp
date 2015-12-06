@@ -273,7 +273,7 @@ void GeometryGenerator::GeneratorSphere( GeometryPtr pGeometry , unsigned int Sl
 	pTangents->m_uiInstanceDataStepRate = 0;
 
 	VertexElement* pTexCoords = new VertexElement( 2 , NumVertexs );
-	pTexCoords->m_SemanticName = "TEXCOORDS";
+	pTexCoords->m_SemanticName = "TEXCOORD";
 	pTexCoords->m_uiSemanticIndex = 0;
 	pTexCoords->m_Format = DXGI_FORMAT_R32G32_FLOAT;
 	pTexCoords->m_uiInputSlot = 0;
@@ -368,6 +368,90 @@ void GeometryGenerator::GeneratorSphere( GeometryPtr pGeometry , unsigned int Sl
 	baseIndex = SouthPoleIndex - ringVertexCount;
 
 	for( unsigned int i = 0; i < SliceCount; i++ )
+	{
+		pGeometry->AddFace( SouthPoleIndex , baseIndex + i , baseIndex + i + 1 );
+	}
+}
+
+void GeometryGenerator::GeneratorSkyBox( GeometryPtr pGeometry , unsigned int SliceCount , unsigned int StackCount , float Radius )
+{
+	if ( pGeometry == nullptr )
+	{
+		return;
+	}
+
+	float phiStep = 3.1415926f / StackCount;
+	float thetaStep = 2.0f * 3.1415926f / SliceCount;
+
+	unsigned int NumVertexs = ( StackCount - 1 ) * ( SliceCount + 1 ) + 2;
+
+	VertexElement* pPosition = new VertexElement( 3 , NumVertexs );
+	pPosition->m_SemanticName = "POSITION";
+	pPosition->m_uiSemanticIndex = 0;
+	pPosition->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pPosition->m_uiInputSlot = 0;
+	pPosition->m_uiAlignedByteOffset = 0;
+	pPosition->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	pPosition->m_uiInstanceDataStepRate = 0;
+
+	Vector3f* pVertex = ( Vector3f* )( ( *pPosition )[0] );/*pPosition->Get3fTupleDataPtr( 0 )*/;
+
+	pVertex[0] = Vector3f( 0.0f , Radius , 0.0f );
+
+	int CurrentVertex = 1;
+	for ( UINT i = 1; i <= StackCount - 1; ++i )
+	{
+		float phi = i * phiStep;
+
+		for ( UINT j = 0; j <= SliceCount; j++ )
+		{
+			float theta = j * thetaStep;
+
+			pVertex[CurrentVertex++] = Vector3f( Radius * sinf( phi ) * cosf( theta ) , Radius * cosf( phi ) , Radius * sinf( phi ) * sinf( theta ) );
+		}
+	}
+
+	pVertex[CurrentVertex] = Vector3f( 0.0f , -Radius , 0.0f );
+
+	// 添加顶点
+	pGeometry->AddElement( pPosition );
+
+
+	// ---------------添加索引------------------
+
+	//将最顶上那个圆环的相邻的两个点与最高的顶点相连组成三角形
+	for ( UINT i = 1; i <= SliceCount; i++ )
+	{
+		//注意方向，由于i+1的点距离x轴正轴偏离的角度比第i个点偏离的角度更大，因此按照顺时针的原则应该是0，i+1，i
+		pGeometry->AddFace( 0 , i + 1 , i );
+	}
+
+	//处理内部的环，不包括最后一个环，因为最后一个环上的点是和最底部的顶点组成三角形
+	unsigned int baseIndex = 1;
+	unsigned int ringVertexCount = SliceCount + 1;
+
+	for ( unsigned int i = 0; i < StackCount - 2; i++ )
+	{
+		for ( unsigned int j = 0; j < SliceCount; j++ )
+		{
+			// 将在当前环的索引值为j,j+1的两个点和上一个环中索引值想同的两个点
+			// 相连，组成两个三角形，由于最高点的索引值为0，所以从第一个环开始
+			// 第i个环的起始索引值为（i - 1）*(sliceCount + 1)，
+			// 注意是第i个环，所以后面才是i-1，循环的时候从0开始，
+			// 所以计算的时候不需要减一
+			pGeometry->AddFace( baseIndex + i * ringVertexCount + j , baseIndex + i * ringVertexCount + j + 1 , baseIndex + ( i + 1 ) * ringVertexCount + j );
+
+			pGeometry->AddFace( baseIndex + ( i + 1 ) * ringVertexCount + j , baseIndex + i * ringVertexCount + j + 1 , baseIndex + ( i + 1 ) * ringVertexCount + j + 1 );
+		}
+	}
+
+	// 最后一个环
+	unsigned int SouthPoleIndex = ( unsigned int )CurrentVertex;
+
+	// 在最后一个环中第一个顶点的索引偏移值
+	baseIndex = SouthPoleIndex - ringVertexCount;
+
+	for ( unsigned int i = 0; i < SliceCount; i++ )
 	{
 		pGeometry->AddFace( SouthPoleIndex , baseIndex + i , baseIndex + i + 1 );
 	}

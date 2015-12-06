@@ -22,6 +22,8 @@
 
 #include "BasicSurfaceProperty.h"
 
+#include "Skybox.h"
+
 namespace Sand
 {
 	class App : public Application
@@ -82,6 +84,8 @@ namespace Sand
 		Matrix4f m_TexTransform;
 
 		BasicSurfaceProperty* m_pBoxSurfaceProperty;
+
+		Skybox* m_pSkyBox;
 	};
 };
 #endif

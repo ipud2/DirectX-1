@@ -186,6 +186,9 @@
     <Filter Include="Parameter\ParameterWriter\StructWriter">
       <UniqueIdentifier>{077bf1f6-345e-4e9b-abff-660a700726ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Actor\Skybox">
+      <UniqueIdentifier>{e7d14ec5-847c-41ca-9cda-cca0471fb8d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -635,6 +638,9 @@
     <ClInclude Include="..\Include\StructureParameterWriter.h">
       <Filter>Parameter\ParameterWriter\StructWriter</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\Skybox.h">
+      <Filter>Object\Actor\Skybox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -1050,6 +1056,9 @@
     </ClCompile>
     <ClCompile Include="StructureParameterWriter.cpp">
       <Filter>Parameter\ParameterWriter\StructWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Object\Actor\Skybox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,8 @@ App::App()
 	m_pWoodCrateTexture = nullptr;
 	m_iLinearSampler = -1;
 
+	m_pSkyBox = nullptr;
+
 	m_TexTransform.MakeIdentity();
 }
 
@@ -185,6 +187,7 @@ void App::Initialize()
 
 	// --------------------------------Actor and Entity------------------------------
 	m_pActor = new Actor;
+	m_pActor->GetRootNode()->SetName( std::wstring( L"Cube" ) );
 	m_pEntity = new Entity;
 	m_pEntity->GetRenderableRef().SetGeometry( m_pGeometry );
 	m_pEntity->GetRenderableRef().SetMaterial( m_pMaterial );
@@ -195,8 +198,12 @@ void App::Initialize()
 	// add to root node
 	m_pActor->GetRootNode()->AttachChild( m_pEntity );
 
+	// -----------------------------SkyBox-----------------------
+	m_pSkyBox = new Skybox( std::wstring( L"GrassCube.dds" ) , m_iLinearSampler );
+
 	// -------------------Add to Scene-------------------
 	m_pScene->AddActor( m_pActor );
+	m_pScene->AddActor( m_pSkyBox );
 	m_pScene->AddCamera( m_pCameras );
 	m_pScene->AddLight( m_pLight );
 }

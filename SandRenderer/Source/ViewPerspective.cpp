@@ -9,10 +9,6 @@ using namespace Sand;
 
 ViewPerspective::ViewPerspective( Renderer& renderer , ResourceProxyPtr RenderTarget , ResourceProxyPtr DepthTarget /* = nullptr */ )
 {
-	m_RenderTarget = RenderTarget;
-
-	m_DepthTarget = DepthTarget;
-
 	SetRenderTargets( RenderTarget , DepthTarget );
 }
 

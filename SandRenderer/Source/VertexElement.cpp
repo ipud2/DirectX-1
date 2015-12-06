@@ -55,7 +55,7 @@ Vector2f* VertexElement::Get2fTupleDataPtr( int i )
 
 Vector3f* VertexElement::Get3fTupleDataPtr( int i )
 {
-	return ( ( Vector3f* )( &m_pfData[3 * i] ) );
+	return ( ( Vector3f* )( &( m_pfData[3 * i] ) ) );
 }
 
 Vector4f* VertexElement::Get4fTupleDataPtr( int i )
