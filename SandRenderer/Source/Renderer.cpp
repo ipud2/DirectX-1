@@ -767,6 +767,12 @@ ResourceProxyPtr Renderer::LoadTexture( std::wstring filename , bool sRGB /*= fa
 	FileSystem fs;
 	filename = fs.GetTextureFolder() + filename;
 
+	if ( m_vExternalTexture[filename] != nullptr )
+	{
+		// 即该文件名对应的纹理已存在
+		return m_vExternalTexture[filename];
+	}
+
 	// check whether file format is dds
 	std::wstring extension = filename.substr( filename.size() - 3 , 3 );
 	// transform to lower case letters
@@ -812,7 +818,9 @@ ResourceProxyPtr Renderer::LoadTexture( std::wstring filename , bool sRGB /*= fa
 	Texture2DConfig TextureConfig;
 	pTexture->GetDesc( &TextureConfig.m_State );
 
-	return ResourceProxyPtr( new ResourceProxy( ResourceID , &TextureConfig , this ) );
+	m_vExternalTexture[filename] = ResourceProxyPtr( new ResourceProxy( ResourceID , &TextureConfig , this ) );
+
+	return m_vExternalTexture[filename];
 }
 
 ResourceProxyPtr Renderer::LoadTexture( void* pData , SIZE_T SizeInByte )

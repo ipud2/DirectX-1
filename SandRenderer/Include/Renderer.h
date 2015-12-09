@@ -552,6 +552,8 @@ namespace Sand
 
 		// 资源仓库，资源对象都保存在这里
 		std::vector<Resource*> m_vResource;
+		// 从外部加载的纹理对象，即通过文件名加载的，这样就可以避免多次加载同一个纹理文件
+		std::map<std::wstring , ResourceProxyPtr> m_vExternalTexture;
 
 		// 视图对象仓库
 		std::vector<ShaderResourceView> m_vShaderResourceViews;
