@@ -4,6 +4,7 @@
 #include "Actor.h"
 #include "SceneRenderTask.h"
 #include "SpatialController.h"
+#include "OrientationController.h"
 #include "ParameterContainer.h"
 
 namespace Sand
@@ -42,6 +43,7 @@ namespace Sand
 		float GetFieldOfView();
 
 		SpatialController<Node>& Spatial();
+		OrientationController<Node>& Orientation();
 
 	protected:
 		// set perspective project matrix to RenderView for render scene
@@ -70,6 +72,7 @@ namespace Sand
 	protected:
 		Vector3fParameterWriter* m_pViewPositionWriter;
 		SpatialController<Node>* m_pSpatialController;
+		OrientationController<Node>* m_pOrientationController;
 	};
 }
 #endif

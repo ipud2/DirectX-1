@@ -6,7 +6,8 @@ using namespace Sand;
 ShaderResourceParameter::ShaderResourceParameter( std::wstring name )
 	:RenderParameter( name )
 {
-	m_iShaderResourceID = -1;
+	// 默认视图对象
+	m_iShaderResourceID = 0;
 }
 
 ShaderResourceParameter::ShaderResourceParameter( ShaderResourceParameter& copy )

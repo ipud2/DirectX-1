@@ -35,4 +35,6 @@
 
 #define SAND_PI 3.14159265f
 
+#define ConvertToRadius(fDegree)	(fDegree) * (SAND_PI / 180.0f)
+
 #endif // PCH_h

@@ -12,6 +12,8 @@ struct SurfaceMaterial
 	float4 AmbientMaterial;
 	float4 DiffuseMaterial;
 	float4 SpecularMaterial;
+
+	float4 Reflect;
 };
 
 void ComputeDirectionalLight(SurfaceMaterial Material , 
@@ -50,7 +52,7 @@ void ComputeDirectionalLight(SurfaceMaterial Material ,
 
 cbuffer DirectionLight
 {
-	DirectionalLight Light[2];
+	DirectionalLight Light[3];
 };
 
 cbuffer SurfaceProperty
@@ -63,7 +65,7 @@ cbuffer Transforms
 	matrix WorldViewProjMatrix;
 	matrix WorldMatrix;
 	matrix WorldInvTransposeMatrix;
-	matrix TexTransform;
+	matrix TexTransformMatrix;
 };
 
 cbuffer PhongParameter
@@ -71,8 +73,16 @@ cbuffer PhongParameter
 	float3 ViewPosition;
 };
 
+cbuffer Effect
+{
+	bool bUseTexture = true;
+	bool bEnableReflect = false;
+	bool bAlphaClip = true;
+};
+
 SamplerState LinearSampler;
-Texture2D WoodCrateTexture;
+Texture2D DiffuseTexture;
+TextureCube SkyboxTexture;
 
 struct VertexIn
 {
@@ -95,7 +105,7 @@ PixelIn VSMain(in VertexIn input)
 
 	output.PosV = mul(float4(input.Pos , 1.0f) , WorldViewProjMatrix);
 	output.PosW = mul(float4(input.Pos , 1.0f) , WorldMatrix).xyz;
-	output.Tex = mul(float4(input.Tex , 0.0f , 1.0f) , TexTransform).xy;
+	output.Tex = mul(float4(input.Tex , 0.0f , 1.0f) , TexTransformMatrix).xy;
 	output.NormalW = mul(input.Normal , (float3x3)WorldInvTransposeMatrix);
 
 	return output;
@@ -112,14 +122,26 @@ float4 PSMain(in PixelIn input) : SV_Target
 
 	ToEye /= dist;
 
-	float4 color = WoodCrateTexture.Sample(LinearSampler , input.Tex);
+	float4 texColor = float4(1.0f , 1.0f , 1.0f , 1.0f);
+
+	if(bUseTexture == true)
+	{
+		texColor = DiffuseTexture.Sample(LinearSampler , input.Tex);
+
+		if(bAlphaClip)
+		{
+			clip(texColor.a - 0.1f);
+		}
+	}
+
+	float4 litColor = texColor;
 
 	float4 ambient = float4(0.0f , 0.0f , 0.0f , 0.0f);
 	float4 diffuse = float4(0.0f , 0.0f , 0.0f , 0.0f);
 	float4 specular = float4(0.0f , 0.0f , 0.0f , 0.0f);
 
 	[unroll]
-	for(int i = 0; i < 2; i++)
+	for(int i = 0; i < 3; i++)
 	{
 		float4 A , D , S;
 
@@ -136,8 +158,18 @@ float4 PSMain(in PixelIn input) : SV_Target
 		specular += S;
 	}
 	
+	litColor = texColor * (ambient + diffuse) + specular;
 
-	color = color * (ambient + diffuse) + specular;
+	if ( bEnableReflect )
+	{
+		float3 incident = -ToEye;
+		float3 reflectionVector = reflect( incident , input.NormalW );		//get the reflect vector about input.NormalW
+		float4 reflectionColor = SkyboxTexture.Sample( LinearSampler , reflectionVector );
 
-	return color;
+		litColor += BasicSurfaceProperty.Reflect * reflectionColor;
+	}
+
+	litColor.a = BasicSurfaceProperty.DiffuseMaterial.a * texColor.a;
+
+	return litColor;
 }

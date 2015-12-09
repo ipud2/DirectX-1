@@ -6,6 +6,7 @@
 #include "ShaderResourceParameterWriter.h"
 #include "UnorderedAccessParameterWriter.h"
 #include "SamplerParameterWriter.h"
+#include "BoolParameterWriter.h"
 #include "Vector4fParameterWriter.h"
 #include "Vector3fParameterWriter.h"
 #include "Vector2fParameterWriter.h"
@@ -29,6 +30,7 @@ namespace Sand
 			若不存在，则创建
 		*/
 		ParameterWriter* GetRenderParameterWriter( const std::wstring& name );
+		BoolParameterWriter* GetBoolParameterWriter( const std::wstring& name );
 		Vector4fParameterWriter* GetVector4fParameterWriter( const std::wstring& name );
 		Vector3fParameterWriter* GetVector3fParameterWriter( const std::wstring& name );
 		Vector2fParameterWriter* GetVector2fParameterWriter( const std::wstring& name );

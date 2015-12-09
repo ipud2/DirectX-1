@@ -18,13 +18,15 @@ BasicSurfaceProperty::~BasicSurfaceProperty()
 	
 }
 
-void BasicSurfaceProperty::SetSurfaceProperty( const Vector4f& AmbientMaterial , const Vector4f& DiffuseMaterial , const Vector4f& SpecularMaterial )
+void BasicSurfaceProperty::SetSurfaceProperty( const Vector4f& AmbientMaterial , const Vector4f& DiffuseMaterial , const Vector4f& SpecularMaterial , const Vector4f& Reflect )
 {
 	m_pData->AmbientMaterial = AmbientMaterial;
 
 	m_pData->DiffuseMaterial = DiffuseMaterial;
 
 	m_pData->SpecularMaterial = SpecularMaterial;
+
+	m_pData->ReflectMaterial = Reflect;
 
 	m_pSurfacePropertyStructureWriter->SetValue( reinterpret_cast< char* >( m_pData ) , sizeof( BasicSurfacePropertyStructure ) );
 }

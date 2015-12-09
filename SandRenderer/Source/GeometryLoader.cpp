@@ -126,7 +126,38 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring filename )
 	PosVertexElement->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	PosVertexElement->m_uiInstanceDataStepRate = 0;
 
-	VertexElement* TexVertexElement = new VertexElement( 2 , Faces.size() * 3 );
+	if ( Positions.size() != 0 )
+	{
+		Vector3f* Pos = ( Vector3f* )( ( *PosVertexElement )[0] );
+
+		for ( int i = 0; i < Faces.size(); i++ )
+		{
+			// 遍历每个面
+			int index_1 = 3 * i + 0;
+			int index_2 = 3 * i + 1;
+			int index_3 = 3 * i + 2;
+
+			// ---------------------第一个顶点------------------------
+			Pos[index_1].x = Positions[Faces[i].PositionIndices[0]].x;
+			Pos[index_1].y = Positions[Faces[i].PositionIndices[0]].y;
+			Pos[index_1].z = Positions[Faces[i].PositionIndices[0]].z;
+
+			// ---------------------第二个顶点------------------------------
+			Pos[index_2].x = Positions[Faces[i].PositionIndices[1]].x;
+			Pos[index_2].y = Positions[Faces[i].PositionIndices[1]].y;
+			Pos[index_2].z = Positions[Faces[i].PositionIndices[1]].z;
+
+			// ---------------------第三个顶点------------------------------
+			Pos[index_3].x = Positions[Faces[i].PositionIndices[2]].x;
+			Pos[index_3].y = Positions[Faces[i].PositionIndices[2]].y;
+			Pos[index_3].z = Positions[Faces[i].PositionIndices[2]].z;
+		}
+	}
+
+	MeshPtr->AddElement( PosVertexElement );
+
+
+	VertexElement* TexVertexElement = TexVertexElement = new VertexElement( 2 , Faces.size() * 3 );
 	TexVertexElement->m_SemanticName = VertexElement::TexCoordSemantic;
 	TexVertexElement->m_uiSemanticIndex = 0;
 	TexVertexElement->m_Format = DXGI_FORMAT_R32G32_FLOAT;
@@ -134,6 +165,33 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring filename )
 	TexVertexElement->m_uiAlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
 	TexVertexElement->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	TexVertexElement->m_uiInstanceDataStepRate = 0;
+
+	if ( Texcoords.size() != 0 )
+	{
+		Vector2f* Tex = ( Vector2f* )( ( *TexVertexElement )[0] );
+
+		for ( int i = 0; i < Faces.size(); i++ )
+		{
+			// 遍历每个面
+			int index_1 = 3 * i + 0;
+			int index_2 = 3 * i + 1;
+			int index_3 = 3 * i + 2;
+
+			// ---------------------第一个顶点------------------------
+			Tex[index_1].x = Texcoords[Faces[i].CoordinateIndices[0]].x;
+			Tex[index_1].y = Texcoords[Faces[i].CoordinateIndices[0]].y;
+
+			// ---------------------第二个顶点------------------------------
+			Tex[index_2].x = Texcoords[Faces[i].CoordinateIndices[1]].x;
+			Tex[index_2].y = Texcoords[Faces[i].CoordinateIndices[1]].y;
+
+			// ---------------------第三个顶点------------------------------
+			Tex[index_3].x = Texcoords[Faces[i].CoordinateIndices[2]].x;
+			Tex[index_3].y = Texcoords[Faces[i].CoordinateIndices[2]].y;
+		}
+	}
+	MeshPtr->AddElement( TexVertexElement );
+
 
 	VertexElement* NormalVertexElement = new VertexElement( 3 , Faces.size() * 3 );
 	NormalVertexElement->m_SemanticName = VertexElement::NormalSemantic;
@@ -144,61 +202,41 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring filename )
 	NormalVertexElement->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	NormalVertexElement->m_uiInstanceDataStepRate = 0;
 
-	// 获取数据指针
-	Vector3f* Pos = ( Vector3f* )( ( *PosVertexElement )[0] );
-	Vector2f* Tex = ( Vector2f* )( ( *TexVertexElement )[0] );
-	Vector3f* Normal = ( Vector3f* )( ( *NormalVertexElement )[0] );
+	if ( Normals.size() != 0 )
+	{
+		Vector3f* Normal = ( Vector3f* )( ( *NormalVertexElement )[0] );
+
+		for ( int i = 0; i < Faces.size(); i++ )
+		{
+			// 遍历每个面
+			int index_1 = 3 * i + 0;
+			int index_2 = 3 * i + 1;
+			int index_3 = 3 * i + 2;
+
+			// ---------------------第一个顶点------------------------
+			Normal[index_1].x = Normals[Faces[i].NormalIndices[0]].x;
+			Normal[index_1].y = Normals[Faces[i].NormalIndices[0]].y;
+			Normal[index_1].z = Normals[Faces[i].NormalIndices[0]].z;
+
+			// ---------------------第二个顶点------------------------------
+			Normal[index_2].x = Normals[Faces[i].NormalIndices[1]].x;
+			Normal[index_2].y = Normals[Faces[i].NormalIndices[1]].y;
+			Normal[index_2].z = Normals[Faces[i].NormalIndices[1]].z;
+
+			// ---------------------第三个顶点------------------------------
+			Normal[index_3].x = Normals[Faces[i].NormalIndices[2]].x;
+			Normal[index_3].y = Normals[Faces[i].NormalIndices[2]].y;
+			Normal[index_3].z = Normals[Faces[i].NormalIndices[2]].z;
+		}	
+	}
+	MeshPtr->AddElement( NormalVertexElement );
+
 
 	for( int i = 0; i < Faces.size(); i++ )
 	{
-		// 遍历每个面
-		int index_1 = 3 * i + 0;
-		int index_2 = 3 * i + 1;
-		int index_3 = 3 * i + 2;
-
-		// ---------------------第一个顶点------------------------
-		Pos[3 * i + 0].x = Positions[Faces[i].PositionIndices[0]].x;
-		Pos[3 * i + 0].y = Positions[Faces[i].PositionIndices[0]].y;
-		Pos[3 * i + 0].z = Positions[Faces[i].PositionIndices[0]].z;
-
-		Tex[3 * i + 0].x = Texcoords[Faces[i].CoordinateIndices[0]].x;
-		Tex[3 * i + 0].y = Texcoords[Faces[i].CoordinateIndices[0]].y;
-
-		Normal[3 * i + 0].x = Normals[Faces[i].NormalIndices[0]].x;
-		Normal[3 * i + 0].y = Normals[Faces[i].NormalIndices[0]].y;
-		Normal[3 * i + 0].z = Normals[Faces[i].NormalIndices[0]].z;
-
-		// ---------------------第二个顶点------------------------------
-		Pos[3 * i + 1].x = Positions[Faces[i].PositionIndices[1]].x;
-		Pos[3 * i + 1].y = Positions[Faces[i].PositionIndices[1]].y;
-		Pos[3 * i + 1].z = Positions[Faces[i].PositionIndices[1]].z;
-
-		Tex[3 * i + 1].x = Texcoords[Faces[i].CoordinateIndices[1]].x;
-		Tex[3 * i + 1].y = Texcoords[Faces[i].CoordinateIndices[1]].y;
-
-		Normal[3 * i + 1].x = Normals[Faces[i].NormalIndices[1]].x;
-		Normal[3 * i + 1].y = Normals[Faces[i].NormalIndices[1]].y;
-		Normal[3 * i + 1].z = Normals[Faces[i].NormalIndices[1]].z;
-
-		// ---------------------第三个顶点------------------------------
-		Pos[3 * i + 2].x = Positions[Faces[i].PositionIndices[2]].x;
-		Pos[3 * i + 2].y = Positions[Faces[i].PositionIndices[2]].y;
-		Pos[3 * i + 2].z = Positions[Faces[i].PositionIndices[2]].z;
-
-		Tex[3 * i + 2].x = Texcoords[Faces[i].CoordinateIndices[2]].x;
-		Tex[3 * i + 2].y = Texcoords[Faces[i].CoordinateIndices[2]].y;
-
-		Normal[3 * i + 2].x = Normals[Faces[i].NormalIndices[2]].x;
-		Normal[3 * i + 2].y = Normals[Faces[i].NormalIndices[2]].y;
-		Normal[3 * i + 2].z = Normals[Faces[i].NormalIndices[2]].z;
-
 		// 添加面的索引
-		MeshPtr->AddFace( index_1 , index_2 , index_3 );
+		MeshPtr->AddFace( 3 * i + 0 , 3 * i + 1 , 3 * i + 2 );
 	}
-
-	MeshPtr->AddElement( PosVertexElement );
-	MeshPtr->AddElement( TexVertexElement );
-	MeshPtr->AddElement( NormalVertexElement );
 
 	return MeshPtr;
 }

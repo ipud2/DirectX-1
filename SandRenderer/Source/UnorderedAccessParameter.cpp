@@ -6,7 +6,8 @@ using namespace Sand;
 UnorderedAccessParameter::UnorderedAccessParameter( std::wstring name )
 	:RenderParameter( name )
 {
-	m_iUnorderedAccessID = -1;
+	// 默认视图对象
+	m_iUnorderedAccessID = 0;
 }
 
 UnorderedAccessParameter::UnorderedAccessParameter( UnorderedAccessParameter& copy )

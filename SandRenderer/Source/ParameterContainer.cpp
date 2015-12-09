@@ -67,6 +67,47 @@ ParameterWriter* ParameterContainer::GetRenderParameterWriter( const std::wstrin
 	return result;
 }
 
+BoolParameterWriter* ParameterContainer::GetBoolParameterWriter( const std::wstring& name )
+{
+	// 获取name对应的ParameterWriter
+	ParameterWriter* pParameterWriter = GetRenderParameterWriter( name );
+	BoolParameterWriter* pBoolParameterWriter = nullptr;
+
+	if ( pParameterWriter )
+	{
+		RenderParameter* pParameter = pParameterWriter->GetRenderParameterRef();
+
+		if ( pParameter )
+		{
+			// 检查其类型是否为Vector
+			if ( pParameter->GetParameterType() == PT_BOOL )
+			{
+				pBoolParameterWriter = dynamic_cast< BoolParameterWriter* >( pParameterWriter );
+			}
+			else
+			{
+				Log::Get().Write( L"Error: Trying to access a bool in a non-bool parameter writers!!" );
+			}
+		}
+		else
+		{
+			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+		}
+	}
+
+	/*
+	若不存在，则创建
+	*/
+	if ( pBoolParameterWriter == nullptr )
+	{
+		pBoolParameterWriter = new BoolParameterWriter;
+		pBoolParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetBoolParameterRef( name ) );
+		AddRenderParameter( pBoolParameterWriter );
+	}
+
+	return pBoolParameterWriter;
+}
+
 Vector4fParameterWriter* ParameterContainer::GetVector4fParameterWriter( const std::wstring& name )
 {
 	// 获取name对应的ParameterWriter

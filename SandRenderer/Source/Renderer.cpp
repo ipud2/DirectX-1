@@ -183,6 +183,23 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 	DepthStencilStateConfig DSSConfig;
 	m_pPipelineManager->GetOutputMergeStageRef().DesiredState.DepthStencilStates.SetState( CreateDepthStencilState( &DSSConfig ) );
 
+	/*
+		添加一个默认的视图对象
+
+		为何要添加这个默认对象？
+		比如shader中：
+		TextureCube SkyboxTexture; 用于实现物体对天空的反射
+		但是并不是所有物体都需要反射天空
+		这个时候就没必要所有的物体都创建一张纹理，然后传递进去，因此可以使用该默认值
+		这样我们就只需为需要反射天空的物体添加天空纹理即可
+
+		修改各视图对象默认id
+	*/
+	m_vShaderResourceViews.emplace_back( ShaderResourceViewComPtr() );
+	m_vRenderTargetViews.emplace_back( RenderTargetViewComPtr() );
+	m_vUnorderedAccessViews.emplace_back( UnorderedAccessViewComPtr() );
+	m_vDepthStencilViews.emplace_back( DepthStencilViewComPtr() );
+
 	return true;
 }
 

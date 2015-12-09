@@ -112,8 +112,13 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 					else if ( TypeDesc.Type == D3D_SVT_BOOL )
 					{
 						// -----------bool----------------
-					}
+						pRenderParameter = pParameterManager->GetBoolParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
 
+						if ( VariableDesc.DefaultValue != nullptr )
+						{
+							pRenderParameter->SetParameterData( reinterpret_cast< void* >( VariableDesc.DefaultValue ) );
+						}
+					}
 				}
 				else if( TypeDesc.Class == D3D_SVC_VECTOR )
 				{

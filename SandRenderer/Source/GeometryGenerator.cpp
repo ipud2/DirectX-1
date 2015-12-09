@@ -225,12 +225,9 @@ void GeometryGenerator::GeneratorAxisGeometry( GeometryPtr pGeometry )
 	pGeometry->AddFace( 13 , 10 , 14 );
 }
 
-void GeometryGenerator::GeneratorSphere( GeometryPtr pGeometry , unsigned int SliceCount , unsigned int StackCount , float Radius )
+GeometryPtr GeometryGenerator::GeneratorSphere( unsigned int SliceCount , unsigned int StackCount , float Radius )
 {
-	if( pGeometry == nullptr )
-	{
-		return;
-	}
+	GeometryPtr pGeometry = GeometryPtr( new Geometry );
 
 	float phiStep = 3.1415926f / StackCount;
 	float thetaStep = 2.0f * 3.1415926f / SliceCount;
@@ -371,14 +368,13 @@ void GeometryGenerator::GeneratorSphere( GeometryPtr pGeometry , unsigned int Sl
 	{
 		pGeometry->AddFace( SouthPoleIndex , baseIndex + i , baseIndex + i + 1 );
 	}
+
+	return pGeometry;
 }
 
-void GeometryGenerator::GeneratorSkyBox( GeometryPtr pGeometry , unsigned int SliceCount , unsigned int StackCount , float Radius )
+GeometryPtr GeometryGenerator::GeneratorSkyBox( unsigned int SliceCount , unsigned int StackCount , float Radius )
 {
-	if ( pGeometry == nullptr )
-	{
-		return;
-	}
+	GeometryPtr pGeometry = GeometryPtr( new Geometry );
 
 	float phiStep = 3.1415926f / StackCount;
 	float thetaStep = 2.0f * 3.1415926f / SliceCount;
@@ -455,4 +451,283 @@ void GeometryGenerator::GeneratorSkyBox( GeometryPtr pGeometry , unsigned int Sl
 	{
 		pGeometry->AddFace( SouthPoleIndex , baseIndex + i , baseIndex + i + 1 );
 	}
+
+	return pGeometry;
+}
+
+GeometryPtr GeometryGenerator::GeneratorGrid( float width , float depth , unsigned int m , unsigned int n )
+{
+	GeometryPtr pGeometry = GeometryPtr( new Geometry );
+
+	unsigned int VertexCount = m * n;
+	unsigned int FaceCount = ( m - 1 ) * ( n - 1 ) * 2;
+
+	float HalfWidth = width * 0.5f;
+	float HalfDepth = depth * 0.5f;
+
+	float xStep = width / ( n - 1 );
+	float zStep = depth / ( m - 1 );
+
+	float du = 1.0f / ( n - 1 );
+	float dv = 1.0f / ( m - 1 );
+
+	VertexElement* pPosition = new VertexElement( 3 , VertexCount );
+	pPosition->m_SemanticName = "POSITION";
+	pPosition->m_uiSemanticIndex = 0;
+	pPosition->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pPosition->m_uiInputSlot = 0;
+	pPosition->m_uiAlignedByteOffset = 0;
+	pPosition->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	pPosition->m_uiInstanceDataStepRate = 0;
+
+	VertexElement* pNormals = new VertexElement( 3 , VertexCount );
+	pNormals->m_SemanticName = "NORMAL";
+	pNormals->m_uiSemanticIndex = 0;
+	pNormals->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pNormals->m_uiInputSlot = 0;
+	pNormals->m_uiAlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	pNormals->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	pNormals->m_uiInstanceDataStepRate = 0;
+
+	VertexElement* pTangents = new VertexElement( 3 , VertexCount );
+	pTangents->m_SemanticName = "TANGENT";
+	pTangents->m_uiSemanticIndex = 0;
+	pTangents->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pTangents->m_uiInputSlot = 0;
+	pTangents->m_uiAlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	pTangents->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	pTangents->m_uiInstanceDataStepRate = 0;
+
+	VertexElement* pTexCoords = new VertexElement( 2 , VertexCount );
+	pTexCoords->m_SemanticName = "TEXCOORD";
+	pTexCoords->m_uiSemanticIndex = 0;
+	pTexCoords->m_Format = DXGI_FORMAT_R32G32_FLOAT;
+	pTexCoords->m_uiInputSlot = 0;
+	pTexCoords->m_uiAlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	pTexCoords->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	pTexCoords->m_uiInstanceDataStepRate = 0;
+
+	Vector3f* pVertex = pPosition->Get3fTupleDataPtr( 0 );
+	Vector3f* pNormal = pNormals->Get3fTupleDataPtr( 0 );
+	Vector3f* pTangent = pTangents->Get3fTupleDataPtr( 0 );
+	Vector2f* pTex = pTexCoords->Get2fTupleDataPtr( 0 );
+
+	for ( unsigned int i = 0; i < m; i++ )
+	{
+		float z = HalfDepth - i * zStep;
+
+		for ( unsigned int j = 0; j < n; j++ )
+		{
+			float x = -HalfWidth + j * xStep;
+
+			pVertex[i * n + j] = Vector3f( x , 0.0f , z );
+			pNormal[i * n + j] = Vector3f( 0.0f , 1.0f , 0.0f );
+			pTangent[i * n + j] = Vector3f( 1.0f , 0.0f , 0.0f );
+			pTex[i * n + j] = Vector2f( j * du , i * dv );
+		}
+	}
+
+	pGeometry->AddElement( pPosition );
+	pGeometry->AddElement( pNormals );
+	pGeometry->AddElement( pTangents );
+	pGeometry->AddElement( pTexCoords );
+
+	for ( unsigned i = 0; i < m - 1; i++ )
+	{
+		for ( unsigned int j = 0; j < n - 1; j++ )
+		{
+			pGeometry->AddFace( i * n + j , i * n + j + 1 , ( i + 1 ) * n + j );
+
+			pGeometry->AddFace( ( i + 1 ) * n + j , i * n + j + 1 , ( i + 1 ) * n + j + 1 );
+		}
+	}
+
+	return pGeometry;
+}
+
+GeometryPtr GeometryGenerator::GeneratorCylinder( float bottomRadius , float topRadius , float height , unsigned int sliceCount , unsigned int stackCount )
+{
+	GeometryPtr pGeometry = GeometryPtr( new Geometry );
+
+	float NumVertices = ( stackCount + 1 ) * ( sliceCount + 1 ) + 2 * sliceCount + 4;
+
+	VertexElement* pPosition = new VertexElement( 3 , NumVertices );
+	pPosition->m_SemanticName = "POSITION";
+	pPosition->m_uiSemanticIndex = 0;
+	pPosition->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pPosition->m_uiInputSlot = 0;
+	pPosition->m_uiAlignedByteOffset = 0;
+	pPosition->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	pPosition->m_uiInstanceDataStepRate = 0;
+
+	VertexElement* pNormals = new VertexElement( 3 , NumVertices );
+	pNormals->m_SemanticName = "NORMAL";
+	pNormals->m_uiSemanticIndex = 0;
+	pNormals->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pNormals->m_uiInputSlot = 0;
+	pNormals->m_uiAlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	pNormals->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	pNormals->m_uiInstanceDataStepRate = 0;
+
+	VertexElement* pTangents = new VertexElement( 3 , NumVertices );
+	pTangents->m_SemanticName = "TANGENT";
+	pTangents->m_uiSemanticIndex = 0;
+	pTangents->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
+	pTangents->m_uiInputSlot = 0;
+	pTangents->m_uiAlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	pTangents->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	pTangents->m_uiInstanceDataStepRate = 0;
+
+	VertexElement* pTexCoords = new VertexElement( 2 , NumVertices );
+	pTexCoords->m_SemanticName = "TEXCOORD";
+	pTexCoords->m_uiSemanticIndex = 0;
+	pTexCoords->m_Format = DXGI_FORMAT_R32G32_FLOAT;
+	pTexCoords->m_uiInputSlot = 0;
+	pTexCoords->m_uiAlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+	pTexCoords->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+	pTexCoords->m_uiInstanceDataStepRate = 0;
+
+	Vector3f* pVertex = pPosition->Get3fTupleDataPtr( 0 );
+	Vector3f* pNormal = pNormals->Get3fTupleDataPtr( 0 );
+	Vector3f* pTangent = pTangents->Get3fTupleDataPtr( 0 );
+	Vector2f* pTex = pTexCoords->Get2fTupleDataPtr( 0 );
+
+	//将圆柱体从上到下分stackCount份，每一份绕着中心分sliceCount
+	float stackHeight = height / stackCount;	//y轴的增量
+
+	unsigned int radiusStep = ( topRadius - bottomRadius ) / stackCount;	//半径增量
+
+	unsigned int ringCount = stackCount + 1;
+	for ( unsigned int i = 0; i < ringCount; i++ )
+	{
+		float y = -0.5f * height + i * stackHeight;
+		float r = bottomRadius + i * radiusStep;
+
+		//圆环分割后角度的增量
+		float dTheta = 2.0f * SAND_PI / sliceCount;
+
+		//圆环上分割的sliceCount份
+		for ( unsigned int j = 0; j <= sliceCount; j++ )
+		{
+			float c = cosf( j * dTheta );
+			float s = sinf( j * dTheta );
+
+			pVertex[i * ( sliceCount + 1 ) +j] = Vector3f( r * c , y , r * s );
+
+			//由于是从下往上分割的
+			pTex[i * ( sliceCount + 1 ) + j] = Vector2f( ( float )j / sliceCount , 1.0f - ( float )i / stackCount );
+
+			//考虑这种情况：
+			// y(v) = h - hv for v in [0,1]
+			// r(v) = r1 + (r0 - r1) * v
+			//
+			// x(t , v) = r(v) * cos(t)
+			// y(t , v) = h - hv;
+			// z(t , v) = r(v) * sin(t)
+			//
+			// dx/dt = -r(v)*sin(t);
+			// dy/dt = 0;
+			// dz/dt = r(v)*cos(t)
+			//
+			// dx/dv = (r0 - r1)*cos(t)
+			// dy/dv = -h;
+			// dz/dv = (r0 - r1)*sin(t);
+			pTangent[i * ( sliceCount + 1 ) + j] = Vector3f( -s , 0.0f , c );
+
+			float dr = topRadius - bottomRadius;
+			Vector3f bitTangent( -dr * c , -height , -dr * s );
+			Vector3f T = pTangent[i * ( sliceCount + 1 ) + j];
+			Vector3f N = T.Cross( bitTangent );
+			N.Normalize();
+
+			pNormal[i * ( sliceCount + 1 ) + j] = N;
+		}
+	}
+
+	// ---------------------------Top Cap-------------------------------
+	unsigned int TopCapBaseindex = ( stackCount + 1 ) * ( sliceCount + 1 );
+
+	float y = 0.5f * height;
+	float dTheta = 2 * SAND_PI / sliceCount;
+
+	for ( unsigned int i = 0; i <= sliceCount; i++ )
+	{
+		float x = topRadius * cosf( i * dTheta );
+		float z = topRadius * sinf( i * dTheta );
+
+		float u = x / height + 0.5f;
+		float v = z / height + 0.5f;
+
+		pVertex[TopCapBaseindex + i] = Vector3f( x , y , z );
+		pTex[TopCapBaseindex + i] = Vector2f( u , v );
+		pNormal[TopCapBaseindex + i] = Vector3f( 0.0f , 1.0f , 0.0f );
+		pTangent[TopCapBaseindex + i] = Vector3f( 1.0f , 0.0f , 0.0f );
+	}
+
+	// 上顶面的中心点
+	pVertex[TopCapBaseindex + sliceCount + 1] = Vector3f( 0.0f , y , 0.0f );
+	pTex[TopCapBaseindex + sliceCount + 1] = Vector2f( 0.0f , 0.0f );
+	pNormal[TopCapBaseindex + sliceCount + 1] = Vector3f( 0.0f , 1.0f , 0.0f );
+	pTangent[TopCapBaseindex + sliceCount + 1] = Vector3f( 1.0f , 0.0f , 0.0f );
+
+	// ------------------------------Bottom Cap------------------------------
+	unsigned int BottomCapBaseIndex = TopCapBaseindex + sliceCount + 2;
+
+	y = -0.5f * height;
+	dTheta = 2 * SAND_PI / sliceCount;
+
+	for ( unsigned int i = 0; i <= sliceCount; i++ )
+	{
+		float x = bottomRadius * cosf( i * dTheta );
+		float z = bottomRadius * sinf( i * dTheta );
+
+		float u = x / height + 0.5f;
+		float v = z / height + 0.5f;
+
+		pVertex[BottomCapBaseIndex + i] = Vector3f( x , y , z );
+		pTex[BottomCapBaseIndex + i] = Vector2f( u , v );
+		pNormal[BottomCapBaseIndex + i] = Vector3f( 0.0f , -1.0f , 0.0f );
+		pTangent[BottomCapBaseIndex + i] = Vector3f( 1.0f , 0.0f , 0.0f );
+	}
+
+	pVertex[BottomCapBaseIndex + sliceCount + 1] = Vector3f( 0.0f , -0.5f* height , 0.0f );
+	pTex[BottomCapBaseIndex + sliceCount + 1] = Vector2f( 0.5f , 0.5f );
+	pNormal[BottomCapBaseIndex + sliceCount + 1] = Vector3f( 0.0f , -1.0f , 0.0f );
+	pTangent[BottomCapBaseIndex + sliceCount + 1] = Vector3f( 1.0f , 0.0f , 0.0f );
+
+	pGeometry->AddElement( pPosition );
+	pGeometry->AddElement( pNormals );
+	pGeometry->AddElement( pTangents );
+	pGeometry->AddElement( pTexCoords );
+
+
+	// -----------------------------------------------索引--------------------------------------------
+	UINT ringVertexCount = sliceCount + 1;
+	for ( UINT i = 0; i < stackCount; i++ )
+	{
+		for ( UINT j = 0; j < sliceCount; j++ )
+		{
+			pGeometry->AddFace( i * ringVertexCount + j , ( i + 1 ) * ringVertexCount + j , ( i + 1 ) * ringVertexCount + j + 1 );
+
+			pGeometry->AddFace( i * ringVertexCount + j , ( i + 1 ) * ringVertexCount + j + 1 , i * ringVertexCount + j + 1 );
+		}
+	}
+
+	// ----------------Top Cap-----------------------
+	unsigned int TopCapCenterIndex = ( unsigned int )( TopCapBaseindex + sliceCount + 1 );
+
+	for ( unsigned int i = 0; i < sliceCount; i++ )
+	{
+		pGeometry->AddFace( TopCapCenterIndex , TopCapBaseindex + i , TopCapBaseindex + i + 1 );
+	}
+
+	// -------------------Bottom Cap-----------------------
+	unsigned int BottomCapCenterIndex = ( unsigned int )( BottomCapBaseIndex + sliceCount + 1 );
+
+	for ( unsigned int i = 0; i < sliceCount; i++ )
+	{
+		pGeometry->AddFace( BottomCapCenterIndex , BottomCapBaseIndex + i , BottomCapBaseIndex + i + 1 );
+	}
+
+	return pGeometry;
 }

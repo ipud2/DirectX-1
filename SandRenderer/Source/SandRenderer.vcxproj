@@ -98,6 +98,8 @@
     <ClInclude Include="..\Include\BaseNumericTypeRenderParameter.h" />
     <ClInclude Include="..\Include\BasicSurfaceProperty.h" />
     <ClInclude Include="..\Include\BlendStateConfig.h" />
+    <ClInclude Include="..\Include\BoolParameter.h" />
+    <ClInclude Include="..\Include\BoolParameterWriter.h" />
     <ClInclude Include="..\Include\Buffer.h" />
     <ClInclude Include="..\Include\BufferConfig.h" />
     <ClInclude Include="..\Include\Camera.h" />
@@ -134,9 +136,9 @@
     <ClInclude Include="..\Include\EventMouseRButtonUp.h" />
     <ClInclude Include="..\Include\EventMouseWheel.h" />
     <ClInclude Include="..\Include\EventWindowMessage.h" />
-    <ClInclude Include="..\Include\EventWindowResize.h" />
     <ClInclude Include="..\Include\FileLoader.h" />
     <ClInclude Include="..\Include\FileSystem.h" />
+    <ClInclude Include="..\Include\FloatParameter.h" />
     <ClInclude Include="..\Include\Geometry.h" />
     <ClInclude Include="..\Include\GeometryGenerator.h" />
     <ClInclude Include="..\Include\GeometryLoader.h" />
@@ -166,6 +168,7 @@
     <ClInclude Include="..\Include\MS3D.h" />
     <ClInclude Include="..\Include\Node.h" />
     <ClInclude Include="..\Include\OBJ.h" />
+    <ClInclude Include="..\Include\OrientationController.h" />
     <ClInclude Include="..\Include\OutputMergeStage.h" />
     <ClInclude Include="..\Include\OutputMergeStageState.h" />
     <ClInclude Include="..\Include\ParameterContainer.h" />
@@ -250,6 +253,8 @@
     <ClCompile Include="BaseNumericTypeRenderParameter.cpp" />
     <ClCompile Include="BasicSurfaceProperty.cpp" />
     <ClCompile Include="BlendStateConfig.cpp" />
+    <ClCompile Include="BoolParameter.cpp" />
+    <ClCompile Include="BoolParameterWriter.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferConfig.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -286,9 +291,9 @@
     <ClCompile Include="EventMouseRButtonUp.cpp" />
     <ClCompile Include="EventMouseWheel.cpp" />
     <ClCompile Include="EventWindowMessage.cpp" />
-    <ClCompile Include="EventWindowResize.cpp" />
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="FileSystem.cpp" />
+    <ClCompile Include="FloatParameter.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometryLoader.cpp" />
@@ -390,6 +395,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Include\IController.inl" />
+    <None Include="..\Include\OrientationController.inl" />
     <None Include="..\Include\PositionExtractorController.inl" />
     <None Include="..\Include\RotationController.inl" />
     <None Include="..\Include\SpatialController.inl" />

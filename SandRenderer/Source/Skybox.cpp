@@ -15,8 +15,7 @@ Skybox::Skybox( std::wstring& filename , int sampler , float Radius /* = 1000.0f
 	GetRootNode()->SetName( std::wstring( L"Skybox" ) );
 
 	// ´´½¨GeometryPtr
-	m_pGeometry = GeometryPtr( new Geometry );
-	GeometryGenerator::GeneratorSkyBox( m_pGeometry , 30 , 30 , Radius );
+	m_pGeometry = GeometryGenerator::GeneratorSkyBox( 30 , 30 , Radius );
 	m_pGeometry->LoadToBuffer();
 	m_pGeometry->SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
 

@@ -245,9 +245,6 @@
     <ClInclude Include="..\Include\EventMouseWheel.h">
       <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventWindowResize.h">
-      <Filter>Event\Windows Message\Window</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\EventFrameStart.h">
       <Filter>Event\Render</Filter>
     </ClInclude>
@@ -641,6 +638,18 @@
     <ClInclude Include="..\Include\Skybox.h">
       <Filter>Object\Actor\Skybox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\FloatParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BoolParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BoolParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\OrientationController.h">
+      <Filter>Object\Controller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -690,9 +699,6 @@
     </ClCompile>
     <ClCompile Include="EventMouseWheel.cpp">
       <Filter>Event\Windows Message\Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="EventWindowResize.cpp">
-      <Filter>Event\Windows Message\Window</Filter>
     </ClCompile>
     <ClCompile Include="EventFrameStart.cpp">
       <Filter>Event\Render</Filter>
@@ -1060,6 +1066,15 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>Object\Actor\Skybox</Filter>
     </ClCompile>
+    <ClCompile Include="FloatParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="BoolParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="BoolParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Include\TStateMonitor.inl">
@@ -1079,6 +1094,9 @@
       <Filter>Object\Controller</Filter>
     </None>
     <None Include="..\Include\PositionExtractorController.inl">
+      <Filter>Object\Controller</Filter>
+    </None>
+    <None Include="..\Include\OrientationController.inl">
       <Filter>Object\Controller</Filter>
     </None>
   </ItemGroup>

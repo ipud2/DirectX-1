@@ -10,6 +10,8 @@ namespace Sand
 		Vector4f AmbientMaterial;
 		Vector4f DiffuseMaterial;
 		Vector4f SpecularMaterial;
+
+		Vector4f ReflectMaterial;
 	};
 
 	class BasicSurfaceProperty : public SurfaceProperty
@@ -18,7 +20,7 @@ namespace Sand
 		BasicSurfaceProperty();
 		virtual ~BasicSurfaceProperty();
 
-		void SetSurfaceProperty( const Vector4f& AmbientMaterial , const Vector4f& DiffuseMaterial , const Vector4f& SpecularMaterial );
+		void SetSurfaceProperty( const Vector4f& AmbientMaterial , const Vector4f& DiffuseMaterial , const Vector4f& SpecularMaterial , const Vector4f& Reflect );
 
 	protected:
 		/*

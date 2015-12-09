@@ -61,12 +61,21 @@ namespace Sand
 		Matrix3f& operator/= ( float fScalar );
 
 		Vector3f operator* ( const Vector3f& rKV ) const;
+		
+		friend Vector3f operator* ( const Vector3f& v , const Matrix3f& matrix )
+		{
+			return Vector3f( v.x * matrix.m_afEntry[0] + v.y * matrix.m_afEntry[3] + v.z * matrix.m_afEntry[6] ,
+							 v.x * matrix.m_afEntry[1] + v.y * matrix.m_afEntry[4] + v.z * matrix.m_afEntry[7] ,
+							 v.x * matrix.m_afEntry[2] + v.y * matrix.m_afEntry[5] + v.z * matrix.m_afEntry[8] );
+		}
+
+		// 绕着轴Axis,旋转angle角度的旋转矩阵
+		void RotateAxis( Vector3f& Axis , float angle );
 
 	protected:
 		float m_afEntry[3 * 3];		// array float => af
 
 		static int I( int iRow , int iCol );	// iRow * N + iCol
 	};
-}
-
+};
 #endif

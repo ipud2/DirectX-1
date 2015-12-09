@@ -16,10 +16,14 @@ Camera::Camera()
 	m_fHeight( 600.0f ) ,
 	m_ProjMatrix() ,
 	m_pViewPositionWriter( nullptr ) ,
-	m_pSpatialController( nullptr )
+	m_pSpatialController( nullptr ) ,
+	m_pOrientationController( nullptr )
 {
 	m_pSpatialController = new SpatialController < Node >();
 	GetRootNode()->GetControllersRef().Attach( m_pSpatialController );
+
+	m_pOrientationController = new OrientationController<Node>();
+	GetRootNode()->GetControllersRef().Attach( m_pOrientationController );
 
 	m_ProjMatrix.MakeIdentity();
 
@@ -194,4 +198,9 @@ void Camera::ApplyOrthogonalProjectionParams()
 SpatialController<Node>& Camera::Spatial()
 {
 	return ( *m_pSpatialController );
+}
+
+OrientationController<Node>& Camera::Orientation()
+{
+	return ( *m_pOrientationController );
 }

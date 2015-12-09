@@ -75,9 +75,9 @@ Vector3f Vector3f::Cross( const Vector3f& Vector ) const
 	Vector3f vRet;
 
 	/*
-	x , y		Vector.y	Vector.z	Vector.x
-	y , z		-Vector.x	-Vector.y	-Vector.z
-	z , x
+		x , y		Vector.y	Vector.z	Vector.x
+		y , z		-Vector.x	-Vector.y	-Vector.z
+		z , x
 	*/
 	vRet.x = y * Vector.z - z * Vector.y;
 	vRet.y = z * Vector.x - x * Vector.z;

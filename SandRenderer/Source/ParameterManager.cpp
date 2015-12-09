@@ -27,6 +27,34 @@ ParameterManager::~ParameterManager()
 
 
 // ------------------------------------------------Set Paramter Data-------------------------------------------------------------
+void ParameterManager::SetBoolParameterData( const std::wstring& name , bool* pBool )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		// 不存在该参数，则新建一个
+		pParameter = new BoolParameter( name );
+		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
+
+		pParameter->SetParameterData( reinterpret_cast< void* >( pBool ) );
+	}
+	else
+	{
+		// 该参数存在
+
+		// 验证类型是否符合
+		if ( Parameters[name]->GetParameterType() == PT_BOOL )
+		{
+			Parameters[name]->SetParameterData( reinterpret_cast< void* >( pBool ) );
+		}
+		else
+		{
+			Log::Get().Write( L"尝试将Bool值赋给非Bool型参数" );
+		}
+	}
+}
+
 void ParameterManager::SetVector4fParameterData( const std::wstring& name , Vector4f* pVector )
 {
 	RenderParameter* pParameter = Parameters[name];
@@ -312,6 +340,18 @@ void ParameterManager::SetSamplerStateParameterData( const std::wstring& name , 
 	}
 }
 
+void ParameterManager::SetBoolParameterData( RenderParameter* pParameter , bool* pBool )
+{
+	// 检测类型是否符合
+	if ( pParameter->GetParameterType() == PT_BOOL )
+	{
+		pParameter->SetParameterData( reinterpret_cast< void* >( pBool ) );
+	}
+	else
+	{
+		Log::Get().Write( L"参数类型不符，该参数不是Bool类型" );
+	}
+}
 
 void ParameterManager::SetVector4fParameterData( RenderParameter* pParameter , Vector4f* pVector )
 {
@@ -454,6 +494,20 @@ RenderParameter* ParameterManager::GetParameterRef( const std::wstring& name )
 	return pParameter;
 }
 
+BoolParameter* ParameterManager::GetBoolParameterRef( const std::wstring& name )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		// 创建参数对象
+		pParameter = new BoolParameter( name );
+		Parameters[name] = pParameter;
+	}
+
+	return reinterpret_cast< BoolParameter* >( pParameter );
+}
+
 Vector4fParameter* ParameterManager::GetVector4fParameterRef( const std::wstring& name )
 {
 	RenderParameter* pParameter = Parameters[name];
@@ -594,6 +648,28 @@ SamplerParameter* ParameterManager::GetSamplerStateParameterRef( const std::wstr
 }
 
 // --------------------------------------------------获取参数对象的值---------------------------------------
+bool ParameterManager::GetBoolParameterData( const std::wstring& name )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	bool result = false;
+
+	if ( pParameter == nullptr )
+	{
+		pParameter = new BoolParameter( name );
+		Parameters[name] = pParameter;
+	}
+	else
+	{
+		if ( pParameter->GetParameterType() == PT_BOOL )
+		{
+			result = reinterpret_cast< BoolParameter* >( pParameter )->GetValue();
+		}
+	}
+
+	return result;
+}
+
 Vector4f ParameterManager::GetVector4fParameterData( const std::wstring& name )
 {
 	RenderParameter* pParameter = Parameters[name];
@@ -820,6 +896,20 @@ int ParameterManager::GetSamplerStateParameterData( const std::wstring& name )
 		{
 			result = reinterpret_cast< SamplerParameter* >( pParameter )->GetSamplerResourceID();
 		}
+	}
+
+	return result;
+}
+
+bool ParameterManager::GetBoolParameterData( RenderParameter* pParameter )
+{
+	assert( pParameter != 0 );
+
+	bool result = false;
+
+	if ( pParameter->GetParameterType() == PT_BOOL )
+	{
+		result = reinterpret_cast< BoolParameter* >( pParameter )->GetValue();
 	}
 
 	return result;

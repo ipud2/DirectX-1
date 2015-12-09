@@ -23,7 +23,7 @@ namespace Sand
 		bool IsMaximized();
 		bool IsMaxShow();
 		bool IsMinimized();
-		bool IsRestored();
+		/*bool IsRestored();*/
 	};
 
 	typedef std::shared_ptr<EventWindowResize> EventWindowResizePtr;

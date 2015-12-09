@@ -14,22 +14,22 @@ namespace Sand
 		virtual ~Vector2fParameter();
 
 		/*
-		设置数据，并改变标识符
+			设置数据，并改变标识符
 		*/
 		virtual void SetParameterData( void* pData );
 
 		/*
-		获取参数类型
+			获取参数类型
 		*/
 		virtual const ParameterType GetParameterType();
 
 		/*
-		获取向量值
+			获取向量值
 		*/
 		Vector2f GetVector();
 
 		/*
-		设置向量值，并且不改变标识符
+			设置向量值，并且不改变标识符
 		*/
 		void SetVector( Vector2f v );
 

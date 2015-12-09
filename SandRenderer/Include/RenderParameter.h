@@ -7,12 +7,19 @@ namespace Sand
 {
 	enum ParameterType
 	{
-		// 数值型
+		// 标量
+		PT_FLOAT , 
+		PT_BOOL , 
+		PT_INT , 
+
+		// 矢量
 		PT_VECTOR_4F , 
 		PT_VECTOR_3F , 
 		PT_VECTOR_2F ,
 		PT_MATRIX , 
 		PT_MATRIX_ARRAY , 
+
+		// 结构体
 		PT_STRUCTURE , 
 
 		// 对象类型

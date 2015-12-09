@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "Matrix3f.h"
+#include "Vector3f.h"
 
 using namespace Sand;
 
@@ -146,7 +147,6 @@ void Matrix3f::Orthonormalize()
 	m_afEntry[5] *= fInvLength;
 	m_afEntry[8] *= fInvLength;
 }
-
 
 float Matrix3f::operator[] ( int iPos ) const
 {
@@ -481,3 +481,25 @@ Vector3f Matrix3f::GetColumn( int iCol ) const
 
 	return vCol;
 }
+
+void Matrix3f::RotateAxis( Vector3f& Axis , float angle )
+{
+	float x = Axis.x;
+	float y = Axis.y;
+	float z = Axis.z;
+
+	float Cos = cosf( angle );
+	float OneSubCos = 1 - cosf( angle );
+	float Sin = sinf( angle );
+
+	m_afEntry[0] = x * x * OneSubCos + Cos;		m_afEntry[1] = x * y * OneSubCos + z * Sin;		m_afEntry[2] = x * z * OneSubCos - y * Sin;
+	m_afEntry[3] = x * y * OneSubCos - z * Sin;	m_afEntry[4] = y * y * OneSubCos + Cos;			m_afEntry[5] = y * z * OneSubCos + x * Sin;
+	m_afEntry[6] = x * z * OneSubCos + y * Sin;	m_afEntry[7] = y * z * OneSubCos - x * Sin;		m_afEntry[8] = z * z * OneSubCos + Cos;
+}
+
+//Vector3f operator* ( const Vector3f& v , const Matrix3f& matrix )
+//{
+//	return Vector3f( v.x * matrix[0] + v.y * matrix[3] + v.z * matrix[6] ,
+//					 v.x * matrix[1] + v.y * matrix[4] + v.z * matrix[7] ,
+//					 v.x * matrix[2] + v.y * matrix[5] + v.z * matrix[8] );
+//}

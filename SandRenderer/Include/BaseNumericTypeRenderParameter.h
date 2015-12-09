@@ -21,6 +21,5 @@ namespace Sand
 		// 标识是否改变，主要用于constant buffer判断数据是否有更新
 		unsigned int m_Identifier;
 	};
-}
-
+};
 #endif

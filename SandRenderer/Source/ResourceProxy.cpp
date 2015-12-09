@@ -18,10 +18,10 @@ ResourceProxy::ResourceProxy()
 {
 	m_ResourceID = -1;
 
-	m_ShaderResourceViewID = -1;
-	m_RenderTargetViewID = -1;
-	m_UnorderedAccessViewID = -1;
-	m_DepthStencilViewID = -1;
+	m_ShaderResourceViewID = 0;
+	m_RenderTargetViewID = 0;
+	m_UnorderedAccessViewID = 0;
+	m_DepthStencilViewID = 0;
 
 	m_pShaderResourceViewConfig = nullptr;
 	m_pRenderTargetViewConfig = nullptr;

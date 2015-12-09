@@ -675,6 +675,14 @@ void Matrix4f::SetRow( int iRow , const Vector4f& Vector )
 	}
 }
 
+void Matrix4f::SetRow( int iRow , const Vector3f& Vector )
+{
+	for ( int iCol = 0; iCol < 3; iCol++ )
+	{
+		m_afEntry[I( iRow , iCol )] = Vector[iCol];
+	}
+}
+
 void Matrix4f::SetColumn( int iCol , const Vector4f& Vector )
 {
 	for( int iRow = 0; iRow < 4; iRow++ )

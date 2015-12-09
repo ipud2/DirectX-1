@@ -1,5 +1,5 @@
 #include "PCH.h"
-
+#include <Windowsx.h>
 #include "Application.h"
 #include "Log.h"
 
@@ -105,8 +105,8 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 
 		case WM_SIZE:
 		{
-			EventWindowResizePtr pEvent = EventWindowResizePtr( new EventWindowResize( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			/*EventWindowResizePtr pEvent = EventWindowResizePtr( new EventWindowResize( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );*/
 			break;
 		}
 
@@ -115,6 +115,8 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		{
 			EventMouseLButtonUpPtr pEvent = EventMouseLButtonUpPtr( new EventMouseLButtonUp( hwnd , wParam , lParam ) );
 			m_EventManager.ProcessEvent( pEvent );
+
+			OnMouseUp( wParam , GET_X_LPARAM( lParam ) , GET_Y_LPARAM( lParam ) );
 			break;
 		}
 
@@ -122,6 +124,8 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		{
 			EventMouseLButtonDownPtr pEvent = EventMouseLButtonDownPtr( new EventMouseLButtonDown( hwnd , wParam , lParam ) );
 			m_EventManager.ProcessEvent( pEvent );
+
+			OnMouseDown( wParam , GET_X_LPARAM( lParam ) , GET_Y_LPARAM( lParam ) );
 			break;
 		}
 
@@ -161,6 +165,8 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 			//  Û±Í“∆∂Ø
 			EventMouseMovePtr pEvent = EventMouseMovePtr( new EventMouseMove( hwnd , wParam , lParam ) );
 			m_EventManager.ProcessEvent( pEvent );
+
+			OnMouseMove( wParam , GET_X_LPARAM( lParam ) , GET_Y_LPARAM( lParam ) );
 			break;
 		}
 
@@ -271,4 +277,19 @@ void Application::SetFrameRate( HWND hwnd )
 		FrameCount = 0;
 		TimeElapsed += 1.0f;
 	}
+}
+
+void Application::OnMouseDown( WPARAM buttonState , int x , int y )
+{
+
+}
+
+void Application::OnMouseUp( WPARAM buttonState , int x , int y )
+{
+
+}
+
+void Application::OnMouseMove( WPARAM buttonState , int x , int y )
+{
+
 }
