@@ -6,8 +6,8 @@ using namespace Sand;
 
 Renderable::Renderable()
 	:IAStageExecutor( nullptr ) ,
-	Mat( nullptr ) ,
-	Property( nullptr )
+	ShaderEffect( nullptr ) ,
+	Material( nullptr )
 {
 
 }
@@ -15,19 +15,19 @@ Renderable::Renderable()
 Renderable::~Renderable()
 {
 	IAStageExecutor = nullptr;
-	Mat = nullptr;
-	Property = nullptr;
+	ShaderEffect = nullptr;
+	Material = nullptr;
 }
 
-void Renderable::SetMaterial( MaterialPtr pMaterial )
+void Renderable::SetEffect( EffectPtr pShaderEffect )
 {
-	Mat = pMaterial;
+	ShaderEffect = pShaderEffect;
 
-	if( Mat != nullptr && IAStageExecutor != nullptr )
+	if( ShaderEffect != nullptr && IAStageExecutor != nullptr )
 	{
 		// 获取所有可用的Vertex Shader ID
 		std::vector<int> idList;
-		pMaterial->GetAllVertexShaderIDs( idList );
+		pShaderEffect->GetAllVertexShaderIDs( idList );
 
 		for( int i = 0; i < idList.size(); i++ )
 		{
@@ -36,9 +36,9 @@ void Renderable::SetMaterial( MaterialPtr pMaterial )
 	}
 }
 
-MaterialPtr Renderable::GetMaterial()
+EffectPtr Renderable::GetEffect()
 {
-	return Mat;
+	return ShaderEffect;
 }
 
 InputAssemblerStageExecutorPtr Renderable::GetGeometry()
@@ -50,10 +50,10 @@ void Renderable::SetGeometry( InputAssemblerStageExecutorPtr pExecutor )
 {
 	IAStageExecutor = pExecutor;
 
-	if( Mat != nullptr && IAStageExecutor != nullptr )
+	if( ShaderEffect != nullptr && IAStageExecutor != nullptr )
 	{
 		std::vector<int> idList;
-		Mat->GetAllVertexShaderIDs( idList );
+		ShaderEffect->GetAllVertexShaderIDs( idList );
 
 		for( int i = 0; i < idList.size(); i++ )
 		{
@@ -62,12 +62,12 @@ void Renderable::SetGeometry( InputAssemblerStageExecutorPtr pExecutor )
 	}
 }
 
-void Renderable::SetSurfaceProperty( SurfaceProperty* pSurfaceProperty )
+void Renderable::SetSurfaceMaterial( SurfaceMaterial* pSurfaceMaterial )
 {
-	Property = pSurfaceProperty;
+	Material = pSurfaceMaterial;
 }
 
-SurfaceProperty* Renderable::GetSurfaceProperty()
+SurfaceMaterial* Renderable::GetSurfaceMaterial()
 {
-	return Property;
+	return Material;
 }

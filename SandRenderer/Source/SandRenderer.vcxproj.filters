@@ -129,17 +129,8 @@
     <Filter Include="Object\Actor\Light">
       <UniqueIdentifier>{b891001b-eefc-4f15-97b1-a830122792c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Material">
-      <UniqueIdentifier>{67959f32-2d08-47ee-b8b5-5d7bea8a56b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Material\Task">
-      <UniqueIdentifier>{fcd4562c-b2c3-43d5-8dcd-568a14415fda}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Actor\Camera">
       <UniqueIdentifier>{716defe4-89f0-4e85-9567-8633f051ed2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SurfaceProperty">
-      <UniqueIdentifier>{4765c87c-372e-447f-9ec7-925a4dc2aa1c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{ea1f2497-6305-4e47-9fd9-74ef865bbec4}</UniqueIdentifier>
@@ -188,6 +179,15 @@
     </Filter>
     <Filter Include="Object\Actor\Skybox">
       <UniqueIdentifier>{e7d14ec5-847c-41ca-9cda-cca0471fb8d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{67959f32-2d08-47ee-b8b5-5d7bea8a56b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effect\Task">
+      <UniqueIdentifier>{fcd4562c-b2c3-43d5-8dcd-568a14415fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Material">
+      <UniqueIdentifier>{4765c87c-372e-447f-9ec7-925a4dc2aa1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -546,28 +546,22 @@
       <Filter>Object\Controller</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\RenderEffect.h">
-      <Filter>Material</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Material.h">
-      <Filter>Material</Filter>
+      <Filter>Effect</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Task.h">
-      <Filter>Material\Task</Filter>
+      <Filter>Effect\Task</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\SceneRenderTask.h">
-      <Filter>Material\Task</Filter>
+      <Filter>Effect\Task</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\Renderable.h">
-      <Filter>Material</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MaterialGenerator.h">
-      <Filter>Material</Filter>
+      <Filter>Effect</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\SamplerStateConfig.h">
       <Filter>Resource\State</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\ViewPerspective.h">
-      <Filter>Material\Task</Filter>
+      <Filter>Effect\Task</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\MS3D.h">
       <Filter>Pipeline\StageExecutor\InputAssembler\FileFormat</Filter>
@@ -580,12 +574,6 @@
     </ClInclude>
     <ClInclude Include="..\Include\DirectionalLight.h">
       <Filter>Object\Actor\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SurfaceProperty.h">
-      <Filter>SurfaceProperty</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\BasicSurfaceProperty.h">
-      <Filter>SurfaceProperty</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\MatrixArrayParameter.h">
       <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
@@ -649,6 +637,21 @@
     </ClInclude>
     <ClInclude Include="..\Include\OrientationController.h">
       <Filter>Object\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EventWindowResize.h">
+      <Filter>Event\Windows Message\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Effect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\EffectGenerator.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SurfaceMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BasicMaterial.h">
+      <Filter>Material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -977,28 +980,22 @@
       <Filter>Object\Actor\Light</Filter>
     </ClCompile>
     <ClCompile Include="RenderEffect.cpp">
-      <Filter>Material</Filter>
+      <Filter>Effect</Filter>
     </ClCompile>
     <ClCompile Include="Task.cpp">
-      <Filter>Material\Task</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Material</Filter>
+      <Filter>Effect\Task</Filter>
     </ClCompile>
     <ClCompile Include="Renderable.cpp">
-      <Filter>Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialGenerator.cpp">
-      <Filter>Material</Filter>
+      <Filter>Effect</Filter>
     </ClCompile>
     <ClCompile Include="SamplerStateConfig.cpp">
       <Filter>Resource\State</Filter>
     </ClCompile>
     <ClCompile Include="SceneRenderTask.cpp">
-      <Filter>Material\Task</Filter>
+      <Filter>Effect\Task</Filter>
     </ClCompile>
     <ClCompile Include="ViewPerspective.cpp">
-      <Filter>Material\Task</Filter>
+      <Filter>Effect\Task</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Utility</Filter>
@@ -1008,12 +1005,6 @@
     </ClCompile>
     <ClCompile Include="DirectionalLight.cpp">
       <Filter>Object\Actor\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceProperty.cpp">
-      <Filter>SurfaceProperty</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicSurfaceProperty.cpp">
-      <Filter>SurfaceProperty</Filter>
     </ClCompile>
     <ClCompile Include="MatrixArrayParameter.cpp">
       <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
@@ -1074,6 +1065,21 @@
     </ClCompile>
     <ClCompile Include="BoolParameterWriter.cpp">
       <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="EventWindowResize.cpp">
+      <Filter>Event\Windows Message\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectGenerator.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceMaterial.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicMaterial.cpp">
+      <Filter>Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

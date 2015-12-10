@@ -7,7 +7,7 @@
 using namespace Sand;
 
 Skybox::Skybox( std::wstring& filename , int sampler , float Radius /* = 1000.0f */ )
-	:m_pMaterial( nullptr ) ,
+	:m_pShaderEffect( nullptr ) ,
 	m_pGeometry( nullptr ) ,
 	m_iSamplerState( sampler ) ,
 	m_Radius( Radius )
@@ -19,7 +19,7 @@ Skybox::Skybox( std::wstring& filename , int sampler , float Radius /* = 1000.0f
 	m_pGeometry->LoadToBuffer();
 	m_pGeometry->SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
 
-	m_pMaterial = MaterialPtr( new Material );
+	m_pShaderEffect = EffectPtr( new Effect );
 	RenderEffect* pEffect = new RenderEffect;
 
 	pEffect->SetVertexShader( Renderer::Get()->LoadShader( ST_VERTEX_SHADER ,
@@ -48,21 +48,21 @@ Skybox::Skybox( std::wstring& filename , int sampler , float Radius /* = 1000.0f
 	RSConfig.FrontCounterClockwise = true;
 	pEffect->SetRasterizerState( Renderer::Get()->CreateRasterizerState( &RSConfig ) );
 
-	m_pMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	m_pMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	m_pShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	m_pShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
 	m_pSkybox = new Entity;
-	m_pSkybox->GetRenderableRef().SetMaterial( m_pMaterial );
+	m_pSkybox->GetRenderableRef().SetEffect( m_pShaderEffect );
 	m_pSkybox->GetRenderableRef().SetGeometry( m_pGeometry );
 	m_pSkybox->GetTransformRef().GetPositionRef() = Vector3f( 0.0f , 0.0f , 0.0f );
 
 	GetRootNode()->AttachChild( m_pSkybox );
 
 	ResourceProxyPtr SkyboxTexture = Renderer::Get()->LoadTexture( filename );
-	ShaderResourceParameterWriter* pShaderResourceWriter = m_pMaterial->Parameters.GetShaderResourceParameterWriter( L"SkyboxTexture" );
+	ShaderResourceParameterWriter* pShaderResourceWriter = m_pShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"SkyboxTexture" );
 	pShaderResourceWriter->SetValue( SkyboxTexture );
 
-	SamplerParameterWriter* pSamplerParameterWriter = m_pMaterial->Parameters.GetSamplerParameterWriter( L"SkyboxSampler" );
+	SamplerParameterWriter* pSamplerParameterWriter = m_pShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"SkyboxSampler" );
 	pSamplerParameterWriter->SetValue( sampler );
 }
 

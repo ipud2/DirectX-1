@@ -117,6 +117,10 @@ void App::Initialize()
 
 void App::Update()
 {
+	m_pTimer->Update();
+
+	SetFrameRate( m_pWindow->GetHandle() );
+
 	m_pRenderer->GetPipelineManagerRef()->ClearBuffers( Vector4f( 1.0f , 1.0f , 0.0f , 0.5f ) , 1.0f , 0 );
 	m_pRenderer->Present( m_pWindow->GetSwapChain() );
 }

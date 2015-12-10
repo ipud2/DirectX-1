@@ -37,4 +37,8 @@
 
 #define ConvertToRadius(fDegree)	(fDegree) * (SAND_PI / 180.0f)
 
+
+#define GET_X_LPARAM(lp)	((int)(short)((WORD)(((DWORD_PTR)(lp)) & 0xffff)))
+#define GET_Y_LPARAM(lp)	((int)(short)((WORD)((((DWORD_PTR)(lp)) >> 16) & 0xffff)))
+
 #endif // PCH_h

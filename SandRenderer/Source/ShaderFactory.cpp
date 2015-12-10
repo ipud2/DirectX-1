@@ -25,6 +25,7 @@ ID3DBlob* ShaderFactory::GenerateShader( ShaderType type , std::wstring& Filenam
 
 	char AsciiFunction[1024];
 	char AsciiModel[1024];
+	char AsciiSourceFileName[1024];
 
 	// WideCharToMultiByte:映射一个Unicode 字符串到一个多字节字符串
 	WideCharToMultiByte( CP_ACP , 0 , Function.c_str() , -1 , AsciiFunction , 1024 , NULL , NULL );
@@ -39,6 +40,8 @@ ID3DBlob* ShaderFactory::GenerateShader( ShaderType type , std::wstring& Filenam
 	FileSystem FS;
 	std::wstring& FilePath = FS.GetShaderFolder() + Filename;
 
+	WideCharToMultiByte( CP_ACP , 0 , FilePath.c_str() , -1 , AsciiSourceFileName , 1024 , NULL , NULL );
+
 	// -------------将shader文件加载到内存中--------------------
 	FileLoader SourceFile;
 	if( !SourceFile.Open( FilePath ) )
@@ -50,12 +53,12 @@ ID3DBlob* ShaderFactory::GenerateShader( ShaderType type , std::wstring& Filenam
 	ID3DBlob* pCompiledShader = nullptr;
 	ID3DBlob* pErrorMessage = nullptr;
 
-	if( FAILED( hr = D3DCompile( 
+	if ( FAILED( hr = D3DCompile(
 		SourceFile.GetDataPtr() ,
 		SourceFile.GetDataSize() ,
-		nullptr ,
+		AsciiSourceFileName ,
 		pDefines ,
-		nullptr ,
+		D3D_COMPILE_STANDARD_FILE_INCLUDE , // 如果shader文件中有include，将会自动根据AsciiSourceFileName推断出include文件的文件路径
 		AsciiFunction ,
 		AsciiModel ,
 		Flags ,

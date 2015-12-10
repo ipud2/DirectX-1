@@ -15,7 +15,7 @@ namespace Sand
 	protected:
 		Entity* m_pSkybox;
 		GeometryPtr m_pGeometry;
-		MaterialPtr m_pMaterial;
+		EffectPtr m_pShaderEffect;
 		int m_iSamplerState;
 		float m_Radius;
 	};

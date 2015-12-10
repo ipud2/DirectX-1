@@ -1,5 +1,5 @@
-#ifndef Material_h
-#define Material_h
+#ifndef Effect_h
+#define Effect_h
 
 #include "PCH.h"
 #include "RenderEffect.h"
@@ -9,17 +9,18 @@
 
 namespace Sand
 {
-	struct MaterialParams
+	// 着色方案
+	struct ShaderScheme
 	{
 		bool bRender;
 		RenderEffect* pEffect;
 	};
 
-	class Material
+	class Effect
 	{
 	public:
-		Material();
-		virtual ~Material();
+		Effect();
+		virtual ~Effect();
 
 		void Update( float time );
 		
@@ -28,12 +29,12 @@ namespace Sand
 		void GetAllVertexShaderIDs( std::vector<int>& idList );
 
 	public:
-		MaterialParams Params[VT_NUM_VIEW_TYPES];
+		ShaderScheme Schemes[VT_NUM_VIEW_TYPES];
 
 		// 所以需要写的参数都保存要给Writer对象在这
-		ParameterContainer Parameters;		
+		ParameterContainer ParameterWriters;		
 	};
 
-	typedef std::shared_ptr<Material> MaterialPtr;
+	typedef std::shared_ptr<Effect> EffectPtr;
 };
 #endif

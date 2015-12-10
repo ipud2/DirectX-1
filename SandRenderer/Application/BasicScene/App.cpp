@@ -7,7 +7,7 @@
 #include "Texture2DConfig.h"
 #include "RasterizerStateConfig.h"
 #include "BufferConfig.h"
-#include "MaterialGenerator.h"
+#include "EffectGenerator.h"
 
 #include "IParameterManager.h"
 
@@ -117,7 +117,7 @@ void App::ShutdownEngineComponents()
 void App::Initialize()
 {
 	// create GeometryPtr Object
-	m_pGeometry = GeometryLoader::LoadOBJ( std::wstring( L"Cube.OBJ" ) );
+	m_pGeometry = GeometryLoader::LoadOBJWithTexture( std::wstring( L"Cube.OBJ" ) );
 	m_pGeometry->LoadToBuffer();
 	m_pGeometry->SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_3_CONTROL_POINT_PATCHLIST );
 
@@ -126,7 +126,7 @@ void App::Initialize()
 	m_pRenderer->GetParameterManagerRef()->SetVector4fParameterData( std::wstring( L"EdgeFactors" ) , &m_TessParams );
 
 	// create the material for use by the entities
-	m_pMaterial = MaterialGenerator::GenerateWireFrame( *m_pRenderer );
+	m_pWireEffect = EffectGenerator::GenerateWireFrame( *m_pRenderer );
 
 	// --------------------------------create render view object--------------------------------------------
 	m_pRenderView = new ViewPerspective( *m_pRenderer , m_pRenderTarget , m_pDepthStencilTarget );
@@ -147,7 +147,7 @@ void App::Initialize()
 	{
 		m_pEntity[i] = new Entity;
 		m_pEntity[i]->GetRenderableRef().SetGeometry( m_pGeometry );
-		m_pEntity[i]->GetRenderableRef().SetMaterial( m_pMaterial );
+		m_pEntity[i]->GetRenderableRef().SetEffect( m_pWireEffect );
 		// relative to parent node
 		m_pEntity[i]->GetTransformRef().GetPositionRef() = Vector3f( static_cast< float >( i )* 2.0f - 10.0f, 2.0f * ( i % 2 ) - 1.0f , 0.0f );
 
@@ -163,12 +163,14 @@ void App::Update()
 {
 	m_pTimer->Update();
 
+	SetFrameRate( m_pWindow->GetHandle() );
+
 	// rotate node
 	Matrix3f rotation;
-	rotation.RotationX( m_pTimer->Elapsed() );
+	rotation.RotationX( m_pTimer->DeltaTime() );
 	m_pActor->GetRootNode()->GetTransformRef().GetRotationRef() *= rotation;
 
-	m_pScene->Update( m_pTimer->Elapsed() );
+	m_pScene->Update( m_pTimer->DeltaTime() );
 	m_pScene->Render( m_pRenderer );
 
 	m_pRenderer->Present( m_pWindow->GetSwapChain() );
@@ -180,10 +182,6 @@ void App::Shutdown()
 	{
 		SAFE_DELETE( m_pEntity[i] );
 	}
-
-	std::wstringstream out;
-	out << L"Max FPS: " << m_pTimer->MaxFramerate();
-	Log::Get().Write( out.str().c_str() );
 }
 
 void App::TakeScreenShot()

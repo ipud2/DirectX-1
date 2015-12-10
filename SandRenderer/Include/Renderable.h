@@ -2,8 +2,8 @@
 #define Renderable_h
 
 #include "InputAssemblerStageExecutor.h"
-#include "Material.h"
-#include "SurfaceProperty.h"
+#include "Effect.h"
+#include "SurfaceMaterial.h"
 
 namespace Sand
 {
@@ -14,21 +14,21 @@ namespace Sand
 		~Renderable();
 
 	public:
-		void SetMaterial( MaterialPtr pMaterial );
-		MaterialPtr GetMaterial();
+		void SetEffect( EffectPtr pShaderEffect );
+		EffectPtr GetEffect();
 
 		void SetGeometry( InputAssemblerStageExecutorPtr pExecutor );
 		InputAssemblerStageExecutorPtr GetGeometry();
 
-		void SetSurfaceProperty( SurfaceProperty* pSurfaceProperty );
-		SurfaceProperty* GetSurfaceProperty();
+		void SetSurfaceMaterial( SurfaceMaterial* pSurfaceMaterial );
+		SurfaceMaterial* GetSurfaceMaterial();
 
 	public:
 		InputAssemblerStageExecutorPtr IAStageExecutor;
 
-		MaterialPtr Mat;
+		EffectPtr ShaderEffect;
 
-		SurfaceProperty* Property;
+		SurfaceMaterial* Material;
 	};
 }
 #endif

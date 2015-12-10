@@ -1,5 +1,5 @@
 #include "PCH.h"
-#include "MaterialGenerator.h"
+#include "EffectGenerator.h"
 #include "RasterizerStateConfig.h"
 #include "DepthStencilStateConfig.h"
 #include "BlendStateConfig.h"
@@ -7,14 +7,14 @@
 
 using namespace Sand;
 
-MaterialGenerator::MaterialGenerator()
+EffectGenerator::EffectGenerator()
 {
 
 }
 
-MaterialPtr MaterialGenerator::GenerateWireFrame( Renderer& renderer )
+EffectPtr EffectGenerator::GenerateWireFrame( Renderer& renderer )
 {
-	MaterialPtr pMaterial = MaterialPtr( new Material() );
+	EffectPtr pShaderEffect = EffectPtr( new Effect() );
 
 	RenderEffect* pEffect = new RenderEffect;
 
@@ -31,15 +31,15 @@ MaterialPtr MaterialGenerator::GenerateWireFrame( Renderer& renderer )
 
 	pEffect->SetRasterizerState( renderer.CreateRasterizerState( &RS ) );
 
-	pMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	pMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
-	return pMaterial;
+	return pShaderEffect;
 }
 
-MaterialPtr MaterialGenerator::GeneratePhong( Renderer& renderer )
+EffectPtr EffectGenerator::GeneratePhong( Renderer& renderer )
 {
-	MaterialPtr pMaterial = MaterialPtr( new Material );
+	EffectPtr pShaderEffect = EffectPtr( new Effect );
 
 	RenderEffect* pEffect = new RenderEffect();
 
@@ -47,15 +47,15 @@ MaterialPtr MaterialGenerator::GeneratePhong( Renderer& renderer )
 
 	pEffect->SetPixelShader( renderer.LoadShader( ST_PIXEL_SHADER , std::wstring( L"PhongShading.hlsl" ) , std::wstring( L"PSMAIN" ) , std::wstring( L"ps_5_0" ) ) );
 
-	pMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	pMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
-	return pMaterial;
+	return pShaderEffect;
 }
 
-MaterialPtr MaterialGenerator::GenerateSolidColor( Renderer& renderer )
+EffectPtr EffectGenerator::GenerateSolidColor( Renderer& renderer )
 {
-	MaterialPtr pMaterial = MaterialPtr( new Material );
+	EffectPtr pShaderEffect = EffectPtr( new Effect );
 
 	RenderEffect* pEffect = new RenderEffect;
 
@@ -68,15 +68,15 @@ MaterialPtr MaterialGenerator::GenerateSolidColor( Renderer& renderer )
 
 	pEffect->SetDepthStencilState( renderer.CreateDepthStencilState( &DS ) );
 
-	pMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	pMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
-	return pMaterial;
+	return pShaderEffect;
 }
 
-MaterialPtr MaterialGenerator::GenerateFromFile( Renderer& renderer , std::wstring& filename , unsigned int shaders )
+EffectPtr EffectGenerator::GenerateFromFile( Renderer& renderer , std::wstring& filename , unsigned int shaders )
 {
-	MaterialPtr pMaterial = MaterialPtr( new Material );
+	EffectPtr pShaderEffect = EffectPtr( new Effect );
 
 	RenderEffect* pEffect = new RenderEffect;
 
@@ -111,15 +111,15 @@ MaterialPtr MaterialGenerator::GenerateFromFile( Renderer& renderer , std::wstri
 		pEffect->SetComputeShader( renderer.LoadShader( ST_COMPUTE_SHADER , filename , std::wstring( L"CSMAIN" ) , std::wstring( L"cs_5_0" ) , false ) );
 	}
 
-	pMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	pMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
-	return pMaterial;
+	return pShaderEffect;
 }
 
-MaterialPtr MaterialGenerator::GenerateTexMaterial( Renderer& renderer )
+EffectPtr EffectGenerator::GenerateTexEffect( Renderer& renderer )
 {
-	MaterialPtr pMaterial = MaterialPtr( new Material );
+	EffectPtr pShaderEffect = EffectPtr( new Effect );
 
 	RenderEffect* pEffect = new RenderEffect;
 
@@ -145,12 +145,12 @@ MaterialPtr MaterialGenerator::GenerateTexMaterial( Renderer& renderer )
 
 	pEffect->SetBlendState( renderer.CreateBlendState( &BlendConfig ) );
 
-	pMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	pMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	pShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
 
 	ResourceProxyPtr ColorTexture = renderer.LoadTexture( L"EyeOfHorus_128.png" );
-	ShaderResourceParameterWriter* pShaderResourceParameterWriter = pMaterial->Parameters.GetShaderResourceParameterWriter( L"ColorTexture" );
+	ShaderResourceParameterWriter* pShaderResourceParameterWriter = pShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"ColorTexture" );
 	pShaderResourceParameterWriter->SetValue( ColorTexture );
 
 
@@ -162,8 +162,8 @@ MaterialPtr MaterialGenerator::GenerateTexMaterial( Renderer& renderer )
 	SamplerConfigure.MaxAnisotropy = 0;
 
 	int LinearSampler = renderer.CreateSamplerState( &SamplerConfigure );
-	SamplerParameterWriter* pSamplerParameterWriter = pMaterial->Parameters.GetSamplerParameterWriter( L"LinearSampler" );
+	SamplerParameterWriter* pSamplerParameterWriter = pShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"LinearSampler" );
 	pSamplerParameterWriter->SetValue( LinearSampler );
 
-	return pMaterial;
+	return pShaderEffect;
 }

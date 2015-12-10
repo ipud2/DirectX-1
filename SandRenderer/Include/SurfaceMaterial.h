@@ -1,15 +1,15 @@
-#ifndef SurfaceProperty_h
-#define SurfaceProperty_h
+#ifndef SurfaceMaterial_h
+#define SurfaceMaterial_h
 
 #include "ParameterContainer.h"
 
 namespace Sand
 {
-	class SurfaceProperty
+	class SurfaceMaterial
 	{
 	public:
-		SurfaceProperty();
-		virtual ~SurfaceProperty();
+		SurfaceMaterial();
+		virtual ~SurfaceMaterial();
 
 		void UpdateRenderParams( IParameterManager* pParameterManager );
 

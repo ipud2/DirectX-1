@@ -7,6 +7,7 @@
 #include "VertexElement.h"
 #include "InputAssemblerStageExecutor.h"
 #include "IParameterManager.h"
+#include "ParameterContainer.h"
 
 namespace Sand
 {
@@ -19,7 +20,7 @@ namespace Sand
 		Geometry();
 		virtual ~Geometry();
 
-		virtual void Execute( PipelineManager* pPipelineManager , IParameterManager* pParameterManager );
+		virtual void Execute( PipelineManager* pPipelineManager , IParameterManager* pParameterManager , int SubObjectID );
 
 		// ---------------------图元拓扑结构-----------------------
 		void SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY PrimitiveTopology );
@@ -29,6 +30,11 @@ namespace Sand
 		void AddElement( VertexElement* pElement );
 
 		void AddFace( int index_1 , int index_2 , int index_3 );
+
+		void AddInputResource( int Offset , int Counts , ResourceProxyPtr DiffuseMap = ResourceProxyPtr( new ResourceProxy ) );
+		void AddInputResource( std::vector<int>& offsets , std::vector<int>& counts , std::vector<ResourceProxyPtr>& diffuseMap );
+		
+		virtual void UpdateRenderParameters( IParameterManager* pParameterManager , int SubObjectID );
 
 		//************************************
 		// Method:    LoadToBuffer
@@ -51,9 +57,11 @@ namespace Sand
 		// 计算顶点结构大小
 		int CalculateVertexStructureSize();
 
-		UINT GetIndexCount();
-
+		virtual unsigned int GetSubObjectCount() const;
 	protected:
+		ParameterContainer Parameters;
+		ShaderResourceParameterWriter* m_pShaderResourceWriter;
+
 		// 顶点数据
 		std::vector<VertexElement*> m_vElements;
 		// 索引数据
@@ -71,6 +79,10 @@ namespace Sand
 
 		// 图元拓扑结构
 		D3D11_PRIMITIVE_TOPOLOGY m_PrimitiveTopology;
+
+		std::vector<int> m_Offsets;
+		std::vector<int> m_IndexCounts;
+		std::vector<ResourceProxyPtr> m_DiffuseTextures;
 	};
 
 	typedef std::shared_ptr<Geometry> GeometryPtr;

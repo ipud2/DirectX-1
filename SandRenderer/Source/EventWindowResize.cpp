@@ -84,14 +84,14 @@ bool EventWindowResize::IsMinimized()
 	}
 }
 
-//bool EventWindowResize::IsRestored()
-//{
-//	if( m_wParam == SIZE_RESTORED )
-//	{
-//		return true;
-//	}
-//	else
-//	{
-//		return false;
-//	}
-//}
+bool EventWindowResize::IsRestored()
+{
+	if( m_wParam == SIZE_RESTORED )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

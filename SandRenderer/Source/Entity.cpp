@@ -66,10 +66,9 @@ void Entity::Update( float time )
 	UpdateLocal( time );
 	UpdateWorld();
 
-	// 每个material都可以进行更新
-	if( Visual.Mat != nullptr )
+	if( Visual.ShaderEffect != nullptr )
 	{
-		Visual.Mat->Update( time );
+		Visual.ShaderEffect->Update( time );
 	}
 }
 
@@ -96,29 +95,34 @@ void Entity::UpdateWorld()
 
 void Entity::Render( PipelineManager* pPipelineManager , IParameterManager* pParamManager , VIEW_TYPE View )
 {
-	if( Visual.IAStageExecutor != nullptr && Visual.Mat != nullptr )
+	if( Visual.IAStageExecutor != nullptr && Visual.ShaderEffect != nullptr )
 	{
 		// 判断该视图是否可渲染
-		if( Visual.Mat->Params[View].bRender )
+		if( Visual.ShaderEffect->Schemes[View].bRender )
 		{
 			// 设置渲染管线相关参数
-			Visual.Mat->SetRenderParams( pParamManager , View );
+			Visual.ShaderEffect->SetRenderParams( pParamManager , View );
 			
-			if ( Visual.Property != nullptr )
+			if ( Visual.Material != nullptr )
 			{
 				// 设置物体表面属性参数
-				Visual.Property->UpdateRenderParams( pParamManager );
+				Visual.Material->UpdateRenderParams( pParamManager );
 			}
 
 			this->UpdateRenderParams( pParamManager );
 
-			// 配置渲染状态，各shader阶段资源
-			Visual.Mat->Params[View].pEffect->ConfigurePipeline( pPipelineManager , pParamManager );
-			// 应用渲染状态，应用shader资源
-			pPipelineManager->ApplyPipelineResource();
+			for ( int i = 0; i < Visual.IAStageExecutor->GetSubObjectCount(); i++ )
+			{
+				Visual.IAStageExecutor->UpdateRenderParameters( pParamManager , i );
 
-			// 应用InputAssembler阶段资源
-			Visual.IAStageExecutor->Execute( pPipelineManager , pParamManager );
+				// 配置渲染状态，各shader阶段资源
+				Visual.ShaderEffect->Schemes[View].pEffect->ConfigurePipeline( pPipelineManager , pParamManager );
+				// 应用渲染状态，应用shader资源
+				pPipelineManager->ApplyPipelineResource();
+
+				// 应用InputAssembler阶段资源
+				Visual.IAStageExecutor->Execute( pPipelineManager , pParamManager , i );
+			}
 		}
 	}
 }

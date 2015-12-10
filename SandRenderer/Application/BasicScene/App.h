@@ -60,7 +60,7 @@ namespace Sand
 		Entity* m_pEntity[10];		// 十个物体
 
 		GeometryPtr m_pGeometry;
-		MaterialPtr m_pMaterial;
+		EffectPtr m_pWireEffect;
 
 		Vector4f m_TessParams;
 

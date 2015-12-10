@@ -21,13 +21,17 @@ namespace Sand
 		InputAssemblerStageExecutor();
 		virtual ~InputAssemblerStageExecutor();
 
-		virtual void Execute( PipelineManager* pPipelineManager , IParameterManager* pParameterManager ) = 0;
+		virtual void Execute( PipelineManager* pPipelineManager , IParameterManager* pParameterManager , int SubObjectID ) = 0;
 
 		virtual void GenerateInputLayout( int ShaderID );
 
 		virtual void SetInputElementsDesc( int count , D3D11_INPUT_ELEMENT_DESC* pInputElementsDesc );
 
 		virtual int GetInputLayout( int ShaderID );
+
+		virtual unsigned int GetSubObjectCount() const = 0;
+
+		virtual void UpdateRenderParameters( IParameterManager* pParameterManager , int SubObjectID ) = 0;
 
 	protected:
 		std::vector<D3D11_INPUT_ELEMENT_DESC> m_InputElementsDesc;

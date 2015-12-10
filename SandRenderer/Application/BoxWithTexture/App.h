@@ -16,11 +16,11 @@
 #include "Geometry.h"
 #include "GeometryLoader.h"
 
-#include "SurfaceProperty.h"
+#include "SurfaceMaterial.h"
 
 #include "DirectionalLight.h"
 
-#include "BasicSurfaceProperty.h"
+#include "BasicMaterial.h"
 
 #include "Skybox.h"
 
@@ -55,8 +55,8 @@ namespace Sand
 		virtual void OnMouseMove( WPARAM buttonState , int x , int y );
 
 		// ---------------------------------------------
-		void CreateMaterial();
-		void CreateSurfaceProperty();
+		void CreateShaderEffect();
+		void CreateSurfaceMaterial();
 
 	protected:
 		Win32RenderWindow* m_pWindow;
@@ -90,19 +90,19 @@ namespace Sand
 		GeometryPtr m_pSphereGeometry;
 		GeometryPtr m_pSkullGeometry;
 
-		MaterialPtr m_pBoxMaterial;
-		MaterialPtr m_pGridMaterial;
-		MaterialPtr m_pCylinderMaterial;
-		MaterialPtr m_pSphereMaterial;
-		MaterialPtr m_pSkullMaterial;
+		EffectPtr m_pBoxShaderEffect;
+		EffectPtr m_pGridShaderEffect;
+		EffectPtr m_pCylinderShaderEffect;
+		EffectPtr m_pSphereShaderEffect;
+		EffectPtr m_pSkullShaderEffect;
 
 		DirectionalLight* m_pLight;
 
-		BasicSurfaceProperty* m_pBoxSurfaceProperty;
-		BasicSurfaceProperty* m_pGridSurfaceProperty;
-		BasicSurfaceProperty* m_pCylinderSurfaceProperty;
-		BasicSurfaceProperty* m_pSphereSurfaceProperty;
-		BasicSurfaceProperty* m_pSkullSurfaceProperty;
+		BasicMaterial* m_pBoxMaterial;
+		BasicMaterial* m_pGridMaterial;
+		BasicMaterial* m_pCylinderMaterial;
+		BasicMaterial* m_pSphereMaterial;
+		BasicMaterial* m_pSkullMaterial;
 
 		ResourceProxyPtr m_pBrickTexture;
 		ResourceProxyPtr m_pFloorTexture;

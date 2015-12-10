@@ -7,7 +7,7 @@
 #include "Texture2DConfig.h"
 #include "RasterizerStateConfig.h"
 #include "BufferConfig.h"
-#include "MaterialGenerator.h"
+#include "EffectGenerator.h"
 
 #include "IParameterManager.h"
 
@@ -35,10 +35,10 @@ App::App()
 	m_pBox = nullptr;
 
 	m_pBoxGeometry = nullptr;
+	m_pBoxShaderEffect = nullptr;
 	m_pBoxMaterial = nullptr;
-	m_pBoxSurfaceProperty = nullptr;
 
-	m_pGridMaterial = nullptr;
+	m_pGridShaderEffect = nullptr;
 
 	m_pLight = nullptr;
 	m_pCameras = nullptr;
@@ -143,7 +143,7 @@ void App::ShutdownEngineComponents()
 void App::Initialize()
 {
 	// 加载Box图元的数据
-	m_pBoxGeometry = GeometryLoader::LoadOBJ( std::wstring( L"Cube.OBJ" ) );
+	m_pBoxGeometry = GeometryLoader::LoadOBJWithTexture( std::wstring( L"cube.obj" ) );
 	m_pBoxGeometry->LoadToBuffer();
 	m_pBoxGeometry->SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
 	
@@ -162,15 +162,15 @@ void App::Initialize()
 	m_pSphereGeometry->LoadToBuffer();
 	m_pCylinderGeometry->SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
 
-	m_pSkullGeometry = GeometryLoader::LoadOBJ( std::wstring( L"Skull.obj" ) );
+	m_pSkullGeometry = GeometryLoader::LoadOBJWithTexture( std::wstring( L"Skull.obj" ) );
 	m_pSkullGeometry->LoadToBuffer();
 	m_pSkullGeometry->SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
 
 	// create the material for use by the entities
-	CreateMaterial();
+	CreateShaderEffect();
 
-	// -----------------------------SurfaceProperty---------------------------------
-	CreateSurfaceProperty();
+	// -----------------------------SurfaceMaterial---------------------------------
+	CreateSurfaceMaterial();
 
 	// --------------------------------create render view object--------------------------------------------
 	m_pRenderView = new ViewPerspective( *m_pRenderer , m_pRenderTarget , m_pDepthStencilTarget );
@@ -210,8 +210,8 @@ void App::Initialize()
 	//
 	m_pBox = new Entity;
 	m_pBox->GetRenderableRef().SetGeometry( m_pBoxGeometry );
-	m_pBox->GetRenderableRef().SetMaterial( m_pBoxMaterial );
-	m_pBox->GetRenderableRef().SetSurfaceProperty( m_pBoxSurfaceProperty );
+	m_pBox->GetRenderableRef().SetEffect( m_pBoxShaderEffect );
+	m_pBox->GetRenderableRef().SetSurfaceMaterial( m_pBoxMaterial );
 	m_pBox->GetTransformRef().GetPositionRef() = Vector3f( 0.0f , 0.5f , 0.0f );
 	m_pBox->GetTransformRef().GetScaleRef() = Vector3f( 3.0f , 1.0f , 3.0f );
 	m_pActor->GetRootNode()->AttachChild( m_pBox );
@@ -221,8 +221,8 @@ void App::Initialize()
 	//
 	m_pGrid = new Entity;
 	m_pGrid->GetRenderableRef().SetGeometry( m_pGridGeometry );
-	m_pGrid->GetRenderableRef().SetMaterial( m_pGridMaterial );
-	m_pGrid->GetRenderableRef().SetSurfaceProperty( m_pGridSurfaceProperty );
+	m_pGrid->GetRenderableRef().SetEffect( m_pGridShaderEffect );
+	m_pGrid->GetRenderableRef().SetSurfaceMaterial( m_pGridMaterial );
 	m_pGrid->GetTransformRef().GetPositionRef() = Vector3f( 0.0f , 0.0f , 0.0f );
 	m_pActor->GetRootNode()->AttachChild( m_pGrid );
 	
@@ -233,15 +233,15 @@ void App::Initialize()
 	{
 		m_pCylinder[2 * i + 0] = new Entity;
 		m_pCylinder[2 * i + 0]->GetRenderableRef().SetGeometry( m_pCylinderGeometry );
-		m_pCylinder[2 * i + 0]->GetRenderableRef().SetMaterial( m_pCylinderMaterial );
-		m_pCylinder[2 * i + 0]->GetRenderableRef().SetSurfaceProperty( m_pCylinderSurfaceProperty );
+		m_pCylinder[2 * i + 0]->GetRenderableRef().SetEffect( m_pCylinderShaderEffect );
+		m_pCylinder[2 * i + 0]->GetRenderableRef().SetSurfaceMaterial( m_pCylinderMaterial );
 		m_pCylinder[2 * i + 0]->GetTransformRef().GetPositionRef() = Vector3f( -5.0f , 1.5f , -10.0f + i * 5.0f );
 		m_pActor->GetRootNode()->AttachChild( m_pCylinder[2 * i + 0] );
 
 		m_pCylinder[2 * i + 1] = new Entity;
 		m_pCylinder[2 * i + 1]->GetRenderableRef().SetGeometry( m_pCylinderGeometry );
-		m_pCylinder[2 * i + 1]->GetRenderableRef().SetMaterial( m_pCylinderMaterial );
-		m_pCylinder[2 * i + 1]->GetRenderableRef().SetSurfaceProperty( m_pCylinderSurfaceProperty );
+		m_pCylinder[2 * i + 1]->GetRenderableRef().SetEffect( m_pCylinderShaderEffect );
+		m_pCylinder[2 * i + 1]->GetRenderableRef().SetSurfaceMaterial( m_pCylinderMaterial );
 		m_pCylinder[2 * i + 1]->GetTransformRef().GetPositionRef() = Vector3f( 5.0f , 1.5f , -10.0f + i * 5.0f );
 		m_pActor->GetRootNode()->AttachChild( m_pCylinder[2 * i + 1] );
 	}
@@ -253,23 +253,23 @@ void App::Initialize()
 	{
 		m_pSphere[2 * i + 0] = new Entity;
 		m_pSphere[2 * i + 0]->GetRenderableRef().SetGeometry( m_pSphereGeometry );
-		m_pSphere[2 * i + 0]->GetRenderableRef().SetMaterial( m_pSphereMaterial );
-		m_pSphere[2 * i + 0]->GetRenderableRef().SetSurfaceProperty( m_pSphereSurfaceProperty );
+		m_pSphere[2 * i + 0]->GetRenderableRef().SetEffect( m_pSphereShaderEffect );
+		m_pSphere[2 * i + 0]->GetRenderableRef().SetSurfaceMaterial( m_pSphereMaterial );
 		m_pSphere[2 * i + 0]->GetTransformRef().GetPositionRef() = Vector3f( -5.0f , 3.5f , -10.0f + i * 5.0f );
 		m_pActor->GetRootNode()->AttachChild( m_pSphere[2 * i + 0] );
 
 		m_pSphere[2 * i + 1] = new Entity;
 		m_pSphere[2 * i + 1]->GetRenderableRef().SetGeometry( m_pSphereGeometry );
-		m_pSphere[2 * i + 1]->GetRenderableRef().SetMaterial( m_pSphereMaterial );
-		m_pSphere[2 * i + 1]->GetRenderableRef().SetSurfaceProperty( m_pSphereSurfaceProperty );
+		m_pSphere[2 * i + 1]->GetRenderableRef().SetEffect( m_pSphereShaderEffect );
+		m_pSphere[2 * i + 1]->GetRenderableRef().SetSurfaceMaterial( m_pSphereMaterial );
 		m_pSphere[2 * i + 1]->GetTransformRef().GetPositionRef() = Vector3f( 5.0f , 3.5f , -10.0f + i * 5.0f );
 		m_pActor->GetRootNode()->AttachChild( m_pSphere[2 * i + 1] );
 	}
 
 	m_pSkull = new Entity;
 	m_pSkull->GetRenderableRef().SetGeometry( m_pSkullGeometry );
-	m_pSkull->GetRenderableRef().SetMaterial( m_pSkullMaterial );
-	m_pSkull->GetRenderableRef().SetSurfaceProperty( m_pSkullSurfaceProperty );
+	m_pSkull->GetRenderableRef().SetEffect( m_pSkullShaderEffect );
+	m_pSkull->GetRenderableRef().SetSurfaceMaterial( m_pSkullMaterial );
 	m_pSkull->GetTransformRef().GetPositionRef() = Vector3f( 0.0f , 1.0f , 0.0f );
 	m_pSkull->GetTransformRef().GetScaleRef() = Vector3f( 0.5f , 0.5f , 0.5f );
 	m_pActor->GetRootNode()->AttachChild( m_pSkull );
@@ -366,7 +366,7 @@ void App::OnMouseMove( WPARAM buttonState , int x , int y )
 	m_LastMousePos.y = y;
 }
 
-void App::CreateMaterial()
+void App::CreateShaderEffect()
 {
 	RenderEffect* pEffect = new RenderEffect;
 
@@ -381,136 +381,138 @@ void App::CreateMaterial()
 														std::wstring( L"ps_5_0" ) ) );
 
 	// --------------------------------------------------------------------Box------------------------------------------------------------
-	m_pBoxMaterial = MaterialPtr( new Material );
+	m_pBoxShaderEffect = EffectPtr( new Effect );
 
-	m_pBoxMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	m_pBoxMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	m_pBoxShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	m_pBoxShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
 	// --------------------------------set texture-----------------------------
-	m_pBrickTexture = m_pRenderer->LoadTexture( L"bricks.dds" );
+	ShaderResourceParameterWriter* pShaderResourceWriter;
+	/*m_pBrickTexture = m_pRenderer->LoadTexture( L"bricks.dds" );
 	ShaderResourceParameterWriter* pShaderResourceWriter = m_pBoxMaterial->Parameters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
-	pShaderResourceWriter->SetValue( m_pBrickTexture );
+	pShaderResourceWriter->SetValue( m_pBrickTexture );*/
 
 	SamplerStateConfig config;
 	m_iLinearSampler = m_pRenderer->CreateSamplerState( &config );
-	SamplerParameterWriter* pSamplerWriter = m_pBoxMaterial->Parameters.GetSamplerParameterWriter( L"LinearSampler" );
+	SamplerParameterWriter* pSamplerWriter = m_pBoxShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"LinearSampler" );
 	pSamplerWriter->SetValue( m_iLinearSampler );
 
-	MatrixParameterWriter* pMatrixParameterWriter = m_pBoxMaterial->Parameters.GetMatrixParameterWriter( std::wstring( L"TexTransformMatrix" ) );
+	MatrixParameterWriter* pMatrixParameterWriter = m_pBoxShaderEffect->ParameterWriters.GetMatrixParameterWriter( std::wstring( L"TexTransformMatrix" ) );
 	pMatrixParameterWriter->SetValue( m_TexTransform.Identity() );
 
-	BoolParameterWriter* pBoolParameterWriter = m_pBoxMaterial->Parameters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
+	BoolParameterWriter* pBoolParameterWriter = m_pBoxShaderEffect->ParameterWriters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
 	pBoolParameterWriter->SetValue( true );
 
 	// ----------------------------------------------------------------Grid-------------------------------------------------------------------------
-	m_pGridMaterial = MaterialPtr( new Material );
+	m_pGridShaderEffect = EffectPtr( new Effect );
 
-	m_pGridMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	m_pGridMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	m_pGridShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	m_pGridShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
 	// ---------------------Set Grid Texture-------------------------
 	m_pFloorTexture = m_pRenderer->LoadTexture( L"floor.dds" );
-	pShaderResourceWriter = m_pGridMaterial->Parameters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
+	pShaderResourceWriter = m_pGridShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
 	pShaderResourceWriter->SetValue( m_pFloorTexture );
 
-	pSamplerWriter = m_pGridMaterial->Parameters.GetSamplerParameterWriter( L"LinearSampler" );
+	pSamplerWriter = m_pGridShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"LinearSampler" );
 	pSamplerWriter->SetValue( m_iLinearSampler );
 
-	pMatrixParameterWriter = m_pGridMaterial->Parameters.GetMatrixParameterWriter( std::wstring( L"TexTransformMatrix" ) );
+	pMatrixParameterWriter = m_pGridShaderEffect->ParameterWriters.GetMatrixParameterWriter( std::wstring( L"TexTransformMatrix" ) );
 	pMatrixParameterWriter->SetValue( m_TexTransform.ScaleMatrixXYZ( 6.0f , 8.0f , 1.0f ) );
 
-	pBoolParameterWriter = m_pGridMaterial->Parameters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
+	pBoolParameterWriter = m_pGridShaderEffect->ParameterWriters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
 	pBoolParameterWriter->SetValue( true );
 
 	// ---------------------------------------------------------------Cylinder-------------------------------------------------------------------
-	m_pCylinderMaterial = MaterialPtr( new Material );
+	m_pCylinderShaderEffect = EffectPtr( new Effect );
 
-	m_pCylinderMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	m_pCylinderMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	m_pCylinderShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	m_pCylinderShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
 	// -------------Set Cylinder Texture-----------
-	pShaderResourceWriter = m_pCylinderMaterial->Parameters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
+	m_pBrickTexture = m_pRenderer->LoadTexture( L"bricks.dds" );
+	pShaderResourceWriter = m_pCylinderShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
 	pShaderResourceWriter->SetValue( m_pBrickTexture );
 
-	pSamplerWriter = m_pCylinderMaterial->Parameters.GetSamplerParameterWriter( L"LinearSampler" );
+	pSamplerWriter = m_pCylinderShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"LinearSampler" );
 	pSamplerWriter->SetValue( m_iLinearSampler );
 
-	pMatrixParameterWriter = m_pCylinderMaterial->Parameters.GetMatrixParameterWriter( std::wstring( L"TexTransformMatrix" ) );
+	pMatrixParameterWriter = m_pCylinderShaderEffect->ParameterWriters.GetMatrixParameterWriter( std::wstring( L"TexTransformMatrix" ) );
 	pMatrixParameterWriter->SetValue( m_TexTransform.Identity() );
 
-	pBoolParameterWriter = m_pCylinderMaterial->Parameters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
+	pBoolParameterWriter = m_pCylinderShaderEffect->ParameterWriters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
 	pBoolParameterWriter->SetValue( true );
 
 	// ------------------------------------------------------Sphere-------------------------------------------------------------
-	m_pSphereMaterial = MaterialPtr( new Material );
+	m_pSphereShaderEffect = EffectPtr( new Effect );
 
-	m_pSphereMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	m_pSphereMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	m_pSphereShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	m_pSphereShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
 	// ----------Set Sphere Texture----------------
 	m_pStoneTexture = m_pRenderer->LoadTexture( L"Stone.dds" );
-	pShaderResourceWriter = m_pSphereMaterial->Parameters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
+	pShaderResourceWriter = m_pSphereShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
 	pShaderResourceWriter->SetValue( m_pStoneTexture );
 
-	pSamplerWriter = m_pSphereMaterial->Parameters.GetSamplerParameterWriter( L"LinearSampler" );
+	pSamplerWriter = m_pSphereShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"LinearSampler" );
 	pSamplerWriter->SetValue( m_iLinearSampler );
 
-	pMatrixParameterWriter = m_pSphereMaterial->Parameters.GetMatrixParameterWriter( L"TexTransformMatrix" );
+	pMatrixParameterWriter = m_pSphereShaderEffect->ParameterWriters.GetMatrixParameterWriter( L"TexTransformMatrix" );
 	pMatrixParameterWriter->SetValue( m_TexTransform.Identity() );
 
-	pBoolParameterWriter = m_pSphereMaterial->Parameters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
+	pBoolParameterWriter = m_pSphereShaderEffect->ParameterWriters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
 	pBoolParameterWriter->SetValue( true );
 
 	// -------------------------------------------------Skull-----------------------------------------------
-	m_pSkullMaterial = MaterialPtr( new Material );
+	m_pSkullShaderEffect = EffectPtr( new Effect );
 
-	m_pSkullMaterial->Params[VT_PERSPECTIVE].bRender = true;
-	m_pSkullMaterial->Params[VT_PERSPECTIVE].pEffect = pEffect;
+	m_pSkullShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
+	m_pSkullShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pEffect;
 
-	pBoolParameterWriter = m_pSkullMaterial->Parameters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
+	pBoolParameterWriter = m_pSkullShaderEffect->ParameterWriters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
 	pBoolParameterWriter->SetValue( false );
 
-	pBoolParameterWriter = m_pSkullMaterial->Parameters.GetBoolParameterWriter( std::wstring( L"bEnableReflect" ) );
+	pBoolParameterWriter = m_pSkullShaderEffect->ParameterWriters.GetBoolParameterWriter( std::wstring( L"bEnableReflect" ) );
 	pBoolParameterWriter->SetValue( true );
 
 	m_pSkyTexture = m_pRenderer->LoadTexture( L"GrassCube.dds" );
-	pShaderResourceWriter = m_pSkullMaterial->Parameters.GetShaderResourceParameterWriter( std::wstring( L"SkyboxTexture" ) );
+	pShaderResourceWriter = m_pSkullShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( std::wstring( L"SkyboxTexture" ) );
 	pShaderResourceWriter->SetValue( m_pSkyTexture );
 }
 
-void App::CreateSurfaceProperty()
+void App::CreateSurfaceMaterial()
 {
 	// -----------------------------------Box表面属性----------------------------------------
-	m_pBoxSurfaceProperty = new BasicSurfaceProperty;
-	m_pBoxSurfaceProperty->SetSurfaceProperty( Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+	m_pBoxMaterial = new BasicMaterial;
+	m_pBoxMaterial->SetMaterialData( Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
 											   Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
 											   Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
 											   Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );
 
 	// ----------------------------------Grid表面属性----------------------------------------
-	m_pGridSurfaceProperty = new BasicSurfaceProperty;
-	m_pGridSurfaceProperty->SetSurfaceProperty( Vector4f( 0.8f , 0.8f , 0.8f , 1.0f ) ,
+	m_pGridMaterial = new BasicMaterial;
+	m_pGridMaterial->SetMaterialData( Vector4f( 0.8f , 0.8f , 0.8f , 1.0f ) ,
 												Vector4f( 0.8f , 0.8f , 0.8f , 1.0f ) ,
 												Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
 												Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );
 
 	// ----------------------------------Cylinder表面属性---------------------------
-	m_pCylinderSurfaceProperty = new BasicSurfaceProperty;
-	m_pCylinderSurfaceProperty->SetSurfaceProperty( Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+	m_pCylinderMaterial = new BasicMaterial;
+	m_pCylinderMaterial->SetMaterialData( Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
 													Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
 													Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
 													Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );
 
 	// -----------------------------------Sphere表面属性----------------------------------
-	m_pSphereSurfaceProperty = new BasicSurfaceProperty;
-	m_pSphereSurfaceProperty->SetSurfaceProperty( Vector4f( 0.2f , 0.3f , 0.4f , 1.0f ) ,
+	m_pSphereMaterial = new BasicMaterial;
+	m_pSphereMaterial->SetMaterialData( Vector4f( 0.2f , 0.3f , 0.4f , 1.0f ) ,
 												  Vector4f( 0.2f , 0.3f , 0.4f , 1.0f ) ,
 												  Vector4f( 0.9f , 0.9f , 0.9f , 16.0f ) ,
 												  Vector4f( 0.4f , 0.4f , 0.4f , 1.0f ) );
 
 	// -----------------------------------Skull表面属性-----------------------------
-	m_pSkullSurfaceProperty = new BasicSurfaceProperty;
-	m_pSkullSurfaceProperty->SetSurfaceProperty( Vector4f( 0.2f , 0.2f , 0.2f , 1.0f ) ,
+	m_pSkullMaterial = new BasicMaterial;
+	m_pSkullMaterial->SetMaterialData( Vector4f( 0.2f , 0.2f , 0.2f , 1.0f ) ,
 												 Vector4f( 0.2f , 0.2f , 0.2f , 1.0f ) ,
 												 Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
 												 Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) );

@@ -96,7 +96,7 @@
     <ClInclude Include="..\Include\Actor.h" />
     <ClInclude Include="..\Include\Application.h" />
     <ClInclude Include="..\Include\BaseNumericTypeRenderParameter.h" />
-    <ClInclude Include="..\Include\BasicSurfaceProperty.h" />
+    <ClInclude Include="..\Include\BasicMaterial.h" />
     <ClInclude Include="..\Include\BlendStateConfig.h" />
     <ClInclude Include="..\Include\BoolParameter.h" />
     <ClInclude Include="..\Include\BoolParameterWriter.h" />
@@ -136,6 +136,7 @@
     <ClInclude Include="..\Include\EventMouseRButtonUp.h" />
     <ClInclude Include="..\Include\EventMouseWheel.h" />
     <ClInclude Include="..\Include\EventWindowMessage.h" />
+    <ClInclude Include="..\Include\EventWindowResize.h" />
     <ClInclude Include="..\Include\FileLoader.h" />
     <ClInclude Include="..\Include\FileSystem.h" />
     <ClInclude Include="..\Include\FloatParameter.h" />
@@ -157,8 +158,8 @@
     <ClInclude Include="..\Include\IWindowProc.h" />
     <ClInclude Include="..\Include\Light.h" />
     <ClInclude Include="..\Include\Log.h" />
-    <ClInclude Include="..\Include\Material.h" />
-    <ClInclude Include="..\Include\MaterialGenerator.h" />
+    <ClInclude Include="..\Include\Effect.h" />
+    <ClInclude Include="..\Include\EffectGenerator.h" />
     <ClInclude Include="..\Include\Matrix3f.h" />
     <ClInclude Include="..\Include\Matrix4f.h" />
     <ClInclude Include="..\Include\MatrixArrayParameter.h" />
@@ -216,7 +217,7 @@
     <ClInclude Include="..\Include\StructuredBuffer.h" />
     <ClInclude Include="..\Include\StructureParameter.h" />
     <ClInclude Include="..\Include\StructureParameterWriter.h" />
-    <ClInclude Include="..\Include\SurfaceProperty.h" />
+    <ClInclude Include="..\Include\SurfaceMaterial.h" />
     <ClInclude Include="..\Include\SwapChain.h" />
     <ClInclude Include="..\Include\SwapChainConfig.h" />
     <ClInclude Include="..\Include\Task.h" />
@@ -251,7 +252,7 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BaseNumericTypeRenderParameter.cpp" />
-    <ClCompile Include="BasicSurfaceProperty.cpp" />
+    <ClCompile Include="BasicMaterial.cpp" />
     <ClCompile Include="BlendStateConfig.cpp" />
     <ClCompile Include="BoolParameter.cpp" />
     <ClCompile Include="BoolParameterWriter.cpp" />
@@ -291,6 +292,7 @@
     <ClCompile Include="EventMouseRButtonUp.cpp" />
     <ClCompile Include="EventMouseWheel.cpp" />
     <ClCompile Include="EventWindowMessage.cpp" />
+    <ClCompile Include="EventWindowResize.cpp" />
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="FloatParameter.cpp" />
@@ -309,8 +311,8 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MaterialGenerator.cpp" />
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="EffectGenerator.cpp" />
     <ClCompile Include="Matrix3f.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
     <ClCompile Include="MatrixArrayParameter.cpp" />
@@ -364,7 +366,7 @@
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="StructureParameter.cpp" />
     <ClCompile Include="StructureParameterWriter.cpp" />
-    <ClCompile Include="SurfaceProperty.cpp" />
+    <ClCompile Include="SurfaceMaterial.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="SwapChainConfig.cpp" />
     <ClCompile Include="Task.cpp" />

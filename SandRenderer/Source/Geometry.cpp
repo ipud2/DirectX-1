@@ -12,6 +12,8 @@ Geometry::Geometry()
 
 	m_iVertexStructureSize = 0;
 	m_iVertexCount = 0;
+
+	m_pShaderResourceWriter = Parameters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
 }
 
 Geometry::~Geometry()
@@ -19,7 +21,7 @@ Geometry::~Geometry()
 
 }
 
-void Geometry::Execute( PipelineManager* pPipelineManager , IParameterManager* pParameterManager )
+void Geometry::Execute( PipelineManager* pPipelineManager , IParameterManager* pParameterManager , int SubObjectID )
 {
 	// Çå³ýÉèÖÃ
 	pPipelineManager->GetInputAssemblerStageRef().ClearDesiredState();
@@ -40,7 +42,8 @@ void Geometry::Execute( PipelineManager* pPipelineManager , IParameterManager* p
 
 	pPipelineManager->ApplyInputResource();
 
-	pPipelineManager->DrawIndexed( GetIndexCount() , 0 , 0 );
+	
+	pPipelineManager->DrawIndexed( m_IndexCounts[SubObjectID] , m_Offsets[SubObjectID] , 0 );
 }
 
 void Geometry::AddFace( int index_1 , int index_2 , int index_3 )
@@ -309,11 +312,6 @@ int Geometry::GetPrimitiveCount()
 	return( count );
 }
 
-UINT Geometry::GetIndexCount()
-{
-	return m_vIndices.size();
-}
-
 void Geometry::SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY PrimitiveTopology )
 {
 	m_PrimitiveTopology = PrimitiveTopology;
@@ -322,4 +320,43 @@ void Geometry::SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY PrimitiveTopology 
 D3D11_PRIMITIVE_TOPOLOGY Geometry::GetPrimitiveTopology()
 {
 	return m_PrimitiveTopology;
+}
+
+void Geometry::AddInputResource( std::vector<int>& offsets , std::vector<int>& counts , std::vector<ResourceProxyPtr>& diffuseMap )
+{
+	for ( std::vector<int>::iterator iter = offsets.begin(); iter != offsets.end(); iter++ )
+	{
+		m_Offsets.push_back( *iter );
+	}
+
+	for ( std::vector<int>::iterator iter = counts.begin(); iter != counts.end(); iter++ )
+	{
+		m_IndexCounts.push_back( *iter );
+	}
+
+	for ( std::vector<ResourceProxyPtr>::iterator iter = diffuseMap.begin(); iter != diffuseMap.end(); iter++ )
+	{
+		m_DiffuseTextures.push_back( *iter );
+	}
+}
+
+void Geometry::AddInputResource( int Offset , int Counts , ResourceProxyPtr DiffuseMap /*= ResourceProxyPtr( new ResourceProxy ) */ )
+{
+	m_Offsets.push_back( Offset );
+	m_IndexCounts.push_back( Counts );
+	m_DiffuseTextures.push_back( DiffuseMap );
+}
+
+unsigned int Geometry::GetSubObjectCount() const
+{
+	return m_Offsets.size();
+}
+
+void Geometry::UpdateRenderParameters( IParameterManager* pParameterManager , int SubObjectID )
+{
+	if ( m_DiffuseTextures[SubObjectID]->GetShaderResourceViewID() != 0 )
+	{
+		m_pShaderResourceWriter->SetValue( m_DiffuseTextures[SubObjectID] );
+		Parameters.UpdateRenderParam( pParameterManager );
+	}
 }

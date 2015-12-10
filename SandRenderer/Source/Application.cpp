@@ -1,5 +1,4 @@
 #include "PCH.h"
-#include <Windowsx.h>
 #include "Application.h"
 #include "Log.h"
 
@@ -105,8 +104,8 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 
 		case WM_SIZE:
 		{
-			/*EventWindowResizePtr pEvent = EventWindowResizePtr( new EventWindowResize( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );*/
+			EventWindowResizePtr pEvent = EventWindowResizePtr( new EventWindowResize( hwnd , wParam , lParam ) );
+			m_EventManager.ProcessEvent( pEvent );
 			break;
 		}
 
