@@ -15,6 +15,7 @@ namespace Sand
 		// ----------------------------设置参数值---------------------------------------
 		// 根据name设置参数值
 		virtual void SetBoolParameterData( const std::wstring& name , bool* pBool );
+		virtual void SetFloatParameterData( const std::wstring& name , float* pFloat );
 		virtual void SetVector4fParameterData( const std::wstring& name , Vector4f* pVector );
 		virtual void SetVector3fParameterData( const std::wstring& name , Vector3f* pVector );
 		virtual void SetVector2fParameterData( const std::wstring& name , Vector2f* pVector );
@@ -28,6 +29,7 @@ namespace Sand
 
 		// 根据RenderParameterDX11设置参数值
 		virtual void SetBoolParameterData( RenderParameter* pParameter , bool* pBool );
+		virtual void SetFloatParameterData( RenderParameter* pParameter , float* pFloat );
 		virtual void SetVector4fParameterData( RenderParameter* pParameter , Vector4f* pVector );
 		virtual void SetVector3fParameterData( RenderParameter* pParameter , Vector3f* pVector );
 		virtual void SetVector2fParameterData( RenderParameter* pParameter , Vector2f* pVector );
@@ -44,6 +46,7 @@ namespace Sand
 		// ------------------------获取参数引用---------------------------------------
 		virtual RenderParameter* GetParameterRef( const std::wstring& name );
 		virtual BoolParameter* GetBoolParameterRef( const std::wstring& name );
+		virtual FloatParameter* GetFloatParameterRef( const std::wstring& name );
 		virtual Vector4fParameter* GetVector4fParameterRef( const std::wstring& name );
 		virtual Vector3fParameter* GetVector3fParameterRef( const std::wstring& name );
 		virtual Vector2fParameter* GetVector2fParameterRef( const std::wstring& name );
@@ -58,6 +61,7 @@ namespace Sand
 	public:
 		// ---------------------获取参数值-----------------------------------
 		virtual bool GetBoolParameterData( const std::wstring& name );
+		virtual float GetFloatParameterData( const std::wstring& name );
 		virtual Vector4f GetVector4fParameterData( const std::wstring& name );
 		virtual Vector3f GetVector3fParameterData( const std::wstring& name );
 		virtual Vector2f GetVector2fParameterData( const std::wstring& name );
@@ -70,6 +74,7 @@ namespace Sand
 		virtual int GetSamplerStateParameterData( const std::wstring& name );
 
 		virtual bool GetBoolParameterData( RenderParameter* pParameter );
+		virtual float GetFloatParameterData( RenderParameter* pParameter );
 		virtual Vector4f GetVector4fParameterData( RenderParameter* pParameter );
 		virtual Vector3f GetVector3fParameterData( RenderParameter* pParameter );
 		virtual Vector2f GetVector2fParameterData( RenderParameter* pParameter );

@@ -653,6 +653,9 @@
     <ClInclude Include="..\Include\BasicMaterial.h">
       <Filter>Material</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\FloatParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -1080,6 +1083,9 @@
     </ClCompile>
     <ClCompile Include="BasicMaterial.cpp">
       <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

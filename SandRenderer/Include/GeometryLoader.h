@@ -14,7 +14,7 @@ namespace Sand
 		static GeometryPtr LoadOBJ( std::wstring& filename );
 		static GeometryPtr LoadMS3D( std::wstring filename );
 
-		static GeometryPtr LoadOBJWithTexture( std::wstring& filename );
+		static GeometryPtr LoadOBJWithTexture( std::wstring& filename , bool bUseTangent = false );
 
 	private:
 		Vector3f ToVector3f( const std::vector<std::string>& tokens );

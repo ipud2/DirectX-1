@@ -369,7 +369,7 @@ GeometryPtr GeometryGenerator::GeneratorSphere( unsigned int SliceCount , unsign
 		pGeometry->AddFace( SouthPoleIndex , baseIndex + i , baseIndex + i + 1 );
 	}
 
-	pGeometry->AddInputResource( 0 , 2 * SliceCount * ( StackCount - 1 ) * 3 );
+	pGeometry->AddGroupInfo( 0 , 2 * SliceCount * ( StackCount - 1 ) * 3 );
 
 	return pGeometry;
 }
@@ -454,7 +454,7 @@ GeometryPtr GeometryGenerator::GeneratorSkyBox( unsigned int SliceCount , unsign
 		pGeometry->AddFace( SouthPoleIndex , baseIndex + i , baseIndex + i + 1 );
 	}
 
-	pGeometry->AddInputResource( 0 , 2 * SliceCount * ( StackCount - 1 ) * 3 );
+	pGeometry->AddGroupInfo( 0 , 2 * SliceCount * ( StackCount - 1 ) * 3 );
 
 	return pGeometry;
 }
@@ -546,7 +546,7 @@ GeometryPtr GeometryGenerator::GeneratorGrid( float width , float depth , unsign
 		}
 	}
 
-	pGeometry->AddInputResource( 0 , FaceCount * 3 );
+	pGeometry->AddGroupInfo( 0 , FaceCount * 3 );
 
 	return pGeometry;
 }
@@ -735,7 +735,7 @@ GeometryPtr GeometryGenerator::GeneratorCylinder( float bottomRadius , float top
 		pGeometry->AddFace( BottomCapCenterIndex , BottomCapBaseIndex + i , BottomCapBaseIndex + i + 1 );
 	}
 
-	pGeometry->AddInputResource( 0 , 2 * sliceCount * ( stackCount + 1 ) * 3 );
+	pGeometry->AddGroupInfo( 0 , 2 * sliceCount * ( stackCount + 1 ) * 3 );
 
 	return pGeometry;
 }

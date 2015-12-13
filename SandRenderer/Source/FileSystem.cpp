@@ -8,7 +8,7 @@ std::wstring FileSystem::sDataFolder = L"../Data/";
 std::wstring FileSystem::sModelSubFolder = L"Models/";
 std::wstring FileSystem::sShaderSubFolder = L"Shaders/";
 std::wstring FileSystem::sTextureSubFolder = L"Textures/";
-std::wstring FileSystem::sLogSubFolder = L"Log/";
+std::wstring FileSystem::sLogSubFolder = L"Logs/";
 
 
 FileSystem::FileSystem()
@@ -29,7 +29,7 @@ std::wstring FileSystem::GetDataFolder()
 std::wstring FileSystem::GetLogFolder()
 {
 	// 该函数将会在静态成员被构造前调用，因此只能直接写成常量
-	return L"../Data/Log/";
+	return L"../Data/Logs/"/*( sDataFolder + sLogSubFolder )*/;
 }
 
 std::wstring FileSystem::GetModelFolder()

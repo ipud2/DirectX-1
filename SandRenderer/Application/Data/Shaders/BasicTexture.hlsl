@@ -7,7 +7,7 @@ cbuffer DirectionLight
 
 cbuffer SurfaceMaterial
 {
-	Material BasicMaterial;
+	Material Mat;
 };
 
 cbuffer Transforms
@@ -26,7 +26,7 @@ cbuffer PhongParameter
 cbuffer Effect
 {
 	bool bUseTexture = true;
-	bool bEnableReflect = false;
+	bool bEnabledReflect = false;
 	bool bAlphaClip = true;
 };
 
@@ -95,7 +95,7 @@ float4 PSMain(in PixelIn input) : SV_Target
 	{
 		float4 A , D , S;
 
-		ComputeDirectionalLight(BasicMaterial , 
+		ComputeDirectionalLight(Mat , 
 								Light[i] ,
 								input.NormalW , 
 								ToEye , 
@@ -110,16 +110,16 @@ float4 PSMain(in PixelIn input) : SV_Target
 	
 	litColor = texColor * (ambient + diffuse) + specular;
 
-	if ( bEnableReflect )
+	if ( bEnabledReflect )
 	{
 		float3 incident = -ToEye;
 		float3 reflectionVector = reflect( incident , input.NormalW );		//get the reflect vector about input.NormalW
 		float4 reflectionColor = SkyboxTexture.Sample( LinearSampler , reflectionVector );
 
-		litColor += BasicMaterial.Reflect * reflectionColor;
+		litColor += Mat.Reflect * reflectionColor;
 	}
 
-	litColor.a = BasicMaterial.DiffuseMaterial.a * texColor.a;
+	litColor.a = Mat.DiffuseMaterial.a * texColor.a;
 
 	return litColor;
 }

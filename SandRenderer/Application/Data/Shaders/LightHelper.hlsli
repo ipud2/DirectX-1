@@ -49,3 +49,33 @@ void ComputeDirectionalLight(Material Mat ,
 		specular = SpecularFactor * light.SpecularLight * Mat.SpecularMaterial;
 	}
 }
+
+
+// 根据法线贴图采样得到的值扰动法线
+// 法线贴图中采样得到的数据为该点法线在切线空间中的坐标
+// 由于我们的光照计算时在世界空间中完成
+// 因此我们需要计算出在世界空间中被扰动后的法线
+float3 NormalSampleToWorldSpace(float3 NormalMapSample , 
+								float3 UnitNormalW , 
+								float3 TangentW)
+{
+	// 法线贴图中采样得到的值范围在[0 , 1]
+	// 需要将其转换到[-1 , 1]
+	float3 NormalTangent = 2 * NormalMapSample - 1;
+
+	// 正交坐标轴
+	float3 N = UnitNormalW;
+	float3 T = normalize(TangentW - dot(TangentW , N) * N);
+	float3 B = cross(N , T);
+
+
+	/*
+		Tx Ty Tz
+		Bx By Bz
+		Nx Ny Nz
+	*/
+	float3x3 TBN = float3x3(T , B , N);
+	float3 BumpNormalW = mul(NormalTangent , TBN);
+
+	return BumpNormalW;
+}

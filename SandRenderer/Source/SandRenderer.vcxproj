@@ -140,6 +140,7 @@
     <ClInclude Include="..\Include\FileLoader.h" />
     <ClInclude Include="..\Include\FileSystem.h" />
     <ClInclude Include="..\Include\FloatParameter.h" />
+    <ClInclude Include="..\Include\FloatParameterWriter.h" />
     <ClInclude Include="..\Include\Geometry.h" />
     <ClInclude Include="..\Include\GeometryGenerator.h" />
     <ClInclude Include="..\Include\GeometryLoader.h" />
@@ -296,6 +297,7 @@
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="FloatParameter.cpp" />
+    <ClCompile Include="FloatParameterWriter.cpp" />
     <ClCompile Include="GeometryGenerator.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GeometryLoader.cpp" />

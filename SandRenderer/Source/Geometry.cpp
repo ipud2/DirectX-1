@@ -13,7 +13,7 @@ Geometry::Geometry()
 	m_iVertexStructureSize = 0;
 	m_iVertexCount = 0;
 
-	m_pShaderResourceWriter = Parameters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
+	m_pShaderResourceWriter = ParameterWriters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
 }
 
 Geometry::~Geometry()
@@ -30,7 +30,7 @@ void Geometry::Execute( PipelineManager* pPipelineManager , IParameterManager* p
 	int layout = GetInputLayout( pPipelineManager->ShaderStages[ST_VERTEX_SHADER]->DesiredState.ShaderProgramID.GetState() );
 	pPipelineManager->GetInputAssemblerStageRef().DesiredState.InputLayout.SetState( layout );
 	pPipelineManager->GetInputAssemblerStageRef().DesiredState.PrimitiveTopology.SetState( m_PrimitiveTopology );
-	
+
 	// ---------------------------------------Vertex Buffer----------------------------------------------
 	pPipelineManager->GetInputAssemblerStageRef().DesiredState.VertexBuffers.SetState( 0 , m_VertexBuffer->GetResourceID() );
 	pPipelineManager->GetInputAssemblerStageRef().DesiredState.VertexBufferStrides.SetState( 0 , m_iVertexStructureSize );
@@ -42,7 +42,6 @@ void Geometry::Execute( PipelineManager* pPipelineManager , IParameterManager* p
 
 	pPipelineManager->ApplyInputResource();
 
-	
 	pPipelineManager->DrawIndexed( m_IndexCounts[SubObjectID] , m_Offsets[SubObjectID] , 0 );
 }
 
@@ -139,7 +138,6 @@ void Geometry::LoadToBuffer()
 int Geometry::CalculateVertexCount()
 {
 	// 计算顶点列表中顶点数目
-
 	if( m_vElements.size() != 0 )
 	{
 		m_iVertexCount = m_vElements[0]->GetCount();
@@ -173,7 +171,6 @@ void Geometry::GenerateInputLayout( int ShaderID )
 	if( ElementCount == 0 )
 	{
 		// 这种情况我们认为顶点数据是由shader自动生成的。
-
 		std::vector<D3D11_INPUT_ELEMENT_DESC> Elements;
 
 		Renderer* pRenderer = Renderer::Get();
@@ -322,25 +319,7 @@ D3D11_PRIMITIVE_TOPOLOGY Geometry::GetPrimitiveTopology()
 	return m_PrimitiveTopology;
 }
 
-void Geometry::AddInputResource( std::vector<int>& offsets , std::vector<int>& counts , std::vector<ResourceProxyPtr>& diffuseMap )
-{
-	for ( std::vector<int>::iterator iter = offsets.begin(); iter != offsets.end(); iter++ )
-	{
-		m_Offsets.push_back( *iter );
-	}
-
-	for ( std::vector<int>::iterator iter = counts.begin(); iter != counts.end(); iter++ )
-	{
-		m_IndexCounts.push_back( *iter );
-	}
-
-	for ( std::vector<ResourceProxyPtr>::iterator iter = diffuseMap.begin(); iter != diffuseMap.end(); iter++ )
-	{
-		m_DiffuseTextures.push_back( *iter );
-	}
-}
-
-void Geometry::AddInputResource( int Offset , int Counts , ResourceProxyPtr DiffuseMap /*= ResourceProxyPtr( new ResourceProxy ) */ )
+void Geometry::AddGroupInfo( int Offset , int Counts , ResourceProxyPtr DiffuseMap /*= ResourceProxyPtr( new ResourceProxy ) */ )
 {
 	m_Offsets.push_back( Offset );
 	m_IndexCounts.push_back( Counts );
@@ -357,6 +336,6 @@ void Geometry::UpdateRenderParameters( IParameterManager* pParameterManager , in
 	if ( m_DiffuseTextures[SubObjectID]->GetShaderResourceViewID() != 0 )
 	{
 		m_pShaderResourceWriter->SetValue( m_DiffuseTextures[SubObjectID] );
-		Parameters.UpdateRenderParam( pParameterManager );
+		ParameterWriters.UpdateRenderParam( pParameterManager );
 	}
 }

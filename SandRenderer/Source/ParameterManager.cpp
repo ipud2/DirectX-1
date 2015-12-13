@@ -55,6 +55,34 @@ void ParameterManager::SetBoolParameterData( const std::wstring& name , bool* pB
 	}
 }
 
+void ParameterManager::SetFloatParameterData( const std::wstring& name , float* pFloat )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		// 不存在该参数，则新建一个
+		pParameter = new FloatParameter( name );
+		Parameters[name] = reinterpret_cast< RenderParameter* >( pParameter );
+
+		pParameter->SetParameterData( reinterpret_cast< void* >( pFloat ) );
+	}
+	else
+	{
+		// 该参数存在
+
+		// 验证类型是否符合
+		if ( Parameters[name]->GetParameterType() == PT_FLOAT )
+		{
+			Parameters[name]->SetParameterData( reinterpret_cast< void* >( pFloat ) );
+		}
+		else
+		{
+			Log::Get().Write( L"尝试将Float值赋给非Float型参数" );
+		}
+	}
+}
+
 void ParameterManager::SetVector4fParameterData( const std::wstring& name , Vector4f* pVector )
 {
 	RenderParameter* pParameter = Parameters[name];
@@ -353,6 +381,19 @@ void ParameterManager::SetBoolParameterData( RenderParameter* pParameter , bool*
 	}
 }
 
+void ParameterManager::SetFloatParameterData( RenderParameter* pParameter , float* pFloat )
+{
+	// 检测类型是否符合
+	if ( pParameter->GetParameterType() == PT_FLOAT )
+	{
+		pParameter->SetParameterData( reinterpret_cast< void* >( pFloat ) );
+	}
+	else
+	{
+		Log::Get().Write( L"参数类型不符，该参数不是Float类型" );
+	}
+}
+
 void ParameterManager::SetVector4fParameterData( RenderParameter* pParameter , Vector4f* pVector )
 {
 	// 检测类型是否符合
@@ -506,6 +547,20 @@ BoolParameter* ParameterManager::GetBoolParameterRef( const std::wstring& name )
 	}
 
 	return reinterpret_cast< BoolParameter* >( pParameter );
+}
+
+FloatParameter* ParameterManager::GetFloatParameterRef( const std::wstring& name )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	if ( pParameter == nullptr )
+	{
+		// 创建参数对象
+		pParameter = new FloatParameter( name );
+		Parameters[name] = pParameter;
+	}
+
+	return reinterpret_cast< FloatParameter* >( pParameter );
 }
 
 Vector4fParameter* ParameterManager::GetVector4fParameterRef( const std::wstring& name )
@@ -664,6 +719,28 @@ bool ParameterManager::GetBoolParameterData( const std::wstring& name )
 		if ( pParameter->GetParameterType() == PT_BOOL )
 		{
 			result = reinterpret_cast< BoolParameter* >( pParameter )->GetValue();
+		}
+	}
+
+	return result;
+}
+
+float ParameterManager::GetFloatParameterData( const std::wstring& name )
+{
+	RenderParameter* pParameter = Parameters[name];
+
+	bool result = false;
+
+	if ( pParameter == nullptr )
+	{
+		pParameter = new FloatParameter( name );
+		Parameters[name] = pParameter;
+	}
+	else
+	{
+		if ( pParameter->GetParameterType() == PT_FLOAT )
+		{
+			result = reinterpret_cast< FloatParameter* >( pParameter )->GetValue();
 		}
 	}
 
@@ -910,6 +987,20 @@ bool ParameterManager::GetBoolParameterData( RenderParameter* pParameter )
 	if ( pParameter->GetParameterType() == PT_BOOL )
 	{
 		result = reinterpret_cast< BoolParameter* >( pParameter )->GetValue();
+	}
+
+	return result;
+}
+
+float ParameterManager::GetFloatParameterData( RenderParameter* pParameter )
+{
+	assert( pParameter != 0 );
+
+	float result = false;
+
+	if ( pParameter->GetParameterType() == PT_FLOAT )
+	{
+		result = reinterpret_cast< FloatParameter* >( pParameter )->GetValue();
 	}
 
 	return result;

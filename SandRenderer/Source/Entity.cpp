@@ -105,7 +105,7 @@ void Entity::Render( PipelineManager* pPipelineManager , IParameterManager* pPar
 			
 			if ( Visual.Material != nullptr )
 			{
-				// 设置物体表面属性参数
+				// 设置物体表面材质
 				Visual.Material->UpdateRenderParams( pParamManager );
 			}
 

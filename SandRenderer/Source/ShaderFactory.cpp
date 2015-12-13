@@ -71,7 +71,7 @@ ID3DBlob* ShaderFactory::GenerateShader( ShaderType type , std::wstring& Filenam
 			LPVOID pCompileErrors = pErrorMessage->GetBufferPointer();
 			const char* pMessage = ( const char* )pCompileErrors;
 			message << SandString::ToUnicode( std::string( pMessage ) );
-			Log::Get().Write( message.str().c_str() );
+			Log::Get().Write( message.str() );
 		}
 
 		SAFE_RELEASE( pCompiledShader );

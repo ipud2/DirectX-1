@@ -19,33 +19,42 @@ Log& Log::Get()
 void Log::Open()
 {
 	FileSystem fs;
+
 	// Log文件路径
 	std::wstring FilePath = fs.GetLogFolder() + std::wstring( L"log.txt" );
 
 	// 打开Log文件
 	LogFile.open( FilePath.c_str() );
 
+	// 中文支持
+	LogFile.imbue( std::locale( "" , std::locale::all ^ std::locale::numeric ) );
+
 	// 写入打开信息
-	Write( L"Log file opened" );
+	Write( L"Open Log File" );
 }
 
 void Log::Close()
 {
 	Write( L"close Log File" );
 
-	LogFile.close();
+	LogFile.flush();
 }
 
 void Log::Write( const wchar_t* TextString )
 {
-	LogFile << TextString << "\n";
+	LogFile << TextString << L'\0' << std::endl;
 
-	/*LogFile.flush();*/
+	LogFile.flush();
+}
+
+void Log::Write( std::wstring& TextString )
+{
+	Log::Write( TextString.c_str() );
 }
 
 void Sand::Log::WriteSeparator()
 {
 	LogFile << L"------------------------------------------------------------------------------\n";
 
-	/*LogFile.flush();*/
+	LogFile.flush();
 }

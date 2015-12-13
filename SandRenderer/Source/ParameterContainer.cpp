@@ -108,6 +108,47 @@ BoolParameterWriter* ParameterContainer::GetBoolParameterWriter( const std::wstr
 	return pBoolParameterWriter;
 }
 
+FloatParameterWriter* ParameterContainer::GetFloatParameterWriter( const std::wstring& name )
+{
+	// 获取name对应的ParameterWriter
+	ParameterWriter* pParameterWriter = GetRenderParameterWriter( name );
+	FloatParameterWriter* pFloatParameterWriter = nullptr;
+
+	if ( pParameterWriter )
+	{
+		RenderParameter* pParameter = pParameterWriter->GetRenderParameterRef();
+
+		if ( pParameter )
+		{
+			// 检查其类型是否为Vector
+			if ( pParameter->GetParameterType() == PT_FLOAT )
+			{
+				pFloatParameterWriter = dynamic_cast< FloatParameterWriter* >( pParameterWriter );
+			}
+			else
+			{
+				Log::Get().Write( L"Error: Trying to access a float in a non-bool parameter writers!!" );
+			}
+		}
+		else
+		{
+			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+		}
+	}
+
+	/*
+		若不存在，则创建
+	*/
+	if ( pFloatParameterWriter == nullptr )
+	{
+		pFloatParameterWriter = new FloatParameterWriter;
+		pFloatParameterWriter->SetRenderParameterRef( Renderer::Get()->GetParameterManagerRef()->GetFloatParameterRef( name ) );
+		AddRenderParameter( pFloatParameterWriter );
+	}
+
+	return pFloatParameterWriter;
+}
+
 Vector4fParameterWriter* ParameterContainer::GetVector4fParameterWriter( const std::wstring& name )
 {
 	// 获取name对应的ParameterWriter

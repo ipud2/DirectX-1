@@ -163,7 +163,7 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 	if( FAILED( hr ) )
 	{
 		// Êä³ö´íÎóÐÅÏ¢
-		Log::Get().Write( L"can't getch ID3D11Debug Interface from Device" );
+		Log::Get().Write( L"can't getch ID3D11Debug Interface from Devices" );
 	}
 
 	m_FeatureLevel = m_pDevice->GetFeatureLevel();

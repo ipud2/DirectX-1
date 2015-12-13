@@ -7,6 +7,7 @@
 #include "UnorderedAccessParameterWriter.h"
 #include "SamplerParameterWriter.h"
 #include "BoolParameterWriter.h"
+#include "FloatParameterWriter.h"
 #include "Vector4fParameterWriter.h"
 #include "Vector3fParameterWriter.h"
 #include "Vector2fParameterWriter.h"
@@ -31,6 +32,7 @@ namespace Sand
 		*/
 		ParameterWriter* GetRenderParameterWriter( const std::wstring& name );
 		BoolParameterWriter* GetBoolParameterWriter( const std::wstring& name );
+		FloatParameterWriter* GetFloatParameterWriter( const std::wstring& name );
 		Vector4fParameterWriter* GetVector4fParameterWriter( const std::wstring& name );
 		Vector3fParameterWriter* GetVector3fParameterWriter( const std::wstring& name );
 		Vector2fParameterWriter* GetVector2fParameterWriter( const std::wstring& name );

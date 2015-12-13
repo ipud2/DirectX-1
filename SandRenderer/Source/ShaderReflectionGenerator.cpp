@@ -104,6 +104,12 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 					if ( TypeDesc.Type == D3D_SVT_FLOAT )
 					{
 						// ---------------float-------------------
+						pRenderParameter = pParameterManager->GetFloatParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+
+						if ( VariableDesc.DefaultValue != nullptr )
+						{
+							pRenderParameter->SetParameterData( reinterpret_cast< void* >( VariableDesc.DefaultValue ) );
+						}
 					}
 					else if ( TypeDesc.Type == D3D_SVT_INT )
 					{

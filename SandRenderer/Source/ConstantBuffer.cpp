@@ -60,6 +60,9 @@ void ConstantBuffer::EvaluateElements( PipelineManager* pPipelineManager , IPara
 					if ( m_vElements[i].VarType == D3D_SVT_FLOAT )
 					{
 						// ---------------float--------------
+						float value = pParameterManager->GetFloatParameterData( m_vElements[i].pParamRef );
+						float* pBuf = ( float* )( ( char* )MappedResource.pData + Offset );
+						*pBuf = value;
 					}
 					else if ( m_vElements[i].VarType == D3D_SVT_BOOL )
 					{
@@ -67,7 +70,6 @@ void ConstantBuffer::EvaluateElements( PipelineManager* pPipelineManager , IPara
 						bool value = pParameterManager->GetBoolParameterData( m_vElements[i].pParamRef );
 						bool* pBuf = ( bool* )( ( char* )MappedResource.pData + Offset );
 						*pBuf = value;
-
 					}
 					else if ( m_vElements[i].VarType == D3D_SVT_INT )
 					{

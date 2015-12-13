@@ -45,6 +45,16 @@ namespace Sand
 		void Write( const wchar_t* TextString );
 
 		//************************************
+		// Method:    Write
+		// FullName:  Sand::Log::Write
+		// Access:    public 
+		// Returns:   void
+		// Qualifier:
+		// Parameter: std::wstring & TestString
+		//************************************
+		void Write( std::wstring& TestString );
+
+		//************************************
 		// Method:    WriteSeparator
 		// FullName:  Sand::Log::WriteSeparator
 		// Access:    public 
@@ -53,6 +63,5 @@ namespace Sand
 		//************************************
 		void WriteSeparator();
 	};
-}
-
+};
 #endif

@@ -3,12 +3,11 @@
 
 using namespace Sand;
 
-
 BasicMaterial::BasicMaterial()
 	:m_pData( nullptr )
 {
 	// 创建StructureParameterWriter对象
-	m_pMaterialWriter = Parameters.GetStructureParameterWriter( L"BasicMaterial" , sizeof( BasicMaterialStructure ) );
+	m_pMaterialWriter = Parameters.GetStructureParameterWriter( L"Mat" , sizeof( BasicMaterialStructure ) );
 
 	m_pData = new BasicMaterialStructure;
 }

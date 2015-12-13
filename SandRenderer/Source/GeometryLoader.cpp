@@ -262,7 +262,7 @@ Vector3f GeometryLoader::ToVector3f( const std::vector<std::string>& tokens )
 					 static_cast< float >( atof( tokens[3].c_str() ) ) );
 }
 
-GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename )
+GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bUseTangent /* = false */ )
 {
 	// 构造文件绝对路径
 	FileSystem fs;
@@ -471,13 +471,14 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename )
 				DiffuseMap = ResourceProxyPtr( new ResourceProxy );
 			}
 
-			MeshPtr->AddInputResource( Offset , Count , DiffuseMap );
+			MeshPtr->AddGroupInfo( Offset , Count , DiffuseMap );
 		}
 	}
 
 	// 顶点总数(按照三角形重排后的顶点总数)
 	int TotalVertexCount = Offset + Count;
 
+	// -----------------------------------------------------位置坐标-----------------------------------------------------------
 	VertexElement* PosVertexElement = new VertexElement( 3 , TotalVertexCount );
 	PosVertexElement->m_SemanticName = VertexElement::PositionSemantic;
 	PosVertexElement->m_uiSemanticIndex = 0;
@@ -529,7 +530,8 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename )
 
 	MeshPtr->AddElement( PosVertexElement );
 
-
+	
+	// ---------------------------------------------------------纹理坐标-----------------------------------------------------
 	VertexElement* TexVertexElement = TexVertexElement = new VertexElement( 2 , TotalVertexCount );
 	TexVertexElement->m_SemanticName = VertexElement::TexCoordSemantic;
 	TexVertexElement->m_uiSemanticIndex = 0;
@@ -578,6 +580,7 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename )
 	MeshPtr->AddElement( TexVertexElement );
 
 
+	// ---------------------------------------------------法线坐标-----------------------------------------------
 	VertexElement* NormalVertexElement = new VertexElement( 3 , TotalVertexCount );
 	NormalVertexElement->m_SemanticName = VertexElement::NormalSemantic;
 	NormalVertexElement->m_uiSemanticIndex = 0;
@@ -632,7 +635,92 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename )
 	}
 	MeshPtr->AddElement( NormalVertexElement );
 
+	// -------------------------------------------------------切线坐标--------------------------------------------------------------
+	if ( bUseTangent )
+	{
+		VertexElement* TangentVertexElement = new VertexElement( 3 , TotalVertexCount );
+		TangentVertexElement->m_SemanticName = VertexElement::TangentSemantic;
+		TangentVertexElement->m_uiSemanticIndex = 0;
+		TangentVertexElement->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
+		TangentVertexElement->m_uiInputSlot = 0;
+		TangentVertexElement->m_uiAlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+		TangentVertexElement->m_InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		TangentVertexElement->m_uiInstanceDataStepRate = 0;
 
+		Vector3f* Tangent = new Vector3f[TotalVertexCount];
+		Vector3f* BiTangent = new Vector3f[TotalVertexCount];
+		ZeroMemory( Tangent , TotalVertexCount * sizeof( Vector3f ) );
+		ZeroMemory( BiTangent , TotalVertexCount * sizeof( Vector3f ) );
+		
+		Vector3f* Tan = ( Vector3f* )( ( *TangentVertexElement )[0] );
+		Vector3f* Pos = ( Vector3f* )( ( *PosVertexElement )[0] );
+		Vector2f* Tex = ( Vector2f* )( ( *TexVertexElement )[0] );
+		Vector3f* Normal = ( Vector3f* )( ( *NormalVertexElement )[0] );
+
+		int FaceCount = 0;
+		for ( int i = 0; i < Objects.size(); i++ )
+		{
+			for ( int j = 0; j < Objects[i].SubObjects.size(); j++ )
+			{
+				for ( int k = 0; k < Objects[i].SubObjects[j].Faces.size(); k++ )
+				{
+					int index_1 = FaceCount * 3 + 3 * k + 0;
+					int index_2 = index_1 + 1;
+					int index_3 = index_2 + 1;
+
+					const Vector3f& v1 = Pos[index_1];
+					const Vector3f& v2 = Pos[index_2];
+					const Vector3f& v3 = Pos[index_3];
+
+					const Vector2f& w1 = Tex[index_1];
+					const Vector2f& w2 = Tex[index_2];
+					const Vector2f& w3 = Tex[index_3];
+
+					float x1 = v2.x - v1.x;
+					float x2 = v3.x - v1.x;
+					float y1 = v2.y - v1.y;
+					float y2 = v3.y - v1.y;
+					float z1 = v2.z - v1.z;
+					float z2 = v3.z - v1.z;
+
+					float s1 = w2.x - w1.x;
+					float s2 = w3.x - w1.x;
+					float t1 = w2.y - w1.y;
+					float t2 = w3.y - w1.y;
+
+					float r = 1.0f / ( s1 * t2 - s2 * t1 );
+
+					Vector3f sDir( ( t2 * x1 - t1 * x2 ) * r , ( t2 * y1 - t1 * y2 ) * r , ( t2 * z1 - t1 * z2 ) * r );
+					Vector3f tDir( ( s1 * x2 - s2 * x1 ) * r , ( s1 * y2 - s2 * y1 ) * r , ( s1 * z2 - s2 * z1 ) * r );
+
+					Tangent[index_1] += sDir;
+					Tangent[index_2] += sDir;
+					Tangent[index_3] += sDir;
+
+					BiTangent[index_1] += tDir;
+					BiTangent[index_2] += tDir;
+					BiTangent[index_3] += tDir;
+				}
+			}
+		}
+
+		for ( int i = 0; i < TotalVertexCount; i++ )
+		{
+			Vector3f& n = Normal[i];
+			Vector3f& t = Tangent[i];
+
+			Vector3f tangent = Vector3f::Normalize( ( t - n * Vector3f::Dot( n , t ) ) );
+
+			Tan[i] = tangent;
+		}
+
+		delete[] Tangent;
+		delete[] BiTangent;
+
+		MeshPtr->AddElement( TangentVertexElement );
+	}
+	
+	
 	// -------------------------------------------------------索引-----------------------------------------------------------
 	int FaceCount = 0;
 	for ( int i = 0; i < Objects.size(); i++ )

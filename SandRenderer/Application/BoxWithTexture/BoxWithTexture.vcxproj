@@ -15,6 +15,7 @@
     <ProjectGuid>{9D71D3A4-5F65-44CE-A69B-14BBC3B6BD48}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BoxWithTexture</RootNamespace>
+    <ProjectName>NormalMap</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
