@@ -1181,7 +1181,7 @@ int Renderer::LoadShader( ShaderType Type , std::wstring& Filename , std::wstrin
 
 	m_vShaders.push_back( pShaderWrapper );
 
-	ShaderReflection* pReflection = ShaderReflectionGenerator::GenerateReflection( pCompiledShader );
+	ShaderReflection* pReflection = ShaderReflectionGenerator::GenerateReflection( pCompiledShader , Filename.substr( 0 , Filename.size() - 5 ) );
 
 	// init constant buffer
 	pReflection->InitConstantBufferParameter( m_pParameterManager );

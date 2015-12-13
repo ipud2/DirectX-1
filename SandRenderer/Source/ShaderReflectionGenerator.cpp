@@ -16,7 +16,7 @@ ShaderReflectionGenerator::~ShaderReflectionGenerator()
 
 }
 
-ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pCompiledShader )
+ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pCompiledShader , std::wstring& Filename )
 {
 	IParameterManager* pParameterManager = Renderer::Get()->GetParameterManagerRef();
 
@@ -76,7 +76,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 			// --------------------------------------------------------接下来是填充ConstantBufferDesc-----------------------------------------------------------
 
 			CBufferDesc.Description = BufferDesc;
-			CBufferDesc.pParamRef = pParameterManager->GetConstantBufferParameterRef( SandString::ToUnicode( std::string( BufferDesc.Name ) ) );
+			CBufferDesc.pParamRef = pParameterManager->GetConstantBufferParameterRef( SandString::ToUnicode( std::string( BufferDesc.Name ) ) + Filename );
 
 			for( UINT j = 0; j < BufferDesc.Variables; j++ )
 			{
@@ -197,7 +197,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 		if( ResourceDesc.Type == D3D_SIT_CBUFFER || ResourceDesc.Type == D3D_SIT_TBUFFER )
 		{
 			// 资源为常量缓存
-			BindDesc.pParamRef = pParameterManager->GetConstantBufferParameterRef( BindDesc.Name );
+			BindDesc.pParamRef = pParameterManager->GetConstantBufferParameterRef( BindDesc.Name + Filename );
 		}
 		else if( ResourceDesc.Type == D3D_SIT_TEXTURE || ResourceDesc.Type == D3D_SIT_STRUCTURED )
 		{

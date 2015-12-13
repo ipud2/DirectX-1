@@ -1,13 +1,13 @@
 #include "LightHelper.hlsli"
 
-cbuffer cbDisplacementTransform
+cbuffer cbTransform
 {
 	matrix WorldMatrix;
 	matrix WorldInvTransposeMatrix;
 	matrix TexTransformMatrix;
 };
 
-cbuffer cbDisplacementConstant
+cbuffer cbConstant
 {
 	DirectionalLight Light[3];
 
@@ -18,13 +18,13 @@ cbuffer cbDisplacementConstant
 	float HeightScale;
 };
 
-cbuffer cbDisplacementPos
+cbuffer cbPos
 {
 	float3 ViewPosition;
 	matrix ViewProjMatrix;
 };
 
-cbuffer cbDisplacementMaterial
+cbuffer cbMaterial
 {
 	Material Mat;
 	bool bUseTexture = true;
