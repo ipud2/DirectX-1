@@ -11,6 +11,7 @@ cbuffer cbTrasform
 cbuffer cbLight
 {
 	DirectionalLight Light[3];
+	matrix ShadowTransformMatrix;
 };
 
 cbuffer cbMaterial
@@ -32,9 +33,11 @@ cbuffer cbPhongParameter
 
 TextureCube SkyboxTexture;
 Texture2D DiffuseTexture;
-SamplerState LinearSampler;
-
+Texture2D ShadowMap;
 Texture2D NormalMap;
+SamplerState LinearSampler;
+SamplerComparisonState ShadowSampler;
+
 
 struct VertexIn
 {
@@ -46,11 +49,12 @@ struct VertexIn
 
 struct PixelIn
 {
-	float4 PosH		:	SV_POSITION;
-	float3 PosW		:	POSITION;
-	float3 NormalW	:	NORMAL;
-	float3 TangentW	:	TANGENT;
-	float2 Tex 		:	TEXCOORD;
+	float4 PosH			:	SV_POSITION;
+	float3 PosW			:	POSITION;
+	float3 NormalW		:	NORMAL;
+	float3 TangentW		:	TANGENT;
+	float2 Tex 			:	TEXCOORD0;
+	float4 ShadowPosH	:	TEXCOORD1;
 };
 
 PixelIn VSMain(VertexIn input)
@@ -65,6 +69,8 @@ PixelIn VSMain(VertexIn input)
 	output.NormalW = mul(input.NormalL , (float3x3)WorldInvTransposeMatrix);
 
 	output.Tex = mul(float4(input.Tex , 0.0f , 1.0f) , TexTransformMatrix).xy;
+
+	output.ShadowPosH = mul(float4(input.PosL , 1.0f) , ShadowTransformMatrix);
 
 	return output;
 }
@@ -104,6 +110,9 @@ float4 PSMain(in PixelIn input) : SV_Target
 	float4 diffuse = float4(0.0f , 0.0f , 0.0f , 0.0f);
 	float4 specular = float4(0.0f , 0.0f , 0.0f , 0.0f);
 
+	float3 shadow = float3(1.0f , 1.0f , 1.0f);
+	shadow[0] = CalcShadowFactor(ShadowSampler , ShadowMap , input.ShadowPosH);
+
 	[unroll]
 	for(int i = 0; i < 3; i++)
 	{
@@ -118,8 +127,8 @@ float4 PSMain(in PixelIn input) : SV_Target
 								S);
 
 		ambient += A;
-		diffuse += D;
-		specular += S;
+		diffuse += shadow[i] * D;
+		specular += shadow[i] * S;
 	}
 
 	color = TexColor * (ambient + diffuse) + specular;

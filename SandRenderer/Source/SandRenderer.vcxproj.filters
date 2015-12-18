@@ -569,9 +569,6 @@
     <ClInclude Include="..\Include\Timer.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Camera.h">
-      <Filter>Object\Actor\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\DirectionalLight.h">
       <Filter>Object\Actor\Light</Filter>
     </ClInclude>
@@ -655,6 +652,15 @@
     </ClInclude>
     <ClInclude Include="..\Include\FloatParameterWriter.h">
       <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ViewShadowMap.h">
+      <Filter>Effect\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\BaseCamera.h">
+      <Filter>Object\Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MainCamera.h">
+      <Filter>Object\Actor\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1003,9 +1009,6 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Object\Actor\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="DirectionalLight.cpp">
       <Filter>Object\Actor\Light</Filter>
     </ClCompile>
@@ -1086,6 +1089,15 @@
     </ClCompile>
     <ClCompile Include="FloatParameterWriter.cpp">
       <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewShadowMap.cpp">
+      <Filter>Effect\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseCamera.cpp">
+      <Filter>Object\Actor\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MainCamera.cpp">
+      <Filter>Object\Actor\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

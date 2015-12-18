@@ -9,13 +9,17 @@ cbuffer cbTransform
 
 cbuffer cbConstant
 {
-	DirectionalLight Light[3];
-
 	float MaxTessDistance;
 	float MinTessDistance;
 	float MinTessFactor;
 	float MaxTessFactor;
 	float HeightScale;
+};
+
+cbuffer cbLight
+{
+	DirectionalLight Light[3];
+	matrix ShadowTransformMatrix;
 };
 
 cbuffer cbPos
@@ -32,10 +36,12 @@ cbuffer cbMaterial
 	bool bEnabledReflect = false;
 };
 
+SamplerComparisonState ShadowSampler;
 SamplerState LinearSampler;
 TextureCube SkyboxTexture;
 Texture2D DiffuseTexture;
 Texture2D NormalMap;
+Texture2D ShadowMap;
 
 struct VertexIn
 {
@@ -70,11 +76,12 @@ struct PatchTess
 
 struct DomainOutput
 {
-	float4 PosH		:	SV_POSITION;
-	float3 PosW 	: 	POSITION;
-	float3 NormalW 	:	NORMAL;
-	float3 TangentW	:	TANGENT;
-	float2 Tex 		:	TEXCOORD;
+	float4 PosH			:	SV_POSITION;
+	float3 PosW 		: 	POSITION;
+	float3 NormalW 		:	NORMAL;
+	float3 TangentW		:	TANGENT;
+	float2 Tex 			:	TEXCOORD0;
+	float4 ShadowPosH 	:	TEXCOORD1;
 };
 
 #define NUM_CONTROL_POINTS 3
@@ -168,6 +175,8 @@ DomainOutput DSMain(PatchTess input ,
 
 	Output.PosH = mul(float4(Output.PosW , 1.0f) , ViewProjMatrix);
 
+	Output.ShadowPosH = mul(float4(Output.PosW , 1.0f) , ShadowTransformMatrix);
+	
 	return Output;
 }
 
@@ -201,6 +210,9 @@ float4 PSMain(DomainOutput input) : SV_Target
 	float4 diffuse = float4(0.0f , 0.0f , 0.0f , 0.0f);
 	float4 specular = float4(0.0f , 0.0f , 0.0f , 0.0f);
 
+	float3 shadow = float3(1.0f , 1.0f , 1.0f);
+	shadow[0] = CalcShadowFactor(ShadowSampler , ShadowMap , input.ShadowPosH);
+	
 	[unroll]
 	for(int i = 0; i < 3; i++)
 	{
@@ -215,8 +227,8 @@ float4 PSMain(DomainOutput input) : SV_Target
 								S);
 
 		ambient += A;
-		diffuse += D;
-		specular += S;
+		diffuse += shadow[i] * D;
+		specular += shadow[i] * S;
 	}
 
 	color = texColor * (ambient + diffuse) + specular;

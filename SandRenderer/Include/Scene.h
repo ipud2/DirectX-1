@@ -4,7 +4,7 @@
 #include "Node.h"
 #include "Light.h"
 #include "ParameterContainer.h"
-#include "Camera.h"
+#include "BaseCamera.h"
 
 namespace Sand
 {
@@ -18,8 +18,8 @@ namespace Sand
 		virtual void Render( Renderer* pRenderer );
 
 		// ----------------Camera-----------------------
-		void AddCamera( Camera* camera );
-		Camera* GetCamera( unsigned int index );
+		void AddCamera( BaseCamera* camera );
+		BaseCamera* GetCamera( unsigned int index );
 		unsigned int GetCameraCount();
 
 		// -----------------Light-----------------------
@@ -37,7 +37,7 @@ namespace Sand
 	protected:
 		Node* m_pRootNode;
 		std::vector< Light* > m_vLights;
-		std::vector< Camera* > m_vCameras;
+		std::vector< BaseCamera* > m_vCameras;
 		std::vector< Actor* > m_vActors;
 
 	public:

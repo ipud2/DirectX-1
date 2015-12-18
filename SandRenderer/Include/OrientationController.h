@@ -27,6 +27,8 @@ namespace Sand
 
 		void RotateY( float angle );
 
+		void SetLook( const Vector3f& Dir );
+
 	protected:
 		Matrix3f m_Rotate;
 	};

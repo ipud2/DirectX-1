@@ -133,7 +133,7 @@ void App::Initialize()
 	m_pRenderView->SetBackColor( Vector4f( 0.75f , 0.75f , 0.75f , 1.0f ) );
 
 	// ---------------------------------------Camera----------------------------------------------
-	m_pCameras = new Camera();
+	m_pCameras = new MainCamera();
 	// set camera position , so we can generate view matrix
 	m_pCameras->Spatial().SetTranslation( Vector3f( 0.0f , 0.0f , -15.0f ) );
 	// set render view into camera

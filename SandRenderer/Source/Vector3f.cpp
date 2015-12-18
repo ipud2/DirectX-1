@@ -3,32 +3,6 @@
 
 using namespace Sand;
 
-Vector3f::Vector3f()
-{
-
-}
-
-Vector3f::Vector3f( float X , float Y , float Z )
-{
-	x = X;
-	y = Y;
-	z = Z;
-}
-
-Vector3f::Vector3f( const Vector3f& Vector )
-{
-	x = Vector.x;
-	y = Vector.y;
-	z = Vector.z;
-}
-
-void Vector3f::MakeZero()
-{
-	x = 0.0f;
-	y = 0.0f;
-	z = 0.0f;
-}
-
 void Vector3f::Normalize()
 {
 	float Mag = Magnitude();
@@ -53,39 +27,6 @@ float Vector3f::Magnitude()
 	return ( sqrtf( fLenght ) );
 }
 
-void Vector3f::Clamp()
-{
-	if( x < 0.0f )	x = 0.0f;
-	if( x > 1.0f )	x = 1.0f;
-
-	if( y < 0.0f )	y = 0.0f;
-	if( y > 1.0f )	y = 1.0f;
-
-	if( z < 0.0f )	z = 0.0f;
-	if( z > 1.0f )	z = 1.0f;
-}
-
-float Vector3f::Dot( const Vector3f& A ) const
-{
-	return ( x * A.x + y * A.y + z * A.z );
-}
-
-Vector3f Vector3f::Cross( const Vector3f& Vector ) const
-{
-	Vector3f vRet;
-
-	/*
-		x , y		Vector.y	Vector.z	Vector.x
-		y , z		-Vector.x	-Vector.y	-Vector.z
-		z , x
-	*/
-	vRet.x = y * Vector.z - z * Vector.y;
-	vRet.y = z * Vector.x - x * Vector.z;
-	vRet.z = x * Vector.y - y * Vector.x;
-
-	return vRet;
-}
-
 Vector3f Vector3f::Perpendicular()
 {
 	float xAbs = fabs( x );
@@ -105,15 +46,15 @@ Vector3f Vector3f::Perpendicular()
 	// yAbs,zAbs为最小值的情况同理
 	if( xAbs == minVal )
 	{
-		return Cross( Vector3f( 1.0f , 0.0f , 0.0f ) );
+		return cross( *this , Vector3f( 1.0f , 0.0f , 0.0f ) );
 	}
 	else if( yAbs == minVal )
 	{
-		return Cross( Vector3f( 0.0f , 1.0f , 0.0f ) );
+		return cross( *this , Vector3f( 0.0f , 1.0f , 0.0f ) );
 	}
 	else
 	{
-		return Cross( Vector3f( 0.0f , 0.0f , 1.0f ) );
+		return cross( *this , Vector3f( 0.0f , 0.0f , 1.0f ) );
 	}
 }
 
@@ -130,234 +71,9 @@ Vector3f Vector3f::Random()
 	return ( random );
 }
 
-Vector3f& Vector3f::operator= ( const Vector3f& Vector )
+Vector3f Vector3f::Normalize( Vector3f& A )
 {
-	x = Vector.x;
-	y = Vector.y;
-	z = Vector.z;
+	A.Normalize();
 
-	return ( *this );
-}
-
-float Vector3f::operator[] ( int iPos ) const
-{
-	if( iPos == 0 )	return x;
-	if( iPos == 1 )	return y;
-	return z;
-}
-
-float& Vector3f::operator[] ( int iPos )
-{
-	if( iPos == 0 )	return x;
-	if( iPos == 1 )	return y;
-	return z;
-}
-
-bool Vector3f::operator== ( const Vector3f& Vector ) const
-{
-	if( ( x - Vector.x ) * ( x - Vector.x ) > 0.01f )
-	{
-		return false;
-	}
-	if( ( y - Vector.y ) * ( y - Vector.y ) > 0.01f )
-	{
-		return false;
-	}
-	if( ( z - Vector.z ) * ( z - Vector.z ) > 0.01f )
-	{
-		return false;
-	}
-
-	return true;
-}
-
-bool Vector3f::operator!= ( const Vector3f& Vector ) const
-{
-	return ( !( *this == Vector ) );
-}
-
-Vector3f Vector3f::operator+ ( const Vector3f& Vector ) const
-{
-	Vector3f sum;
-
-	sum.x = x + Vector.x;
-	sum.y = y + Vector.y;
-	sum.z = z + Vector.z;
-
-	return sum;
-}
-
-Vector3f Vector3f::operator- ( const Vector3f& Vector ) const
-{
-	Vector3f diff;
-
-	diff.x = x - Vector.x;
-	diff.y = y - Vector.y;
-	diff.z = z - Vector.z;
-
-	return diff;
-}
-
-Vector3f Vector3f::operator* ( const Vector3f& Vector ) const
-{
-	Vector3f prod;
-
-	prod.x = x * Vector.x;
-	prod.y = y * Vector.y;
-	prod.z = z * Vector.z;
-
-	return prod;
-}
-
-Vector3f Vector3f::operator* ( float fScalar ) const
-{
-	Vector3f prod;
-
-	prod.x = x * fScalar;
-	prod.y = y * fScalar;
-	prod.z = z * fScalar;
-
-	return prod;
-}
-
-Vector3f Vector3f::operator/ ( float fScalar ) const
-{
-	Vector3f quot;
-
-	if( fScalar != 0.0f )
-	{
-		float fInvScalar = 1.0f / fScalar;
-
-		quot.x = x * fInvScalar;
-		quot.y = y * fInvScalar;
-		quot.z = z * fInvScalar;
-	}
-	else
-	{
-		quot.MakeZero();
-	}
-
-	return quot;
-}
-
-Vector3f Vector3f::operator/ ( const Vector3f& Vector ) const
-{
-	Vector3f quot;
-	quot.x = Vector.x != 0.0f ? x / Vector.x : 0.0f;
-	quot.y = Vector.y != 0.0f ? y / Vector.y : 0.0f;
-	quot.z = Vector.z != 0.0f ? z / Vector.z : 0.0f;
-
-	return quot;
-}
-
-Vector3f Vector3f::operator- ( ) const
-{
-	Vector3f neq;
-
-	neq.x = -x;
-	neq.y = -y;
-	neq.z = -z;
-
-	return neq;
-}
-
-Vector3f& Vector3f::operator+= ( const Vector3f& Vector )
-{
-	x += Vector.x;
-	y += Vector.y;
-	z += Vector.z;
-
-	return ( *this );
-}
-
-Vector3f& Vector3f::operator-= ( const Vector3f& Vector )
-{
-	x -= Vector.x;
-	y -= Vector.y;
-	z -= Vector.z;
-
-	return ( *this );
-}
-
-Vector3f& Vector3f::operator*= ( float fScalar )
-{
-	x *= fScalar;
-	y *= fScalar;
-	z *= fScalar;
-
-	return ( *this );
-}
-
-Vector3f& Vector3f::operator*= ( const Vector3f& Vector )
-{
-	x *= Vector.x;
-	y *= Vector.y;
-	z *= Vector.z;
-
-	return ( *this );
-}
-
-Vector3f& Vector3f::operator/= ( float fScalar )
-{
-	if( fScalar != 0.0f )
-	{
-		float fInvScalar = 1.0f / fScalar;
-
-		x *= fInvScalar;
-		y *= fInvScalar;
-		z *= fInvScalar;
-	}
-	else
-	{
-		MakeZero();
-	}
-
-	return ( *this );
-}
-
-Vector3f& Vector3f::operator/= ( const  Vector3f& Vector )
-{
-	x = Vector.x != 0.0f ? x / Vector.x : 0.0f;
-	y = Vector.y != 0.0f ? y / Vector.y : 0.0f;
-	z = Vector.z != 0.0f ? z / Vector.z : 0.0f;
-
-	return ( *this );
-}
-
-Vector3f Vector3f::Clamp( const Vector3f& A )
-{
-	// A 为const ,不能修改其值
-	Vector3f vec = A;
-	vec.Clamp();
-
-	return vec;
-}
-
-Vector3f Vector3f::Cross( const Vector3f& A , const Vector3f& B )
-{
-	return A.Cross( B );
-}
-
-float Vector3f::Dot( const Vector3f& A , const Vector3f& B )
-{
-	return A.Dot( B );
-}
-
-float Vector3f::LengthSq( const Vector3f& A )
-{
-	return Dot( A , A );
-}
-
-Vector3f Vector3f::Normalize( const Vector3f& A )
-{
-	Vector3f vec = A;
-	vec.Normalize();
-
-	return vec;
-}
-
-Vector3f Vector3f::Perpendicular( const Vector3f& A )
-{
-	Vector3f vec = A;
-	return vec.Perpendicular();
+	return A;
 }

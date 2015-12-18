@@ -585,7 +585,7 @@ Sand::ResourceProxyPtr Sand::Renderer::CreateTexture2D( Texture2DConfig* pConfig
 		int id = StoreNewResource( pTex );
 
 		// 创建相应视图
-		ResourceProxyPtr Proxy( new ResourceProxy( id , pConfig , this ) );
+		ResourceProxyPtr Proxy( new ResourceProxy( id , pConfig , this , pShaderResourceViewConfig , pRenderTargetViewConfig , pUnorderedAccessViewConfig , pDepthStencilViewConfig ) );
 
 		return Proxy;
 	}

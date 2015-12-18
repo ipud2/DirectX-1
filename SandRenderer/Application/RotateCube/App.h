@@ -6,7 +6,7 @@
 #include "Win32RenderWindow.h"
 #include "Renderer.h"
 
-#include "Camera.h"
+#include "MainCamera.h"
 #include "Scene.h"
 
 namespace Sand

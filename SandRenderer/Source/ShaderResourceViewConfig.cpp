@@ -81,10 +81,65 @@ D3D11_SHADER_RESOURCE_VIEW_DESC& ShaderResourceViewConfig::GetDesc()
 
 void ShaderResourceViewConfig::SetViewDimension( D3D11_SRV_DIMENSION ViewDimension )
 {
-
+	m_State.ViewDimension = ViewDimension;
 }
 
 void ShaderResourceViewConfig::SetBuffer( D3D11_BUFFER_SRV Buffer )
 {
+	m_State.Buffer = Buffer;
+}
 
+D3D11_BUFFER_SRV& ShaderResourceViewConfig::GetBufferRef()
+{
+	return m_State.Buffer;
+}
+
+D3D11_TEX1D_SRV& ShaderResourceViewConfig::GetTexture1DRef()
+{
+	return m_State.Texture1D;
+}
+
+D3D11_TEX1D_ARRAY_SRV& ShaderResourceViewConfig::GetTexture1DArrayRef()
+{
+	return m_State.Texture1DArray;
+}
+
+D3D11_TEX2D_SRV& ShaderResourceViewConfig::GetTexture2DRef()
+{
+	return m_State.Texture2D;
+}
+
+D3D11_TEX2D_ARRAY_SRV& ShaderResourceViewConfig::GetTexture2DArrayRef()
+{
+	return m_State.Texture2DArray;
+}
+
+D3D11_TEX2DMS_SRV& ShaderResourceViewConfig::GetTexture2DMSRef()
+{
+	return m_State.Texture2DMS;
+}
+
+D3D11_TEX2DMS_ARRAY_SRV& ShaderResourceViewConfig::GetTexture2DMSArrayRef()
+{
+	return m_State.Texture2DMSArray;
+}
+
+D3D11_TEX3D_SRV& ShaderResourceViewConfig::GetTexture3DRef()
+{
+	return m_State.Texture3D;
+}
+
+D3D11_TEXCUBE_SRV& ShaderResourceViewConfig::GetTextureCubRefe()
+{
+	return m_State.TextureCube;
+}
+
+D3D11_TEXCUBE_ARRAY_SRV& ShaderResourceViewConfig::GetTextureCubeArrayRef()
+{
+	return m_State.TextureCubeArray;
+}
+
+D3D11_BUFFEREX_SRV& ShaderResourceViewConfig::GetBufferExRef()
+{
+	return m_State.BufferEx;
 }

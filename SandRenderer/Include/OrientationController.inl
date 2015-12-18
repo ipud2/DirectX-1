@@ -37,10 +37,10 @@ void OrientationController<T>::Pitch( float angle )
 
 	Look.Normalize();
 
-	Vector3f Right = Up.Cross( Look );
+	Vector3f Right = cross( Up , Look );
 	Right.Normalize();
 
-	Up = Look.Cross( Right );
+	Up = cross( Look , Right );
 	Up.Normalize();
 
 	m_Rotate.SetRow( 0 , Right );
@@ -64,10 +64,29 @@ void OrientationController<T>::RotateY( float angle )
 
 	Look.Normalize();
 
-	Right = Up.Cross( Look );
+	Right = cross( Up , Look );
 	Right.Normalize();
 
-	Up = Look.Cross( Right );
+	Up = cross( Look , Right );
+	Up.Normalize();
+
+	m_Rotate.SetRow( 0 , Right );
+	m_Rotate.SetRow( 1 , Up );
+	m_Rotate.SetRow( 2 , Look );
+}
+
+template<typename T>
+void OrientationController<T>::SetLook( const Vector3f& Dir )
+{
+	Vector3f Look = Dir;
+	Look.Normalize();
+
+	Vector3f Up = Vector3f( 0.0f , 1.0f , 0.0f );
+
+	Vector3f Right = cross( Up , Look );
+	Right.Normalize();
+
+	Up = cross( Look , Right );
 	Up.Normalize();
 
 	m_Rotate.SetRow( 0 , Right );

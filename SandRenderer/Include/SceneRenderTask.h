@@ -11,7 +11,7 @@ namespace Sand
 	enum VIEW_TYPE
 	{
 		VT_PERSPECTIVE ,
-		VT_LINEAR_DEPTH_NORMAL ,
+		VT_SHADOW_MAP ,
 		VT_NUM_VIEW_TYPES
 	};
 

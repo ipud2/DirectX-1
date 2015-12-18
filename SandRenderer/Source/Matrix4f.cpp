@@ -1,4 +1,4 @@
-﻿#include "PCH.h"
+#include "PCH.h"
 #include "Matrix4f.h"
 
 using namespace Sand;
@@ -285,48 +285,48 @@ Matrix4f Matrix4f::TranslationMatrix( float fX , float fY , float fZ )
 Matrix4f Matrix4f::LookAtLHMatrix( Vector3f& eye , Vector3f& at , Vector3f& up )
 {
 	/*
-	Æ½ÒÆ¾ØÕó£º
-	|1		0		0		0|
-	|0		1		0		0|
-	|0		0		1		0|
-	|-cam_x	-cam_y	-cam_z	1|
-	Ðý×ª¾ØÕó£º
-	|right.x	up.x	look.x		0|
-	|right.y	up.y	look.y		0|
-	|right.z	up.z	look.z		0|
-	|0			0		0			1|
+		???????��??
+		|1		0		0		0|
+		|0		1		0		0|
+		|0		0		1		0|
+		|-cam_x	-cam_y	-cam_z	1|
+		??��????��??
+		|right.x	up.x	look.x		0|
+		|right.y	up.y	look.y		0|
+		|right.z	up.z	look.z		0|
+		|0			0		0			1|
 
 
-	±ä»»¾ØÕó£º
-	|1		0		0		0|			|right.x	up.x	look.x		0|
-	|0		1		0		0|			|right.y	up.y	look.y		0|
-	|0		0		1		0|	*		|right.z	up.z	look.z		0|
-	|-cam_x	-cam_y	-cam_z	1|			|0			0		0			1|
-	=
-	|right.x			up.x			look.x			0|
-	|right.y			up.y			look.y			0|
-	|right.z			up.z			look.z			0|
-	|-cam * right		-cam * up		-cam * look		1|
+		��??????��??
+		|1		0		0		0|			|right.x	up.x	look.x		0|
+		|0		1		0		0|			|right.y	up.y	look.y		0|
+		|0		0		1		0|	*		|right.z	up.z	look.z		0|
+		|-cam_x	-cam_y	-cam_z	1|			|0			0		0			1|
+		=
+		|right.x			up.x			look.x			0|
+		|right.y			up.y			look.y			0|
+		|right.z			up.z			look.z			0|
+		|-cam * right		-cam * up		-cam * look		1|
 	*/
 	Matrix4f ret;
 
 	Vector3f zAxis = at - eye;
 	zAxis.Normalize();
 
-	Vector3f xAxis = up.Cross( zAxis );
+	Vector3f xAxis = cross( up , zAxis );
 	xAxis.Normalize();
 	
-	Vector3f yAxis = zAxis.Cross( xAxis );
+	Vector3f yAxis = cross( zAxis , xAxis );
 
 	ret.m_afEntry[0] = xAxis.x;		ret.m_afEntry[1] = yAxis.x;		ret.m_afEntry[2] = zAxis.x;		ret.m_afEntry[3] = 0.0f;
 	ret.m_afEntry[4] = xAxis.y;		ret.m_afEntry[5] = yAxis.y;		ret.m_afEntry[6] = zAxis.y;		ret.m_afEntry[7] = 0.0f;
 	ret.m_afEntry[8] = xAxis.z;		ret.m_afEntry[9] = yAxis.z;		ret.m_afEntry[10] = zAxis.z;	ret.m_afEntry[11] = 0.0f;
 
-	ret.m_afEntry[12] = -( xAxis.Dot( eye ) );
+	ret.m_afEntry[12] = -( dot( xAxis , eye ) );
 
-	ret.m_afEntry[13] = -( yAxis.Dot( eye ) );
+	ret.m_afEntry[13] = -( dot( yAxis , eye ) );
 
-	ret.m_afEntry[14] = -( zAxis.Dot( eye ) );
+	ret.m_afEntry[14] = -( dot( zAxis , eye ) );
 
 	ret.m_afEntry[15] = 1.0f;
 

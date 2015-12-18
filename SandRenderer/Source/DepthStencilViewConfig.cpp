@@ -70,3 +70,33 @@ D3D11_DEPTH_STENCIL_VIEW_DESC& DepthStencilViewConfig::GetDesc()
 {
 	return m_State;
 }
+
+D3D11_TEX1D_DSV& DepthStencilViewConfig::GetTexture1DRef()
+{
+	return m_State.Texture1D;
+}
+
+D3D11_TEX1D_ARRAY_DSV& DepthStencilViewConfig::GetTexture1DArrayRef()
+{
+	return m_State.Texture1DArray;
+}
+
+D3D11_TEX2D_DSV& DepthStencilViewConfig::GetTexture2DRef()
+{
+	return m_State.Texture2D;
+}
+
+D3D11_TEX2D_ARRAY_DSV& DepthStencilViewConfig::GetTexture2DArrayRef()
+{
+	return m_State.Texture2DArray;
+}
+
+D3D11_TEX2DMS_DSV& DepthStencilViewConfig::GetTexture2DMSRef()
+{
+	return m_State.Texture2DMS;
+}
+
+D3D11_TEX2DMS_ARRAY_DSV& DepthStencilViewConfig::GetTexture2DMSArray()
+{
+	return m_State.Texture2DMSArray;
+}

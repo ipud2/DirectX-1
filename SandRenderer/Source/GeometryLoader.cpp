@@ -709,7 +709,7 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 			Vector3f& n = Normal[i];
 			Vector3f& t = Tangent[i];
 
-			Vector3f tangent = Vector3f::Normalize( ( t - n * Vector3f::Dot( n , t ) ) );
+			Vector3f tangent = Vector3f::Normalize( ( t - n * dot( n , t ) ) );
 
 			Tan[i] = tangent;
 		}

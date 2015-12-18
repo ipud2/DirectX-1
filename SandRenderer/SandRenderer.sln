@@ -20,7 +20,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RotateCube", "Application\R
 		{BB479591-72DE-41F0-8FD2-66852B7C4F87} = {BB479591-72DE-41F0-8FD2-66852B7C4F87}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoxWithTexture", "Application\BoxWithTexture\BoxWithTexture.vcxproj", "{9D71D3A4-5F65-44CE-A69B-14BBC3B6BD48}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NormalMap", "Application\BoxWithTexture\BoxWithTexture.vcxproj", "{9D71D3A4-5F65-44CE-A69B-14BBC3B6BD48}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BB479591-72DE-41F0-8FD2-66852B7C4F87} = {BB479591-72DE-41F0-8FD2-66852B7C4F87}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shadow", "Application\Shadow\Shadow.vcxproj", "{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BB479591-72DE-41F0-8FD2-66852B7C4F87} = {BB479591-72DE-41F0-8FD2-66852B7C4F87}
 	EndProjectSection
@@ -63,6 +68,12 @@ Global
 		{9D71D3A4-5F65-44CE-A69B-14BBC3B6BD48}.Release|Win32.ActiveCfg = Release|Win32
 		{9D71D3A4-5F65-44CE-A69B-14BBC3B6BD48}.Release|Win32.Build.0 = Release|Win32
 		{9D71D3A4-5F65-44CE-A69B-14BBC3B6BD48}.Release|x64.ActiveCfg = Release|Win32
+		{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}.Debug|Win32.Build.0 = Debug|Win32
+		{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}.Debug|x64.ActiveCfg = Debug|Win32
+		{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}.Release|Win32.ActiveCfg = Release|Win32
+		{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}.Release|Win32.Build.0 = Release|Win32
+		{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

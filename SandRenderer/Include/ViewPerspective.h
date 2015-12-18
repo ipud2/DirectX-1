@@ -23,5 +23,5 @@ namespace Sand
 		ResourceProxyPtr m_RenderTarget;
 		ResourceProxyPtr m_DepthTarget;
 	};
-}
+};
 #endif

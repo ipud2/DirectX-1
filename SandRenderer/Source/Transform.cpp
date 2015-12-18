@@ -103,28 +103,28 @@ Vector4f Transform::WorldToLocalSpace( const Vector4f& input )
 
 Vector3f Transform::TransformVectorLocalToWorld( const Vector3f& input )
 {
-	Vector4f result = LocalToWorldSpace( Vector4f( input , 0.0f ) );
+	Vector4f result = LocalToWorldSpace( input );
 
 	return result.xyz();
 }
 
 Vector3f Transform::TransformVectorWorldToLocal( const Vector3f& input )
 {
-	Vector4f result = WorldToLocalSpace( Vector4f( input , 0.0f ) );
+	Vector4f result = WorldToLocalSpace( input );
 
 	return result.xyz();
 }
 
 Vector3f Transform::TransformPointLocalToWorld( const Vector3f& input )
 {
-	Vector4f result = LocalToWorldSpace( Vector4f( input , 1.0f ) );
+	Vector4f result = LocalToWorldSpace( input );
 
 	return result.xyz();
 }
 
 Vector3f Transform::TransformPointWorldToLocal( const Vector3f& input )
 {
-	Vector4f result = WorldToLocalSpace( Vector4f( input , 1.0f ) );
+	Vector4f result = WorldToLocalSpace( input );
 
 	return result.xyz();
 }

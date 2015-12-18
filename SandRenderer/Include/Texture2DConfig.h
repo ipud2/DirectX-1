@@ -66,6 +66,17 @@ namespace Sand
 		void SetMiscFlags( UINT state );
 		void SetSampleDesc( DXGI_SAMPLE_DESC state );
 
+		UINT GetWidth();
+		UINT GetHeight();
+		UINT GetMipLevels();
+		UINT GetArraySize();
+		DXGI_FORMAT GetFormat();
+		D3D11_USAGE GetUsage();
+		UINT GetBindFlags();
+		UINT GetCPUAccessFlags();
+		UINT GetMiscFlags();
+		DXGI_SAMPLE_DESC GetSampleDesc();
+
 		D3D11_TEXTURE2D_DESC GetTextureDesc();
 
 	protected:

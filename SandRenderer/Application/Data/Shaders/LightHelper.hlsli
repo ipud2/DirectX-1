@@ -79,3 +79,49 @@ float3 NormalSampleToWorldSpace(float3 NormalMapSample ,
 
 	return BumpNormalW;
 }
+
+static const float SMAP_SIZE = 2048.0f;
+static const float SMAP_DX = 1.0f / SMAP_SIZE;
+
+//
+// 计算阴影系数：
+// shadowPosH 是以光源为视点时，该点从局部空间变换到纹理空间后的坐标值
+// (局部->世界->视图->NDC->纹理空间)
+// shadowPosH.xy代表纹理坐标
+// shadowPosH.z 代表以灯光为视点时，归一化的深度值
+// 1.0f代表完全不在阴影中，0.0f代表完全处于阴影中
+//
+float CalcShadowFactor(SamplerComparisonState ShadowSampler , Texture2D ShadowMap , float4 ShadowPosH)
+{
+	ShadowPosH.xy /= ShadowPosH.w;
+
+	float depth = ShadowPosH.z;
+
+	const float dx = SMAP_DX;
+
+	float percentLit = 0.0f;
+	const float2 offsets[9] = 
+	{
+		float2(-dx , -dx) , float2(0.0f , -dx) , float2(dx , -dx) , 
+		float2(-dx , 0.0f) , float2(0.0f , 0.0f) , float2(dx , 0.0f) , 
+		float2(-dx , dx) , float2(0.0f , dx) , float2(dx , dx)
+	};
+
+	[unroll]
+	for(int i = 0; i < 9; i++)
+	{
+		//
+		// ShadowMap.SampleCmpLevelZero(SampleComparisonState ShadowSampler , float2 Pos , float depth)
+		// 以Pos为纹理坐标采样，采样方式由ShadowSampler定义
+		// 采样得到的值是一个深度值s
+		// 将其与depth进行比较
+		// 比较操作由ShadowSampler的成员ComparisonFunc定义
+		// 如：当ComparisonFunc定义的操作为LESS
+		// 则当depth < s时，返回1
+		// 否则返回0
+		//
+		percentLit += ShadowMap.SampleCmpLevelZero(ShadowSampler , ShadowPosH.xy + offsets[i] , depth).r;
+	}
+
+	return percentLit /= 9.0f;
+}

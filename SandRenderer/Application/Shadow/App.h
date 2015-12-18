@@ -24,6 +24,10 @@
 
 #include "Skybox.h"
 
+#include "ShadowMapCamera.h"
+#include "ViewShadowMap.h"
+#include "ShadowMap.h"
+
 namespace Sand
 {
 	class App : public Application
@@ -71,12 +75,15 @@ namespace Sand
 		// 深度模板视图
 		ResourceProxyPtr m_pDepthStencilTarget;
 
-		Skybox* m_pSkyBox;
-
+		// 主相机
 		MainCamera* m_pCameras;
 
 		ViewPerspective* m_pRenderView;
 
+		// ----------Sky------------
+		Skybox* m_pSkyBox;
+
+		// ---------Scene Object------------
 		Actor* m_pActor;
 		Entity* m_pBox;				// 盒子
 		Entity* m_pGrid;			// 平面
@@ -84,26 +91,28 @@ namespace Sand
 		Entity* m_pSphere[10];		// 球
 		Entity* m_pSkull;			// 头骨
 
+		// -----------Geometry-------------
 		GeometryPtr m_pBoxGeometry;
 		GeometryPtr m_pGridGeometry;
 		GeometryPtr m_pCylinderGeometry;
 		GeometryPtr m_pSphereGeometry;
 		GeometryPtr m_pSkullGeometry;
 
+		// -----------Effect--------------
 		EffectPtr m_pBoxShaderEffect;
 		EffectPtr m_pGridShaderEffect;
 		EffectPtr m_pCylinderShaderEffect;
 		EffectPtr m_pSphereShaderEffect;
 		EffectPtr m_pSkullShaderEffect;
 
-		DirectionalLight* m_pLight;
-
+		// ----------Material--------------
 		BasicMaterial* m_pBoxMaterial;
 		BasicMaterial* m_pGridMaterial;
 		BasicMaterial* m_pCylinderMaterial;
 		BasicMaterial* m_pSphereMaterial;
 		BasicMaterial* m_pSkullMaterial;
 
+		// ---------Texture-----------
 		ResourceProxyPtr m_pBrickTexture;
 		ResourceProxyPtr m_pFloorTexture;
 		ResourceProxyPtr m_pStoneTexture;
@@ -112,6 +121,25 @@ namespace Sand
 		ResourceProxyPtr m_pSkyTexture;
 
 		Matrix4f m_TexTransform;
+
+		// ------Light---------
+		DirectionalLight* m_pLight;
+		Vector4f m_AmbientLight[3];
+		Vector4f m_DiffuseLight[3];
+		Vector4f m_SpecularLight[3];
+		Vector3f m_LightDir[3];
+
+		// -----------------------Shadow Map相关---------------------------------
+		ShadowMap* m_pShadowMap;
+		ShadowMapCamera* m_pShadowMapCamera;
+		ViewShadowMap* m_pShadowMapView;
+
+		float m_BoundSphereRadius;
+
+		int m_iShadowSamplerState;
+		int m_iTessShadowSamplerState;
+
+		int m_iRasterizerState;
 	};
 };
 #endif

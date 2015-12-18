@@ -57,6 +57,18 @@ namespace Sand
 		void SetTextureCubeArray( D3D11_TEXCUBE_ARRAY_SRV TextureCubeArray );
 		void SetBufferEx( D3D11_BUFFEREX_SRV BufferEx );
 
+		D3D11_BUFFER_SRV& GetBufferRef();
+		D3D11_TEX1D_SRV& GetTexture1DRef();
+		D3D11_TEX1D_ARRAY_SRV& GetTexture1DArrayRef();
+		D3D11_TEX2D_SRV& GetTexture2DRef();
+		D3D11_TEX2D_ARRAY_SRV& GetTexture2DArrayRef();
+		D3D11_TEX2DMS_SRV& GetTexture2DMSRef();
+		D3D11_TEX2DMS_ARRAY_SRV& GetTexture2DMSArrayRef();
+		D3D11_TEX3D_SRV& GetTexture3DRef();
+		D3D11_TEXCUBE_SRV& GetTextureCubRefe();
+		D3D11_TEXCUBE_ARRAY_SRV& GetTextureCubeArrayRef();
+		D3D11_BUFFEREX_SRV& GetBufferExRef();
+
 		D3D11_SHADER_RESOURCE_VIEW_DESC& GetDesc();
 
 	protected:

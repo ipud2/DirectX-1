@@ -15,6 +15,8 @@
 
 #include "GeometryGenerator.h"
 
+#include "ShaderResourceViewConfig.h"
+
 using namespace Sand;
 
 App AppInstance;
@@ -46,6 +48,9 @@ App::App()
 	m_pBrickTexture = nullptr;
 	m_iLinearSampler = -1;
 
+	m_iShadowSamplerState = -1;
+	m_iTessShadowSamplerState = -1;
+
 	m_pSkyBox = nullptr;
 
 	m_TexTransform.MakeIdentity();
@@ -70,11 +75,11 @@ bool App::ConfigureEngineComponents()
 
 	// 创建Device & DeviceContext
 	// 配置默认的Rasterizer State 和 Blend State and DepthStencilState
-	if( !m_pRenderer->Initialize( D3D_DRIVER_TYPE_HARDWARE , D3D_FEATURE_LEVEL_11_0 ) )
+	if ( !m_pRenderer->Initialize( D3D_DRIVER_TYPE_HARDWARE , D3D_FEATURE_LEVEL_11_0 ) )
 	{
 		Log::Get().Write( L"无法创建硬件设备，尝试创建reference设备" );
 
-		if( !m_pRenderer->Initialize( D3D_DRIVER_TYPE_REFERENCE , D3D_FEATURE_LEVEL_11_0 ) )
+		if ( !m_pRenderer->Initialize( D3D_DRIVER_TYPE_REFERENCE , D3D_FEATURE_LEVEL_11_0 ) )
 		{
 			// 指定窗口的显示状态， 这里指定为隐藏
 			ShowWindow( m_pWindow->GetHandle() , SW_HIDE );
@@ -117,7 +122,6 @@ bool App::ConfigureEngineComponents()
 	view_port.MinDepth = 0.0f;
 	view_port.MaxDepth = 1.0f;
 
-
 	int view_port_id = m_pRenderer->CreateViewPort( view_port );
 	m_pRenderer->GetPipelineManagerRef()->GetRasterizerStageRef().DesiredState.ViewportCount.SetState( 1 );
 	m_pRenderer->GetPipelineManagerRef()->GetRasterizerStageRef().DesiredState.Viewports.SetState( 0 , view_port_id );
@@ -127,13 +131,13 @@ bool App::ConfigureEngineComponents()
 
 void App::ShutdownEngineComponents()
 {
-	if( m_pRenderer )
+	if ( m_pRenderer )
 	{
 		m_pRenderer->Shutdown();
 		delete m_pRenderer;
 	}
 
-	if( m_pWindow )
+	if ( m_pWindow )
 	{
 		m_pWindow->Shutdown();
 		delete m_pWindow;
@@ -142,11 +146,27 @@ void App::ShutdownEngineComponents()
 
 void App::Initialize()
 {
+	// ---------------------Light-----------------------
+	m_LightDir[0] = Vector3f( -0.57735f , -0.57735f , 0.57735f );
+	m_LightDir[1] = Vector3f( 0.57735f , -0.57735f , 0.57735f );
+	m_LightDir[2] = Vector3f( 0.0f , -0.707f , -0.707f );
+
+	// ----------------------Shadow Map---------------------
+	m_pShadowMap = new ShadowMap( m_pRenderer , 2048 , 2048 );
+	m_pShadowMapView = new ViewShadowMap( *m_pRenderer , m_pShadowMap->GetShadowMap() , 2048 , 2048 );
+	
+	m_BoundSphereRadius = sqrtf( 10.0f * 10.0f + 15.0f * 15.0f );
+	m_pShadowMapCamera = new ShadowMapCamera();
+	m_pShadowMapCamera->SetBoundSphereRadius( m_BoundSphereRadius );
+	m_pShadowMapCamera->SetRenderView( m_pShadowMapView );
+	m_pShadowMapCamera->Spatial().SetTranslation( m_LightDir[0] * -2.0f * m_BoundSphereRadius );
+	m_pShadowMapCamera->Orientation().SetLook( m_LightDir[0] );
+
 	// 加载Box图元的数据
 	m_pBoxGeometry = GeometryLoader::LoadOBJWithTexture( std::wstring( L"cube.obj" ) , true );
 	m_pBoxGeometry->LoadToBuffer();
 	m_pBoxGeometry->SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
-	
+
 	// 创建Grid图元的数据
 	m_pGridGeometry = GeometryGenerator::GeneratorGrid( 20.0f , 30.0f , 60 , 40 );
 	m_pGridGeometry->LoadToBuffer();
@@ -190,21 +210,21 @@ void App::Initialize()
 	m_pLight->SetDirectionalLight( Vector4f( 0.2f , 0.2f , 0.2f , 1.0f ) ,
 								   Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) ,
 								   Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) ,
-								   Vector4f( 0.57735f , -0.57735f , 0.57735f , 1.0f ) ,
+								   Vector4f( m_LightDir[0] ) ,
 								   0 );
 	m_pLight->SetDirectionalLight( Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) ,
 								   Vector4f( 0.20f , 0.20f , 0.20f , 1.0f ) ,
 								   Vector4f( 0.25f , 0.25f , 0.25f , 1.0f ) ,
-								   Vector4f( -0.57735f , -0.57735f , 0.57735f , 1.0f ) ,
+								   Vector4f( m_LightDir[1] ) ,
 								   1 );
 	m_pLight->SetDirectionalLight( Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) ,
 								   Vector4f( 0.20f , 0.20f , 0.20f , 1.0f ) ,
 								   Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) ,
-								   Vector4f( 0.0f , -0.707f , -0.707f , 1.0f ) ,
+								   Vector4f( m_LightDir[2] ) ,
 								   2 );
 	// ----------------------------------Actor and Entity------------------------------
 	m_pActor = new Actor;
-	
+
 	//
 	// Box
 	//
@@ -245,7 +265,7 @@ void App::Initialize()
 	m_pGrid->GetRenderableRef().SetSurfaceMaterial( m_pGridMaterial );
 	m_pGrid->GetTransformRef().GetPositionRef() = Vector3f( 0.0f , 0.0f , 0.0f );
 	m_pActor->GetRootNode()->AttachChild( m_pGrid );
-	
+
 	//
 	// Cylinder
 	//
@@ -280,6 +300,7 @@ void App::Initialize()
 	// -------------------Add to Scene-------------------
 	m_pScene->AddActor( m_pActor );
 	m_pScene->AddActor( m_pSkyBox );
+	m_pScene->AddCamera( m_pShadowMapCamera );
 	m_pScene->AddCamera( m_pCameras );
 	m_pScene->AddLight( m_pLight );
 }
@@ -309,6 +330,12 @@ void App::Update()
 	}
 
 	m_pScene->Update( m_pTimer->DeltaTime() );
+
+	// 将MainCamera的ViewPosition传给ShadowMapCamera
+	// 必须在Update后，Render之前
+	// 因为Update之后，各相机的WorldMatrix已经求出来了，因此可以得到相应的ViewPosition
+	m_pShadowMapCamera->SetViewPosition( m_pCameras->GetViewPosition() );
+
 	m_pScene->Render( m_pRenderer );
 
 	m_pRenderer->Present( m_pWindow->GetSwapChain() );
@@ -321,7 +348,7 @@ void App::Shutdown()
 
 void App::TakeScreenShot()
 {
-	if( m_bSaveScreenShot )
+	if ( m_bSaveScreenShot )
 	{
 		m_bSaveScreenShot = false;
 		m_pRenderer->GetPipelineManagerRef()->SaveTextureScreenShot( 0 , GetName() );
@@ -368,52 +395,127 @@ void App::OnMouseMove( WPARAM buttonState , int x , int y )
 
 void App::CreateShaderEffect()
 {
+	//
+	// Basic Effect
+	//
 	RenderEffect* pBasicEffect = new RenderEffect;
+	pBasicEffect->SetVertexShader( m_pRenderer->LoadShader( ST_VERTEX_SHADER ,
+		std::wstring( L"BasicTexture.hlsl" ) ,
+		std::wstring( L"VSMain" ) ,
+		std::wstring( L"vs_5_0" ) ) );
 
-	pBasicEffect->SetVertexShader( m_pRenderer->LoadShader(	ST_VERTEX_SHADER , 
-														std::wstring( L"BasicTexture.hlsl" ) , 
-														std::wstring( L"VSMain" ) , 
-														std::wstring( L"vs_5_0" ) ) );
+	pBasicEffect->SetPixelShader( m_pRenderer->LoadShader( ST_PIXEL_SHADER ,
+		std::wstring( L"BasicTexture.hlsl" ) ,
+		std::wstring( L"PSMain" ) ,
+		std::wstring( L"ps_5_0" ) ) );
 
-	pBasicEffect->SetPixelShader( m_pRenderer->LoadShader(	ST_PIXEL_SHADER ,
-														std::wstring( L"BasicTexture.hlsl" ) ,
-														std::wstring( L"PSMain" ) ,
-														std::wstring( L"ps_5_0" ) ) );
-
+	//
+	// Normal Map Effect
+	//
 	RenderEffect* pNormalMapEffect = new RenderEffect;
-
 	pNormalMapEffect->SetVertexShader( m_pRenderer->LoadShader( ST_VERTEX_SHADER ,
-																std::wstring( L"NormalMap.hlsl" ) ,
-																std::wstring( L"VSMain" ) ,
-																std::wstring( L"vs_5_0" ) ) );
+		std::wstring( L"NormalMap.hlsl" ) ,
+		std::wstring( L"VSMain" ) ,
+		std::wstring( L"vs_5_0" ) ) );
 
-	pNormalMapEffect->SetPixelShader( m_pRenderer->LoadShader(	ST_PIXEL_SHADER ,
-																std::wstring( L"NormalMap.hlsl" ) ,
-																std::wstring( L"PSMain" ) ,
-																std::wstring( L"ps_5_0" ) ) );
+	pNormalMapEffect->SetPixelShader( m_pRenderer->LoadShader( ST_PIXEL_SHADER ,
+		std::wstring( L"NormalMap.hlsl" ) ,
+		std::wstring( L"PSMain" ) ,
+		std::wstring( L"ps_5_0" ) ) );
 
+	//
+	// Displacement Map Effect
+	//
 	RenderEffect* pDisplacementMapEffect = new RenderEffect;
-	pDisplacementMapEffect->SetVertexShader( m_pRenderer->LoadShader(	ST_VERTEX_SHADER ,
-																		std::wstring( L"DisplacementMap.hlsl" ) ,
-																		std::wstring( L"VSMain" ) ,
-																		std::wstring( L"vs_5_0" ) ) );
+	pDisplacementMapEffect->SetVertexShader( m_pRenderer->LoadShader( ST_VERTEX_SHADER ,
+		std::wstring( L"DisplacementMap.hlsl" ) ,
+		std::wstring( L"VSMain" ) ,
+		std::wstring( L"vs_5_0" ) ) );
 	pDisplacementMapEffect->SetHullShader( m_pRenderer->LoadShader( ST_HULL_SHADER ,
-																	std::wstring( L"DisplacementMap.hlsl" ) ,
-																	std::wstring( L"HSMain" ) ,
-																	std::wstring( L"hs_5_0" ) ) );
-	pDisplacementMapEffect->SetDomainShader( m_pRenderer->LoadShader(	ST_DOMAIN_SHADER ,
-																		std::wstring( L"DisplacementMap.hlsl" ) ,
-																		std::wstring( L"DSMain" ) ,
-																		std::wstring( L"ds_5_0" ) ) );
-	pDisplacementMapEffect->SetPixelShader( m_pRenderer->LoadShader(	ST_PIXEL_SHADER ,
-																		std::wstring( L"DisplacementMap.hlsl" ) ,
-																		std::wstring( L"PSMain" ) ,
-																		std::wstring( L"ps_5_0" ) ) );
+		std::wstring( L"DisplacementMap.hlsl" ) ,
+		std::wstring( L"HSMain" ) ,
+		std::wstring( L"hs_5_0" ) ) );
+	pDisplacementMapEffect->SetDomainShader( m_pRenderer->LoadShader( ST_DOMAIN_SHADER ,
+		std::wstring( L"DisplacementMap.hlsl" ) ,
+		std::wstring( L"DSMain" ) ,
+		std::wstring( L"ds_5_0" ) ) );
+	pDisplacementMapEffect->SetPixelShader( m_pRenderer->LoadShader( ST_PIXEL_SHADER ,
+		std::wstring( L"DisplacementMap.hlsl" ) ,
+		std::wstring( L"PSMain" ) ,
+		std::wstring( L"ps_5_0" ) ) );
+
+	// -------------------------------Shadow Map---------------------------
+	RasterizerStateConfig RasterizerStateConfigure;
+	RasterizerStateConfigure.FillMode = D3D11_FILL_SOLID;
+	RasterizerStateConfigure.CullMode = D3D11_CULL_NONE;
+	RasterizerStateConfigure.FrontCounterClockwise = false;
+	RasterizerStateConfigure.DepthClipEnable = true;
+
+	RasterizerStateConfigure.DepthBias = 100000;
+	RasterizerStateConfigure.DepthBiasClamp = 0.0f;
+	RasterizerStateConfigure.SlopeScaledDepthBias = 1.0f;
+
+	m_iRasterizerState = m_pRenderer->CreateRasterizerState( &RasterizerStateConfigure );
+
+	//
+	// Tess Shadow Map Effect
+	//
+	RenderEffect* pTessShadowMapEffect = new RenderEffect;
+	pTessShadowMapEffect->SetVertexShader( m_pRenderer->LoadShader( ST_VERTEX_SHADER ,
+		std::wstring( L"TessShadowMap.hlsl" ) ,
+		std::wstring( L"VSMain" ) ,
+		std::wstring( L"vs_5_0" ) ) );
+	pTessShadowMapEffect->SetHullShader( m_pRenderer->LoadShader( ST_HULL_SHADER ,
+		std::wstring( L"TessShadowMap.hlsl" ) ,
+		std::wstring( L"HSMain" ) ,
+		std::wstring( L"hs_5_0" ) ) );
+	pTessShadowMapEffect->SetDomainShader( m_pRenderer->LoadShader( ST_DOMAIN_SHADER ,
+		std::wstring( L"TessShadowMap.hlsl" ) ,
+		std::wstring( L"DSMain" ) ,
+		std::wstring( L"ds_5_0" ) ) );
+	pTessShadowMapEffect->SetPixelShader( m_pRenderer->LoadShader( ST_PIXEL_SHADER ,
+		std::wstring( L"TessShadowMap.hlsl" ) ,
+		std::wstring( L"PSMain" ) ,
+		std::wstring( L"ps_5_0" ) ) );
+	pTessShadowMapEffect->SetRasterizerState( m_iRasterizerState );
+
+
+	// Shadow Map Effect
+	RenderEffect* pShadowMapEffect = new RenderEffect;
+	pShadowMapEffect->SetVertexShader( m_pRenderer->LoadShader( ST_VERTEX_SHADER ,
+		std::wstring( L"ShadowMap.hlsl" ) ,
+		std::wstring( L"VSMain" ) ,
+		std::wstring( L"vs_5_0" ) ) );
+
+	pShadowMapEffect->SetPixelShader( m_pRenderer->LoadShader( ST_PIXEL_SHADER ,
+		std::wstring( L"ShadowMap.hlsl" ) ,
+		std::wstring( L"PSMain" ) ,
+		std::wstring( L"ps_5_0" ) ) );
+	pShadowMapEffect->SetRasterizerState( m_iRasterizerState );
+	
+
+	SamplerStateConfig ShadowSamplerStateConfigure;
+	ShadowSamplerStateConfigure.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT;
+	ShadowSamplerStateConfigure.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
+	ShadowSamplerStateConfigure.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
+	ShadowSamplerStateConfigure.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+	ShadowSamplerStateConfigure.ComparisonFunc = D3D11_COMPARISON_LESS_EQUAL;
+	m_iShadowSamplerState = m_pRenderer->CreateSamplerState( &ShadowSamplerStateConfigure );
+
+	SamplerStateConfig TessShadowSamplerStateConfigure;
+	TessShadowSamplerStateConfigure.Filter = D3D11_FILTER_COMPARISON_MIN_MAG_LINEAR_MIP_POINT;
+	TessShadowSamplerStateConfigure.AddressU = D3D11_TEXTURE_ADDRESS_BORDER;
+	TessShadowSamplerStateConfigure.AddressV = D3D11_TEXTURE_ADDRESS_BORDER;
+	TessShadowSamplerStateConfigure.AddressW = D3D11_TEXTURE_ADDRESS_BORDER;
+	TessShadowSamplerStateConfigure.ComparisonFunc = D3D11_COMPARISON_LESS;
+	m_iTessShadowSamplerState = m_pRenderer->CreateSamplerState( &TessShadowSamplerStateConfigure );
 	// --------------------------------------------------------------------Box------------------------------------------------------------
 	m_pBoxShaderEffect = EffectPtr( new Effect );
 
 	m_pBoxShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
 	m_pBoxShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pNormalMapEffect;
+	m_pBoxShaderEffect->Schemes[VT_SHADOW_MAP].bRender = true;
+	m_pBoxShaderEffect->Schemes[VT_SHADOW_MAP].pEffect = pShadowMapEffect;
 
 	// --------------------------------set texture-----------------------------
 	// 法线贴图
@@ -432,11 +534,19 @@ void App::CreateShaderEffect()
 	BoolParameterWriter* pBoolParameterWriter = m_pBoxShaderEffect->ParameterWriters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
 	pBoolParameterWriter->SetValue( true );
 
+	pShaderResourceWriter = m_pBoxShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"ShadowMap" );
+	pShaderResourceWriter->SetValue( m_pShadowMap->GetShadowMap() );
+
+	pSamplerWriter = m_pBoxShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"ShadowSampler" );
+	pSamplerWriter->SetValue( m_iShadowSamplerState );
+
 	// ------------------------------------------------------Sphere-------------------------------------------------------------
 	m_pSphereShaderEffect = EffectPtr( new Effect );
 
 	m_pSphereShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
 	m_pSphereShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pNormalMapEffect;
+	m_pSphereShaderEffect->Schemes[VT_SHADOW_MAP].bRender = true;
+	m_pSphereShaderEffect->Schemes[VT_SHADOW_MAP].pEffect = pShadowMapEffect;
 
 	// ----------Set Sphere Texture----------------
 	m_pStoneTexture = m_pRenderer->LoadTexture( L"Stone.dds" );
@@ -462,11 +572,19 @@ void App::CreateShaderEffect()
 	pBoolParameterWriter = m_pSphereShaderEffect->ParameterWriters.GetBoolParameterWriter( L"bEnabledReflect" );
 	pBoolParameterWriter->SetValue( true );
 
+	pShaderResourceWriter = m_pSphereShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"ShadowMap" );
+	pShaderResourceWriter->SetValue( m_pShadowMap->GetShadowMap() );
+
+	pSamplerWriter = m_pSphereShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"ShadowSampler" );
+	pSamplerWriter->SetValue( m_iShadowSamplerState );
+
 	// ----------------------------------------------------------------Grid-------------------------------------------------------------------------
 	m_pGridShaderEffect = EffectPtr( new Effect );
 
 	m_pGridShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
 	m_pGridShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pDisplacementMapEffect;
+	m_pGridShaderEffect->Schemes[VT_SHADOW_MAP].bRender = true;
+	m_pGridShaderEffect->Schemes[VT_SHADOW_MAP].pEffect = pTessShadowMapEffect;
 
 	// ---------------------Set Grid Texture-------------------------
 	// 漫反射贴图
@@ -511,11 +629,19 @@ void App::CreateShaderEffect()
 	pFloatWriter = m_pGridShaderEffect->ParameterWriters.GetFloatParameterWriter( std::wstring( L"HeightScale" ) );
 	pFloatWriter->SetValue( 0.07f );
 
+	pShaderResourceWriter = m_pGridShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"ShadowMap" );
+	pShaderResourceWriter->SetValue( m_pShadowMap->GetShadowMap() );
+
+	pSamplerWriter = m_pGridShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"ShadowSampler" );
+	pSamplerWriter->SetValue( m_iTessShadowSamplerState );
+
 	// ---------------------------------------------------------------Cylinder-------------------------------------------------------------------
 	m_pCylinderShaderEffect = EffectPtr( new Effect );
 
 	m_pCylinderShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
 	m_pCylinderShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pDisplacementMapEffect;
+	m_pCylinderShaderEffect->Schemes[VT_SHADOW_MAP].bRender = true;
+	m_pCylinderShaderEffect->Schemes[VT_SHADOW_MAP].pEffect = pTessShadowMapEffect;
 
 	// -------------Set Cylinder Texture-----------
 	// 漫反射纹理
@@ -558,11 +684,19 @@ void App::CreateShaderEffect()
 	pFloatWriter = m_pCylinderShaderEffect->ParameterWriters.GetFloatParameterWriter( std::wstring( L"HeightScale" ) );
 	pFloatWriter->SetValue( 0.07f );
 
+	pShaderResourceWriter = m_pCylinderShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"ShadowMap" );
+	pShaderResourceWriter->SetValue( m_pShadowMap->GetShadowMap() );
+
+	pSamplerWriter = m_pCylinderShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"ShadowSampler" );
+	pSamplerWriter->SetValue( m_iTessShadowSamplerState );
+
 	// -------------------------------------------------Skull-----------------------------------------------
 	m_pSkullShaderEffect = EffectPtr( new Effect );
 
 	m_pSkullShaderEffect->Schemes[VT_PERSPECTIVE].bRender = true;
 	m_pSkullShaderEffect->Schemes[VT_PERSPECTIVE].pEffect = pBasicEffect;
+	m_pSkullShaderEffect->Schemes[VT_SHADOW_MAP].bRender = true;
+	m_pSkullShaderEffect->Schemes[VT_SHADOW_MAP].pEffect = pShadowMapEffect;
 
 	pBoolParameterWriter = m_pSkullShaderEffect->ParameterWriters.GetBoolParameterWriter( std::wstring( L"bUseTexture" ) );
 	pBoolParameterWriter->SetValue( false );
@@ -573,30 +707,36 @@ void App::CreateShaderEffect()
 	m_pSkyTexture = m_pRenderer->LoadTexture( L"SnowCube.dds" );
 	pShaderResourceWriter = m_pSkullShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( std::wstring( L"SkyboxTexture" ) );
 	pShaderResourceWriter->SetValue( m_pSkyTexture );
+
+	pShaderResourceWriter = m_pSkullShaderEffect->ParameterWriters.GetShaderResourceParameterWriter( L"ShadowMap" );
+	pShaderResourceWriter->SetValue( m_pShadowMap->GetShadowMap() );
+
+	pSamplerWriter = m_pSkullShaderEffect->ParameterWriters.GetSamplerParameterWriter( L"ShadowSampler" );
+	pSamplerWriter->SetValue( m_iShadowSamplerState );
 }
 
 void App::CreateSurfaceMaterial()
 {
 	// -----------------------------------Box表面属性----------------------------------------
 	m_pBoxMaterial = new BasicMaterial;
-	m_pBoxMaterial->SetMaterialData(	Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
-										Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
-										Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
-										Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );			// 0.0f , 0.0f , 0.0f 表示不存在反射
+	m_pBoxMaterial->SetMaterialData( Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+									 Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+									 Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
+									 Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );			// 0.0f , 0.0f , 0.0f 表示不存在反射
 
 	// ----------------------------------Grid表面属性----------------------------------------
 	m_pGridMaterial = new BasicMaterial;
-	m_pGridMaterial->SetMaterialData(	Vector4f( 0.8f , 0.8f , 0.8f , 1.0f ) ,
-										Vector4f( 0.8f , 0.8f , 0.8f , 1.0f ) ,
-										Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
-										Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );			// 0.0f , 0.0f , 0.0f 表示不存在反射
+	m_pGridMaterial->SetMaterialData( Vector4f( 0.8f , 0.8f , 0.8f , 1.0f ) ,
+									  Vector4f( 0.8f , 0.8f , 0.8f , 1.0f ) ,
+									  Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
+									  Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );			// 0.0f , 0.0f , 0.0f 表示不存在反射
 
 	// ----------------------------------Cylinder表面属性---------------------------
 	m_pCylinderMaterial = new BasicMaterial;
-	m_pCylinderMaterial->SetMaterialData(	Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
-											Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
-											Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
-											Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );				// 0.0f , 0.0f , 0.0f表示不存在反射
+	m_pCylinderMaterial->SetMaterialData( Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+										  Vector4f( 1.0f , 1.0f , 1.0f , 1.0f ) ,
+										  Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
+										  Vector4f( 0.0f , 0.0f , 0.0f , 1.0f ) );				// 0.0f , 0.0f , 0.0f表示不存在反射
 
 	// -----------------------------------Sphere表面属性----------------------------------
 	m_pSphereMaterial = new BasicMaterial;
@@ -607,8 +747,8 @@ void App::CreateSurfaceMaterial()
 
 	// -----------------------------------Skull表面属性-----------------------------
 	m_pSkullMaterial = new BasicMaterial;
-	m_pSkullMaterial->SetMaterialData(	Vector4f( 0.2f , 0.2f , 0.2f , 1.0f ) ,
-										Vector4f( 0.2f , 0.2f , 0.2f , 1.0f ) ,
-										Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
-										Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) );
+	m_pSkullMaterial->SetMaterialData( Vector4f( 0.2f , 0.2f , 0.2f , 1.0f ) ,
+									   Vector4f( 0.2f , 0.2f , 0.2f , 1.0f ) ,
+									   Vector4f( 0.8f , 0.8f , 0.8f , 16.0f ) ,
+									   Vector4f( 0.5f , 0.5f , 0.5f , 1.0f ) );
 }

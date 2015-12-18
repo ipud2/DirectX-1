@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClInclude Include="..\Include\Actor.h" />
     <ClInclude Include="..\Include\Application.h" />
+    <ClInclude Include="..\Include\BaseCamera.h" />
     <ClInclude Include="..\Include\BaseNumericTypeRenderParameter.h" />
     <ClInclude Include="..\Include\BasicMaterial.h" />
     <ClInclude Include="..\Include\BlendStateConfig.h" />
@@ -102,7 +103,7 @@
     <ClInclude Include="..\Include\BoolParameterWriter.h" />
     <ClInclude Include="..\Include\Buffer.h" />
     <ClInclude Include="..\Include\BufferConfig.h" />
-    <ClInclude Include="..\Include\Camera.h" />
+    <ClInclude Include="..\Include\MainCamera.h" />
     <ClInclude Include="..\Include\ComputeShader.h" />
     <ClInclude Include="..\Include\ComputeStage.h" />
     <ClInclude Include="..\Include\ConstantBuffer.h" />
@@ -247,11 +248,13 @@
     <ClInclude Include="..\Include\VertexStage.h" />
     <ClInclude Include="..\Include\ViewPerspective.h" />
     <ClInclude Include="..\Include\ViewPort.h" />
+    <ClInclude Include="..\Include\ViewShadowMap.h" />
     <ClInclude Include="..\Include\Win32RenderWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BaseNumericTypeRenderParameter.cpp" />
     <ClCompile Include="BasicMaterial.cpp" />
     <ClCompile Include="BlendStateConfig.cpp" />
@@ -259,7 +262,7 @@
     <ClCompile Include="BoolParameterWriter.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferConfig.cpp" />
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="ComputeShader.cpp" />
     <ClCompile Include="ComputeStage.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
@@ -395,6 +398,7 @@
     <ClCompile Include="VertexStage.cpp" />
     <ClCompile Include="ViewPerspective.cpp" />
     <ClCompile Include="ViewPort.cpp" />
+    <ClCompile Include="ViewShadowMap.cpp" />
     <ClCompile Include="Win32RenderWindow.cpp" />
   </ItemGroup>
   <ItemGroup>

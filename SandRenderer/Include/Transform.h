@@ -57,5 +57,4 @@ namespace Sand
 		Matrix4f m_Local;			// ¾Ö²¿¾ØÕó
 	};
 };
-
 #endif

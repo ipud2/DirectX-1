@@ -109,6 +109,56 @@ void Sand::Texture2DConfig::SetSampleDesc( DXGI_SAMPLE_DESC state )
 	m_State.SampleDesc.Quality = state.Quality;
 }
 
+DXGI_FORMAT Texture2DConfig::GetFormat()
+{
+	return m_State.Format;
+}
+
+UINT Texture2DConfig::GetArraySize()
+{
+	return m_State.ArraySize;
+}
+
+UINT Texture2DConfig::GetMipLevels()
+{
+	return m_State.MipLevels;
+}
+
+UINT Texture2DConfig::GetHeight()
+{
+	return m_State.Height;
+}
+
+UINT Texture2DConfig::GetWidth()
+{
+	return m_State.Width;
+}
+
+D3D11_USAGE Texture2DConfig::GetUsage()
+{
+	return m_State.Usage;
+}
+
+UINT Texture2DConfig::GetBindFlags()
+{
+	return m_State.BindFlags;
+}
+
+UINT Texture2DConfig::GetCPUAccessFlags()
+{
+	return m_State.CPUAccessFlags;
+}
+
+UINT Texture2DConfig::GetMiscFlags()
+{
+	return m_State.MiscFlags;
+}
+
+DXGI_SAMPLE_DESC Texture2DConfig::GetSampleDesc()
+{
+	return m_State.SampleDesc;
+}
+
 D3D11_TEXTURE2D_DESC Sand::Texture2DConfig::GetTextureDesc()
 {
 	return m_State;

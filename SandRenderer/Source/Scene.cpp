@@ -24,14 +24,14 @@ Node* Scene::GetRootNode()
 	return m_pRootNode;
 }
 
-void Scene::AddCamera( Camera* camera )
+void Scene::AddCamera( BaseCamera* camera )
 {
 	m_vCameras.push_back( camera );
 	camera->SetScene( this );
 	AddActor( camera );
 }
 
-Camera* Scene::GetCamera( unsigned int index )
+BaseCamera* Scene::GetCamera( unsigned int index )
 {
 	assert( index < m_vCameras.size() );
 

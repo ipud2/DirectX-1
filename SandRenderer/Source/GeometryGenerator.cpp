@@ -643,7 +643,7 @@ GeometryPtr GeometryGenerator::GeneratorCylinder( float bottomRadius , float top
 			float dr = topRadius - bottomRadius;
 			Vector3f bitTangent( -dr * c , -height , -dr * s );
 			Vector3f T = pTangent[i * ( sliceCount + 1 ) + j];
-			Vector3f N = T.Cross( bitTangent );
+			Vector3f N = /*T.Cross( bitTangent )*/cross( T , bitTangent );
 			N.Normalize();
 
 			pNormal[i * ( sliceCount + 1 ) + j] = N;

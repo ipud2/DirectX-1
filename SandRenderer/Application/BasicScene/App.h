@@ -10,7 +10,7 @@
 #include "Actor.h"
 #include "ViewPerspective.h"
 
-#include "Camera.h"
+#include "MainCamera.h"
 #include "Scene.h"
 
 #include "Geometry.h"
@@ -64,7 +64,7 @@ namespace Sand
 
 		Vector4f m_TessParams;
 
-		Camera* m_pCameras;
+		MainCamera* m_pCameras;
 
 	};
 };

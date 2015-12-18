@@ -51,6 +51,7 @@ namespace Sand
 		//************************************
 		void ClearBuffers( Vector4f& color , float depth = 1.0f , UINT stencil = 0 );
 
+		void ClearDepthStencilBuffer( float depth = 1.0f , UINT stencil = 0 );
 
 		void SaveTextureScreenShot( int ID , std::wstring filename );
 

@@ -243,7 +243,7 @@ void RenderEffect::UpdateConstantBufferList()
 				}
 				else
 				{
-					Log::Get().Write( L"该constant buffer参数已经存在，跳过!!" );
+					Log::Get().Write( L"该ConstantBuffer已经存在于ConstantBuffer列表中了" );
 				}
 			}
 		}
