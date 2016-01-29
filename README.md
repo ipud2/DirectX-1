@@ -19,3 +19,5 @@ MainCamera用于渲染最终显示的游戏场景
 因此可在其中间完成该过程。
 
 BaseCamera类中添加GetViewPosition() , SetViewPosition()函数，用于完成这一数据传递的过程。
+
+忘了上传cube.obj , 在此备注下~
