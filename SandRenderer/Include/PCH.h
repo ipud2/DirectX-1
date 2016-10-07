@@ -22,6 +22,8 @@
 #include <math.h>
 #include <memory>
 #include <assert.h>
+#include <fcntl.h>
+#include <io.h>
 
 // DirectX м╥нд╪Ч
 #include <d3d11.h>

@@ -103,10 +103,10 @@ void Entity::Render( PipelineManager* pPipelineManager , IParameterManager* pPar
 			// 设置渲染管线相关参数
 			Visual.ShaderEffect->SetRenderParams( pParamManager , View );
 			
-			if ( Visual.Material != nullptr )
+			if ( Visual.pMaterial != nullptr )
 			{
 				// 设置物体表面材质
-				Visual.Material->UpdateRenderParams( pParamManager );
+				Visual.pMaterial->Update( pParamManager );
 			}
 
 			this->UpdateRenderParams( pParamManager );

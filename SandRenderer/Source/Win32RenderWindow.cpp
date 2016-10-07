@@ -104,6 +104,14 @@ void Win32RenderWindow::Initialize( IWindowProc* WindowProObj )
 		ShowWindow( m_hWnd , SW_SHOWNORMAL );
 		UpdateWindow( m_hWnd );
 	}
+
+	/*
+		http://lonelywaiting.github.io/Win32-Application%E5%BC%80%E5%90%AFConsole%E7%AA%97%E5%8F%A3/
+	*/
+	AllocConsole();
+	*stdin = *_fdopen( _open_osfhandle( ( intptr_t )GetStdHandle( STD_INPUT_HANDLE ) , _O_TEXT ) , "r" );
+	*stdout = *_fdopen( _open_osfhandle( ( intptr_t )GetStdHandle( STD_OUTPUT_HANDLE ) , _O_TEXT ) , "w" );
+	*stderr = *_fdopen( _open_osfhandle( ( intptr_t )GetStdHandle( STD_ERROR_HANDLE ) , _O_TEXT ) , "w" );
 }
 
 void Win32RenderWindow::Shutdown()

@@ -60,5 +60,21 @@ void IEventListener::UnRequestEvent( EventType e )
 
 void IEventListener::SetEventManager( EventManager* pEventManager )
 {
+	if ( m_pEventManager )
+	{
+		for ( auto eEvent : m_vRequestEventList )
+		{
+			m_pEventManager->DelEventListener( eEvent , this );
+		}
+	}
+
 	m_pEventManager = pEventManager;
+
+	if ( m_pEventManager )
+	{
+		for ( auto eEvent : m_vRequestEventList )
+		{
+			m_pEventManager->AddEventListener( eEvent , this );
+		}
+	}
 }

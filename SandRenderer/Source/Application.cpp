@@ -18,7 +18,7 @@ Application::Application()
 
 	Log::Get().Open();
 
-	SetEventManager( &m_EventManager );
+	SetEventManager( &EventManager::Get() );
 
 	// 需要监视的事件
 	RequestEvent( SYSTEM_KEY_UP );
@@ -105,7 +105,7 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		case WM_SIZE:
 		{
 			EventWindowResizePtr pEvent = EventWindowResizePtr( new EventWindowResize( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
@@ -113,18 +113,14 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		case WM_LBUTTONUP:
 		{
 			EventMouseLButtonUpPtr pEvent = EventMouseLButtonUpPtr( new EventMouseLButtonUp( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
-
-			OnMouseUp( wParam , GET_X_LPARAM( lParam ) , GET_Y_LPARAM( lParam ) );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
 		case WM_LBUTTONDOWN:
 		{
 			EventMouseLButtonDownPtr pEvent = EventMouseLButtonDownPtr( new EventMouseLButtonDown( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
-
-			OnMouseDown( wParam , GET_X_LPARAM( lParam ) , GET_Y_LPARAM( lParam ) );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
@@ -132,14 +128,14 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		case WM_MBUTTONUP:
 		{
 			EventMouseMButtonUpPtr pEvent = EventMouseMButtonUpPtr( new EventMouseMButtonUp( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
 		case WM_MBUTTONDOWN:
 		{
 			EventMouseMButtonDownPtr pEvent = EventMouseMButtonDownPtr( new EventMouseMButtonDown( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
@@ -147,14 +143,14 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		case WM_RBUTTONUP:
 		{
 			EventMouseRButtonUpPtr pEvent = EventMouseRButtonUpPtr( new EventMouseRButtonUp( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
 		case WM_RBUTTONDOWN:
 		{
 			EventMouseRButtonDownPtr pEvent = EventMouseRButtonDownPtr( new EventMouseRButtonDown( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
@@ -163,16 +159,14 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		{
 			// 鼠标移动
 			EventMouseMovePtr pEvent = EventMouseMovePtr( new EventMouseMove( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
-
-			OnMouseMove( wParam , GET_X_LPARAM( lParam ) , GET_Y_LPARAM( lParam ) );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
 		case WM_MOUSEWHEEL:
 		{
 			EventMouseWheelPtr pEvent = EventMouseWheelPtr( new EventMouseWheel( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 		
@@ -180,7 +174,7 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		case WM_KEYUP:
 		{
 			EventKeyUpPtr pEvent = EventKeyUpPtr( new EventKeyUp( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
@@ -188,7 +182,7 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		case WM_KEYDOWN:
 		{
 			EventKeyDownPtr pEvent = EventKeyDownPtr( new EventKeyDown( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 
@@ -196,7 +190,7 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 		case WM_CHAR:
 		{
 			EventCharPtr pEvent = EventCharPtr( new EventChar( hwnd , wParam , lParam ) );
-			m_EventManager.ProcessEvent( pEvent );
+			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
 	}
@@ -276,19 +270,4 @@ void Application::SetFrameRate( HWND hwnd )
 		FrameCount = 0;
 		TimeElapsed += 1.0f;
 	}
-}
-
-void Application::OnMouseDown( WPARAM buttonState , int x , int y )
-{
-
-}
-
-void Application::OnMouseUp( WPARAM buttonState , int x , int y )
-{
-
-}
-
-void Application::OnMouseMove( WPARAM buttonState , int x , int y )
-{
-
 }

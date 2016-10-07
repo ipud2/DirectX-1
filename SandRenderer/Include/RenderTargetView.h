@@ -16,8 +16,7 @@ namespace Sand
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> m_RenderTargetView;
 
-		friend class RenderTargetView;
+		friend class Renderer;
 	};
 };
-
 #endif

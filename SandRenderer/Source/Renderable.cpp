@@ -7,7 +7,7 @@ using namespace Sand;
 Renderable::Renderable()
 	:IAStageExecutor( nullptr ) ,
 	ShaderEffect( nullptr ) ,
-	Material( nullptr )
+	pMaterial( nullptr )
 {
 
 }
@@ -16,7 +16,7 @@ Renderable::~Renderable()
 {
 	IAStageExecutor = nullptr;
 	ShaderEffect = nullptr;
-	Material = nullptr;
+	pMaterial = nullptr;
 }
 
 void Renderable::SetEffect( EffectPtr pShaderEffect )
@@ -62,12 +62,12 @@ void Renderable::SetGeometry( InputAssemblerStageExecutorPtr pExecutor )
 	}
 }
 
-void Renderable::SetSurfaceMaterial( SurfaceMaterial* pSurfaceMaterial )
+void Renderable::SetMaterial( Material* pMat )
 {
-	Material = pSurfaceMaterial;
+	pMaterial = pMat;
 }
 
-SurfaceMaterial* Renderable::GetSurfaceMaterial()
+Material* Renderable::GetMaterial()
 {
-	return Material;
+	return pMaterial;
 }

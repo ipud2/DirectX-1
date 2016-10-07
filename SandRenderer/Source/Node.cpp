@@ -51,14 +51,30 @@ void Node::AttachChild( Entity* Child )
 
 void Node::DetachChild( Entity* Child )
 {
-	for( auto pLeaf : m_Leafs )
+	auto it = m_Leafs.begin();
+
+	while ( it != m_Leafs.end() )
 	{
-		if( pLeaf == Child )
+		if ( *it == Child )
 		{
-			pLeaf->DetachParent();
-			pLeaf = nullptr;
+			( *it )->DetachParent();
+			( *it ) = nullptr;
+			it = m_Leafs.erase( it );
+		}
+		else
+		{
+			it++;
 		}
 	}
+
+	/*for( auto& pLeaf : m_Leafs )
+	{
+	if( pLeaf == Child )
+	{
+	pLeaf->DetachParent();
+	pLeaf = nullptr;
+	}
+	}*/
 }
 
 void Node::DetachChild( Node* Child )

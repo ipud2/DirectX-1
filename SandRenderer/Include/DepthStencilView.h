@@ -16,7 +16,7 @@ namespace Sand
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> m_DepthStencilView;
 
-		friend class DepthStencilView;
+		friend class Renderer;
 	};
 }
 

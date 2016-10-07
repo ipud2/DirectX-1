@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Application">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -32,9 +28,6 @@
     </Filter>
     <Filter Include="Event\Notification">
       <UniqueIdentifier>{ed4ac5c0-a764-45a2-8328-3b5623218401}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{3044f07b-1690-4454-9026-7e6509267ff0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Render">
       <UniqueIdentifier>{dbb5e819-eaa2-49b0-9855-1ff23bb88ddd}</UniqueIdentifier>
@@ -188,6 +181,15 @@
     </Filter>
     <Filter Include="Material">
       <UniqueIdentifier>{4765c87c-372e-447f-9ec7-925a4dc2aa1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script">
+      <UniqueIdentifier>{ffe230da-fc82-4a25-8381-bccfbed5203b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{3044f07b-1690-4454-9026-7e6509267ff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Material\Sampler">
+      <UniqueIdentifier>{f3a27aa9-c483-48de-8843-c6dc93ecd24f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -644,12 +646,6 @@
     <ClInclude Include="..\Include\EffectGenerator.h">
       <Filter>Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\SurfaceMaterial.h">
-      <Filter>Material</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\BasicMaterial.h">
-      <Filter>Material</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\FloatParameterWriter.h">
       <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
     </ClInclude>
@@ -661,6 +657,39 @@
     </ClInclude>
     <ClInclude Include="..\Include\MainCamera.h">
       <Filter>Object\Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\ScriptManager.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\GeometryActor.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LuaGeometry.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LuaActor.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LuaEntity.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LuaMaterial.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LuaEffect.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MaterialLua.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\Material.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\MaterialHelper.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\LuaSampler.h">
+      <Filter>Material\Sampler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -735,9 +764,6 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Render</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Application</Filter>
     </ClCompile>
     <ClCompile Include="DXGIAdapter.cpp">
       <Filter>Render\DXGI</Filter>
@@ -1081,12 +1107,6 @@
     <ClCompile Include="EffectGenerator.cpp">
       <Filter>Effect</Filter>
     </ClCompile>
-    <ClCompile Include="SurfaceMaterial.cpp">
-      <Filter>Material</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicMaterial.cpp">
-      <Filter>Material</Filter>
-    </ClCompile>
     <ClCompile Include="FloatParameterWriter.cpp">
       <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
     </ClCompile>
@@ -1098,6 +1118,39 @@
     </ClCompile>
     <ClCompile Include="MainCamera.cpp">
       <Filter>Object\Actor\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptManager.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaGeometry.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaActor.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaEntity.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaMaterial.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaEffect.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialLua.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialHelper.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaSampler.cpp">
+      <Filter>Material\Sampler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

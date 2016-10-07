@@ -3,7 +3,7 @@
 
 #include "InputAssemblerStageExecutor.h"
 #include "Effect.h"
-#include "SurfaceMaterial.h"
+#include "Material.h"
 
 namespace Sand
 {
@@ -20,15 +20,16 @@ namespace Sand
 		void SetGeometry( InputAssemblerStageExecutorPtr pExecutor );
 		InputAssemblerStageExecutorPtr GetGeometry();
 
-		void SetSurfaceMaterial( SurfaceMaterial* pSurfaceMaterial );
-		SurfaceMaterial* GetSurfaceMaterial();
+		void SetMaterial( Material* pMat );
+		Material* GetMaterial();
 
 	public:
 		InputAssemblerStageExecutorPtr IAStageExecutor;
 
 		EffectPtr ShaderEffect;
 
-		SurfaceMaterial* Material;
+		//SurfaceMaterial* Material;
+		Material* pMaterial;
 	};
 }
 #endif

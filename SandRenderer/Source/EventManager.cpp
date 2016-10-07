@@ -3,14 +3,15 @@
 
 using namespace Sand;
 
-EventManager* EventManager::m_spEventManager = nullptr;
-
 EventManager::EventManager()
 {
-	if( m_spEventManager == nullptr )
-	{
-		m_spEventManager = this;
-	}
+
+}
+
+EventManager& EventManager::Get()
+{
+	static EventManager m_spEventManager;
+	return m_spEventManager;
 }
 
 EventManager::~EventManager()
@@ -47,7 +48,7 @@ bool EventManager::DelEventListener( EventType e , IEventListener* pEventListene
 	bool bResult = false;
 
 	int index = -1;
-	for( std::vector<IEventListener*>::iterator it = m_vEventListeners[e].begin(); it != m_vEventListeners[e].end(); it++ )
+	for ( std::vector<IEventListener*>::iterator it = m_vEventListeners[e].begin(); it != m_vEventListeners[e].end(); it++ )
 	{
 		if( *it == pEventListener )
 		{

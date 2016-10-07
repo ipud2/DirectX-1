@@ -45,7 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)Include;$(IncludePath)</IncludePath>
-    <OutDir>..\Library\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)Library\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
@@ -65,7 +65,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>..\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -83,7 +83,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>..\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -97,12 +97,18 @@
     <ClInclude Include="..\Include\Application.h" />
     <ClInclude Include="..\Include\BaseCamera.h" />
     <ClInclude Include="..\Include\BaseNumericTypeRenderParameter.h" />
-    <ClInclude Include="..\Include\BasicMaterial.h" />
     <ClInclude Include="..\Include\BlendStateConfig.h" />
     <ClInclude Include="..\Include\BoolParameter.h" />
     <ClInclude Include="..\Include\BoolParameterWriter.h" />
     <ClInclude Include="..\Include\Buffer.h" />
     <ClInclude Include="..\Include\BufferConfig.h" />
+    <ClInclude Include="..\Include\GeometryActor.h" />
+    <ClInclude Include="..\Include\LuaActor.h" />
+    <ClInclude Include="..\Include\LuaEffect.h" />
+    <ClInclude Include="..\Include\LuaEntity.h" />
+    <ClInclude Include="..\Include\LuaGeometry.h" />
+    <ClInclude Include="..\Include\LuaMaterial.h" />
+    <ClInclude Include="..\Include\LuaSampler.h" />
     <ClInclude Include="..\Include\MainCamera.h" />
     <ClInclude Include="..\Include\ComputeShader.h" />
     <ClInclude Include="..\Include\ComputeStage.h" />
@@ -162,6 +168,9 @@
     <ClInclude Include="..\Include\Log.h" />
     <ClInclude Include="..\Include\Effect.h" />
     <ClInclude Include="..\Include\EffectGenerator.h" />
+    <ClInclude Include="..\Include\Material.h" />
+    <ClInclude Include="..\Include\MaterialHelper.h" />
+    <ClInclude Include="..\Include\MaterialLua.h" />
     <ClInclude Include="..\Include\Matrix3f.h" />
     <ClInclude Include="..\Include\Matrix4f.h" />
     <ClInclude Include="..\Include\MatrixArrayParameter.h" />
@@ -203,6 +212,7 @@
     <ClInclude Include="..\Include\Scene.h" />
     <ClInclude Include="..\Include\SceneGraph.h" />
     <ClInclude Include="..\Include\SceneRenderTask.h" />
+    <ClInclude Include="..\Include\ScriptManager.h" />
     <ClInclude Include="..\Include\Shader.h" />
     <ClInclude Include="..\Include\ShaderFactory.h" />
     <ClInclude Include="..\Include\ShaderReflection.h" />
@@ -219,7 +229,6 @@
     <ClInclude Include="..\Include\StructuredBuffer.h" />
     <ClInclude Include="..\Include\StructureParameter.h" />
     <ClInclude Include="..\Include\StructureParameterWriter.h" />
-    <ClInclude Include="..\Include\SurfaceMaterial.h" />
     <ClInclude Include="..\Include\SwapChain.h" />
     <ClInclude Include="..\Include\SwapChainConfig.h" />
     <ClInclude Include="..\Include\Task.h" />
@@ -256,12 +265,18 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
     <ClCompile Include="BaseNumericTypeRenderParameter.cpp" />
-    <ClCompile Include="BasicMaterial.cpp" />
     <ClCompile Include="BlendStateConfig.cpp" />
     <ClCompile Include="BoolParameter.cpp" />
     <ClCompile Include="BoolParameterWriter.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferConfig.cpp" />
+    <ClCompile Include="LuaActor.cpp" />
+    <ClCompile Include="LuaEffect.cpp" />
+    <ClCompile Include="LuaEntity.cpp" />
+    <ClCompile Include="LuaGeometry.cpp" />
+    <ClCompile Include="LuaMaterial.cpp" />
+    <ClCompile Include="LuaSampler.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="MainCamera.cpp" />
     <ClCompile Include="ComputeShader.cpp" />
     <ClCompile Include="ComputeStage.cpp" />
@@ -315,9 +330,11 @@
     <ClCompile Include="InputAssemblerState.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Log.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectGenerator.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="MaterialHelper.cpp" />
+    <ClCompile Include="MaterialLua.cpp" />
     <ClCompile Include="Matrix3f.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
     <ClCompile Include="MatrixArrayParameter.cpp" />
@@ -357,6 +374,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGraph.cpp" />
     <ClCompile Include="SceneRenderTask.cpp" />
+    <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderFactory.cpp" />
     <ClCompile Include="ShaderReflection.cpp" />
@@ -371,7 +389,6 @@
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="StructureParameter.cpp" />
     <ClCompile Include="StructureParameterWriter.cpp" />
-    <ClCompile Include="SurfaceMaterial.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="SwapChainConfig.cpp" />
     <ClCompile Include="Task.cpp" />

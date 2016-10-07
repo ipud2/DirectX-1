@@ -76,17 +76,8 @@ namespace Sand
 		// 设置帧率到窗口
 		void SetFrameRate( HWND hwnd );
 
-		/*
-			鼠标响应
-		*/
-		virtual void OnMouseDown( WPARAM buttonState , int x , int y );
-		virtual void OnMouseUp( WPARAM buttonState , int x , int y );
-		virtual void OnMouseMove( WPARAM buttonState , int x , int y );
-
 		bool m_bLoop;
 		bool m_bSaveScreenShot;
-
-		EventManager m_EventManager;
 
 		Scene* m_pScene;
 

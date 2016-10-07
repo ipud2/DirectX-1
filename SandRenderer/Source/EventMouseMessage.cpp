@@ -41,10 +41,12 @@ bool EventMouseMessage::MButtonDown()
 
 int EventMouseMessage::GetX()
 {
-	return ( 0xffff & m_wParam );
+	return GET_X_LPARAM( m_lParam );
+	//return ( 0xffff & m_lParam );
 }
 
 int EventMouseMessage::GetY()
 {
-	return ( 0xffff0000 & m_wParam ) >> 16;
+	return GET_Y_LPARAM( m_lParam );
+	//return ( 0xffff0000 & m_lParam ) >> 16;
 }

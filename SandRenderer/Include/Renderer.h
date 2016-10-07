@@ -169,6 +169,8 @@ namespace Sand
 		ResourceProxyPtr GetSwapChainResource( int index );
 
 
+		void ResizeSwapChain( int index , int width , int height );
+
 		// ---------------------------------------------------------Resource---------------------------------------------------------------------
 		
 		//************************************
@@ -505,6 +507,18 @@ namespace Sand
 		// Parameter: D3D11_VIEWPORT viewport
 		//************************************
 		int CreateViewPort( D3D11_VIEWPORT viewport );
+
+		//************************************
+		// Method:    ResizeViewport
+		// FullName:  Sand::Renderer::ResizeViewport
+		// Access:    public 
+		// Returns:   void
+		// Qualifier: 重置视口大小
+		// Parameter: int ID
+		// Parameter: UINT width
+		// Parameter: UINT height
+		//************************************
+		void ResizeViewport( int ID , UINT width , UINT height );
 
 		//************************************
 		// Method:    CreateInputLayout

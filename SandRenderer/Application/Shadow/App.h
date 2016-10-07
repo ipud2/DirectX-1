@@ -16,11 +16,7 @@
 #include "Geometry.h"
 #include "GeometryLoader.h"
 
-#include "SurfaceMaterial.h"
-
 #include "DirectionalLight.h"
-
-#include "BasicMaterial.h"
 
 #include "Skybox.h"
 
@@ -106,11 +102,11 @@ namespace Sand
 		EffectPtr m_pSkullShaderEffect;
 
 		// ----------Material--------------
-		BasicMaterial* m_pBoxMaterial;
-		BasicMaterial* m_pGridMaterial;
-		BasicMaterial* m_pCylinderMaterial;
-		BasicMaterial* m_pSphereMaterial;
-		BasicMaterial* m_pSkullMaterial;
+		Material* m_pBoxMaterial;
+		Material* m_pGridMaterial;
+		Material* m_pCylinderMaterial;
+		Material* m_pSphereMaterial;
+		Material* m_pSkullMaterial;
 
 		// ---------Texture-----------
 		ResourceProxyPtr m_pBrickTexture;

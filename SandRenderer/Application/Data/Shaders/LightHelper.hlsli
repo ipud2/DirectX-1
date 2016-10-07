@@ -7,7 +7,7 @@ struct DirectionalLight
 	float4 LightDirection;
 };
 
-struct Material
+cbuffer Material
 {
 	float4 AmbientMaterial;
 	float4 DiffuseMaterial;
@@ -16,8 +16,7 @@ struct Material
 	float4 Reflect;
 };
 
-void ComputeDirectionalLight(Material Mat , 
-							 DirectionalLight light , 
+void ComputeDirectionalLight(DirectionalLight light , 
 							 float3 Normal , 
 							 float3 ToEye , 
 							 out float4 ambient , 
@@ -32,7 +31,7 @@ void ComputeDirectionalLight(Material Mat ,
 	specular = float4(0.0f , 0.0f , 0.0f , 0.0f);
 
 	// 计算环境光
-	ambient = light.AmbientLight * Mat.AmbientMaterial;
+	ambient = light.AmbientLight * AmbientMaterial;
 
 	float3 Incident = -light.LightDirection.xyz;
 
@@ -43,10 +42,10 @@ void ComputeDirectionalLight(Material Mat ,
 	if(DiffuseFactor > 0.0f)
 	{
 		float3 Reflect = reflect(-Incident , Normal);
-		float SpecularFactor = pow(max(dot(Reflect , ToEye) , 0.0f) , Mat.SpecularMaterial.w);
+		float SpecularFactor = pow(max(dot(Reflect , ToEye) , 0.0f) , SpecularMaterial.w);
 
-		diffuse = DiffuseFactor * light.DiffuseLight * Mat.DiffuseMaterial;
-		specular = SpecularFactor * light.SpecularLight * Mat.SpecularMaterial;
+		diffuse = DiffuseFactor * light.DiffuseLight * DiffuseMaterial;
+		specular = SpecularFactor * light.SpecularLight * SpecularMaterial;
 	}
 }
 

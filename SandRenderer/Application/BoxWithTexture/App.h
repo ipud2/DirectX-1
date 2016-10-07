@@ -16,11 +16,7 @@
 #include "Geometry.h"
 #include "GeometryLoader.h"
 
-#include "SurfaceMaterial.h"
-
 #include "DirectionalLight.h"
-
-#include "BasicMaterial.h"
 
 #include "Skybox.h"
 
@@ -50,10 +46,6 @@ namespace Sand
 		// 应用程序名
 		std::wstring GetName();
 
-		virtual void OnMouseDown( WPARAM buttonState , int x , int y );
-		virtual void OnMouseUp( WPARAM buttonState , int x , int y );
-		virtual void OnMouseMove( WPARAM buttonState , int x , int y );
-
 		// ---------------------------------------------
 		void CreateShaderEffect();
 		void CreateSurfaceMaterial();
@@ -65,6 +57,8 @@ namespace Sand
 
 		// 交换链
 		int m_iSwapChain;
+
+		int m_iViewport;
 
 		// 渲染目标视图
 		ResourceProxyPtr m_pRenderTarget;
@@ -98,11 +92,11 @@ namespace Sand
 
 		DirectionalLight* m_pLight;
 
-		BasicMaterial* m_pBoxMaterial;
-		BasicMaterial* m_pGridMaterial;
-		BasicMaterial* m_pCylinderMaterial;
-		BasicMaterial* m_pSphereMaterial;
-		BasicMaterial* m_pSkullMaterial;
+		Material* m_pBoxMaterial;
+		Material* m_pGridMaterial;
+		Material* m_pCylinderMaterial;
+		Material* m_pSphereMaterial;
+		Material* m_pSkullMaterial;
 
 		ResourceProxyPtr m_pBrickTexture;
 		ResourceProxyPtr m_pFloorTexture;

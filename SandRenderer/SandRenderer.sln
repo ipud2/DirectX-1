@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SandRenderer", "Source\SandRenderer.vcxproj", "{BB479591-72DE-41F0-8FD2-66852B7C4F87}"
 EndProject
@@ -26,6 +26,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NormalMap", "Application\Bo
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shadow", "Application\Shadow\Shadow.vcxproj", "{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BB479591-72DE-41F0-8FD2-66852B7C4F87} = {BB479591-72DE-41F0-8FD2-66852B7C4F87}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Lua", "ThirdParty\Lua-5.3.3\Lua.vcxproj", "{0CFAE922-A5E0-45B7-8B77-DDA9D6964AEF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BasicScript", "Application\BasicScript\BasicScript.vcxproj", "{8837D918-D38C-45F2-A935-CFAEF4B2E6E0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BB479591-72DE-41F0-8FD2-66852B7C4F87} = {BB479591-72DE-41F0-8FD2-66852B7C4F87}
 	EndProjectSection
@@ -74,6 +81,18 @@ Global
 		{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}.Release|Win32.ActiveCfg = Release|Win32
 		{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}.Release|Win32.Build.0 = Release|Win32
 		{41AD08D1-38CE-4F68-B6C1-1CA57FBEF1F1}.Release|x64.ActiveCfg = Release|Win32
+		{0CFAE922-A5E0-45B7-8B77-DDA9D6964AEF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0CFAE922-A5E0-45B7-8B77-DDA9D6964AEF}.Debug|Win32.Build.0 = Debug|Win32
+		{0CFAE922-A5E0-45B7-8B77-DDA9D6964AEF}.Debug|x64.ActiveCfg = Debug|Win32
+		{0CFAE922-A5E0-45B7-8B77-DDA9D6964AEF}.Release|Win32.ActiveCfg = Release|Win32
+		{0CFAE922-A5E0-45B7-8B77-DDA9D6964AEF}.Release|Win32.Build.0 = Release|Win32
+		{0CFAE922-A5E0-45B7-8B77-DDA9D6964AEF}.Release|x64.ActiveCfg = Release|Win32
+		{8837D918-D38C-45F2-A935-CFAEF4B2E6E0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8837D918-D38C-45F2-A935-CFAEF4B2E6E0}.Debug|Win32.Build.0 = Debug|Win32
+		{8837D918-D38C-45F2-A935-CFAEF4B2E6E0}.Debug|x64.ActiveCfg = Debug|Win32
+		{8837D918-D38C-45F2-A935-CFAEF4B2E6E0}.Release|Win32.ActiveCfg = Release|Win32
+		{8837D918-D38C-45F2-A935-CFAEF4B2E6E0}.Release|Win32.Build.0 = Release|Win32
+		{8837D918-D38C-45F2-A935-CFAEF4B2E6E0}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

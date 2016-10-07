@@ -15,7 +15,7 @@ EventFrameStart::~EventFrameStart()
 
 std::wstring EventFrameStart::GetEventName()
 {
-	return std::wstring( L"frame_start" );
+	return std::wstring( L"Frame_start" );
 }
 
 EventType EventFrameStart::GetEventType()

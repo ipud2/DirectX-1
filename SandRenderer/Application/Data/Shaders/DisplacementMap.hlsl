@@ -30,7 +30,6 @@ cbuffer cbPos
 
 cbuffer cbMaterial
 {
-	Material Mat;
 	bool bUseTexture = true;
 	bool bAlphaClip = true;
 	bool bEnabledReflect = false;
@@ -218,8 +217,7 @@ float4 PSMain(DomainOutput input) : SV_Target
 	{
 		float4 A , D , S;
 
-		ComputeDirectionalLight(Mat , 
-								Light[i] , 
+		ComputeDirectionalLight(Light[i] , 
 								BumpNormal , 
 								toEye , 
 								A , 
@@ -240,10 +238,10 @@ float4 PSMain(DomainOutput input) : SV_Target
 
 		float4 ReflectionColor = SkyboxTexture.Sample(LinearSampler , ReflectionVector);
 
-		color += Mat.Reflect * ReflectionColor;
+		color += Reflect * ReflectionColor;
 	}
 
-	color.a = Mat.DiffuseMaterial.a * texColor.a;
+	color.a = DiffuseMaterial.a * texColor.a;
 
 	return color;
 }

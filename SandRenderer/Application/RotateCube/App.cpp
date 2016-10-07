@@ -36,7 +36,7 @@ bool App::ConfigureEngineComponents()
 {
 	// 创建Win32RenderWindow对象，用于创建窗口，并设置窗口信息
 	m_pWindow = new Win32RenderWindow;
-	m_pWindow->SetSize( 800 , 600 );
+	m_pWindow->SetSize( 1366 , 768 );
 	m_pWindow->SetPosition( 100 , 100 );
 	m_pWindow->SetCaption( GetName() );
 	m_pWindow->Initialize( this );		// 创建窗口
@@ -267,9 +267,9 @@ void App::Update()
 
 void App::Shutdown()
 {
-	std::wstringstream out;
+	/*std::wstringstream out;
 	out << L"Max FPS: " << m_pTimer->MaxFramerate();
-	Log::Get().Write( out.str().c_str() );
+	Log::Get().Write( out.str().c_str() );*/
 }
 
 void App::TakeScreenShot()

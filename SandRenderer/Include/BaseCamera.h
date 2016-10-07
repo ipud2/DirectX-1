@@ -4,10 +4,27 @@
 #include "Actor.h"
 #include "SpatialController.h"
 #include "OrientationController.h"
+#include "IEvent.h"
+#include "IEventListener.h"
+#include "Timer.h"
+#include "EventManager.h"
 
 namespace Sand
 {
-	class BaseCamera : public Actor
+	enum ControlKeys
+	{
+		ForwardKey = 0 ,
+		BackKey ,
+		LeftKey ,
+		RightKey ,
+		UpKey ,
+		DownKey ,
+		SpeedUpKey ,
+
+		NumControlKeys
+	};
+
+	class BaseCamera : public Actor , public IEventListener
 	{
 	public:
 		BaseCamera();
@@ -26,6 +43,11 @@ namespace Sand
 
 		Vector3f& GetViewPosition();
 		void SetViewPosition( Vector3f ViewPosition );
+
+		bool HandleEvent( EventPtr pEvent );
+
+	public:
+		void Update();
 
 	protected:
 		SceneRenderTask* m_pRenderView;
@@ -48,6 +70,17 @@ namespace Sand
 	protected:
 		Matrix4f m_ProjMatrix;
 		Vector3f m_ViewPosition;
+
+	public:
+		static const UINT keyBindings[NumControlKeys];
+		bool m_bProcessKey[NumControlKeys];
+
+		int m_iLastMouseX;
+		int m_iLastMouseY;
+		int m_iMouseDeltaX;
+		int m_iMouseDeltaY;
+
+		Timer m_Timer;
 	};
 };
 #endif

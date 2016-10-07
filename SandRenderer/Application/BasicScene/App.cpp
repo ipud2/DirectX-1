@@ -11,6 +11,8 @@
 
 #include "IParameterManager.h"
 
+#include "EventFrameStart.h"
+
 using namespace Sand;
 
 App AppInstance;
@@ -29,7 +31,7 @@ bool App::ConfigureEngineComponents()
 {
 	// 创建Win32RenderWindow对象，用于创建窗口，并设置窗口信息
 	m_pWindow = new Win32RenderWindow;
-	m_pWindow->SetSize( 800 , 600 );
+	m_pWindow->SetSize( 1366 , 768 );
 	m_pWindow->SetPosition( 100 , 100 );
 	m_pWindow->SetCaption( GetName() );
 	m_pWindow->Initialize( this );		// 创建窗口
@@ -134,6 +136,7 @@ void App::Initialize()
 
 	// ---------------------------------------Camera----------------------------------------------
 	m_pCameras = new MainCamera();
+	m_pCameras->SetEventManager( &EventManager::Get() );		// enable event listener
 	// set camera position , so we can generate view matrix
 	m_pCameras->Spatial().SetTranslation( Vector3f( 0.0f , 0.0f , -15.0f ) );
 	// set render view into camera
@@ -162,6 +165,8 @@ void App::Initialize()
 void App::Update()
 {
 	m_pTimer->Update();
+
+	EventManager::Get().ProcessEvent( EventFrameStartPtr( new EventFrameStart( m_pTimer->DeltaTime() ) ) );
 
 	SetFrameRate( m_pWindow->GetHandle() );
 

@@ -14,11 +14,6 @@ cbuffer cbLight
 	matrix ShadowTransformMatrix;
 };
 
-cbuffer cbMaterial
-{
-	Material Mat;
-};
-
 cbuffer cbEffect
 {
 	bool bUseTexture = true;
@@ -118,8 +113,7 @@ float4 PSMain(in PixelIn input) : SV_Target
 	{
 		float4 A , D , S;
 
-		ComputeDirectionalLight(Mat ,
-								Light[i] , 
+		ComputeDirectionalLight(Light[i] , 
 								BumpNormal , 
 								toEye , 
 								A , 
@@ -139,10 +133,10 @@ float4 PSMain(in PixelIn input) : SV_Target
 		float3 reflectionVector = reflect(incident , BumpNormal);
 		float4 reflectionColor = SkyboxTexture.Sample(LinearSampler , reflectionVector);
 
-		color += Mat.Reflect * reflectionColor;
+		color += Reflect * reflectionColor;
 	}
 
-	color.a = Mat.DiffuseMaterial.a * TexColor.a;
+	color.a = DiffuseMaterial.a * TexColor.a;
 
 	return color;
 }

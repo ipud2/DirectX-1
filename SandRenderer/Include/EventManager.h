@@ -8,7 +8,7 @@ namespace Sand
 	class EventManager
 	{
 	public:
-		EventManager();
+		//EventManager();
 		virtual ~EventManager();
 
 		bool AddEventListener( EventType e , IEventListener* pEventListener );
@@ -16,14 +16,17 @@ namespace Sand
 
 		bool ProcessEvent( EventPtr pEvent );
 
-		static EventManager* Get();
+		static EventManager& Get();
 
 	protected:
 		// 每类事件都可存在多个监听对象
 		std::vector<IEventListener*> m_vEventListeners[NUM_EVENTS];
 
 		// 保持只有一个实例
-		static EventManager* m_spEventManager;
+		
+	protected:
+		EventManager();
+		EventManager( const EventManager& rhs );
 	};
 };
 

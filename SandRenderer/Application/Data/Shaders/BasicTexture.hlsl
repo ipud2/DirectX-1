@@ -6,11 +6,6 @@ cbuffer DirectionLight
 	matrix ShadowTransformMatrix;
 };
 
-cbuffer SurfaceMaterial
-{
-	Material Mat;
-};
-
 cbuffer Transforms
 {
 	matrix WorldViewProjMatrix;
@@ -36,8 +31,6 @@ SamplerState LinearSampler;
 Texture2D DiffuseTexture;
 TextureCube SkyboxTexture;
 Texture2D ShadowMap;
-
-
 
 struct VertexIn
 {
@@ -105,8 +98,7 @@ float4 PSMain(in PixelIn input) : SV_Target
 	{
 		float4 A , D , S;
 
-		ComputeDirectionalLight(Mat , 
-								Light[i] ,
+		ComputeDirectionalLight(Light[i] ,
 								input.NormalW , 
 								ToEye , 
 								A , 
@@ -126,10 +118,10 @@ float4 PSMain(in PixelIn input) : SV_Target
 		float3 reflectionVector = reflect( incident , input.NormalW );		//get the reflect vector about input.NormalW
 		float4 reflectionColor = SkyboxTexture.Sample( LinearSampler , reflectionVector );
 
-		litColor += Mat.Reflect * reflectionColor;
+		litColor += Reflect * reflectionColor;
 	}
 
-	litColor.a = Mat.DiffuseMaterial.a * texColor.a;
+	litColor.a = DiffuseMaterial.a * texColor.a;
 
 	return litColor;
 }

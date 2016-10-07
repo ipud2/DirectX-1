@@ -65,7 +65,6 @@ namespace Sand
 		Vector4f m_TessParams;
 
 		MainCamera* m_pCameras;
-
 	};
 };
 #endif

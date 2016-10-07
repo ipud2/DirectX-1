@@ -380,6 +380,69 @@ int Renderer::CreateSwapChain( SwapChainConfig* pConfig )
 	return ( m_vSwapChain.size() - 1 );
 }
 
+void Renderer::ResizeSwapChain( int SID , int width , int height )
+{
+	unsigned int index = static_cast< unsigned int >( SID );
+
+	if ( !( index < m_vSwapChain.size() ) )
+	{
+		Log::Get().Write( L"Error trying to resize swap chain" );
+		return;
+	}
+
+	SwapChain* pSwapChain = m_vSwapChain[index];
+
+	Texture2D* pBackBuffer = reinterpret_cast< Texture2D* >( GetResourceByIndex( pSwapChain->m_ResourceProxy->GetResourceID() ) );
+	pBackBuffer->m_Texture.Reset();
+
+	ResourceProxyPtr proxy = GetSwapChainResource( index );
+
+	RenderTargetView& RTV = m_vRenderTargetViews[pSwapChain->m_ResourceProxy->GetRenderTargetViewID()];
+
+	DXGI_SWAP_CHAIN_DESC SwapDesc;
+	pSwapChain->GetResoruce()->GetDesc( &SwapDesc );
+
+	D3D11_RENDER_TARGET_VIEW_DESC RTVDesc;
+	RTV.GetRenderTargetView()->GetDesc( &RTVDesc );
+	RTV.m_RenderTargetView.Reset();
+
+	/*DepthStencilView& DSV = m_vDepthStencilViews[pSwapChain->m_ResourceProxy->GetDepthStencilViewID()];
+	D3D11_DEPTH_STENCIL_VIEW_DESC DSVDesc;
+	DSV.Get()->GetDesc( &DSVDesc );
+	DSV.m_DepthStencilView.Reset();*/
+
+	HRESULT hr = pSwapChain->GetResoruce()->ResizeBuffers( 1 , width , height , DXGI_FORMAT_R8G8B8A8_UNORM , 0 );
+	if ( FAILED( hr ) )
+	{
+		return;
+	}
+
+	hr = pSwapChain->GetResoruce()->GetBuffer( 0 , __uuidof( ID3D11Texture2D ) , reinterpret_cast< void** >( pBackBuffer->m_Texture.GetAddressOf() ) );
+
+	if ( FAILED( hr ) )
+	{
+		Log::Get().Write( L"交换链相关联的缓存获取失败" );
+
+		return;
+	}
+
+	hr = m_pDevice->CreateRenderTargetView( pBackBuffer->GetResource() , &RTVDesc , RTV.m_RenderTargetView.GetAddressOf() );
+	if ( FAILED( hr ) )
+	{
+		Log::Get().Write( L"RenderTarget创建失败" );
+
+		return;
+	}
+
+	/*hr = m_pDevice->CreateDepthStencilView( pBackBuffer->GetResource() , &DSVDesc , DSV.m_DepthStencilView.GetAddressOf() );
+	if ( FAILED( hr ) )
+	{
+		Log::Get().Write( L"DepthStencil创建失败" );
+		
+		return;
+	}*/
+}
+
 int Renderer::CreateShaderResourceView( int ResourceID , D3D11_SHADER_RESOURCE_VIEW_DESC* Desc )
 {
 	// 获取资源对象， 判断资源对象是否为nullptr
@@ -758,6 +821,20 @@ int Sand::Renderer::CreateViewPort( D3D11_VIEWPORT viewport )
 	m_vViewPorts.emplace_back( viewport );
 
 	return ( m_vViewPorts.size() - 1 );
+}
+
+void Sand::Renderer::ResizeViewport( int ID , UINT width , UINT height )
+{
+	unsigned int index = static_cast< unsigned int >( ID );
+
+	if ( !( index < m_vViewPorts.size() ) )
+	{
+		Log::Get().Write( L"Error trying to resize viewport" );
+	}
+
+	ViewPort& pViewport = m_vViewPorts[index];
+	pViewport.m_ViewPort.Width = static_cast< float >( width );
+	pViewport.m_ViewPort.Height = static_cast< float >( height );
 }
 
 ResourceProxyPtr Renderer::LoadTexture( std::wstring filename , bool sRGB /*= false */ )
