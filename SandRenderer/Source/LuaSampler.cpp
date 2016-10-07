@@ -3,7 +3,7 @@
 #include "SamplerStateConfig.h"
 extern "C"
 {
-#include "Lua-5.3.3/src/lua.h"
+#include "Lua/inc/lua.h"
 }
 
 void Sand::ParseLuaSamplerTable( lua_State* L , LuaSampler* sampler )

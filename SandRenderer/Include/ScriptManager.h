@@ -5,9 +5,9 @@
 
 extern "C"
 {
-#include "Lua-5.3.3/src/lua.h"
-#include "lua-5.3.3/src/lauxlib.h"
-#include "lua-5.3.3/src/lualib.h"
+#include "Lua/inc/lua.h"
+#include "lua/inc/lauxlib.h"
+#include "lua/inc/lualib.h"
 }
 
 struct ClassData
