@@ -561,10 +561,10 @@ void FFbxImporter::ReadMeshInfo()
 			FbxNode* pMeshNode				= ( *iter )->GetNode();
 			FbxAMatrix GeometricTransform	= FbxAMatrix( pMeshNode->GetGeometricTranslation( FbxNode::eSourcePivot ) , pMeshNode->GetGeometricRotation( FbxNode::eSourcePivot ) , pMeshNode->GetGeometricScaling( FbxNode::eSourcePivot ) );
 			FbxAMatrix& GlobalTransform		= pMeshNode->EvaluateGlobalTransform();
-			Matrix4f GeometricTranRowMajor = converter.ConvertMatrix( GeometricTransform );
-			Matrix4f GlobalTranRowMajor = converter.ConvertMatrix( GlobalTransform );
+			Matrix4f GeometricTranRowMajor	= converter.ConvertMatrix( GeometricTransform );
+			Matrix4f GlobalTranRowMajor		= converter.ConvertMatrix( GlobalTransform );
 			pMesh->SetTransform( GeometricTranRowMajor * GlobalTranRowMajor );
-			pMesh->SetName( ( *iter )->GetName() );
+			pMesh->SetName( pMeshNode->GetName() );
 			m_vLocalTransform.push_back( pMesh->GetTransform() );
 
 			std::map<int , int> vMaterialMap;
