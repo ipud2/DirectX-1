@@ -9,7 +9,8 @@ ipch
 *.ipdb
 *.sdf
 *.idb
+*.vcxproj.user
+.vs
 Library
 Release
-.vs
 Source/Bin
