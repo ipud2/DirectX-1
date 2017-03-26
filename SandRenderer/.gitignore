@@ -10,6 +10,8 @@ ipch
 *.sdf
 *.idb
 *.vcxproj.user
+*.opendb
+*.cache
 .vs
 Library
 Release

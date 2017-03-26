@@ -560,8 +560,6 @@ void FFbxImporter::ReadMeshInfo()
 
 			FbxNode* pMeshNode				= ( *iter )->GetNode();
 			FbxAMatrix GeometricTransform	= FbxAMatrix( pMeshNode->GetGeometricTranslation( FbxNode::eSourcePivot ) , pMeshNode->GetGeometricRotation( FbxNode::eSourcePivot ) , pMeshNode->GetGeometricScaling( FbxNode::eSourcePivot ) );
-			/*FbxAMatrix GeometricTransform;
-			GeometricTransform.SetIdentity();*/
 			FbxAMatrix& GlobalTransform		= pMeshNode->EvaluateGlobalTransform();
 			Matrix4f GeometricTranRowMajor = converter.ConvertMatrix( GeometricTransform );
 			Matrix4f GlobalTranRowMajor = converter.ConvertMatrix( GlobalTransform );
