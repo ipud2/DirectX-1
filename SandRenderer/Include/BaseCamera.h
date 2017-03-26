@@ -41,7 +41,7 @@ namespace Sand
 
 		const Matrix4f& GetProjectionMatrix() const;
 
-		Vector3f& GetViewPosition();
+		Vector3f GetViewPosition();
 		void SetViewPosition( Vector3f ViewPosition );
 
 		bool HandleEvent( EventPtr pEvent );

@@ -22,7 +22,7 @@ void MaterialLua::Apply( lua_State* L , std::map<std::string , MatItem>& ParamLi
 			{
 				case LUA_TNUMBER:
 				{
-					bool bInteger = lua_isinteger( L , -1 );
+					bool bInteger = lua_isinteger( L , -1 ) == 1;
 					if ( bInteger )
 					{
 						item.eType = ELT_INTEGER;
@@ -31,7 +31,7 @@ void MaterialLua::Apply( lua_State* L , std::map<std::string , MatItem>& ParamLi
 					else
 					{
 						item.eType = ELT_NUMBER;
-						item.v.f = lua_tonumber( L , -1 );
+						item.v.f = ( float )lua_tonumber( L , -1 );
 					}
 
 					ParamList[param_name] = item;
@@ -40,7 +40,7 @@ void MaterialLua::Apply( lua_State* L , std::map<std::string , MatItem>& ParamLi
 
 				case LUA_TTABLE:
 				{
-					lua_len( L , -1 );	int len = lua_tointeger( L , -1 );	lua_pop( L , 1 );
+					lua_len( L , -1 );	int len = ( int )lua_tointeger( L , -1 );	lua_pop( L , 1 );
 					if ( len == 4 )
 					{
 						int type = lua_rawgeti( L , -1 , 1 );
@@ -59,7 +59,7 @@ void MaterialLua::Apply( lua_State* L , std::map<std::string , MatItem>& ParamLi
 						for ( int i = 0; i < 4; i++ )
 						{
 							float v = 0.0f;
-							lua_rawgeti( L , -1 , i + 1 );	v = lua_tonumber( L , -1 );	lua_pop( L , 1 );
+							lua_rawgeti( L , -1 , i + 1 );	v = ( float )lua_tonumber( L , -1 );	lua_pop( L , 1 );
 							item.v.arr[i] = v;
 						}
 					}
@@ -78,7 +78,7 @@ void MaterialLua::Apply( lua_State* L , std::map<std::string , MatItem>& ParamLi
 				case LUA_TBOOLEAN:
 				{
 					item.eType = ELT_BOOL;
-					item.v.b = lua_toboolean( L , -1 );
+					item.v.b = lua_toboolean( L , -1 ) == 1;
 
 					ParamList[param_name] = item;
 

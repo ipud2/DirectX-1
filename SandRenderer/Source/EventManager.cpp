@@ -72,7 +72,7 @@ bool EventManager::ProcessEvent( EventPtr pEvent )
 	}
 
 	// 类型为EventID的事件发生，则对应类型的所有监听器开始执行操作
-	unsigned int num = m_vEventListeners[EventID].size();
+	int num = ( int )m_vEventListeners[EventID].size();
 	
 	bool bHandled = false;
 	for( int i = 0; i < num; i++ )

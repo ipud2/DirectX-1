@@ -14,6 +14,10 @@ Geometry::Geometry()
 	m_iVertexCount = 0;
 
 	m_pShaderResourceWriter = ParameterWriters.GetShaderResourceParameterWriter( L"DiffuseTexture" );
+
+	m_vIndexOffset.clear();
+	m_vIndexCounts.clear();
+	m_vVertexOffset.clear();
 }
 
 Geometry::~Geometry()
@@ -42,7 +46,7 @@ void Geometry::Execute( PipelineManager* pPipelineManager , IParameterManager* p
 
 	pPipelineManager->ApplyInputResource();
 
-	pPipelineManager->DrawIndexed( m_IndexCounts[SubObjectID] , m_Offsets[SubObjectID] , 0 );
+	pPipelineManager->DrawIndexed( m_vIndexCounts[SubObjectID] , m_vIndexOffset[SubObjectID] , m_vVertexOffset[SubObjectID] );
 }
 
 void Geometry::AddFace( int index_1 , int index_2 , int index_3 )
@@ -97,7 +101,7 @@ void Geometry::LoadToBuffer()
 		for( int i = 0; i < m_iVertexCount; i++ )
 		{
 			int offset = 0;
-			for( int j = 0; j < m_vElements.size(); j++ )
+			for( int j = 0; j < ( int )m_vElements.size(); j++ )
 			{
 				// 将顶点各属性数据逐个拷贝
 				memcpy( pData + i * m_iVertexStructureSize + offset , m_vElements[j]->GetDataPtr( i ) , m_vElements[j]->GetElementSizeInBytes() );
@@ -128,7 +132,7 @@ void Geometry::LoadToBuffer()
 		IndexInitData.SysMemSlicePitch = 0;
 
 		BufferConfig IndexBufferConfig;
-		IndexBufferConfig.SetDefaultIndexBuffer( m_vIndices.size() * sizeof( unsigned int ) , false );
+		IndexBufferConfig.SetDefaultIndexBuffer( ( UINT )m_vIndices.size() * sizeof( unsigned int ) , false );
 
 		// 创建Index Buffer
 		m_IndexBuffer = Renderer::Get()->CreateIndexBuffer( &IndexBufferConfig , &IndexInitData );
@@ -166,7 +170,7 @@ int Geometry::CalculateVertexStructureSize()
 
 void Geometry::GenerateInputLayout( int ShaderID )
 {
-	int ElementCount = m_vElements.size();
+	int ElementCount = ( int )m_vElements.size();
 
 	if( ElementCount == 0 )
 	{
@@ -215,8 +219,8 @@ void Geometry::GenerateInputLayout( int ShaderID )
 
 int Geometry::GetPrimitiveCount()
 {
-	UINT count = 0;
-	UINT indices = m_vIndices.size();
+	int count = 0;
+	int indices = ( int )m_vIndices.size();
 
 	switch( m_PrimitiveTopology )
 	{
@@ -319,16 +323,17 @@ D3D11_PRIMITIVE_TOPOLOGY Geometry::GetPrimitiveTopology()
 	return m_PrimitiveTopology;
 }
 
-void Geometry::AddGroupInfo( int Offset , int Counts , ResourceProxyPtr DiffuseMap /*= ResourceProxyPtr( new ResourceProxy ) */ )
+void Geometry::AddGroupInfo( int iIndexOffset , int iIndexCount , int iVertexOffset /*= 0*/ , ResourceProxyPtr DiffuseMap /*= ResourceProxyPtr( new ResourceProxy ) */ )
 {
-	m_Offsets.push_back( Offset );
-	m_IndexCounts.push_back( Counts );
+	m_vIndexOffset.push_back( iIndexOffset );
+	m_vIndexCounts.push_back( iIndexCount );
+	m_vVertexOffset.push_back( iVertexOffset );
 	m_DiffuseTextures.push_back( DiffuseMap );
 }
 
-unsigned int Geometry::GetSubObjectCount() const
+uint32 Geometry::GetSubObjectCount() const
 {
-	return m_Offsets.size();
+	return ( uint32 )m_vIndexOffset.size();
 }
 
 void Geometry::UpdateRenderParameters( IParameterManager* pParameterManager , int SubObjectID )

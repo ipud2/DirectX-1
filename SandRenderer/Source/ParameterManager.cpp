@@ -50,7 +50,7 @@ void ParameterManager::SetBoolParameterData( const std::wstring& name , bool* pB
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将Bool值赋给非Bool型参数" );
+			Log::Get().Error( L"尝试将Bool值赋给非Bool型参数" );
 		}
 	}
 }
@@ -78,7 +78,7 @@ void ParameterManager::SetFloatParameterData( const std::wstring& name , float* 
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将Float值赋给非Float型参数" );
+			Log::Get().Error( L"尝试将Float值赋给非Float型参数" );
 		}
 	}
 }
@@ -106,7 +106,7 @@ void ParameterManager::SetVector4fParameterData( const std::wstring& name , Vect
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将Vector值赋给非Vector型参数" );
+			Log::Get().Error( L"尝试将Vector值赋给非Vector型参数" );
 		}
 	}
 }
@@ -134,7 +134,7 @@ void ParameterManager::SetVector3fParameterData( const std::wstring& name , Vect
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将Vector值赋给非Vector型参数" );
+			Log::Get().Error( L"尝试将Vector值赋给非Vector型参数" );
 		}
 	}
 }
@@ -162,7 +162,7 @@ void ParameterManager::SetVector2fParameterData( const std::wstring& name , Vect
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将Vector值赋给非Vector型参数" );
+			Log::Get().Error( L"尝试将Vector值赋给非Vector型参数" );
 		}
 	}
 }
@@ -190,7 +190,7 @@ void ParameterManager::SetMatrixParameterData( const std::wstring& name , Matrix
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将Matrix值赋给非Matrix型参数" );
+			Log::Get().Error( L"尝试将Matrix值赋给非Matrix型参数" );
 		}
 	}
 }
@@ -218,7 +218,7 @@ void ParameterManager::SetMatrixArrayParameterData( const std::wstring& name , i
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将MatrixArray值赋给非MatrixArray型参数" );
+			Log::Get().Error( L"尝试将MatrixArray值赋给非MatrixArray型参数" );
 		}
 	}
 }
@@ -245,7 +245,7 @@ void ParameterManager::SetStructureParameterData( const std::wstring& name , int
 		}
 		else
 		{
-			Log::Get().Write( L"trying to set value to non-struct parameter object" );
+			Log::Get().Error( L"trying to set value to non-struct parameter object" );
 		}
 	}
 }
@@ -275,7 +275,7 @@ void ParameterManager::SetShaderResourceParameterData( const std::wstring& name 
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将ShaderResource值赋给非ShaderResource型参数" );
+			Log::Get().Error( L"尝试将ShaderResource值赋给非ShaderResource型参数" );
 		}
 	}
 }
@@ -305,7 +305,7 @@ void ParameterManager::SetUnorderedAccessParameterData( const std::wstring& name
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将UnorderedAccessView值赋给非UnorderedAccessView型参数" );
+			Log::Get().Error( L"尝试将UnorderedAccessView值赋给非UnorderedAccessView型参数" );
 		}
 	}
 }
@@ -335,7 +335,7 @@ void ParameterManager::SetConstantBufferParameterData( const std::wstring& name 
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将ConstantBuffer值赋给非ConstantBuffer型参数" );
+			Log::Get().Error( L"尝试将ConstantBuffer值赋给非ConstantBuffer型参数" );
 		}
 	}
 }
@@ -363,7 +363,7 @@ void ParameterManager::SetSamplerStateParameterData( const std::wstring& name , 
 		}
 		else
 		{
-			Log::Get().Write( L"尝试将Sampler值赋给非Sampler型参数" );
+			Log::Get().Error( L"尝试将Sampler值赋给非Sampler型参数" );
 		}
 	}
 }
@@ -377,7 +377,7 @@ void ParameterManager::SetBoolParameterData( RenderParameter* pParameter , bool*
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是Bool类型" );
+		Log::Get().Error( L"参数类型不符，该参数不是Bool类型" );
 	}
 }
 
@@ -390,7 +390,7 @@ void ParameterManager::SetFloatParameterData( RenderParameter* pParameter , floa
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是Float类型" );
+		Log::Get().Error( L"参数类型不符，该参数不是Float类型" );
 	}
 }
 
@@ -403,7 +403,7 @@ void ParameterManager::SetVector4fParameterData( RenderParameter* pParameter , V
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是Vector类型" );
+		Log::Get().Error( L"参数类型不符，该参数不是Vector类型" );
 	}
 }
 
@@ -417,7 +417,7 @@ void ParameterManager::SetVector3fParameterData( RenderParameter* pParameter , V
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是Vector类型" );
+		Log::Get().Error( L"参数类型不符，该参数不是Vector类型" );
 	}
 }
 
@@ -430,7 +430,7 @@ void ParameterManager::SetVector2fParameterData( RenderParameter* pParameter , V
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是Vector类型" );
+		Log::Get().Error( L"参数类型不符，该参数不是Vector类型" );
 	}
 }
 
@@ -442,7 +442,7 @@ void ParameterManager::SetMatrixParameterData( RenderParameter* pParameter , Mat
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是Matrix类型" );
+		Log::Get().Error( L"参数类型不符，该参数不是Matrix类型" );
 	}
 }
 
@@ -454,7 +454,7 @@ void ParameterManager::SetMatrixArrayParameterData( RenderParameter* pParameter 
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是MatrixArray类型" );
+		Log::Get().Error( L"参数类型不符，该参数不是MatrixArray类型" );
 	}
 }
 
@@ -466,7 +466,7 @@ void ParameterManager::SetStructureParameterData( RenderParameter* pParameter , 
 	}
 	else
 	{
-		Log::Get().Write( L"type can't match , isn't structure parameter object" );
+		Log::Get().Error( L"type can't match , isn't structure parameter object" );
 	}
 }
 
@@ -479,7 +479,7 @@ void ParameterManager::SetShaderResourceParameterData( RenderParameter* pParamet
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是ShaderResourceView对象的参数" );
+		Log::Get().Error( L"参数类型不符，该参数不是ShaderResourceView对象的参数" );
 	}
 }
 
@@ -492,7 +492,7 @@ void ParameterManager::SetConstantBufferParameterData( RenderParameter* pParamet
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是ConstantBuffer的参数" );
+		Log::Get().Error( L"参数类型不符，该参数不是ConstantBuffer的参数" );
 	}
 }
 
@@ -505,7 +505,7 @@ void ParameterManager::SetUnorderedAccessParameterData( RenderParameter* pParame
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是UnorderedAccessView的参数" );
+		Log::Get().Error( L"参数类型不符，该参数不是UnorderedAccessView的参数" );
 	}
 }
 
@@ -517,7 +517,7 @@ void ParameterManager::SetSamplerStateParameterData( RenderParameter* pParameter
 	}
 	else
 	{
-		Log::Get().Write( L"参数类型不符，该参数不是SamplerState的参数" );
+		Log::Get().Error( L"参数类型不符，该参数不是SamplerState的参数" );
 	}
 }
 
@@ -729,7 +729,7 @@ float ParameterManager::GetFloatParameterData( const std::wstring& name )
 {
 	RenderParameter* pParameter = Parameters[name];
 
-	bool result = false;
+	float result = 0.0f;
 
 	if ( pParameter == nullptr )
 	{

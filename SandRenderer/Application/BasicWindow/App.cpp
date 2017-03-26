@@ -40,7 +40,7 @@ bool App::ConfigureEngineComponents()
 	// 配置默认的Rasterizer State 和 Blend State and DepthStencilState
 	if( !m_pRenderer->Initialize( D3D_DRIVER_TYPE_HARDWARE , D3D_FEATURE_LEVEL_11_0 ) )
 	{
-		Log::Get().Write( L"无法创建硬件设备，尝试创建reference设备" );
+		Log::Get().Error( L"无法创建硬件设备，尝试创建reference设备" );
 
 		if( !m_pRenderer->Initialize( D3D_DRIVER_TYPE_REFERENCE , D3D_FEATURE_LEVEL_11_0 ) )
 		{

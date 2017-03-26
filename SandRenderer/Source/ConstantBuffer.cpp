@@ -33,7 +33,7 @@ void ConstantBuffer::EvaluateElements( PipelineManager* pPipelineManager , IPara
 	{
 		bool doUpdate = false;	// 默认不需要更新
 
-		for( int i = 0; i < m_vElements.size(); i++ )
+		for( int i = 0; i < ( int )m_vElements.size(); i++ )
 		{
 			if( m_vElements[i].pParamRef->GetIdentifier() != m_vElements[i].Identifier )
 			{
@@ -49,7 +49,7 @@ void ConstantBuffer::EvaluateElements( PipelineManager* pPipelineManager , IPara
 			D3D11_MAPPED_SUBRESOURCE MappedResource;
 			pPipelineManager->MapResource( this , 0 , D3D11_MAP_WRITE_DISCARD , 0 , &MappedResource );
 
-			for( int i = 0; i < m_vElements.size(); i++ )
+			for( int i = 0; i < ( int )m_vElements.size(); i++ )
 			{
 				m_vElements[i].Identifier = m_vElements[i].pParamRef->GetIdentifier();
 
@@ -121,7 +121,7 @@ void ConstantBuffer::EvaluateElements( PipelineManager* pPipelineManager , IPara
 						}
 						else
 						{
-							Log::Get().Write( L"MisMatch in matrix array count , update will not be performed!!" );
+							Log::Get().Error( L"MisMatch in matrix array count , update will not be performed!!" );
 						}
 						
 					}
@@ -148,7 +148,7 @@ void ConstantBuffer::EmptyElements()
 bool ConstantBuffer::ConstainElement( int index , const ConstantBufferElementDesc & element )
 {
 	// 首先判断index是否合理
-	assert( index < m_vElements.size() );
+	assert( index < ( int )m_vElements.size() );
 
 	ConstantBufferElementDesc e = m_vElements[index];
 

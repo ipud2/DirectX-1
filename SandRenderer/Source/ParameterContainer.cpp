@@ -26,7 +26,7 @@ void ParameterContainer::AddRenderParameter( ParameterWriter* pWriter )
 		ParameterWriter* pCurr = nullptr;
 
 		// 判断是否已存在该ParameterWriter
-		for( int i = 0; i < m_RenderParameter.size(); i++ )
+		for( int i = 0; i < ( int )m_RenderParameter.size(); i++ )
 		{
 			if( pWriter->GetRenderParameterRef()->GetName() == m_RenderParameter[i]->GetRenderParameterRef()->GetName() )
 			{
@@ -41,7 +41,7 @@ void ParameterContainer::AddRenderParameter( ParameterWriter* pWriter )
 		}
 		else
 		{
-			Log::Get().Write( L"tried to add a parameter writer to an entity that was already there" );
+			Log::Get().Error( L"tried to add a parameter writer to an entity that was already there" );
 		}
 	}
 }
@@ -86,12 +86,12 @@ BoolParameterWriter* ParameterContainer::GetBoolParameterWriter( const std::wstr
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a bool in a non-bool parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a bool in a non-bool parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 	}
 
@@ -127,12 +127,12 @@ FloatParameterWriter* ParameterContainer::GetFloatParameterWriter( const std::ws
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a float in a non-bool parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a float in a non-bool parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 	}
 
@@ -168,12 +168,12 @@ Vector4fParameterWriter* ParameterContainer::GetVector4fParameterWriter( const s
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a vector in a non-vector parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a vector in a non-vector parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
 	}
@@ -210,12 +210,12 @@ Vector3fParameterWriter* ParameterContainer::GetVector3fParameterWriter( const s
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a vector in a non-vector parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a vector in a non-vector parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
 	}
@@ -252,12 +252,12 @@ Vector2fParameterWriter* ParameterContainer::GetVector2fParameterWriter( const s
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a vector in a non-vector parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a vector in a non-vector parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
 	}
@@ -294,12 +294,12 @@ MatrixParameterWriter* ParameterContainer::GetMatrixParameterWriter( const std::
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a vector in a non-matrix parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a vector in a non-matrix parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
 	}
@@ -334,12 +334,12 @@ MatrixArrayParameterWriter* ParameterContainer::GetMatrixArrayParameterWriter( c
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a matrixarray in a non-matrixarray parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a matrixarray in a non-matrixarray parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
 	}
@@ -376,12 +376,12 @@ StructureParameterWriter* ParameterContainer::GetStructureParameterWriter( const
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a structure Parameter Writer in non-StructureParameterWriter" );
+				Log::Get().Error( L"Error: Trying to access a structure Parameter Writer in non-StructureParameterWriter" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a Parameter writer without any reference set" );
+			Log::Get().Error( L"Error: Trying to access a Parameter writer without any reference set" );
 		}
 	}
 
@@ -415,12 +415,12 @@ SamplerParameterWriter* ParameterContainer::GetSamplerParameterWriter( const std
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a vector in a non-sampler parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a vector in a non-sampler parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
 	}
@@ -454,12 +454,12 @@ ShaderResourceParameterWriter* ParameterContainer::GetShaderResourceParameterWri
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a vector in a non-ShaderResource parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a vector in a non-ShaderResource parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
 	}
@@ -494,12 +494,12 @@ UnorderedAccessParameterWriter* ParameterContainer::GetUnorderedAccessParameterW
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a vector in a non-ShaderResource parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a vector in a non-ShaderResource parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
 	}
@@ -533,12 +533,12 @@ ConstantBufferParameterWriter* ParameterContainer::GetConstantBufferParameterWri
 			}
 			else
 			{
-				Log::Get().Write( L"Error: Trying to access a vector in a non-ShaderResource parameter writers!!" );
+				Log::Get().Error( L"Error: Trying to access a vector in a non-ShaderResource parameter writers!!" );
 			}
 		}
 		else
 		{
-			Log::Get().Write( L"Error: Trying to access a parameter writer without any reference set!!" );
+			Log::Get().Error( L"Error: Trying to access a parameter writer without any reference set!!" );
 		}
 
 	}

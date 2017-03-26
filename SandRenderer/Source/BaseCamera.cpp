@@ -21,10 +21,10 @@ BaseCamera::BaseCamera()
 	m_pViewPositionWriter( nullptr ) ,
 	m_pSpatialController( nullptr ) ,
 	m_pOrientationController( nullptr ) ,
-	m_iLastMouseY( 0.0f ) ,
-	m_iLastMouseX( 0.0f ) ,
-	m_iMouseDeltaX( 0.0f ) ,
-	m_iMouseDeltaY( 0.0f ) ,
+	m_iLastMouseY( 0 ) ,
+	m_iLastMouseX( 0 ) ,
+	m_iMouseDeltaX( 0 ) ,
+	m_iMouseDeltaY( 0 ) ,
 	m_ProjMatrix()
 {
 	m_pSpatialController = new SpatialController < Node >();
@@ -92,7 +92,7 @@ const Matrix4f& BaseCamera::GetProjectionMatrix() const
 	return m_ProjMatrix;
 }
 
-Vector3f& BaseCamera::GetViewPosition()
+Vector3f BaseCamera::GetViewPosition()
 {
 	return GetRootNode()->GetTransformRef().GetWorldMatrix().GetTranslate();
 }
@@ -139,8 +139,8 @@ bool BaseCamera::HandleEvent( EventPtr pEvent )
 	{
 		EventMouseMovePtr pMouseMove = std::static_pointer_cast< EventMouseMove >( pEvent );
 
-		m_iMouseDeltaX = 0.0f;
-		m_iMouseDeltaY = 0.0f;
+		m_iMouseDeltaX = 0;
+		m_iMouseDeltaY = 0;
 
 		const int mouseX = pMouseMove->GetX();
 		const int mouseY = pMouseMove->GetY();

@@ -35,7 +35,7 @@ namespace Sand
 
 		void AddFace( int index_1 , int index_2 , int index_3 );
 
-		void AddGroupInfo( int Offset , int Counts , ResourceProxyPtr DiffuseMap = ResourceProxyPtr( new ResourceProxy ) );
+		void AddGroupInfo( int iIndexOffset , int iIndexCount , int iVertexIndex = 0 , ResourceProxyPtr DiffuseMap = ResourceProxyPtr( new ResourceProxy ) );
 		
 		// 为索引为ShaderID的顶点着色器创建InputLayout对象
 		void GenerateInputLayout( int ShaderID );
@@ -49,7 +49,7 @@ namespace Sand
 		// 计算顶点结构大小
 		int CalculateVertexStructureSize();
 
-		virtual unsigned int GetSubObjectCount() const;
+		virtual uint32 GetSubObjectCount() const;
 
 	protected:
 		ParameterContainer ParameterWriters;
@@ -74,8 +74,9 @@ namespace Sand
 		// 图元拓扑结构
 		D3D11_PRIMITIVE_TOPOLOGY m_PrimitiveTopology;
 
-		std::vector<int> m_Offsets;
-		std::vector<int> m_IndexCounts;
+		std::vector<int> m_vIndexOffset;
+		std::vector<int> m_vIndexCounts;
+		std::vector<int> m_vVertexOffset;
 		std::vector<ResourceProxyPtr> m_DiffuseTextures;
 	};
 

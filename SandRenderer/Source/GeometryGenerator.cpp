@@ -15,7 +15,7 @@ void GeometryGenerator::GeneratorFullScreenQuad( GeometryPtr pGeometry )
 {
 	if( pGeometry == nullptr )
 	{
-		Log::Get().Write( L"试图在一个null geometry对象中生成全屏块" );
+		Log::Get().Error( L"试图在一个null geometry对象中生成全屏块" );
 		return;
 	}
 
@@ -555,7 +555,7 @@ GeometryPtr GeometryGenerator::GeneratorCylinder( float bottomRadius , float top
 {
 	GeometryPtr pGeometry = GeometryPtr( new Geometry );
 
-	float NumVertices = ( stackCount + 1 ) * ( sliceCount + 1 ) + 2 * sliceCount + 4;
+	int NumVertices = ( stackCount + 1 ) * ( sliceCount + 1 ) + 2 * sliceCount + 4;
 
 	VertexElement* pPosition = new VertexElement( 3 , NumVertices );
 	pPosition->m_SemanticName = "POSITION";
@@ -601,7 +601,7 @@ GeometryPtr GeometryGenerator::GeneratorCylinder( float bottomRadius , float top
 	//将圆柱体从上到下分stackCount份，每一份绕着中心分sliceCount
 	float stackHeight = height / stackCount;	//y轴的增量
 
-	unsigned int radiusStep = ( topRadius - bottomRadius ) / stackCount;	//半径增量
+	unsigned int radiusStep = ( uint32 )( topRadius - bottomRadius ) / stackCount;	//半径增量
 
 	unsigned int ringCount = stackCount + 1;
 	for ( unsigned int i = 0; i < ringCount; i++ )

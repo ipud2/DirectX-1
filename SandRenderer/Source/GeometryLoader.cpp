@@ -25,7 +25,7 @@ std::array<int , 3> ToIndexTriple( const std::string s )
 
 	std::array<int , 3> triple = { 0 , 0 , 0 };
 
-	for( int i = 0; i < elements.size(); i++ )
+	for( int i = 0; i < ( int )elements.size(); i++ )
 	{
 		triple[i] = atoi( elements[i].c_str() ) - 1;
 	}
@@ -43,7 +43,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring& filename )
 	std::ifstream fin( filename , std::ios::in );
 	if( !fin.is_open() )
 	{
-		Log::Get().Write( L"open obj file failed!" );
+		Log::Get().Error( L"open obj file failed!" );
 		return nullptr;
 	}
 
@@ -117,7 +117,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring& filename )
 
 	GeometryPtr MeshPtr = GeometryPtr( new Geometry );
 
-	VertexElement* PosVertexElement = new VertexElement( 3 , Faces.size() * 3 );
+	VertexElement* PosVertexElement = new VertexElement( 3 , ( int )Faces.size() * 3 );
 	PosVertexElement->m_SemanticName = VertexElement::PositionSemantic;
 	PosVertexElement->m_uiSemanticIndex = 0;
 	PosVertexElement->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
@@ -130,7 +130,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring& filename )
 	{
 		Vector3f* Pos = ( Vector3f* )( ( *PosVertexElement )[0] );
 
-		for ( int i = 0; i < Faces.size(); i++ )
+		for( int i = 0; i < ( int )Faces.size(); i++ )
 		{
 			// 遍历每个面
 			int index_1 = 3 * i + 0;
@@ -157,7 +157,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring& filename )
 	MeshPtr->AddElement( PosVertexElement );
 
 
-	VertexElement* TexVertexElement = TexVertexElement = new VertexElement( 2 , Faces.size() * 3 );
+	VertexElement* TexVertexElement = TexVertexElement = new VertexElement( 2 , ( int )Faces.size() * 3 );
 	TexVertexElement->m_SemanticName = VertexElement::TexCoordSemantic;
 	TexVertexElement->m_uiSemanticIndex = 0;
 	TexVertexElement->m_Format = DXGI_FORMAT_R32G32_FLOAT;
@@ -170,7 +170,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring& filename )
 	{
 		Vector2f* Tex = ( Vector2f* )( ( *TexVertexElement )[0] );
 
-		for ( int i = 0; i < Faces.size(); i++ )
+		for( int i = 0; i < ( int )Faces.size(); i++ )
 		{
 			// 遍历每个面
 			int index_1 = 3 * i + 0;
@@ -193,7 +193,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring& filename )
 	MeshPtr->AddElement( TexVertexElement );
 
 
-	VertexElement* NormalVertexElement = new VertexElement( 3 , Faces.size() * 3 );
+	VertexElement* NormalVertexElement = new VertexElement( 3 , ( int )Faces.size() * 3 );
 	NormalVertexElement->m_SemanticName = VertexElement::NormalSemantic;
 	NormalVertexElement->m_uiSemanticIndex = 0;
 	NormalVertexElement->m_Format = DXGI_FORMAT_R32G32B32_FLOAT;
@@ -206,7 +206,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring& filename )
 	{
 		Vector3f* Normal = ( Vector3f* )( ( *NormalVertexElement )[0] );
 
-		for ( int i = 0; i < Faces.size(); i++ )
+		for( int i = 0; i < ( int )Faces.size(); i++ )
 		{
 			// 遍历每个面
 			int index_1 = 3 * i + 0;
@@ -236,7 +236,7 @@ GeometryPtr GeometryLoader::LoadOBJ( std::wstring& filename )
 	MeshPtr->AddElement( NormalVertexElement );
 
 
-	for( int i = 0; i < Faces.size(); i++ )
+	for( int i = 0; i < ( int )Faces.size(); i++ )
 	{
 		// 添加面的索引
 		MeshPtr->AddFace( 3 * i + 0 , 3 * i + 1 , 3 * i + 2 );
@@ -272,7 +272,7 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 	std::ifstream fin( filename , std::ios::in );
 	if ( !fin.is_open() )
 	{
-		Log::Get().Write( L"open obj file failed!" );
+		Log::Get().Error( L"open obj file failed!" );
 		return nullptr;
 	}
 
@@ -384,11 +384,11 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 	std::map<std::string , ResourceProxyPtr> mtlLibs;
 	for ( std::vector<std::string>::iterator iter = MaterialLibs.begin(); iter != MaterialLibs.end(); iter++ )
 	{
-		std::wstring MTLFilename = fs.GetModelFolder() + SandString::ToUnicode( *iter );
+		std::wstring MTLFilename = fs.GetModelFolder() + StringUtil::ToUnicode( *iter );
 		std::ifstream fin( MTLFilename , std::ios::in );
 		if ( !fin.is_open() )
 		{
-			Log::Get().Write( L"open obj file failed!" );
+			Log::Get().Error( L"open obj file failed!" );
 			return nullptr;
 		}
 
@@ -441,7 +441,7 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 				}
 				else if ( tokenList[0] == "map_Kd" )
 				{
-					mtlLibs[MaterialName] = Renderer::Get()->LoadTexture( SandString::ToUnicode( tokenList[1] ) );
+					mtlLibs[MaterialName] = Renderer::Get()->LoadTexture( StringUtil::ToUnicode( tokenList[1] ) );
 				}
 			}
 		}
@@ -454,13 +454,13 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 	ResourceProxyPtr DiffuseMap;
 	int Offset = 0;
 	int Count = 0;
-	for ( int i = 0; i < Objects.size(); i++ )
+	for( int i = 0; i < ( int )Objects.size(); i++ )
 	{
-		for ( int j = 0; j < Objects[i].SubObjects.size(); j++ )
+		for ( int j = 0; j < ( int )Objects[i].SubObjects.size(); j++ )
 		{
 			Offset += Count;
 
-			Count = Objects[i].SubObjects[j].Faces.size() * 3;
+			Count = ( int )Objects[i].SubObjects[j].Faces.size() * 3;
 
 			if ( Objects[i].SubObjects[j].MaterialName != "" )
 			{
@@ -471,7 +471,7 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 				DiffuseMap = ResourceProxyPtr( new ResourceProxy );
 			}
 
-			MeshPtr->AddGroupInfo( Offset , Count , DiffuseMap );
+			MeshPtr->AddGroupInfo( Offset , Count , 0 , DiffuseMap );
 		}
 	}
 
@@ -493,11 +493,11 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 		Vector3f* Pos = ( Vector3f* )( ( *PosVertexElement )[0] );
 
 		int FaceCount = 0;
-		for ( int i = 0; i < Objects.size(); i++ )
+		for ( int i = 0; i < ( int )Objects.size(); i++ )
 		{
-			for ( int j = 0; j < Objects[i].SubObjects.size(); j++ )
+			for ( int j = 0; j < ( int )Objects[i].SubObjects.size(); j++ )
 			{
-				for ( int k = 0; k < Objects[i].SubObjects[j].Faces.size(); k++ )
+				for ( int k = 0; k < ( int )Objects[i].SubObjects[j].Faces.size(); k++ )
 				{
 					int index_1 = FaceCount * 3 + 3 * k + 0;
 					int index_2 = index_1 + 1;
@@ -523,7 +523,7 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 					Pos[index_3].z = Positions[PosIndex_3].z;
 				}
 
-				FaceCount += Objects[i].SubObjects[j].Faces.size();
+				FaceCount += ( int )Objects[i].SubObjects[j].Faces.size();
 			}
 		}
 	}
@@ -546,11 +546,11 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 		Vector2f* Tex = ( Vector2f* )( ( *TexVertexElement )[0] );
 
 		int FaceCount = 0;
-		for ( int i = 0; i < Objects.size(); i++ )
+		for ( int i = 0; i < ( int )Objects.size(); i++ )
 		{
-			for ( int j = 0; j < Objects[i].SubObjects.size(); j++ )
+			for ( int j = 0; j < ( int )Objects[i].SubObjects.size(); j++ )
 			{
-				for ( int k = 0; k < Objects[i].SubObjects[j].Faces.size(); k++ )
+				for ( int k = 0; k < ( int )Objects[i].SubObjects[j].Faces.size(); k++ )
 				{
 					int index_1 = FaceCount * 3 + 3 * k + 0;
 					int index_2 = index_1 + 1;
@@ -573,7 +573,7 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 					Tex[index_3].y = Texcoords[TexIndex_3].y;
 				}
 
-				FaceCount += Objects[i].SubObjects[j].Faces.size();
+				FaceCount += ( int )Objects[i].SubObjects[j].Faces.size();
 			}
 		}
 	}
@@ -595,11 +595,11 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 		Vector3f* Normal = ( Vector3f* )( ( *NormalVertexElement )[0] );
 
 		int FaceCount = 0;
-		for ( int i = 0; i < Objects.size(); i++ )
+		for ( int i = 0; i < ( int )Objects.size(); i++ )
 		{
-			for ( int j = 0; j < Objects[i].SubObjects.size(); j++ )
+			for ( int j = 0; j < ( int )Objects[i].SubObjects.size(); j++ )
 			{
-				for ( int k = 0; k < Objects[i].SubObjects[j].Faces.size(); k++ )
+				for ( int k = 0; k < ( int )Objects[i].SubObjects[j].Faces.size(); k++ )
 				{
 					int index_1 = FaceCount * 3 + 3 * k + 0;
 					int index_2 = index_1 + 1;
@@ -629,7 +629,7 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 					Normal[index_3].Normalize();
 				}
 
-				FaceCount += Objects[i].SubObjects[j].Faces.size();
+				FaceCount += ( int )Objects[i].SubObjects[j].Faces.size();
 			}
 		}
 	}
@@ -658,11 +658,11 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 		Vector3f* Normal = ( Vector3f* )( ( *NormalVertexElement )[0] );
 
 		int FaceCount = 0;
-		for ( int i = 0; i < Objects.size(); i++ )
+		for ( int i = 0; i < ( int )Objects.size(); i++ )
 		{
-			for ( int j = 0; j < Objects[i].SubObjects.size(); j++ )
+			for ( int j = 0; j < ( int )Objects[i].SubObjects.size(); j++ )
 			{
-				for ( int k = 0; k < Objects[i].SubObjects[j].Faces.size(); k++ )
+				for ( int k = 0; k < ( int )Objects[i].SubObjects[j].Faces.size(); k++ )
 				{
 					int index_1 = FaceCount * 3 + 3 * k + 0;
 					int index_2 = index_1 + 1;
@@ -723,17 +723,17 @@ GeometryPtr GeometryLoader::LoadOBJWithTexture( std::wstring& filename , bool bU
 	
 	// -------------------------------------------------------索引-----------------------------------------------------------
 	int FaceCount = 0;
-	for ( int i = 0; i < Objects.size(); i++ )
+	for ( int i = 0; i < ( int )Objects.size(); i++ )
 	{
-		for ( int j = 0; j < Objects[i].SubObjects.size(); j++ )
+		for ( int j = 0; j < ( int )Objects[i].SubObjects.size(); j++ )
 		{
-			for ( int k = 0; k < Objects[i].SubObjects[j].Faces.size(); k++ )
+			for ( int k = 0; k < ( int )Objects[i].SubObjects[j].Faces.size(); k++ )
 			{
 				// 添加面的索引
 				MeshPtr->AddFace( FaceCount * 3 + 3 * k + 0 , FaceCount * 3 + 3 * k + 1 , FaceCount * 3 + 3 * k + 2 );
 			}
 
-			FaceCount += Objects[i].SubObjects[j].Faces.size();
+			FaceCount += ( int )Objects[i].SubObjects[j].Faces.size();
 		}
 	}
 

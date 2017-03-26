@@ -90,14 +90,14 @@ void ShaderReflection::UpdateConstantBufferParameter( PipelineManager* pPipeline
 		}
 		else
 		{
-			Log::Get().Write( L"Trying to update a constant buffer doesn't exist!" );
+			Log::Get().Error( L"Trying to update a constant buffer doesn't exist!" );
 		}
 	}
 }
 
 void ShaderReflection::BindShaderInputResourceToShaderStage( ShaderType type , PipelineManager* pPipelineManager , IParameterManager* pParameterManager )
 {
-	for( int i = 0; i < ResourceBindDesc.size(); i++ )
+	for( int i = 0; i < ( int )ResourceBindDesc.size(); i++ )
 	{
 		UINT slot = ResourceBindDesc[i].BindPoint;
 

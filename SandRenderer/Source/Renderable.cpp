@@ -29,7 +29,7 @@ void Renderable::SetEffect( EffectPtr pShaderEffect )
 		std::vector<int> idList;
 		pShaderEffect->GetAllVertexShaderIDs( idList );
 
-		for( int i = 0; i < idList.size(); i++ )
+		for( int i = 0; i < ( int )idList.size(); i++ )
 		{
 			IAStageExecutor->GenerateInputLayout( idList[i] );
 		}
@@ -55,7 +55,7 @@ void Renderable::SetGeometry( InputAssemblerStageExecutorPtr pExecutor )
 		std::vector<int> idList;
 		ShaderEffect->GetAllVertexShaderIDs( idList );
 
-		for( int i = 0; i < idList.size(); i++ )
+		for( int i = 0; i < ( int )idList.size(); i++ )
 		{
 			IAStageExecutor->GenerateInputLayout( idList[i] );
 		}

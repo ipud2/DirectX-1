@@ -191,6 +191,27 @@
     <Filter Include="Material\Sampler">
       <UniqueIdentifier>{f3a27aa9-c483-48de-8843-c6dc93ecd24f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pipeline\StageExecutor\InputAssembler\FBX">
+      <UniqueIdentifier>{a05f831e-9527-469d-b9f7-1aada68cf377}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{0fb7dc1f-adbd-4e20-bd51-2796afbca7d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ks">
+      <UniqueIdentifier>{8b5b127a-7e24-4548-b89c-0550e27b5cef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geom">
+      <UniqueIdentifier>{02465ce0-2d9f-43b9-91cf-466c80d9e6d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{6cbfae9e-0769-4b9b-a87d-f14fba7dba4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ReadWriter">
+      <UniqueIdentifier>{a190dc12-2a61-45ea-a960-abdb1b31ade5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{36ec37ae-318b-48f6-a48d-c4bb9e61e679}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -460,9 +481,6 @@
     <ClInclude Include="..\Include\ShaderReflection.h">
       <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\SandString.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\ShaderStructure.h">
       <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
     </ClInclude>
@@ -690,6 +708,228 @@
     </ClInclude>
     <ClInclude Include="..\Include\LuaSampler.h">
       <Filter>Material\Sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\FFbxImporter.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\FFbxMesh.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\FFbxShape.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\InputAssemblerLayer.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VSkeletonManager.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VAnimation.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VAnimSequence.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VJoint.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VKeyFrame.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VMesh.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VPose.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VSkeleton.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VVertex.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VJointManager.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VSubMesh.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\RefCounter.h">
+      <Filter>ks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VScene.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\FFbxDataConverter.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SandRendererModule.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\ImportProcesser.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\ExportProcesser.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\FbxImporterProcesser.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\FbxLoader.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\FbxInfoHeader.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Gui\EditorManager.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Gui\SandGui.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\imconfig.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui_internal.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_rect_pack.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_textedit.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_truetype.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\SMath.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\IO\IVFileStream.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\IO\FileInStream.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\IO\ReadWriter\VModelReadWriter.h">
+      <Filter>ReadWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\IO\FileOutStream.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VMaterial.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Animation\VTriangle.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\StringUtil.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\AddOrNot.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\AlignOf.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\AllocationPolicies.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\AreTypesEqual.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\CString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\GenericPlatformMemory.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\GenericPlatformStricmp.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\GenericPlatformString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\Greater.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\IsClass.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\IsPODType.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\IsTriviallyCopyAssignable.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\IsTriviallyDestructible.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\Less.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\MemoryOps.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\Platform.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\RemoveReference.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\SMemory.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\SMicrosoftPlatformString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\Sorting.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\SPlatformString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\SString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\STypeTraits.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\TArray.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\TChar.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\TChooseClass.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\TEnableIf.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\TestTemplate.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\TIntegralConstant.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\TIsArithmetic.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\TIsPointer.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\TypeCompatibleBytes.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\WindowsPlatform.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Base\WindowsPlatformMemory.h">
+      <Filter>Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -933,9 +1173,6 @@
     <ClCompile Include="BufferConfig.cpp">
       <Filter>Resource\Buffer\Configure</Filter>
     </ClCompile>
-    <ClCompile Include="SandString.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderReflection.cpp">
       <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
     </ClCompile>
@@ -1152,6 +1389,95 @@
     <ClCompile Include="LuaSampler.cpp">
       <Filter>Material\Sampler</Filter>
     </ClCompile>
+    <ClCompile Include="FFbxImporter.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="FFbxMesh.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="FFbxShape.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VSkeletonManager.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VAnimSequence.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VJoint.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VKeyFrame.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VMesh.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VPose.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VSkeleton.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VJointManager.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VSubMesh.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VScene.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VVertex.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\ExportProcesser.cpp">
+      <Filter>Geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\FFbxDataConverter.cpp">
+      <Filter>Geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\ImportProcesser.cpp">
+      <Filter>Geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\FbxImporterProcesser.cpp">
+      <Filter>Geom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\FbxLoadercpp.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Gui\EditorManager.cpp" />
+    <ClCompile Include="..\Engine\Gui\SandGui.cpp" />
+    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui.cpp" />
+    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_demo.cpp" />
+    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_draw.cpp" />
+    <ClCompile Include="SMath.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\IO\FileInStream.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\IO\FileOutStream.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\IO\ReadWriter\VModelReadWriter.cpp">
+      <Filter>ReadWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VMaterial.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Animation\VTriangle.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtil.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Base\GenericPlatformString.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Base\SString.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Include\TStateMonitor.inl">
@@ -1160,7 +1486,6 @@
     <None Include="..\Include\TStateArrayMonitor.inl">
       <Filter>Pipeline\PipelineStage\Common</Filter>
     </None>
-    <None Include="packages.config" />
     <None Include="..\Include\IController.inl">
       <Filter>Object\Controller</Filter>
     </None>
@@ -1175,6 +1500,9 @@
     </None>
     <None Include="..\Include\OrientationController.inl">
       <Filter>Object\Controller</Filter>
+    </None>
+    <None Include="..\Engine\Base\TArray.inl">
+      <Filter>Base</Filter>
     </None>
   </ItemGroup>
 </Project>

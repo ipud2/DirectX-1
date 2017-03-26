@@ -2,7 +2,7 @@
 #include "FileSystem.h"
 #include <shlobj.h>
 
-using namespace Sand;
+//using namespace Sand;
 
 std::wstring FileSystem::sDataFolder = L"../Data/";
 std::wstring FileSystem::sModelSubFolder = L"Models/";

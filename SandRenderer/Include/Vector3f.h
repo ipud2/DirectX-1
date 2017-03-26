@@ -1,6 +1,8 @@
 #ifndef Vector3f_h
 #define Vector3f_h
 
+#include <cassert>
+
 namespace Sand
 {
 	class Vector3f
@@ -28,6 +30,11 @@ namespace Sand
 			: x( rhs[0] ) , y( rhs[1] ) , z( rhs[2] )
 		{
 
+		}
+
+		static Vector3f Zero()
+		{
+			return Vector3f( 0.0f , 0.0f , 0.0f );
 		}
 
 	public:

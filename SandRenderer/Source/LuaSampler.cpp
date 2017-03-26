@@ -76,7 +76,7 @@ void Sand::UpdateSamplerStateConfig( Sand::SamplerStateConfig& config , LuaSampl
 
 	config.MipLODBias = sampler->MipLODBias;
 
-	config.MaxAnisotropy = sampler->MaxAnisotropy;
+	config.MaxAnisotropy = ( uint32 )sampler->MaxAnisotropy;
 
 	if ( !strcmp( sampler->ComparisonFunc , "Always" ) )
 	{

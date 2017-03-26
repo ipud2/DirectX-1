@@ -111,7 +111,7 @@ void Entity::Render( PipelineManager* pPipelineManager , IParameterManager* pPar
 
 			this->UpdateRenderParams( pParamManager );
 
-			for ( int i = 0; i < Visual.IAStageExecutor->GetSubObjectCount(); i++ )
+			for( int i = 0; i < ( int )Visual.IAStageExecutor->GetSubObjectCount(); i++ )
 			{
 				Visual.IAStageExecutor->UpdateRenderParameters( pParamManager , i );
 

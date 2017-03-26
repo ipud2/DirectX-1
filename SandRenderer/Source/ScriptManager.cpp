@@ -1,9 +1,7 @@
 #include "PCH.h"
 #include "ScriptManager.h"
 #include "Log.h"
-#include "SandString.h"
-
-using namespace Sand;
+#include "StringUtil.h"
 
 ScriptManager* ScriptManager::ms_pScriptManager = nullptr;
 
@@ -107,6 +105,8 @@ unsigned int ScriptManager::RegisterEngineObject( const char* name , void* pObje
 
 	m_kObjectRegistry[handle].pointer = pObject;
 	m_kPointerRegistry[pObject].handle = handle;
+
+	return m_kPointerRegistry[pObject].handle;
 }
 
 bool ScriptManager::UnRegisterObjectByHandle( unsigned int handle )
@@ -147,7 +147,7 @@ void ScriptManager::ReportErrors()
 {
 	const char* errormessage = lua_tostring( m_pLuaState , 1 );
 
-	Log::Get().Write( SandString::ToUnicode( std::string( errormessage ) ) );
+	Log::Get().Error( StringUtil::ToUnicode( std::string( errormessage ) ) );
 
 	lua_pop( m_pLuaState , 1 );
 }

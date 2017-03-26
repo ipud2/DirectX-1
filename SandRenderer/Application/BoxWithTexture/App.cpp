@@ -17,6 +17,8 @@
 
 #include "EventFrameStart.h"
 
+#include <Engine/Animation/FbxLoader.h>
+
 using namespace Sand;
 
 App AppInstance;
@@ -74,7 +76,7 @@ bool App::ConfigureEngineComponents()
 	// 配置默认的Rasterizer State 和 Blend State and DepthStencilState
 	if( !m_pRenderer->Initialize( D3D_DRIVER_TYPE_HARDWARE , D3D_FEATURE_LEVEL_11_0 ) )
 	{
-		Log::Get().Write( L"无法创建硬件设备，尝试创建reference设备" );
+		Log::Get().Error( L"无法创建硬件设备，尝试创建reference设备" );
 
 		if( !m_pRenderer->Initialize( D3D_DRIVER_TYPE_REFERENCE , D3D_FEATURE_LEVEL_11_0 ) )
 		{
@@ -112,8 +114,8 @@ bool App::ConfigureEngineComponents()
 
 	// 设置Viewport
 	D3D11_VIEWPORT view_port;
-	view_port.Width = m_pWindow->GetWidth();
-	view_port.Height = m_pWindow->GetHeight();
+	view_port.Width = ( float )m_pWindow->GetWidth();
+	view_port.Height = ( float )m_pWindow->GetHeight();
 	view_port.TopLeftX = 0.0f;
 	view_port.TopLeftY = 0.0f;
 	view_port.MinDepth = 0.0f;
@@ -280,6 +282,18 @@ void App::Initialize()
 
 	// ---------------------------------SkyBox----------------------------
 	m_pSkyBox = new Skybox( std::wstring( L"SnowCube.dds" ) , m_iLinearSampler );
+
+	// -----------------------------------Charcter------------------------------------
+	GeometryPtr pCharcterGeometry = GeometryPtr( FbxLoader::LoadFBX( "E:\\Morph File\\new_morph.FBX" ) );
+	pCharcterGeometry->LoadToBuffer();
+	pCharcterGeometry->SetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );	
+	Entity* pCharacterEntity = new Entity;
+	pCharacterEntity->GetRenderableRef().SetGeometry( pCharcterGeometry );
+	pCharacterEntity->GetRenderableRef().SetEffect( m_pBoxShaderEffect );
+	pCharacterEntity->GetRenderableRef().SetMaterial( m_pBoxMaterial );
+	pCharacterEntity->GetTransformRef().GetPositionRef() = Vector3f( 0.0f , 0.0f , 5.0f );
+	pCharacterEntity->GetTransformRef().GetScaleRef() = Vector3f( 0.05f , 0.05f , 0.05f );
+	m_pActor->GetRootNode()->AttachChild( pCharacterEntity );
 
 	// -------------------Add to Scene-------------------
 	m_pScene->AddActor( m_pActor );

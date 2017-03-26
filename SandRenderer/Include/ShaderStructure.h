@@ -2,7 +2,7 @@
 #define ShaderStructure_h
 
 #include "PCH.h"
-#include "SandString.h"
+#include "StringUtil.h"
 #include "BaseNumericTypeRenderParameter.h"
 
 namespace Sand
@@ -81,7 +81,7 @@ namespace Sand
 		// ·â×°ÁËD3D11_SHADER_INPUT_BIND_DESC
 		ShaderInputBindDesc( D3D11_SHADER_INPUT_BIND_DESC desc )
 		{
-			Name = std::wstring( SandString::ToUnicode( std::string( desc.Name ) ) );
+			Name = std::wstring( StringUtil::ToUnicode( std::string( desc.Name ) ) );
 			Type = desc.Type;
 			BindPoint = desc.BindPoint;
 			BindCount = desc.BindCount;

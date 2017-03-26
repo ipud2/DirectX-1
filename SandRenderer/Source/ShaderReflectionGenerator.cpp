@@ -27,7 +27,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 	HRESULT hr = D3DReflect( pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , IID_ID3D11ShaderReflection , reinterpret_cast< void** >( pReflector.GetAddressOf() ) );
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"创建shader reflection接口失败！" );
+		Log::Get().Error( L"创建shader reflection接口失败！" );
 		return nullptr;
 	}
 
@@ -76,7 +76,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 			// --------------------------------------------------------接下来是填充ConstantBufferDesc-----------------------------------------------------------
 
 			CBufferDesc.Description = BufferDesc;
-			CBufferDesc.pParamRef = pParameterManager->GetConstantBufferParameterRef( SandString::ToUnicode( std::string( BufferDesc.Name ) ) + Filename );
+			CBufferDesc.pParamRef = pParameterManager->GetConstantBufferParameterRef( StringUtil::ToUnicode( std::string( BufferDesc.Name ) ) + Filename );
 
 			for( UINT j = 0; j < BufferDesc.Variables; j++ )
 			{
@@ -104,7 +104,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 					if ( TypeDesc.Type == D3D_SVT_FLOAT )
 					{
 						// ---------------float-------------------
-						pRenderParameter = pParameterManager->GetFloatParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+						pRenderParameter = pParameterManager->GetFloatParameterRef( StringUtil::ToUnicode( VariableDesc.Name ) );
 
 						if ( VariableDesc.DefaultValue != nullptr )
 						{
@@ -118,7 +118,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 					else if ( TypeDesc.Type == D3D_SVT_BOOL )
 					{
 						// -----------bool----------------
-						pRenderParameter = pParameterManager->GetBoolParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+						pRenderParameter = pParameterManager->GetBoolParameterRef( StringUtil::ToUnicode( VariableDesc.Name ) );
 
 						if ( VariableDesc.DefaultValue != nullptr )
 						{
@@ -130,7 +130,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 				{
 					if ( TypeDesc.Columns == 4 )
 					{
-						pRenderParameter = pParameterManager->GetVector4fParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+						pRenderParameter = pParameterManager->GetVector4fParameterRef( StringUtil::ToUnicode( VariableDesc.Name ) );
 
 						// shader中D3D_SVC_VECTOR的变量若存在默认值，则用于初始化
 						if ( VariableDesc.DefaultValue != nullptr )
@@ -141,7 +141,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 					else if ( TypeDesc.Columns == 3 )
 					{
 						// ----------------------float3-----------------------------
-						pRenderParameter = pParameterManager->GetVector3fParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+						pRenderParameter = pParameterManager->GetVector3fParameterRef( StringUtil::ToUnicode( VariableDesc.Name ) );
 
 						if ( VariableDesc.DefaultValue != nullptr )
 						{
@@ -151,7 +151,7 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 					else if ( TypeDesc.Columns == 2 )
 					{
 						// -----------------------float2-------------------------
-						pRenderParameter = pParameterManager->GetVector2fParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+						pRenderParameter = pParameterManager->GetVector2fParameterRef( StringUtil::ToUnicode( VariableDesc.Name ) );
 
 						if ( VariableDesc.DefaultValue != nullptr )
 						{
@@ -166,16 +166,16 @@ ShaderReflection* ShaderReflectionGenerator::GenerateReflection( ID3DBlob* pComp
 
 					if( count == 0 )
 					{
-						pRenderParameter = pParameterManager->GetMatrixParameterRef( SandString::ToUnicode( VariableDesc.Name ) );
+						pRenderParameter = pParameterManager->GetMatrixParameterRef( StringUtil::ToUnicode( VariableDesc.Name ) );
 					}
 					else
 					{
-						pRenderParameter = pParameterManager->GetMatrixArrayParameterRef( SandString::ToUnicode( VariableDesc.Name ) , count );
+						pRenderParameter = pParameterManager->GetMatrixArrayParameterRef( StringUtil::ToUnicode( VariableDesc.Name ) , count );
 					}
 				}
 				else if ( TypeDesc.Class == D3D_SVC_STRUCT )
 				{
-					pRenderParameter = pParameterManager->GetStructureParameterRef( SandString::ToUnicode( VariableDesc.Name ) , VariableDesc.Size );
+					pRenderParameter = pParameterManager->GetStructureParameterRef( StringUtil::ToUnicode( VariableDesc.Name ) , VariableDesc.Size );
 				}
 
 				CBufferDesc.Parameters.push_back( pRenderParameter );

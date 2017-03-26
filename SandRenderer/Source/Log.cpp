@@ -1,17 +1,20 @@
 #include "PCH.h"
 #include "Log.h"
 #include "FileSystem.h"
-
-using namespace Sand;
+#include "StringUtil.h"
 
 Log::Log()
 {
+	Open();
+}
 
+Log::~Log()
+{
+	Close();
 }
 
 Log& Log::Get()
 {
-	// 静态对象只创建一次
 	static Log log;
 	return log;
 }
@@ -20,41 +23,133 @@ void Log::Open()
 {
 	FileSystem fs;
 
-	// Log文件路径
-	std::wstring FilePath = fs.GetLogFolder() + std::wstring( L"log.txt" );
+	std::wstring FilePath = fs.GetLogFolder() + std::wstring( L"Log.html" );
 
-	// 打开Log文件
-	LogFile.open( FilePath.c_str() );
-
-	// 中文支持
 	LogFile.imbue( std::locale( "" , std::locale::all ^ std::locale::numeric ) );
 
-	// 写入打开信息
-	Write( L"Open Log File" );
+	LogFile.open( FilePath.c_str() );
+
+	Write( std::wstring( L"<html><head><title></title></head><body bgcolor=\"#C0C0C0\">" ) );
 }
 
 void Log::Close()
 {
-	Write( L"close Log File" );
-
-	LogFile.flush();
-}
-
-void Log::Write( const wchar_t* TextString )
-{
-	LogFile << TextString << L'\0' << std::endl;
-
+	Write( std::wstring( L"</body></html>" ) );
 	LogFile.flush();
 }
 
 void Log::Write( std::wstring& TextString )
 {
-	Log::Write( TextString.c_str() );
+	LogFile << TextString.c_str();
 }
 
-void Sand::Log::WriteSeparator()
+void Log::Error( const wchar_t* format , ... )
 {
-	LogFile << L"------------------------------------------------------------------------------\n";
+	wchar_t errorBuf[2048];
+	va_list args;
+	va_start( args , format );
+	process( format , args , errorBuf );
+	va_end( args );
 
-	LogFile.flush();
+	Write( L"<p style=\"color:#FF0000\">" + std::wstring( L"Error: " ) + std::wstring( errorBuf ) + L"\0<br /></p>" );
+}
+
+void Log::Error( std::wstring format , ... )
+{
+	wchar_t errorBuf[2048];
+	va_list args;
+	va_start( args , format );
+	process( format.c_str() , args , errorBuf );
+	va_end( args );
+
+	Write( L"<p style=\"color:#FF0000\">" + std::wstring( L"Error: " ) + std::wstring( errorBuf ) + L"\0<br /></p>" );
+}
+
+void Log::Error( const char* format , ... )
+{
+	char errorBuf[2048];
+	va_list args;
+	va_start( args , format );
+	processError( format , args , errorBuf );
+	va_end( args );
+
+	Write( L"<p style=\"color:#FF0000\">" + std::wstring( L"Error: " ) + StringUtil::ToUnicode( std::string( errorBuf ) ) + L"\0<br /></p>" );
+}
+
+void Log::Warning( const wchar_t* format , ... )
+{
+	wchar_t errorBuf[2048];
+	va_list args;
+	va_start( args , format );
+	process( format , args , errorBuf );
+	va_end( args );
+
+	Write( L"<p style=\"color:#FFD700\">" + std::wstring( L"Warning: " ) + std::wstring( errorBuf ) + L"\0<br /></p>" );
+}
+
+void Log::Warning( std::wstring format , ... )
+{
+	wchar_t errorBuf[2048];
+	va_list args;
+	va_start( args , format );
+	process( format.c_str() , args , errorBuf );
+	va_end( args );
+
+	Write( L"<p style=\"color:#FFD700\">" + std::wstring( L"Warning: " ) + std::wstring( errorBuf ) + L"\0<br /></p>" );
+}
+
+void Log::Warning( const char* format , ... )
+{
+	char errorBuf[2048];
+	va_list args;
+	va_start( args , format );
+	processError( format , args , errorBuf );
+	va_end( args );
+
+	Write( L"<p style=\"color:#FFD700\">" + std::wstring( L"Warning: " ) + StringUtil::ToUnicode( std::string( errorBuf ) ) + L"\0<br /></p>" );
+}
+
+void Log::Info( const wchar_t* format , ... )
+{
+	wchar_t errorBuf[2048];
+	va_list args;
+	va_start( args , format );
+	process( format , args , errorBuf );
+	va_end( args );
+
+	Write( L"<p style=\"color:#1E90FF\">" + std::wstring( L"Info: " ) + std::wstring( errorBuf ) + L"\0<br /></p>" );
+}
+
+void Log::Info( std::wstring format , ... )
+{
+	wchar_t errorBuf[2048];
+	va_list args;
+	va_start( args , format );
+	process( format.c_str() , args , errorBuf );
+	va_end( args );
+
+	Write( L"<p style=\"color:#1E90FF\">" + std::wstring( L"Info: " ) + std::wstring( errorBuf ) + L"\0<br /></p>" );
+}
+
+void Log::Info( const char* format , ... )
+{
+	char errorBuf[2048];
+	va_list args;
+	va_start( args , format );
+	processError( format , args , errorBuf );
+	va_end( args );
+
+	Write( L"<p style=\"color:#1E90FF\">" + std::wstring( L"Info: " ) + StringUtil::ToUnicode( std::string( errorBuf ) ) + L"\0<br /></p>" );
+}
+
+template<int size>
+void Log::process( const wchar_t* format , va_list args , wchar_t( &errorBuf )[size] )
+{
+	_vsnwprintf_s( errorBuf , size , _TRUNCATE , format , args );
+}
+
+template<int size>
+void Log::processError( const char* format , va_list args , char( &errorBuf )[size] )
+{
+	_vsnprintf_s( errorBuf , size , _TRUNCATE , format , args );
 }

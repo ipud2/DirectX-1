@@ -2,6 +2,7 @@
 #define Vector4f_h
 
 #include "Vector3f.h"
+#include <cmath>
 
 namespace Sand
 {
@@ -40,6 +41,10 @@ namespace Sand
 
 		}
 
+		static Vector4f Zero()
+		{
+			return Vector4f( 0.0f , 0.0f , 0.0f , 0.0f );
+		}
 	public:
 		inline Vector4f& operator= ( const Vector4f& rhs )
 		{

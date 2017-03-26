@@ -1,7 +1,7 @@
 #include "PCH.h"
 #include "Material.h"
 #include "Log.h"
-#include "SandString.h"
+#include "StringUtil.h"
 #include "MaterialLua.h"
 #include <string.h>
 #include "LuaSampler.h"
@@ -18,7 +18,7 @@ Material::Material( const char* name )
 	{
 		const char* errormessage = lua_tostring( L , -1 );
 
-		Log::Get().Write( SandString::ToUnicode( std::string( errormessage ) ) );
+		Log::Get().Error( StringUtil::ToUnicode( std::string( errormessage ) ) );
 
 		lua_pop( L , 1 );
 	}
@@ -44,21 +44,21 @@ void Material::InitParams()
 		{
 			case ELT_INTEGER:
 			{
-				FloatParameterWriter* m_pFloatWriter = Parameters.GetFloatParameterWriter( SandString::ToUnicode( iter->first ) );
+				FloatParameterWriter* m_pFloatWriter = Parameters.GetFloatParameterWriter( StringUtil::ToUnicode( iter->first ) );
 				m_pFloatWriter->SetValue( ( float )iter->second.v.i );
 				break;
 			}
 
 			case ELT_NUMBER:
 			{
-				FloatParameterWriter* m_pFloatWriter = Parameters.GetFloatParameterWriter( SandString::ToUnicode( iter->first ) );
+				FloatParameterWriter* m_pFloatWriter = Parameters.GetFloatParameterWriter( StringUtil::ToUnicode( iter->first ) );
 				m_pFloatWriter->SetValue( iter->second.v.f );
 				break;
 			}
 
 			case ELT_BOOL:
 			{
-				BoolParameterWriter* m_pBoolWriter = Parameters.GetBoolParameterWriter( SandString::ToUnicode( iter->first ) );
+				BoolParameterWriter* m_pBoolWriter = Parameters.GetBoolParameterWriter( StringUtil::ToUnicode( iter->first ) );
 				m_pBoolWriter->SetValue( iter->second.v.b );
 				break;
 			}
@@ -70,8 +70,8 @@ void Material::InitParams()
 
 				if ( strlen( pExtension ) == 4 && pExtension[1] == 'd' && pExtension[2] == 'd' && pExtension[3] == 's' )
 				{
-					ResourceProxyPtr pTexture = Renderer::Get()->LoadTexture( SandString::ToUnicode( str ) );
-					ShaderResourceParameterWriter* pShaderResourceWriter = Parameters.GetShaderResourceParameterWriter( SandString::ToUnicode( iter->first ) );
+					ResourceProxyPtr pTexture = Renderer::Get()->LoadTexture( StringUtil::ToUnicode( str ) );
+					ShaderResourceParameterWriter* pShaderResourceWriter = Parameters.GetShaderResourceParameterWriter( StringUtil::ToUnicode( iter->first ) );
 					pShaderResourceWriter->SetValue( pTexture );
 				}
 				break;
@@ -79,7 +79,7 @@ void Material::InitParams()
 
 			case ELT_ARRAY:
 			{
-				Vector4fParameterWriter* m_pVector4fParameterWriter = Parameters.GetVector4fParameterWriter( SandString::ToUnicode( iter->first ) );
+				Vector4fParameterWriter* m_pVector4fParameterWriter = Parameters.GetVector4fParameterWriter( StringUtil::ToUnicode( iter->first ) );
 				m_pVector4fParameterWriter->SetValue( Vector4f( iter->second.v.arr[0] , iter->second.v.arr[1] , iter->second.v.arr[2] , iter->second.v.arr[3] ) );
 				break;
 			}
@@ -90,7 +90,7 @@ void Material::InitParams()
 				UpdateSamplerStateConfig( config , &iter->second.v.sampler );
 				int m_iSampler = Renderer::Get()->CreateSamplerState( &config );
 
-				SamplerParameterWriter* pSamplerWriter = Parameters.GetSamplerParameterWriter( SandString::ToUnicode( iter->first ) );
+				SamplerParameterWriter* pSamplerWriter = Parameters.GetSamplerParameterWriter( StringUtil::ToUnicode( iter->first ) );
 				pSamplerWriter->SetValue( m_iSampler );
 
 				break;

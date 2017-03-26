@@ -40,7 +40,7 @@ BaseCamera* Scene::GetCamera( unsigned int index )
 
 unsigned int Scene::GetCameraCount()
 {
-	return m_vCameras.size();
+	return ( unsigned int )m_vCameras.size();
 }
 
 void Scene::AddLight( Light* pLight )
@@ -59,7 +59,7 @@ Light* Scene::GetLight( unsigned int index )
 
 unsigned int Scene::GetLightCount()
 {
-	return m_vLights.size();
+	return ( unsigned int )m_vLights.size();
 }
 
 void Scene::AddActor( Actor* pActor )

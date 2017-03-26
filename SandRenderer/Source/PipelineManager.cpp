@@ -242,14 +242,14 @@ void PipelineManager::UnMapResource( Resource* pSandResource , UINT SubResource 
 {
 	if( nullptr == pSandResource )
 	{
-		Log::Get().Write( L"Trying to Unmap a subresource doesn't exist!!" );
+		Log::Get().Error( L"Trying to Unmap a subresource doesn't exist!!" );
 	}
 
 	ID3D11Resource* pResource = pSandResource->GetResource();
 
 	if( nullptr == pResource )
 	{
-		Log::Get().Write( L"Trying to unmap a subresource that has no native resource on it!!" );
+		Log::Get().Error( L"Trying to unmap a subresource that has no native resource on it!!" );
 	}
 
 	m_pContext->Unmap( pResource , SubResource );
@@ -264,20 +264,20 @@ void PipelineManager::MapResource( Resource* pSandResource , UINT SubResource , 
 
 	if( pSandResource == nullptr )
 	{
-		Log::Get().Write( L"trying to map a subresource doesn't exist!" );
+		Log::Get().Error( L"trying to map a subresource doesn't exist!" );
 	}
 
 	ID3D11Resource* pResource = pSandResource->GetResource();
 
 	if( nullptr == pResource )
 	{
-		Log::Get().Write( L"Trying to map a subresource that has no native resource in it!! " );
+		Log::Get().Error( L"Trying to map a subresource that has no native resource in it!! " );
 	}
 
 	HRESULT hr = m_pContext->Map( pResource , SubResource , MapType , MapFlag , pMappedResource );
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"Failed to map resource!" );
+		Log::Get().Error( L"Failed to map resource!" );
 	}
 }
 
@@ -289,10 +289,10 @@ void PipelineManager::ClearBuffers( Vector4f& color , float depth , UINT stencil
 	int count = m_OutputMergeStage.GetCurrentState().GetRenderTargetCount();
 
 	// --------------------------Clear Render Target View--------------------------------
-	for( UINT i = 0; i < count; i++ )
+	for( int i = 0; i < count; i++ )
 	{
 		// 获取每个render target view的index
-		UINT index = m_OutputMergeStage.GetCurrentState().RenderTargetViews.GetState( i );
+		int index = m_OutputMergeStage.GetCurrentState().RenderTargetViews.GetState( i );
 		// 获取RenderTargetView对象
 		RenderTargetView& RTV = Renderer::Get()->GetRenderTargetViewByIndex( index );
 

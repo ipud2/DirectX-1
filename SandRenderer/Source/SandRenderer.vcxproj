@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\directxtk_desktop_2013.2014.11.24.2\build\native\directxtk_desktop_2013.props" Condition="Exists('..\packages\directxtk_desktop_2013.2014.11.24.2\build\native\directxtk_desktop_2013.props')" />
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -20,13 +27,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -36,7 +56,13 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
@@ -44,37 +70,83 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Include;$(SolutionDir);$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)Library\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
     <TargetExt>.lib</TargetExt>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)Include;$(SolutionDir);$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)Library\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
+    <TargetExt>.lib</TargetExt>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Include;$(SolutionDir);$(IncludePath)</IncludePath>
     <OutDir>..\Library\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
     <TargetExt>.lib</TargetExt>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)Include;$(SolutionDir);$(IncludePath)</IncludePath>
+    <OutDir>..\Library\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
+    <TargetExt>.lib</TargetExt>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SAND_EXPORT;FBXSDK_SHARED;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty;$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\inc;$(SolutionDir)ThirdParty\DirecTXTK\Inc\</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>Lua.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lua\lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Lua5_3_3.lib;libfbxsdk.lib;DirectXTK.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>xcopy $(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)Application\Bin /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>SAND_EXPORT;FBXSDK_SHARED;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty;$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\inc;$(SolutionDir)ThirdParty\DirecTXTK\Inc\</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>Lua5_3_3.lib;libfbxsdk.lib;DirectXTK.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>xcopy $(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)Application\Bin /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -83,11 +155,11 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SAND_EXPORT;FBXSDK_SHARED;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty;$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\inc;$(SolutionDir)ThirdParty\DirecTXTK\Inc\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -96,11 +168,101 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>Lua.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\Lua\lib\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Lua5_3_3.lib;libfbxsdk.lib;DirectXTK.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
+    <PostBuildEvent>
+      <Command>xcopy $(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)Application\Bin /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>SAND_EXPORT;FBXSDK_SHARED;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty;$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\inc;$(SolutionDir)ThirdParty\DirecTXTK\Inc\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>Lua5_3_3.lib;libfbxsdk.lib;DirectXTK.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>xcopy $(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)Application\Bin /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Engine\Animation\ExportProcesser.h" />
+    <ClInclude Include="..\Engine\Animation\FbxImporterProcesser.h" />
+    <ClInclude Include="..\Engine\Animation\FbxLoader.h" />
+    <ClInclude Include="..\Engine\Animation\FFbxDataConverter.h" />
+    <ClInclude Include="..\Engine\Animation\ImportProcesser.h" />
+    <ClInclude Include="..\Engine\Animation\VAnimation.h" />
+    <ClInclude Include="..\Engine\Animation\VAnimSequence.h" />
+    <ClInclude Include="..\Engine\Animation\VJoint.h" />
+    <ClInclude Include="..\Engine\Animation\VJointManager.h" />
+    <ClInclude Include="..\Engine\Animation\VKeyFrame.h" />
+    <ClInclude Include="..\Engine\Animation\VMaterial.h" />
+    <ClInclude Include="..\Engine\Animation\VMesh.h" />
+    <ClInclude Include="..\Engine\Animation\VPose.h" />
+    <ClInclude Include="..\Engine\Animation\VScene.h" />
+    <ClInclude Include="..\Engine\Animation\VSkeleton.h" />
+    <ClInclude Include="..\Engine\Animation\VSkeletonManager.h" />
+    <ClInclude Include="..\Engine\Animation\VSubMesh.h" />
+    <ClInclude Include="..\Engine\Animation\VTriangle.h" />
+    <ClInclude Include="..\Engine\Animation\VVertex.h" />
+    <ClInclude Include="..\Engine\Base\AddOrNot.h" />
+    <ClInclude Include="..\Engine\Base\AlignOf.h" />
+    <ClInclude Include="..\Engine\Base\AllocationPolicies.h" />
+    <ClInclude Include="..\Engine\Base\AreTypesEqual.h" />
+    <ClInclude Include="..\Engine\Base\CString.h" />
+    <ClInclude Include="..\Engine\Base\GenericPlatformMemory.h" />
+    <ClInclude Include="..\Engine\Base\GenericPlatformStricmp.h" />
+    <ClInclude Include="..\Engine\Base\GenericPlatformString.h" />
+    <ClInclude Include="..\Engine\Base\Greater.h" />
+    <ClInclude Include="..\Engine\Base\IsClass.h" />
+    <ClInclude Include="..\Engine\Base\IsPODType.h" />
+    <ClInclude Include="..\Engine\Base\IsTriviallyCopyAssignable.h" />
+    <ClInclude Include="..\Engine\Base\IsTriviallyDestructible.h" />
+    <ClInclude Include="..\Engine\Base\Less.h" />
+    <ClInclude Include="..\Engine\Base\MemoryOps.h" />
+    <ClInclude Include="..\Engine\Base\Platform.h" />
+    <ClInclude Include="..\Engine\Base\RefCounter.h" />
+    <ClInclude Include="..\Engine\Base\RemoveReference.h" />
+    <ClInclude Include="..\Engine\Base\SMemory.h" />
+    <ClInclude Include="..\Engine\Base\SMicrosoftPlatformString.h" />
+    <ClInclude Include="..\Engine\Base\Sorting.h" />
+    <ClInclude Include="..\Engine\Base\SPlatformString.h" />
+    <ClInclude Include="..\Engine\Base\SString.h" />
+    <ClInclude Include="..\Engine\Base\STypeTraits.h" />
+    <ClInclude Include="..\Engine\Base\TArray.h" />
+    <ClInclude Include="..\Engine\Base\TChar.h" />
+    <ClInclude Include="..\Engine\Base\TChooseClass.h" />
+    <ClInclude Include="..\Engine\Base\TEnableIf.h" />
+    <ClInclude Include="..\Engine\Base\TestTemplate.h" />
+    <ClInclude Include="..\Engine\Base\TIntegralConstant.h" />
+    <ClInclude Include="..\Engine\Base\TIsArithmetic.h" />
+    <ClInclude Include="..\Engine\Base\TIsPointer.h" />
+    <ClInclude Include="..\Engine\Base\TypeCompatibleBytes.h" />
+    <ClInclude Include="..\Engine\Base\WindowsPlatform.h" />
+    <ClInclude Include="..\Engine\Base\WindowsPlatformMemory.h" />
+    <ClInclude Include="..\Engine\Gui\EditorManager.h" />
+    <ClInclude Include="..\Engine\Gui\SandGui.h" />
+    <ClInclude Include="..\Engine\IO\FileInStream.h" />
+    <ClInclude Include="..\Engine\IO\FileOutStream.h" />
+    <ClInclude Include="..\Engine\IO\IVFileStream.h" />
+    <ClInclude Include="..\Engine\IO\ReadWriter\VModelReadWriter.h" />
     <ClInclude Include="..\Include\Actor.h" />
     <ClInclude Include="..\Include\Application.h" />
     <ClInclude Include="..\Include\BaseCamera.h" />
@@ -110,7 +272,12 @@
     <ClInclude Include="..\Include\BoolParameterWriter.h" />
     <ClInclude Include="..\Include\Buffer.h" />
     <ClInclude Include="..\Include\BufferConfig.h" />
+    <ClInclude Include="..\Include\FbxInfoHeader.h" />
+    <ClInclude Include="..\Include\FFbxImporter.h" />
+    <ClInclude Include="..\Include\FFbxMesh.h" />
+    <ClInclude Include="..\Include\FFbxShape.h" />
     <ClInclude Include="..\Include\GeometryActor.h" />
+    <ClInclude Include="..\Include\InputAssemblerLayer.h" />
     <ClInclude Include="..\Include\LuaActor.h" />
     <ClInclude Include="..\Include\LuaEffect.h" />
     <ClInclude Include="..\Include\LuaEntity.h" />
@@ -179,6 +346,7 @@
     <ClInclude Include="..\Include\Material.h" />
     <ClInclude Include="..\Include\MaterialHelper.h" />
     <ClInclude Include="..\Include\MaterialLua.h" />
+    <ClInclude Include="..\Include\SMath.h" />
     <ClInclude Include="..\Include\Matrix3f.h" />
     <ClInclude Include="..\Include\Matrix4f.h" />
     <ClInclude Include="..\Include\MatrixArrayParameter.h" />
@@ -216,7 +384,8 @@
     <ClInclude Include="..\Include\SamplerParameter.h" />
     <ClInclude Include="..\Include\SamplerParameterWriter.h" />
     <ClInclude Include="..\Include\SamplerStateConfig.h" />
-    <ClInclude Include="..\Include\SandString.h" />
+    <ClInclude Include="..\Include\SandRendererModule.h" />
+    <ClInclude Include="..\Include\StringUtil.h" />
     <ClInclude Include="..\Include\Scene.h" />
     <ClInclude Include="..\Include\SceneGraph.h" />
     <ClInclude Include="..\Include\SceneRenderTask.h" />
@@ -267,8 +436,42 @@
     <ClInclude Include="..\Include\ViewPort.h" />
     <ClInclude Include="..\Include\ViewShadowMap.h" />
     <ClInclude Include="..\Include\Win32RenderWindow.h" />
+    <ClInclude Include="..\ThirdParty\ImGui\inc\imconfig.h" />
+    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui.h" />
+    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui_internal.h" />
+    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_rect_pack.h" />
+    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_textedit.h" />
+    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Engine\Animation\ExportProcesser.cpp" />
+    <ClCompile Include="..\Engine\Animation\FbxImporterProcesser.cpp" />
+    <ClCompile Include="..\Engine\Animation\FbxLoadercpp.cpp" />
+    <ClCompile Include="..\Engine\Animation\FFbxDataConverter.cpp" />
+    <ClCompile Include="..\Engine\Animation\ImportProcesser.cpp" />
+    <ClCompile Include="..\Engine\Animation\VAnimSequence.cpp" />
+    <ClCompile Include="..\Engine\Animation\VJoint.cpp" />
+    <ClCompile Include="..\Engine\Animation\VJointManager.cpp" />
+    <ClCompile Include="..\Engine\Animation\VKeyFrame.cpp" />
+    <ClCompile Include="..\Engine\Animation\VMaterial.cpp" />
+    <ClCompile Include="..\Engine\Animation\VMesh.cpp" />
+    <ClCompile Include="..\Engine\Animation\VPose.cpp" />
+    <ClCompile Include="..\Engine\Animation\VScene.cpp" />
+    <ClCompile Include="..\Engine\Animation\VSkeleton.cpp" />
+    <ClCompile Include="..\Engine\Animation\VSkeletonManager.cpp" />
+    <ClCompile Include="..\Engine\Animation\VSubMesh.cpp" />
+    <ClCompile Include="..\Engine\Animation\VTriangle.cpp" />
+    <ClCompile Include="..\Engine\Animation\VVertex.cpp" />
+    <ClCompile Include="..\Engine\Base\GenericPlatformString.cpp" />
+    <ClCompile Include="..\Engine\Base\SString.cpp" />
+    <ClCompile Include="..\Engine\Gui\EditorManager.cpp" />
+    <ClCompile Include="..\Engine\Gui\SandGui.cpp" />
+    <ClCompile Include="..\Engine\IO\FileInStream.cpp" />
+    <ClCompile Include="..\Engine\IO\FileOutStream.cpp" />
+    <ClCompile Include="..\Engine\IO\ReadWriter\VModelReadWriter.cpp" />
+    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui.cpp" />
+    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_demo.cpp" />
+    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_draw.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BaseCamera.cpp" />
@@ -278,6 +481,9 @@
     <ClCompile Include="BoolParameterWriter.cpp" />
     <ClCompile Include="Buffer.cpp" />
     <ClCompile Include="BufferConfig.cpp" />
+    <ClCompile Include="FFbxImporter.cpp" />
+    <ClCompile Include="FFbxMesh.cpp" />
+    <ClCompile Include="FFbxShape.cpp" />
     <ClCompile Include="LuaActor.cpp" />
     <ClCompile Include="LuaEffect.cpp" />
     <ClCompile Include="LuaEntity.cpp" />
@@ -343,6 +549,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialHelper.cpp" />
     <ClCompile Include="MaterialLua.cpp" />
+    <ClCompile Include="SMath.cpp" />
     <ClCompile Include="Matrix3f.cpp" />
     <ClCompile Include="Matrix4f.cpp" />
     <ClCompile Include="MatrixArrayParameter.cpp" />
@@ -357,7 +564,9 @@
     <ClCompile Include="ParameterWriter.cpp" />
     <ClCompile Include="PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PickRecord.cpp" />
     <ClCompile Include="PipelineManager.cpp" />
@@ -378,7 +587,7 @@
     <ClCompile Include="SamplerParameter.cpp" />
     <ClCompile Include="SamplerParameterWriter.cpp" />
     <ClCompile Include="SamplerStateConfig.cpp" />
-    <ClCompile Include="SandString.cpp" />
+    <ClCompile Include="StringUtil.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneGraph.cpp" />
     <ClCompile Include="SceneRenderTask.cpp" />
@@ -427,6 +636,7 @@
     <ClCompile Include="Win32RenderWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Engine\Base\TArray.inl" />
     <None Include="..\Include\IController.inl" />
     <None Include="..\Include\OrientationController.inl" />
     <None Include="..\Include\PositionExtractorController.inl" />
@@ -434,17 +644,8 @@
     <None Include="..\Include\SpatialController.inl" />
     <None Include="..\Include\TStateArrayMonitor.inl" />
     <None Include="..\Include\TStateMonitor.inl" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\directxtk_desktop_2013.2014.11.24.2\build\native\directxtk_desktop_2013.targets" Condition="Exists('..\packages\directxtk_desktop_2013.2014.11.24.2\build\native\directxtk_desktop_2013.targets')" />
   </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。启用“NuGet 程序包还原”可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\directxtk_desktop_2013.2014.11.24.2\build\native\directxtk_desktop_2013.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_desktop_2013.2014.11.24.2\build\native\directxtk_desktop_2013.props'))" />
-    <Error Condition="!Exists('..\packages\directxtk_desktop_2013.2014.11.24.2\build\native\directxtk_desktop_2013.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtk_desktop_2013.2014.11.24.2\build\native\directxtk_desktop_2013.targets'))" />
-  </Target>
 </Project>

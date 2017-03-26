@@ -39,7 +39,7 @@ void RenderEffect::SetVertexShader( int index )
 		// 检查shader的类型是否真的为VertexShader
 		if( m_apShaders[ST_VERTEX_SHADER]->GetType() != ST_VERTEX_SHADER )
 		{
-			Log::Get().Write( L"试图将非顶点着色器绑定到顶点着色器上" );
+			Log::Get().Error( L"试图将非顶点着色器绑定到顶点着色器上" );
 		}
 	}
 
@@ -56,7 +56,7 @@ void RenderEffect::SetHullShader( int index )
 	{
 		if( m_apShaders[ST_HULL_SHADER]->GetType() != ST_HULL_SHADER )
 		{
-			Log::Get().Write( L"试图将非HullShader绑定到HullShader" );
+			Log::Get().Error( L"试图将非HullShader绑定到HullShader" );
 		}
 	}
 
@@ -73,7 +73,7 @@ void RenderEffect::SetDomainShader( int index )
 	{
 		if( m_apShaders[ST_DOMAIN_SHADER]->GetType() != ST_DOMAIN_SHADER )
 		{
-			Log::Get().Write( L"试图将非DomainShader绑定到DomainShader上" );
+			Log::Get().Error( L"试图将非DomainShader绑定到DomainShader上" );
 		}
 	}
 
@@ -90,7 +90,7 @@ void RenderEffect::SetGeometryShader( int index )
 	{
 		if( m_apShaders[ST_GEOMETRY_SHADER]->GetType() != ST_GEOMETRY_SHADER )
 		{
-			Log::Get().Write( L"试图将非GeometryShader绑定到GeometryShader上" );
+			Log::Get().Error( L"试图将非GeometryShader绑定到GeometryShader上" );
 		}
 	}
 	
@@ -107,7 +107,7 @@ void RenderEffect::SetPixelShader( int index )
 	{
 		if( m_apShaders[ST_PIXEL_SHADER]->GetType() != ST_PIXEL_SHADER )
 		{
-			Log::Get().Write( L"试图将非PixelShader绑定到PixelShader上" );
+			Log::Get().Error( L"试图将非PixelShader绑定到PixelShader上" );
 		}
 	}
 
@@ -124,7 +124,7 @@ void RenderEffect::SetComputeShader( int index )
 	{
 		if( m_apShaders[ST_COMPUTE_SHADER]->GetType() != ST_COMPUTE_SHADER )
 		{
-			Log::Get().Write( L"试图将非ComputeShader绑定到ComputeShader上" );
+			Log::Get().Error( L"试图将非ComputeShader绑定到ComputeShader上" );
 		}
 	}
 
@@ -243,7 +243,7 @@ void RenderEffect::UpdateConstantBufferList()
 				}
 				else
 				{
-					Log::Get().Write( L"该ConstantBuffer已经存在于ConstantBuffer列表中了" );
+					Log::Get().Error( L"该ConstantBuffer已经存在于ConstantBuffer列表中了" );
 				}
 			}
 		}

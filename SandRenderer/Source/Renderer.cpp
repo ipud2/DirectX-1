@@ -107,7 +107,7 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 		pCurrentAdapter->GetDesc1( &desc );
 
 		// 输出adapter描述(通常是显卡)
-		Log::Get().Write( desc.Description );
+		Log::Get().Error( desc.Description );
 	}
 
 	UINT CreateDeviceFlags = 0;
@@ -163,7 +163,7 @@ bool Renderer::Initialize( D3D_DRIVER_TYPE DriverType , D3D_FEATURE_LEVEL Featur
 	if( FAILED( hr ) )
 	{
 		// 输出错误信息
-		Log::Get().Write( L"can't getch ID3D11Debug Interface from Devices" );
+		Log::Get().Error( L"can't getch ID3D11Debug Interface from Devices" );
 	}
 
 	m_FeatureLevel = m_pDevice->GetFeatureLevel();
@@ -258,7 +258,7 @@ void Renderer::Present( int SwapChainID /* = -1  */ , UINT SyncInterval /* = 0  
 	else
 	{
 		// 输出错误信息
-		Log::Get().Write( L"交换链索引无效！" );
+		Log::Get().Error( L"交换链索引无效！" );
 	}
 }
 
@@ -289,7 +289,7 @@ D3D_FEATURE_LEVEL Renderer::GetAvailableFeatureLevel( D3D_DRIVER_TYPE DriverType
 
 		if( FAILED( hr ) )
 		{
-			Log::Get().Write( L"GetAvailableFeatureLevel函数创建Device失败" );
+			Log::Get().Error( L"GetAvailableFeatureLevel函数创建Device失败" );
 		}
 	}
 
@@ -347,7 +347,7 @@ int Renderer::CreateSwapChain( SwapChainConfig* pConfig )
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"交换链创建失败" );
+		Log::Get().Error( L"交换链创建失败" );
 
 		return -1;
 	}
@@ -358,7 +358,7 @@ int Renderer::CreateSwapChain( SwapChainConfig* pConfig )
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"交换链相关联的缓存获取失败" );
+		Log::Get().Error( L"交换链相关联的缓存获取失败" );
 
 		return -1;
 	}
@@ -377,7 +377,7 @@ int Renderer::CreateSwapChain( SwapChainConfig* pConfig )
 
 	m_vSwapChain.push_back( new SwapChain( pSwapChain , proxy ) );
 
-	return ( m_vSwapChain.size() - 1 );
+	return ( ( int )m_vSwapChain.size() - 1 );
 }
 
 void Renderer::ResizeSwapChain( int SID , int width , int height )
@@ -386,7 +386,7 @@ void Renderer::ResizeSwapChain( int SID , int width , int height )
 
 	if ( !( index < m_vSwapChain.size() ) )
 	{
-		Log::Get().Write( L"Error trying to resize swap chain" );
+		Log::Get().Error( L"Error trying to resize swap chain" );
 		return;
 	}
 
@@ -421,7 +421,7 @@ void Renderer::ResizeSwapChain( int SID , int width , int height )
 
 	if ( FAILED( hr ) )
 	{
-		Log::Get().Write( L"交换链相关联的缓存获取失败" );
+		Log::Get().Error( L"交换链相关联的缓存获取失败" );
 
 		return;
 	}
@@ -429,7 +429,7 @@ void Renderer::ResizeSwapChain( int SID , int width , int height )
 	hr = m_pDevice->CreateRenderTargetView( pBackBuffer->GetResource() , &RTVDesc , RTV.m_RenderTargetView.GetAddressOf() );
 	if ( FAILED( hr ) )
 	{
-		Log::Get().Write( L"RenderTarget创建失败" );
+		Log::Get().Error( L"RenderTarget创建失败" );
 
 		return;
 	}
@@ -465,7 +465,7 @@ int Renderer::CreateShaderResourceView( int ResourceID , D3D11_SHADER_RESOURCE_V
 			if( SUCCEEDED( hr ) )
 			{
 				m_vShaderResourceViews.push_back( pShaderResourceView );
-				return ( m_vShaderResourceViews.size() - 1 );
+				return ( ( int )m_vShaderResourceViews.size() - 1 );
 			}
 		}
 	}
@@ -496,7 +496,7 @@ int Renderer::CreateRenderTargetView( int ResourceID , D3D11_RENDER_TARGET_VIEW_
 			if( SUCCEEDED( hr ) )
 			{
 				m_vRenderTargetViews.push_back( pRenderTargetView );
-				return ( m_vRenderTargetViews.size() - 1 );
+				return ( ( int )m_vRenderTargetViews.size() - 1 );
 			}
 		}
 	}
@@ -527,7 +527,7 @@ int Renderer::CreateDepthStencilView( int ResourceID , D3D11_DEPTH_STENCIL_VIEW_
 			if( SUCCEEDED( hr ) )
 			{
 				m_vDepthStencilViews.push_back( pDepthStencilView );
-				return ( m_vDepthStencilViews.size() - 1 );
+				return ( ( int )m_vDepthStencilViews.size() - 1 );
 			}
 		}
 	}
@@ -558,7 +558,7 @@ int Renderer::CreateUnorderedAccessView( int ResourceID , D3D11_UNORDERED_ACCESS
 			if( SUCCEEDED( hr ) )
 			{
 				m_vUnorderedAccessViews.push_back( pUnorderedAccessView );
-				return ( m_vUnorderedAccessViews.size() - 1 );
+				return ( ( int )m_vUnorderedAccessViews.size() - 1 );
 			}
 		}
 	}
@@ -578,7 +578,7 @@ int Renderer::StoreNewResource( Resource* pResource )
 	{
 		// 说明资源容器中并无元素为nullptr，因此将该资源插入列表最后方
 		m_vResource.push_back( pResource );
-		index = m_vResource.size() - 1;
+		index = ( int )m_vResource.size() - 1;
 	}
 	else
 	{
@@ -608,7 +608,7 @@ Resource* Renderer::GetResourceByIndex( int index )
 		if( pResource->GetInnerID() != inner )
 		{
 			// 输出错误信息
-			Log::Get().Write( L"资源的InnerID与索引的InnerID不一致" );
+			Log::Get().Error( L"资源的InnerID与索引的InnerID不一致" );
 		}
 	}
 
@@ -757,13 +757,13 @@ int Sand::Renderer::CreateBlendState( BlendStateConfig* pConfig )
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"创建BlendState失败" );
+		Log::Get().Error( L"创建BlendState失败" );
 		return -1;
 	}
 
 	m_vBlendStates.push_back( pState );
 
-	return m_vBlendStates.size() - 1;
+	return ( int )m_vBlendStates.size() - 1;
 }
 
 int Sand::Renderer::CreateDepthStencilState( DepthStencilStateConfig* pConfig )
@@ -773,14 +773,14 @@ int Sand::Renderer::CreateDepthStencilState( DepthStencilStateConfig* pConfig )
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"创建深度模板状态失败" );
+		Log::Get().Error( L"创建深度模板状态失败" );
 
 		return -1;
 	}
 
 	m_vDepthStencilStates.push_back( pState );
 
-	return ( m_vDepthStencilStates.size() - 1 );
+	return ( ( int )m_vDepthStencilStates.size() - 1 );
 }
 
 int Sand::Renderer::CreateRasterizerState( RasterizerStateConfig* pConfig )
@@ -790,13 +790,13 @@ int Sand::Renderer::CreateRasterizerState( RasterizerStateConfig* pConfig )
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"创建光栅化状态失败" );
+		Log::Get().Error( L"创建光栅化状态失败" );
 		return -1;
 	}
 
 	m_vRasterizerStates.push_back( pState );
 
-	return ( m_vRasterizerStates.size() - 1 );
+	return ( ( int )m_vRasterizerStates.size() - 1 );
 }
 
 int Sand::Renderer::CreateSamplerState( SamplerStateConfig* pConfig )
@@ -806,21 +806,21 @@ int Sand::Renderer::CreateSamplerState( SamplerStateConfig* pConfig )
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"创建采样状态失败" );
+		Log::Get().Error( L"创建采样状态失败" );
 
 		return -1;
 	}
 
 	m_vSamplerStates.push_back( pState );
 
-	return ( m_vSamplerStates.size() - 1 );
+	return ( ( int )m_vSamplerStates.size() - 1 );
 }
 
 int Sand::Renderer::CreateViewPort( D3D11_VIEWPORT viewport )
 {
 	m_vViewPorts.emplace_back( viewport );
 
-	return ( m_vViewPorts.size() - 1 );
+	return ( ( int )m_vViewPorts.size() - 1 );
 }
 
 void Sand::Renderer::ResizeViewport( int ID , UINT width , UINT height )
@@ -829,7 +829,7 @@ void Sand::Renderer::ResizeViewport( int ID , UINT width , UINT height )
 
 	if ( !( index < m_vViewPorts.size() ) )
 	{
-		Log::Get().Write( L"Error trying to resize viewport" );
+		Log::Get().Error( L"Error trying to resize viewport" );
 	}
 
 	ViewPort& pViewport = m_vViewPorts[index];
@@ -881,7 +881,7 @@ ResourceProxyPtr Renderer::LoadTexture( std::wstring filename , bool sRGB /*= fa
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"Failed to load texture from file" );
+		Log::Get().Error( L"Failed to load texture from file" );
 
 		return ResourceProxyPtr( new ResourceProxy );
 	}
@@ -913,7 +913,7 @@ ResourceProxyPtr Renderer::LoadTexture( void* pData , SIZE_T SizeInByte )
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"Failed to load texture from file" );
+		Log::Get().Error( L"Failed to load texture from file" );
 		return ResourceProxyPtr( new ResourceProxy );
 	}
 
@@ -969,7 +969,7 @@ int Renderer::CreateInputLayout( std::vector<D3D11_INPUT_ELEMENT_DESC>& InputEle
 {
 	// 将InputElementDesc中的数据全部拷贝出来
 	D3D11_INPUT_ELEMENT_DESC* pInputElementDesc = new D3D11_INPUT_ELEMENT_DESC[InputElementDesc.size()];
-	for( int i = 0; i < InputElementDesc.size(); i++ )
+	for( int i = 0; i < ( int )InputElementDesc.size(); i++ )
 	{
 		pInputElementDesc[i] = InputElementDesc[i];
 	}
@@ -980,18 +980,18 @@ int Renderer::CreateInputLayout( std::vector<D3D11_INPUT_ELEMENT_DESC>& InputEle
 
 	// 创建ID3D11InputLayout对象
 	InputLayoutComPtr pInputLayout;
-	HRESULT hr = m_pDevice->CreateInputLayout( pInputElementDesc , InputElementDesc.size() , pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , pInputLayout.GetAddressOf() );
+	HRESULT hr = m_pDevice->CreateInputLayout( pInputElementDesc , ( UINT )InputElementDesc.size() , pCompiledShader->GetBufferPointer() , pCompiledShader->GetBufferSize() , pInputLayout.GetAddressOf() );
 
 	delete[] pInputElementDesc;
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"创建InputLayout失败！！" );
+		Log::Get().Error( L"创建InputLayout失败！！" );
 	}
 
 	m_vInputLayouts.push_back( pInputLayout );
 	
-	return ( m_vInputLayouts.size() - 1 );
+	return ( ( int )m_vInputLayouts.size() - 1 );
 }
 
 ResourceProxyPtr Renderer::GetSwapChainResource( int index )
@@ -1003,7 +1003,7 @@ ResourceProxyPtr Renderer::GetSwapChainResource( int index )
 		return m_vSwapChain[id]->m_ResourceProxy;
 	}
 
-	Log::Get().Write( L"交换链索引无效" );
+	Log::Get().Error( L"交换链索引无效" );
 
 	// 返回一个默认ResourceProxyPtr对象
 	// 资源，资源视图都为nullptr
@@ -1019,7 +1019,7 @@ int Renderer::GetUnusedResourceIndex()
 {
 	int index = -1;
 
-	for( int i = 0; i < m_vResource.size(); i++ )
+	for( int i = 0; i < ( int )m_vResource.size(); i++ )
 	{
 		if( m_vResource[i] == nullptr )
 		{
@@ -1114,7 +1114,7 @@ VertexBuffer* Renderer::GetVertexBufferByIndex( int ID )
 	{
 		if( pResource->GetType() != RT_VERTEXBUFFER )
 		{
-			Log::Get().Write( L"Trying to access a non-vertex buffer resource!!" );
+			Log::Get().Error( L"Trying to access a non-vertex buffer resource!!" );
 		}
 		else
 		{
@@ -1135,7 +1135,7 @@ IndexBuffer* Renderer::GetIndexBufferByIndex( int ID )
 	{
 		if( pResource->GetType() != RT_INDEXBUFFER )
 		{
-			Log::Get().Write( L"Trying to access a non-index buffer resource!!!" );
+			Log::Get().Error( L"Trying to access a non-index buffer resource!!!" );
 		}
 		else
 		{
@@ -1244,7 +1244,7 @@ int Renderer::LoadShader( ShaderType Type , std::wstring& Filename , std::wstrin
 
 	if( FAILED( hr ) )
 	{
-		Log::Get().Write( L"Failed to Create Shader" );
+		Log::Get().Error( L"Failed to Create Shader" );
 		pCompiledShader->Release();
 		delete pShaderWrapper;
 		return -1;
@@ -1265,7 +1265,7 @@ int Renderer::LoadShader( ShaderType Type , std::wstring& Filename , std::wstrin
 
 	pShaderWrapper->SetShaderReflection( pReflection );
 
-	return ( m_vShaders.size() - 1 );
+	return ( ( int )m_vShaders.size() - 1 );
 }
 
 void Renderer::QueueTask( Task* pTask )
@@ -1275,7 +1275,7 @@ void Renderer::QueueTask( Task* pTask )
 
 void Renderer::ProcessTaskQueue()
 {
-	for( int i = m_vQueuedTasks.size() - 1; i >= 0; i-- )
+	for( int i = ( int )m_vQueuedTasks.size() - 1; i >= 0; i-- )
 	{
 		m_vQueuedTasks[i]->ExecuteTask( m_pPipelineManager , m_pParameterManager );
 	}

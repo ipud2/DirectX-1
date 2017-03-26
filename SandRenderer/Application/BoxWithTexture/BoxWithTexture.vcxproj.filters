@@ -6,7 +6,4 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\RotateCube\packages.config" />
-  </ItemGroup>
 </Project>

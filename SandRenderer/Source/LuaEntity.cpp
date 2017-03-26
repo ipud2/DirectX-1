@@ -93,9 +93,9 @@ int LuaEntity::SetPos( lua_State* L )
 {
 	Entity* pEntity = ( *( Entity** )luaL_checkudata( L , 1 , "luaL_Entity" ) );
 
-	double x = lua_tonumber( L , 2 );
-	double y = lua_tonumber( L , 3 );
-	double z = lua_tonumber( L , 4 );
+	float x = ( float )lua_tonumber( L , 2 );
+	float y = ( float )lua_tonumber( L , 3 );
+	float z = ( float )lua_tonumber( L , 4 );
 
 	pEntity->GetTransformRef().GetPositionRef() = Vector3f( x , y , z );
 
