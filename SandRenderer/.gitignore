@@ -10,3 +10,5 @@ ipch
 *.sdf
 *.idb
 Library
+Release
+.vs
