@@ -64,7 +64,7 @@ public:
 	}
 
 	FORCEINLINE SString( const SString& Other , int32 ExtraSlack )
-		:m_pData( Other.m_pData , ExtraSlack + ( ( Other.m_pData.Num() || !ExtraSlack ) ? 0 : 1 ) )
+		:m_pData( Other.m_pData , ExtraSlack + ( ( Other.m_pData.GetSize() || !ExtraSlack ) ? 0 : 1 ) )
 	{
 
 	}
@@ -90,7 +90,7 @@ public:
 	{
 		m_pData.AddUninitialized( InCount ? InCount + 1 : 0 );
 		
-		if( m_pData.Num() > 0 )
+		if( m_pData.GetSize() > 0 )
 		{
 			SCString::Strncpy( m_pData.GetData() , InSrc , InCount + 1 );
 		}
@@ -113,7 +113,7 @@ public:
 	
 	FORCEINLINE int32 Length() const
 	{
-		return m_pData.Num() ? m_pData.Num() - 1 : 0;
+		return m_pData.GetSize() ? m_pData.GetSize() - 1 : 0;
 	}
 
 	FORCEINLINE bool IsValidIndex( int32 index ) const
@@ -136,7 +136,7 @@ public:
 
 	FORCEINLINE bool IsEmpty() const
 	{
-		return m_pData.Num() <= 1;
+		return m_pData.GetSize() <= 1;
 	}
 
 	// Create empty string of given size with zero terminating character.
@@ -161,7 +161,7 @@ public:
 		assert( Count >= 0 );
 		if( !Count )	return;
 
-		int32 Index = m_pData.Num();
+		int32 Index = m_pData.GetSize();
 		// Reserve enough space - including an extra gap for a null terminator if we don't already have a string allocated.
 		m_pData.AddUninitialized( Count + ( Index ? 0 : 1 ) );
 		
@@ -185,9 +185,9 @@ public:
 	{
 		if( InChar != 0 )
 		{
-			int32 InsertIndex = m_pData.Num() ? m_pData.Num() - 1 : 0;
+			int32 InsertIndex = m_pData.GetSize() ? m_pData.GetSize() - 1 : 0;
 
-			int32 InsertCount = m_pData.Num() > 0 ? 1 : 2;
+			int32 InsertCount = m_pData.GetSize() > 0 ? 1 : 2;
 
 			m_pData.AddUninitialized( InsertCount );
 			m_pData[InsertIndex]		= InChar;
@@ -213,9 +213,9 @@ public:
 	{
 		if( Count != 0 )
 		{
-			int32 InsertIndex = m_pData.Num() > 0 ? m_pData.Num() - 1 : 0;
+			int32 InsertIndex = m_pData.GetSize() > 0 ? m_pData.GetSize() - 1 : 0;
 
-			int32 FinalCount = ( m_pData.Num() > 0 ) ? Count : Count + 1;
+			int32 FinalCount = ( m_pData.GetSize() > 0 ) ? Count : Count + 1;
 
 			m_pData.AddUninitialized( FinalCount );
 
@@ -224,7 +224,7 @@ public:
 				m_pData[InsertIndex + Index] = Text[Index];
 			}
 
-			m_pData[m_pData.Num() - 1] = 0;
+			m_pData[m_pData.GetSize() - 1] = 0;
 		}
 
 		return *this;

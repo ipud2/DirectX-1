@@ -2,6 +2,7 @@
 
 #include "Win32RenderWindow.h"
 #include "Vector2f.h"
+#include "Engine/Gui/ImModule.h"
 
 using namespace Sand;
 

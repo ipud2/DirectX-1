@@ -258,6 +258,7 @@
     <ClInclude Include="..\Engine\Base\WindowsPlatform.h" />
     <ClInclude Include="..\Engine\Base\WindowsPlatformMemory.h" />
     <ClInclude Include="..\Engine\Gui\EditorManager.h" />
+    <ClInclude Include="..\Engine\Gui\ImModule.h" />
     <ClInclude Include="..\Engine\Gui\SandGui.h" />
     <ClInclude Include="..\Engine\IO\FileInStream.h" />
     <ClInclude Include="..\Engine\IO\FileOutStream.h" />
@@ -465,6 +466,7 @@
     <ClCompile Include="..\Engine\Base\GenericPlatformString.cpp" />
     <ClCompile Include="..\Engine\Base\SString.cpp" />
     <ClCompile Include="..\Engine\Gui\EditorManager.cpp" />
+    <ClCompile Include="..\Engine\Gui\ImModule.cpp" />
     <ClCompile Include="..\Engine\Gui\SandGui.cpp" />
     <ClCompile Include="..\Engine\IO\FileInStream.cpp" />
     <ClCompile Include="..\Engine\IO\FileOutStream.cpp" />

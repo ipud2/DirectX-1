@@ -212,6 +212,9 @@
     <Filter Include="Base">
       <UniqueIdentifier>{36ec37ae-318b-48f6-a48d-c4bb9e61e679}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{eca90a71-8e67-4103-ba36-fcfc00c2fc18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\Application.h">
@@ -781,30 +784,6 @@
     <ClInclude Include="..\Include\FbxInfoHeader.h">
       <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Gui\EditorManager.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Gui\SandGui.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\imconfig.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui_internal.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_rect_pack.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_textedit.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_truetype.h">
-      <Filter>Application</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\SMath.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -930,6 +909,33 @@
     </ClInclude>
     <ClInclude Include="..\Engine\Base\WindowsPlatformMemory.h">
       <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui_internal.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\imconfig.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Gui\SandGui.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_truetype.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_rect_pack.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_textedit.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Gui\EditorManager.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine\Gui\ImModule.h">
+      <Filter>IMGUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1446,11 +1452,6 @@
     <ClCompile Include="..\Engine\Animation\FbxLoadercpp.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\Gui\EditorManager.cpp" />
-    <ClCompile Include="..\Engine\Gui\SandGui.cpp" />
-    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui.cpp" />
-    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_demo.cpp" />
-    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_draw.cpp" />
     <ClCompile Include="SMath.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -1477,6 +1478,24 @@
     </ClCompile>
     <ClCompile Include="..\Engine\Base\SString.cpp">
       <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Gui\EditorManager.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_draw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_demo.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Gui\SandGui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine\Gui\ImModule.cpp">
+      <Filter>IMGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 #include "PCH.h"
 #include "Application.h"
 #include "Log.h"
+#include "Engine/Gui/EditorManager.h"
 
 using namespace Sand;
 
@@ -270,4 +271,8 @@ void Application::SetFrameRate( HWND hwnd )
 		FrameCount = 0;
 		TimeElapsed += 1.0f;
 	}
+}
+
+void Application::UpdateEditor()
+{
 }

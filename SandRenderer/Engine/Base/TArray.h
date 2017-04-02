@@ -135,7 +135,7 @@ public:
 	/*
 		return number of elements in array.
 	*/
-	FORCEINLINE int32 Num() const
+	FORCEINLINE int32 GetSize() const
 	{
 		return m_iSize;
 	}

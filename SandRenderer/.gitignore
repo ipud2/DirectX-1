@@ -1,6 +1,7 @@
 ipch
 *.exe
 *.tlog
+*.log
 *.obj
 *.suo
 *.ilk

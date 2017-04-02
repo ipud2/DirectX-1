@@ -2,6 +2,7 @@
 #define EDITOR_MANAGER_H
 
 #include "SandGui.h"
+#include "Engine/Base/TArray.h"
 
 namespace Sand
 {
@@ -19,13 +20,13 @@ namespace Sand
 		void RegisterEditor( SandGui _EditorCallback , void* _userdata );
 		void UnRegisterEditor( SandGui _EditorCallback );
 
-		void Update();
+		void Update( ImGuiIO& io );
 
 	protected:
 		EditorManager();
 
 	protected:
-		std::vector<GuiConfig> m_vGuiList;
+		TArray<GuiConfig> m_vGuiList;
 	};
 }
 #endif

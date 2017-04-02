@@ -56,6 +56,7 @@ namespace Sand
 		virtual void Update() = 0;
 		virtual void Shutdown() = 0;
 		virtual void MessageLoop();
+		virtual void UpdateEditor();
 
 		// 事件处理，处理一些我们感兴趣的事件
 		virtual bool HandleEvent( EventPtr pEvent );
