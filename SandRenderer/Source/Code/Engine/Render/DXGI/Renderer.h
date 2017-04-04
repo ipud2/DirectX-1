@@ -550,6 +550,8 @@ namespace Sand
 		void QueueTask( Task* pTask );
 		void ProcessTaskQueue();
 
+		ID3D11Device* GetDevice();
+
 	protected:
 		Microsoft::WRL::ComPtr<ID3D11Device> m_pDevice;
 		Microsoft::WRL::ComPtr<ID3D11Debug> m_pDebugger;

@@ -914,6 +914,24 @@
       <Filter>Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Code\Engine\PCH.h" />
+    <ClInclude Include="ThirdParty\ImGui\inc\imconfig.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\inc\imgui.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\inc\imgui_internal.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\inc\stb_rect_pack.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\inc\stb_textedit.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\inc\stb_truetype.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Code\Engine\Application\Application.cpp">
@@ -1466,6 +1484,15 @@
       <Filter>Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Code\Engine\PCH.cpp" />
+    <ClCompile Include="ThirdParty\ImGui\inc\imgui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGui\inc\imgui_demo.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGui\inc\imgui_draw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Code\Engine\Base\TArray.inl">

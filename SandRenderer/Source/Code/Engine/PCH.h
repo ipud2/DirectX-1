@@ -36,9 +36,9 @@
 
 #include <wrl.h>
 
-#define SAFE_RELEASE(x) {if(x){(x)->Release(); (x) = NULL;}}
-#define SAFE_DELETE(x) {if(x){delete (x); (x) = NULL;}}
-#define SAFE_DELETE_ARRAY(x) {if(x){delete[] x; (x) = NULL;}}
+#define SAFE_RELEASE(x) {if(x){(x)->Release(); (x) = nullptr;}}
+#define SAFE_DELETE(x) {if(x){delete (x); (x) = nullptr;}}
+#define SAFE_DELETE_ARRAY(x) {if(x){delete[] x; (x) = nullptr;}}
 #define SAFE_FREE(x)	{if(x){free((x)); (x) = nullptr;}}
 
 #define SAND_PI 3.14159265f

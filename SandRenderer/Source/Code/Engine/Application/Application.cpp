@@ -4,6 +4,8 @@
 #include "Engine/Gui/EditorManager.h"
 #include "Engine/Render/DXGI/SwapChainConfig.h"
 #include "Engine/Resource/Texture/Texture2DConfig.h"
+#include "Engine/Gui/ImModule.h"
+#include "Engine/Gui/SandGui.h"
 
 using namespace Sand;
 
@@ -84,8 +86,15 @@ void Application::MessageLoop()
 	}
 }
 
+extern LRESULT ImWndProHandler( HWND hwnd , UINT msg , WPARAM wParam , LPARAM lParam );
+
 LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM lParam )
 {
+	if( ImWndProHandler( hwnd , msg , wParam , lParam ) )
+	{
+		return true;
+	}
+
 	switch( msg )
 	{
 		case WM_CREATE:
@@ -197,6 +206,26 @@ LRESULT Application::WindowProc( HWND hwnd , UINT msg , WPARAM wParam , LPARAM l
 			EventManager::Get().ProcessEvent( pEvent );
 			break;
 		}
+
+		case WM_DROPFILES:
+		{
+			HDROP hDrop = ( HDROP )( wParam );
+			TCHAR lpszFile[MAX_PATH];
+
+			UINT nCount = DragQueryFile( hDrop , 0xFFFFFFFF , NULL , 0 );
+
+			for( UINT i = 0; i < nCount; i++ )
+			{
+				if( DragQueryFile( hDrop , i , lpszFile , MAX_PATH ) > 0 )
+				{
+					//AssetViewer::LoadAsset( lpszFile );
+				}
+			}
+
+			DragFinish( hDrop );
+
+			break;
+		}
 	}
 
 
@@ -264,7 +293,9 @@ void Sand::Application::ShutdownEngineComponents()
 
 void Sand::Application::Initialize()
 {
+	ImInit( m_pWindow->GetHandle() , m_pRenderer->GetDevice() , m_pRenderer->GetPipelineManagerRef()->GetDeviceContext() );
 
+	SetupImStyle( true , 0.5f );
 }
 
 void Sand::Application::Update()
@@ -274,6 +305,8 @@ void Sand::Application::Update()
 	// ÉèÖÃ±³¾°
 	m_pRenderer->GetPipelineManagerRef()->ClearBuffers( Vector4f( 0.0f , 0.0f , 0.0f , 0.0f ) , 1.0f );
 
+	ImNewFrame();
+
 	UpdateEditor();
 
 	m_pRenderer->Present( m_pWindow->GetSwapChain() );
@@ -281,6 +314,10 @@ void Sand::Application::Update()
 
 void Sand::Application::Shutdown()
 {
+	ImShutdown();
+
+	SAFE_DELETE( m_pRenderer );
+	SAFE_DELETE( m_pWindow );
 	SAFE_DELETE( m_spApplication );
 }
 
@@ -329,6 +366,10 @@ void Application::SetFrameRate( HWND hwnd )
 
 void Application::UpdateEditor()
 {
+	ImGui::Begin( "Test Window" );
+	ImGui::Text( "Success Create IMGUI Window" );
+	ImGui::End();
+	ImGui::Render();
 }
 
 bool Application::ConfigureEngineComponents()
@@ -396,4 +437,6 @@ bool Application::ConfigureEngineComponents()
 	int view_port_id = m_pRenderer->CreateViewPort( view_port );
 	m_pRenderer->GetPipelineManagerRef()->GetRasterizerStageRef().DesiredState.ViewportCount.SetState( 1 );
 	m_pRenderer->GetPipelineManagerRef()->GetRasterizerStageRef().DesiredState.Viewports.SetState( 0 , view_port_id );
+
+	return true;
 }

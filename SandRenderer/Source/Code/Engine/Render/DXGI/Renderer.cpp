@@ -208,6 +208,8 @@ void Renderer::Shutdown()
 	//  Õ∑≈PipelineManager∂‘œÛ
 	SAFE_DELETE( m_pPipelineManager );
 
+	SAFE_RELEASE( m_pDevice );
+
 	// -------------Resource View--------------------
 	m_vShaderResourceViews.clear();
 	m_vRenderTargetViews.clear();
@@ -835,6 +837,11 @@ void Sand::Renderer::ResizeViewport( int ID , UINT width , UINT height )
 	ViewPort& pViewport = m_vViewPorts[index];
 	pViewport.m_ViewPort.Width = static_cast< float >( width );
 	pViewport.m_ViewPort.Height = static_cast< float >( height );
+}
+
+ID3D11Device* Sand::Renderer::GetDevice()
+{
+	return m_pDevice.Get();
 }
 
 ResourceProxyPtr Renderer::LoadTexture( std::wstring filename , bool sRGB /*= false */ )

@@ -23,7 +23,6 @@ int WINAPI WinMain( HINSTANCE hInstance , HINSTANCE hPreInstance , LPSTR lpCmdLi
 		return -1;
 	}
 
-
 	// 应用程序初始化
 	m_pApp->Initialize();
 
