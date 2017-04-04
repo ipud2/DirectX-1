@@ -32,9 +32,6 @@
     <Filter Include="Render">
       <UniqueIdentifier>{dbb5e819-eaa2-49b0-9855-1ff23bb88ddd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Render\DXGI">
-      <UniqueIdentifier>{a770e805-d480-40c9-940b-d5ef50bce660}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pipeline">
       <UniqueIdentifier>{2aa7961d-6d85-4df9-9f76-a387b20ed1ec}</UniqueIdentifier>
     </Filter>
@@ -52,9 +49,6 @@
     </Filter>
     <Filter Include="Pipeline\StageExecutor\InputAssembler">
       <UniqueIdentifier>{8ac4333d-70de-480f-b1d2-3bc4ebbe19d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pipeline\StageExecutor\InputAssembler\FileFormat">
-      <UniqueIdentifier>{472702a9-68e4-41b3-a630-e7b164f81772}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object">
       <UniqueIdentifier>{a3cdcb80-f465-48f0-8ba4-f1176fdca44e}</UniqueIdentifier>
@@ -131,9 +125,6 @@
     <Filter Include="Resource\Buffer">
       <UniqueIdentifier>{101b01d5-0f5c-41bf-be30-1330b821f121}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource\Buffer\Configure">
-      <UniqueIdentifier>{15bb4380-75e2-48f4-b21b-41b0ecb561c0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource\Texture">
       <UniqueIdentifier>{c68dab84-e7f1-4472-a265-fe2fc4e0957c}</UniqueIdentifier>
     </Filter>
@@ -188,17 +179,8 @@
     <Filter Include="Math">
       <UniqueIdentifier>{3044f07b-1690-4454-9026-7e6509267ff0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Material\Sampler">
-      <UniqueIdentifier>{f3a27aa9-c483-48de-8843-c6dc93ecd24f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pipeline\StageExecutor\InputAssembler\FBX">
-      <UniqueIdentifier>{a05f831e-9527-469d-b9f7-1aada68cf377}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Animation">
       <UniqueIdentifier>{0fb7dc1f-adbd-4e20-bd51-2796afbca7d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ks">
-      <UniqueIdentifier>{8b5b127a-7e24-4548-b89c-0550e27b5cef}</UniqueIdentifier>
     </Filter>
     <Filter Include="Geom">
       <UniqueIdentifier>{02465ce0-2d9f-43b9-91cf-466c80d9e6d6}</UniqueIdentifier>
@@ -206,1322 +188,1312 @@
     <Filter Include="IO">
       <UniqueIdentifier>{6cbfae9e-0769-4b9b-a87d-f14fba7dba4f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ReadWriter">
-      <UniqueIdentifier>{a190dc12-2a61-45ea-a960-abdb1b31ade5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Base">
       <UniqueIdentifier>{36ec37ae-318b-48f6-a48d-c4bb9e61e679}</UniqueIdentifier>
     </Filter>
     <Filter Include="IMGUI">
       <UniqueIdentifier>{eca90a71-8e67-4103-ba36-fcfc00c2fc18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IO\ReadWriter">
+      <UniqueIdentifier>{dd51e157-4345-4bfa-bf67-baf4f33db6e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Include\Application.h">
+    <ClInclude Include="Code\Engine\Application\Application.h">
       <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\PCH.h">
-      <Filter>Utility</Filter>
+    <ClInclude Include="Code\Engine\Application\Console.h">
+      <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\IEvent.h">
-      <Filter>Event</Filter>
+    <ClInclude Include="Code\Engine\Application\IWindowProc.h">
+      <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventWindowMessage.h">
-      <Filter>Event\Windows Message</Filter>
+    <ClInclude Include="Code\Engine\Application\RenderWindow.h">
+      <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventKeyboardMessage.h">
-      <Filter>Event\Windows Message\Keyboard</Filter>
+    <ClInclude Include="Code\Engine\Application\SandRendererModule.h">
+      <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventKeyUp.h">
-      <Filter>Event\Windows Message\Keyboard</Filter>
+    <ClInclude Include="Code\Engine\Application\Win32RenderWindow.h">
+      <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventKeyDown.h">
-      <Filter>Event\Windows Message\Keyboard</Filter>
+    <ClInclude Include="Code\Engine\Animation\VAnimation.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventChar.h">
-      <Filter>Event\Windows Message\Keyboard</Filter>
+    <ClInclude Include="Code\Engine\Animation\VAnimSequence.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseMessage.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VJoint.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseLButtonUp.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VJointManager.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseLButtonDown.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VKeyFrame.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseRButtonUp.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VMaterial.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseRButtonDown.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VMesh.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseMButtonUp.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VPose.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseMButtonDown.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VScene.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseMove.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VSkeleton.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseLeave.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VSkeletonManager.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventMouseWheel.h">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClInclude Include="Code\Engine\Animation\VSubMesh.h">
+      <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventFrameStart.h">
+    <ClInclude Include="Code\Engine\Animation\VTriangle.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Animation\VVertex.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\AddOrNot.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\AlignOf.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\AllocationPolicies.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\AreTypesEqual.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\CString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\GenericPlatformMemory.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\GenericPlatformStricmp.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\GenericPlatformString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\Greater.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\IsClass.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\IsPODType.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\IsTriviallyCopyAssignable.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\IsTriviallyDestructible.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\Less.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\MemoryOps.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\Platform.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\RefCounter.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\RemoveReference.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\SMemory.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\SMicrosoftPlatformString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\Sorting.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\SPlatformString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\SString.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\STypeTraits.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\TArray.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\TChar.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\TChooseClass.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\TEnableIf.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\TestTemplate.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\TIntegralConstant.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\TIsArithmetic.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\TIsPointer.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\TypeCompatibleBytes.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\WindowsPlatform.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Base\WindowsPlatformMemory.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Effect\task\SceneRenderTask.h">
+      <Filter>Effect\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Effect\task\Task.h">
+      <Filter>Effect\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Effect\task\ViewPerspective.h">
+      <Filter>Effect\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Effect\task\ViewShadowMap.h">
+      <Filter>Effect\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Effect\Effect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Effect\EffectGenerator.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Effect\Renderable.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Effect\RenderEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Event\Notification\EventErrorMessage.h">
+      <Filter>Event\Notification</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Event\Notification\EventInfoMessage.h">
+      <Filter>Event\Notification</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Event\Render\EventFrameStart.h">
       <Filter>Event\Render</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventInfoMessage.h">
-      <Filter>Event\Notification</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Keyboard\EventChar.h">
+      <Filter>Event\Windows Message\Keyboard</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventErrorMessage.h">
-      <Filter>Event\Notification</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyboardMessage.h">
+      <Filter>Event\Windows Message\Keyboard</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\IEventListener.h">
-      <Filter>Event</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyDown.h">
+      <Filter>Event\Windows Message\Keyboard</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EventManager.h">
-      <Filter>Event</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyUp.h">
+      <Filter>Event\Windows Message\Keyboard</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\IWindowProc.h">
-      <Filter>Application</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLButtonDown.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\RenderWindow.h">
-      <Filter>Application</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLButtonUp.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Win32RenderWindow.h">
-      <Filter>Application</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLeave.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Vector2f.h">
-      <Filter>Math</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMButtonDown.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Renderer.h">
-      <Filter>Render</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMButtonUp.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\DXGIAdapter.h">
-      <Filter>Render\DXGI</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMessage.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\DXGIOutput.h">
-      <Filter>Render\DXGI</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMove.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\SwapChainConfig.h">
-      <Filter>Render</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseRButtonDown.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Texture2D.h">
-      <Filter>Resource\Texture</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseRButtonUp.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Resource.h">
-      <Filter>Resource</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseWheel.h">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Texture2DConfig.h">
-      <Filter>Resource\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ResourceProxy.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderResourceViewConfig.h">
-      <Filter>Resource\ResourceView</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\RenderTargetViewConfig.h">
-      <Filter>Resource\ResourceView</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\DepthStencilViewConfig.h">
-      <Filter>Resource\ResourceView</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\UnorderedAccessViewConfig.h">
-      <Filter>Resource\ResourceView</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\RenderTargetView.h">
-      <Filter>Resource\ResourceView</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\DepthStencilView.h">
-      <Filter>Resource\ResourceView</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderResoruceView.h">
-      <Filter>Resource\ResourceView</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\UnorderedAccessView.h">
-      <Filter>Resource\ResourceView</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SwapChain.h">
-      <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Log.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\FileSystem.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\TStateMonitor.h">
-      <Filter>Pipeline\PipelineStage\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\TStateArrayMonitor.h">
-      <Filter>Pipeline\PipelineStage\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\InputAssemblerState.h">
-      <Filter>Pipeline\PipelineStage\FixedStages\InputAssemblerStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\InputAssemblerStage.h">
-      <Filter>Pipeline\PipelineStage\FixedStages\InputAssemblerStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\RasterizerStage.h">
-      <Filter>Pipeline\PipelineStage\FixedStages\RasterizerStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\OutputMergeStage.h">
-      <Filter>Pipeline\PipelineStage\FixedStages\OutputMergeStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\OutputMergeStageState.h">
-      <Filter>Pipeline\PipelineStage\FixedStages\OutputMergeStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\RasterizerStageState.h">
-      <Filter>Pipeline\PipelineStage\FixedStages\RasterizerStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ViewPort.h">
-      <Filter>Resource\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\PipelineManager.h">
-      <Filter>Pipeline</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\RasterizerStateConfig.h">
-      <Filter>Resource\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\BlendStateConfig.h">
-      <Filter>Resource\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\DepthStencilStateConfig.h">
-      <Filter>Resource\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Vector4f.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Vector3f.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\GeometryLoader.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Geometry.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\OBJ.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler\FileFormat</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\IController.h">
-      <Filter>Object\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SpatialController.h">
-      <Filter>Object\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\RotationController.h">
-      <Filter>Object\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\PickRecord.h">
-      <Filter>Object\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Entity.h">
-      <Filter>Object\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Node.h">
-      <Filter>Object\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Scene.h">
-      <Filter>Object\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Transform.h">
-      <Filter>Object\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Matrix3f.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Matrix4f.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SceneGraph.h">
-      <Filter>Object\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\VertexElement.h">
-      <Filter>Pipeline\StageExecutor\Basic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Buffer.h">
-      <Filter>Resource\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\VertexBuffer.h">
-      <Filter>Resource\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\IndexBuffer.h">
-      <Filter>Resource\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ConstantBuffer.h">
-      <Filter>Resource\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\StructuredBuffer.h">
-      <Filter>Resource\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ConstantBufferParameter.h">
-      <Filter>Parameter\Parameters\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderResourceParameter.h">
-      <Filter>Parameter\Parameters\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\UnorderedAccessParameter.h">
-      <Filter>Parameter\Parameters\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\RenderParameter.h">
-      <Filter>Parameter\Parameters\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SamplerParameter.h">
-      <Filter>Parameter\Parameters\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\BaseNumericTypeRenderParameter.h">
-      <Filter>Parameter\Parameters\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\BufferConfig.h">
-      <Filter>Resource\Buffer\Configure</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderReflection.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderStructure.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\IParameterManager.h">
-      <Filter>Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ParameterManager.h">
-      <Filter>Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderReflectionGenerator.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Shader.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderStage.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderStageState.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\VertexStage.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\HullStage.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\DomainStage.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\GeometryStage.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\PixelStage.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ComputeStage.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\VertexShader.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\HullShader.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\DomainShader.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\GeometryShader.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\PixelShader.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ComputeShader.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\InputAssemblerStageExecutor.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\GeometryGenerator.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ParameterWriter.h">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderFactory.h">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\FileLoader.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Actor.h">
-      <Filter>Object\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ParameterContainer.h">
-      <Filter>Parameter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Light.h">
-      <Filter>Object\Actor\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\PositionExtractorController.h">
-      <Filter>Object\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\RenderEffect.h">
-      <Filter>Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Task.h">
-      <Filter>Effect\Task</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SceneRenderTask.h">
-      <Filter>Effect\Task</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Renderable.h">
-      <Filter>Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SamplerStateConfig.h">
-      <Filter>Resource\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ViewPerspective.h">
-      <Filter>Effect\Task</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MS3D.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler\FileFormat</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Timer.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\DirectionalLight.h">
-      <Filter>Object\Actor\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MatrixArrayParameter.h">
-      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MatrixParameter.h">
-      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Vector2fParameter.h">
-      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Vector3fParameter.h">
-      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Vector4fParameter.h">
-      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\StructureParameter.h">
-      <Filter>Parameter\Parameters\Struct</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ConstantBufferParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MatrixArrayParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MatrixParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SamplerParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ShaderResourceParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\UnorderedAccessParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Vector2fParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Vector3fParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Vector4fParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\StructureParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\StructWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Skybox.h">
-      <Filter>Object\Actor\Skybox</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\FloatParameter.h">
-      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\BoolParameter.h">
-      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\BoolParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\OrientationController.h">
-      <Filter>Object\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\EventWindowResize.h">
+    <ClInclude Include="Code\Engine\Event\Windows Message\Window\EventWindowResize.h">
       <Filter>Event\Windows Message\Window</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\Effect.h">
-      <Filter>Effect</Filter>
+    <ClInclude Include="Code\Engine\Event\Windows Message\EventWindowMessage.h">
+      <Filter>Event\Windows Message</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\EffectGenerator.h">
-      <Filter>Effect</Filter>
+    <ClInclude Include="Code\Engine\Event\EventManager.h">
+      <Filter>Event</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\FloatParameterWriter.h">
-      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    <ClInclude Include="Code\Engine\Event\IEvent.h">
+      <Filter>Event</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\ViewShadowMap.h">
-      <Filter>Effect\Task</Filter>
+    <ClInclude Include="Code\Engine\Event\IEventListener.h">
+      <Filter>Event</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\BaseCamera.h">
-      <Filter>Object\Actor\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MainCamera.h">
-      <Filter>Object\Actor\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\ScriptManager.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\GeometryActor.h">
-      <Filter>Object\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\LuaGeometry.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\LuaActor.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\LuaEntity.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\LuaMaterial.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\LuaEffect.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MaterialLua.h">
-      <Filter>Material</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\Material.h">
-      <Filter>Material</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\MaterialHelper.h">
-      <Filter>Material</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\LuaSampler.h">
-      <Filter>Material\Sampler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\FFbxImporter.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\FFbxMesh.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\FFbxShape.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\InputAssemblerLayer.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VSkeletonManager.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VAnimation.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VAnimSequence.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VJoint.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VKeyFrame.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VMesh.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VPose.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VSkeleton.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VVertex.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VJointManager.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VSubMesh.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Base\RefCounter.h">
-      <Filter>ks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VScene.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\FFbxDataConverter.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Include\SandRendererModule.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Animation\ImportProcesser.h">
+    <ClInclude Include="Code\Engine\Geom\ExportProcesser.h">
       <Filter>Geom</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Animation\ExportProcesser.h">
+    <ClInclude Include="Code\Engine\Geom\FbxImporterProcesser.h">
       <Filter>Geom</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Animation\FbxImporterProcesser.h">
+    <ClInclude Include="Code\Engine\Geom\FbxInfoHeader.h">
       <Filter>Geom</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Animation\FbxLoader.h">
-      <Filter>Animation</Filter>
+    <ClInclude Include="Code\Engine\Geom\FbxLoader.h">
+      <Filter>Geom</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\FbxInfoHeader.h">
-      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
+    <ClInclude Include="Code\Engine\Geom\FFbxDataConverter.h">
+      <Filter>Geom</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\SMath.h">
+    <ClInclude Include="Code\Engine\Geom\FFbxImporter.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Geom\FFbxMesh.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Geom\FFbxShape.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Geom\ImportProcesser.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Geom\MS3D.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Geom\OBJ.h">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Gui\EditorManager.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Gui\ImModule.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Gui\SandGui.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\IO\FileInStream.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\IO\FileOutStream.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\IO\IVFileStream.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\IO\ReadWriter\VModelReadWriter.h">
+      <Filter>IO\ReadWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Material\LuaSampler.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Material\Material.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Material\MaterialHelper.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Material\MaterialLua.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Math\Matrix3f.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\IO\IVFileStream.h">
-      <Filter>IO</Filter>
+    <ClInclude Include="Code\Engine\Math\Matrix4f.h">
+      <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\IO\FileInStream.h">
-      <Filter>IO</Filter>
+    <ClInclude Include="Code\Engine\Math\SMath.h">
+      <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\IO\ReadWriter\VModelReadWriter.h">
-      <Filter>ReadWriter</Filter>
+    <ClInclude Include="Code\Engine\Math\Vector2f.h">
+      <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\IO\FileOutStream.h">
-      <Filter>IO</Filter>
+    <ClInclude Include="Code\Engine\Math\Vector3f.h">
+      <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VMaterial.h">
-      <Filter>Animation</Filter>
+    <ClInclude Include="Code\Engine\Math\Vector4f.h">
+      <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Animation\VTriangle.h">
-      <Filter>Animation</Filter>
+    <ClInclude Include="Code\Engine\Object\Scene\Entity.h">
+      <Filter>Object\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\StringUtil.h">
+    <ClInclude Include="Code\Engine\Object\Scene\Node.h">
+      <Filter>Object\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Scene\PickRecord.h">
+      <Filter>Object\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Scene\Scene.h">
+      <Filter>Object\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Scene\SceneGraph.h">
+      <Filter>Object\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Scene\Transform.h">
+      <Filter>Object\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Controller\IController.h">
+      <Filter>Object\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Controller\OrientationController.h">
+      <Filter>Object\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Controller\PositionExtractorController.h">
+      <Filter>Object\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Controller\RotationController.h">
+      <Filter>Object\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Controller\SpatialController.h">
+      <Filter>Object\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Actor\Actor.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Actor\GeometryActor.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Actor\Camera\BaseCamera.h">
+      <Filter>Object\Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Actor\Camera\MainCamera.h">
+      <Filter>Object\Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Actor\Light\DirectionalLight.h">
+      <Filter>Object\Actor\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Actor\Light\Light.h">
+      <Filter>Object\Actor\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Object\Actor\Skybox\Skybox.h">
+      <Filter>Object\Actor\Skybox</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\BaseClass\BaseNumericTypeRenderParameter.h">
+      <Filter>Parameter\Parameters\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\BaseClass\RenderParameter.h">
+      <Filter>Parameter\Parameters\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Matrix\MatrixArrayParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Matrix\MatrixParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Scalar\BoolParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Scalar\FloatParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector2fParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector3fParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector4fParameter.h">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Object\ConstantBufferParameter.h">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Object\SamplerParameter.h">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Object\ShaderResourceParameter.h">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Object\UnorderedAccessParameter.h">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Struct\StructureParameter.h">
+      <Filter>Parameter\Parameters\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\MatrixWriter\MatrixArrayParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\MatrixWriter\MatrixParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\ConstantBufferParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\SamplerParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\ShaderResourceParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\UnorderedAccessParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ScalarWriter\BoolParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ScalarWriter\FloatParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\StructWriter\StructureParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\StructWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector2fParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector3fParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector4fParameterWriter.h">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ParameterWriter.h">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\IParameterManager.h">
+      <Filter>Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterContainer.h">
+      <Filter>Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Parameter\ParameterManager.h">
+      <Filter>Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\Common\TStateArrayMonitor.h">
+      <Filter>Pipeline\PipelineStage\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\Common\TStateMonitor.h">
+      <Filter>Pipeline\PipelineStage\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\InputAssemblerStage\InputAssemblerStage.h">
+      <Filter>Pipeline\PipelineStage\FixedStages\InputAssemblerStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\InputAssemblerStage\InputAssemblerState.h">
+      <Filter>Pipeline\PipelineStage\FixedStages\InputAssemblerStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\OutputMergeStage\OutputMergeStage.h">
+      <Filter>Pipeline\PipelineStage\FixedStages\OutputMergeStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\OutputMergeStage\OutputMergeStageState.h">
+      <Filter>Pipeline\PipelineStage\FixedStages\OutputMergeStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\RasterizerStage\RasterizerStage.h">
+      <Filter>Pipeline\PipelineStage\FixedStages\RasterizerStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\RasterizerStage\RasterizerStageState.h">
+      <Filter>Pipeline\PipelineStage\FixedStages\RasterizerStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\ComputeShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\DomainShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\GeometryShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\HullShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\PixelShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Shader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\VertexShader.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderReflection.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderReflectionGenerator.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderStructure.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\ComputeStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\DomainStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\GeometryStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\HullStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\PixelStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\ShaderStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\VertexStage.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\State\ShaderStageState.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderFactory.h">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\Basic\VertexElement.h">
+      <Filter>Pipeline\StageExecutor\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\Geometry.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\GeometryGenerator.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\GeometryLoader.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\InputAssemblerLayer.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\InputAssemblerStageExecutor.h">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Pipeline\PipelineManager.h">
+      <Filter>Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Render\DXGI\DXGIAdapter.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Render\DXGI\DXGIOutput.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Render\DXGI\Renderer.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Render\DXGI\SwapChain.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Render\DXGI\SwapChainConfig.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Engine\Utility\FileLoader.h">
       <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\AddOrNot.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Utility\FileSystem.h">
+      <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\AlignOf.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Utility\Log.h">
+      <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\AllocationPolicies.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Utility\StringUtil.h">
+      <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\AreTypesEqual.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Utility\Timer.h">
+      <Filter>Utility</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\CString.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Script\IScriptInterface.h">
+      <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\GenericPlatformMemory.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Script\LuaActor.h">
+      <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\GenericPlatformStricmp.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Script\LuaApp.h">
+      <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\GenericPlatformString.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Script\LuaEffect.h">
+      <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\Greater.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Script\LuaEntity.h">
+      <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\IsClass.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Script\LuaGeometry.h">
+      <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\IsPODType.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Script\LuaMaterial.h">
+      <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\IsTriviallyCopyAssignable.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Script\LuaScene.h">
+      <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\IsTriviallyDestructible.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Script\ScriptManager.h">
+      <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\Less.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\Resource.h">
+      <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\MemoryOps.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\ResourceProxy.h">
+      <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\Platform.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\Buffer\Buffer.h">
+      <Filter>Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\RemoveReference.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\Buffer\BufferConfig.h">
+      <Filter>Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\SMemory.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\Buffer\ConstantBuffer.h">
+      <Filter>Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\SMicrosoftPlatformString.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\Buffer\IndexBuffer.h">
+      <Filter>Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\Sorting.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\Buffer\StructuredBuffer.h">
+      <Filter>Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\SPlatformString.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\Buffer\TGrowableBuffer.h">
+      <Filter>Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\SString.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\Buffer\VertexBuffer.h">
+      <Filter>Resource\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\STypeTraits.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\ResourceView\DepthStencilView.h">
+      <Filter>Resource\ResourceView</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\TArray.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\ResourceView\DepthStencilViewConfig.h">
+      <Filter>Resource\ResourceView</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\TChar.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\ResourceView\RenderTargetView.h">
+      <Filter>Resource\ResourceView</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\TChooseClass.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\ResourceView\RenderTargetViewConfig.h">
+      <Filter>Resource\ResourceView</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\TEnableIf.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\ResourceView\ShaderResoruceView.h">
+      <Filter>Resource\ResourceView</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\TestTemplate.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\ResourceView\ShaderResourceViewConfig.h">
+      <Filter>Resource\ResourceView</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\TIntegralConstant.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\ResourceView\UnorderedAccessView.h">
+      <Filter>Resource\ResourceView</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\TIsArithmetic.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\ResourceView\UnorderedAccessViewConfig.h">
+      <Filter>Resource\ResourceView</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\TIsPointer.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\State\BlendStateConfig.h">
+      <Filter>Resource\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\TypeCompatibleBytes.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\State\DepthStencilStateConfig.h">
+      <Filter>Resource\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\WindowsPlatform.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\State\RasterizerStateConfig.h">
+      <Filter>Resource\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Base\WindowsPlatformMemory.h">
-      <Filter>Base</Filter>
+    <ClInclude Include="Code\Engine\Resource\State\SamplerStateConfig.h">
+      <Filter>Resource\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui.h">
-      <Filter>IMGUI</Filter>
+    <ClInclude Include="Code\Engine\Resource\State\ViewPort.h">
+      <Filter>Resource\State</Filter>
     </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui_internal.h">
-      <Filter>IMGUI</Filter>
+    <ClInclude Include="Code\Engine\Resource\Texture\Texture2D.h">
+      <Filter>Resource\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\imconfig.h">
-      <Filter>IMGUI</Filter>
+    <ClInclude Include="Code\Engine\Resource\Texture\Texture2DConfig.h">
+      <Filter>Resource\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="..\Engine\Gui\SandGui.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_truetype.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_rect_pack.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_textedit.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Gui\EditorManager.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Engine\Gui\ImModule.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
+    <ClInclude Include="Code\Engine\PCH.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp">
+    <ClCompile Include="Code\Engine\Application\Application.cpp">
       <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="EventWindowMessage.cpp">
-      <Filter>Event\Windows Message</Filter>
+    <ClCompile Include="Code\Engine\Application\main.cpp">
+      <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="EventKeyboardMessage.cpp">
-      <Filter>Event\Windows Message\Keyboard</Filter>
+    <ClCompile Include="Code\Engine\Application\RenderWindow.cpp">
+      <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="EventKeyUp.cpp">
-      <Filter>Event\Windows Message\Keyboard</Filter>
+    <ClCompile Include="Code\Engine\Application\Win32RenderWindow.cpp">
+      <Filter>Application</Filter>
     </ClCompile>
-    <ClCompile Include="EventKeyDown.cpp">
-      <Filter>Event\Windows Message\Keyboard</Filter>
+    <ClCompile Include="Code\Engine\Animation\VAnimSequence.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventChar.cpp">
-      <Filter>Event\Windows Message\Keyboard</Filter>
+    <ClCompile Include="Code\Engine\Animation\VJoint.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseMessage.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VJointManager.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseLButtonDown.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VKeyFrame.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseLButtonUp.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VMaterial.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseRButtonUp.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VMesh.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseRButtonDown.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VPose.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseMButtonUp.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VScene.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseMButtonDown.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VSkeleton.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseMove.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VSkeletonManager.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseLeave.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VSubMesh.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventMouseWheel.cpp">
-      <Filter>Event\Windows Message\Mouse</Filter>
+    <ClCompile Include="Code\Engine\Animation\VTriangle.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="EventFrameStart.cpp">
+    <ClCompile Include="Code\Engine\Animation\VVertex.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Base\GenericPlatformString.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Base\SString.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Effect\task\SceneRenderTask.cpp">
+      <Filter>Effect\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Effect\task\Task.cpp">
+      <Filter>Effect\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Effect\task\ViewPerspective.cpp">
+      <Filter>Effect\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Effect\task\ViewShadowMap.cpp">
+      <Filter>Effect\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Effect\Effect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Effect\EffectGenerator.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Effect\Renderable.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Effect\RenderEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Event\Notification\EventErrorMessage.cpp">
+      <Filter>Event\Notification</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Event\Notification\EventInfoMessage.cpp">
+      <Filter>Event\Notification</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Event\Render\EventFrameStart.cpp">
       <Filter>Event\Render</Filter>
     </ClCompile>
-    <ClCompile Include="EventInfoMessage.cpp">
-      <Filter>Event\Notification</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Keyboard\EventChar.cpp">
+      <Filter>Event\Windows Message\Keyboard</Filter>
     </ClCompile>
-    <ClCompile Include="EventErrorMessage.cpp">
-      <Filter>Event\Notification</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyboardMessage.cpp">
+      <Filter>Event\Windows Message\Keyboard</Filter>
     </ClCompile>
-    <ClCompile Include="IEventListener.cpp">
-      <Filter>Event</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyDown.cpp">
+      <Filter>Event\Windows Message\Keyboard</Filter>
     </ClCompile>
-    <ClCompile Include="EventManager.cpp">
-      <Filter>Event</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyUp.cpp">
+      <Filter>Event\Windows Message\Keyboard</Filter>
     </ClCompile>
-    <ClCompile Include="RenderWindow.cpp">
-      <Filter>Application</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLButtonDown.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="Win32RenderWindow.cpp">
-      <Filter>Application</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLButtonUp.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Render</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLeave.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="DXGIAdapter.cpp">
-      <Filter>Render\DXGI</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMButtonDown.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="DXGIOutput.cpp">
-      <Filter>Render\DXGI</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMButtonUp.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="SwapChainConfig.cpp">
-      <Filter>Render</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMessage.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="Resource.cpp">
-      <Filter>Resource</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMove.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="Texture2DConfig.cpp">
-      <Filter>Resource\Texture</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseRButtonDown.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="DepthStencilViewConfig.cpp">
-      <Filter>Resource\ResourceView</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseRButtonUp.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="RenderTargetViewConfig.cpp">
-      <Filter>Resource\ResourceView</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseWheel.cpp">
+      <Filter>Event\Windows Message\Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderResourceViewConfig.cpp">
-      <Filter>Resource\ResourceView</Filter>
-    </ClCompile>
-    <ClCompile Include="UnorderedAccessViewConfig.cpp">
-      <Filter>Resource\ResourceView</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceProxy.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderTargetView.cpp">
-      <Filter>Resource\ResourceView</Filter>
-    </ClCompile>
-    <ClCompile Include="DepthStencilView.cpp">
-      <Filter>Resource\ResourceView</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderResourceView.cpp">
-      <Filter>Resource\ResourceView</Filter>
-    </ClCompile>
-    <ClCompile Include="UnorderedAccessView.cpp">
-      <Filter>Resource\ResourceView</Filter>
-    </ClCompile>
-    <ClCompile Include="SwapChain.cpp">
-      <Filter>Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="FileSystem.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="InputAssemblerState.cpp">
-      <Filter>Pipeline\PipelineStage\FixedStages\InputAssemblerStage</Filter>
-    </ClCompile>
-    <ClCompile Include="InputAssemblerStage.cpp">
-      <Filter>Pipeline\PipelineStage\FixedStages\InputAssemblerStage</Filter>
-    </ClCompile>
-    <ClCompile Include="RasterizerStage.cpp">
-      <Filter>Pipeline\PipelineStage\FixedStages\RasterizerStage</Filter>
-    </ClCompile>
-    <ClCompile Include="OutputMergeStage.cpp">
-      <Filter>Pipeline\PipelineStage\FixedStages\OutputMergeStage</Filter>
-    </ClCompile>
-    <ClCompile Include="OutputMergeStageState.cpp">
-      <Filter>Pipeline\PipelineStage\FixedStages\OutputMergeStage</Filter>
-    </ClCompile>
-    <ClCompile Include="RasterizerStageState.cpp">
-      <Filter>Pipeline\PipelineStage\FixedStages\RasterizerStage</Filter>
-    </ClCompile>
-    <ClCompile Include="ViewPort.cpp">
-      <Filter>Resource\State</Filter>
-    </ClCompile>
-    <ClCompile Include="PipelineManager.cpp">
-      <Filter>Pipeline</Filter>
-    </ClCompile>
-    <ClCompile Include="RasterizerStateConfig.cpp">
-      <Filter>Resource\State</Filter>
-    </ClCompile>
-    <ClCompile Include="BlendStateConfig.cpp">
-      <Filter>Resource\State</Filter>
-    </ClCompile>
-    <ClCompile Include="DepthStencilStateConfig.cpp">
-      <Filter>Resource\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2f.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector4f.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3f.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
-      <Filter>Resource\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="PCH.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="GeometryLoader.cpp">
-      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
-    </ClCompile>
-    <ClCompile Include="PickRecord.cpp">
-      <Filter>Object\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix3f.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix4f.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Object\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Object\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Object\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Object\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneGraph.cpp">
-      <Filter>Object\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexElement.cpp">
-      <Filter>Pipeline\StageExecutor\Basic</Filter>
-    </ClCompile>
-    <ClCompile Include="Geometry.cpp">
-      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
-    </ClCompile>
-    <ClCompile Include="Buffer.cpp">
-      <Filter>Resource\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Resource\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>Resource\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>Resource\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="StructuredBuffer.cpp">
-      <Filter>Resource\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstantBufferParameter.cpp">
-      <Filter>Parameter\Parameters\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderResourceParameter.cpp">
-      <Filter>Parameter\Parameters\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="UnorderedAccessParameter.cpp">
-      <Filter>Parameter\Parameters\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderParameter.cpp">
-      <Filter>Parameter\Parameters\BaseClass</Filter>
-    </ClCompile>
-    <ClCompile Include="SamplerParameter.cpp">
-      <Filter>Parameter\Parameters\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseNumericTypeRenderParameter.cpp">
-      <Filter>Parameter\Parameters\BaseClass</Filter>
-    </ClCompile>
-    <ClCompile Include="BufferConfig.cpp">
-      <Filter>Resource\Buffer\Configure</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderReflection.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
-    </ClCompile>
-    <ClCompile Include="ParameterManager.cpp">
-      <Filter>Parameter</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderReflectionGenerator.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderStageState.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\State</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderStage.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexStage.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClCompile>
-    <ClCompile Include="HullStage.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClCompile>
-    <ClCompile Include="DomainStage.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClCompile>
-    <ClCompile Include="GeometryStage.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelStage.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClCompile>
-    <ClCompile Include="ComputeStage.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexShader.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="HullShader.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="DomainShader.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="GeometryShader.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelShader.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="ComputeShader.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
-    </ClCompile>
-    <ClCompile Include="InputAssemblerStageExecutor.cpp">
-      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
-    </ClCompile>
-    <ClCompile Include="GeometryGenerator.cpp">
-      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
-    </ClCompile>
-    <ClCompile Include="ParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFactory.cpp">
-      <Filter>Pipeline\PipelineStage\ProgrammableStage</Filter>
-    </ClCompile>
-    <ClCompile Include="FileLoader.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Object\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="ParameterContainer.cpp">
-      <Filter>Parameter</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Object\Actor\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderEffect.cpp">
-      <Filter>Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Task.cpp">
-      <Filter>Effect\Task</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderable.cpp">
-      <Filter>Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="SamplerStateConfig.cpp">
-      <Filter>Resource\State</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneRenderTask.cpp">
-      <Filter>Effect\Task</Filter>
-    </ClCompile>
-    <ClCompile Include="ViewPerspective.cpp">
-      <Filter>Effect\Task</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectionalLight.cpp">
-      <Filter>Object\Actor\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixArrayParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2fParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3fParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector4fParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
-    </ClCompile>
-    <ClCompile Include="StructureParameter.cpp">
-      <Filter>Parameter\Parameters\Struct</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstantBufferParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixArrayParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="MatrixParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="SamplerParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderResourceParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="UnorderedAccessParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2fParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector4fParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3fParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="StructureParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\StructWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="Skybox.cpp">
-      <Filter>Object\Actor\Skybox</Filter>
-    </ClCompile>
-    <ClCompile Include="FloatParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="BoolParameter.cpp">
-      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
-    </ClCompile>
-    <ClCompile Include="BoolParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
-    </ClCompile>
-    <ClCompile Include="EventWindowResize.cpp">
+    <ClCompile Include="Code\Engine\Event\Windows Message\Window\EventWindowResize.cpp">
       <Filter>Event\Windows Message\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>Effect</Filter>
+    <ClCompile Include="Code\Engine\Event\Windows Message\EventWindowMessage.cpp">
+      <Filter>Event\Windows Message</Filter>
     </ClCompile>
-    <ClCompile Include="EffectGenerator.cpp">
-      <Filter>Effect</Filter>
+    <ClCompile Include="Code\Engine\Event\EventManager.cpp">
+      <Filter>Event</Filter>
     </ClCompile>
-    <ClCompile Include="FloatParameterWriter.cpp">
-      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    <ClCompile Include="Code\Engine\Event\IEventListener.cpp">
+      <Filter>Event</Filter>
     </ClCompile>
-    <ClCompile Include="ViewShadowMap.cpp">
-      <Filter>Effect\Task</Filter>
+    <ClCompile Include="Code\Engine\Geom\ExportProcesser.cpp">
+      <Filter>Geom</Filter>
     </ClCompile>
-    <ClCompile Include="BaseCamera.cpp">
-      <Filter>Object\Actor\Camera</Filter>
+    <ClCompile Include="Code\Engine\Geom\FbxImporterProcesser.cpp">
+      <Filter>Geom</Filter>
     </ClCompile>
-    <ClCompile Include="MainCamera.cpp">
-      <Filter>Object\Actor\Camera</Filter>
+    <ClCompile Include="Code\Engine\Geom\FbxLoadercpp.cpp">
+      <Filter>Geom</Filter>
     </ClCompile>
-    <ClCompile Include="ScriptManager.cpp">
-      <Filter>Script</Filter>
+    <ClCompile Include="Code\Engine\Geom\FFbxDataConverter.cpp">
+      <Filter>Geom</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Application</Filter>
+    <ClCompile Include="Code\Engine\Geom\FFbxImporter.cpp">
+      <Filter>Geom</Filter>
     </ClCompile>
-    <ClCompile Include="LuaGeometry.cpp">
-      <Filter>Script</Filter>
+    <ClCompile Include="Code\Engine\Geom\FFbxMesh.cpp">
+      <Filter>Geom</Filter>
     </ClCompile>
-    <ClCompile Include="LuaActor.cpp">
-      <Filter>Script</Filter>
+    <ClCompile Include="Code\Engine\Geom\FFbxShape.cpp">
+      <Filter>Geom</Filter>
     </ClCompile>
-    <ClCompile Include="LuaEntity.cpp">
-      <Filter>Script</Filter>
+    <ClCompile Include="Code\Engine\Geom\ImportProcesser.cpp">
+      <Filter>Geom</Filter>
     </ClCompile>
-    <ClCompile Include="LuaMaterial.cpp">
-      <Filter>Script</Filter>
+    <ClCompile Include="Code\Engine\Gui\EditorManager.cpp">
+      <Filter>IMGUI</Filter>
     </ClCompile>
-    <ClCompile Include="LuaEffect.cpp">
-      <Filter>Script</Filter>
+    <ClCompile Include="Code\Engine\Gui\ImModule.cpp">
+      <Filter>IMGUI</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialLua.cpp">
+    <ClCompile Include="Code\Engine\Gui\SandGui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\IO\FileInStream.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\IO\FileOutStream.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\IO\ReadWriter\VModelReadWriter.cpp">
+      <Filter>IO\ReadWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Material\LuaSampler.cpp">
       <Filter>Material</Filter>
     </ClCompile>
-    <ClCompile Include="Material.cpp">
+    <ClCompile Include="Code\Engine\Material\Material.cpp">
       <Filter>Material</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialHelper.cpp">
+    <ClCompile Include="Code\Engine\Material\MaterialHelper.cpp">
       <Filter>Material</Filter>
     </ClCompile>
-    <ClCompile Include="LuaSampler.cpp">
-      <Filter>Material\Sampler</Filter>
+    <ClCompile Include="Code\Engine\Material\MaterialLua.cpp">
+      <Filter>Material</Filter>
     </ClCompile>
-    <ClCompile Include="FFbxImporter.cpp">
-      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
-    </ClCompile>
-    <ClCompile Include="FFbxMesh.cpp">
-      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
-    </ClCompile>
-    <ClCompile Include="FFbxShape.cpp">
-      <Filter>Pipeline\StageExecutor\InputAssembler\FBX</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VSkeletonManager.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VAnimSequence.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VJoint.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VKeyFrame.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VMesh.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VPose.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VSkeleton.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VJointManager.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VSubMesh.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VScene.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VVertex.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\ExportProcesser.cpp">
-      <Filter>Geom</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\FFbxDataConverter.cpp">
-      <Filter>Geom</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\ImportProcesser.cpp">
-      <Filter>Geom</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\FbxImporterProcesser.cpp">
-      <Filter>Geom</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Engine\Animation\FbxLoadercpp.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="SMath.cpp">
+    <ClCompile Include="Code\Engine\Math\Matrix3f.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\IO\FileInStream.cpp">
-      <Filter>IO</Filter>
+    <ClCompile Include="Code\Engine\Math\Matrix4f.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\IO\FileOutStream.cpp">
-      <Filter>IO</Filter>
+    <ClCompile Include="Code\Engine\Math\SMath.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\IO\ReadWriter\VModelReadWriter.cpp">
-      <Filter>ReadWriter</Filter>
+    <ClCompile Include="Code\Engine\Math\Vector2f.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VMaterial.cpp">
-      <Filter>Animation</Filter>
+    <ClCompile Include="Code\Engine\Math\Vector3f.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\Animation\VTriangle.cpp">
-      <Filter>Animation</Filter>
+    <ClCompile Include="Code\Engine\Math\Vector4f.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="StringUtil.cpp">
+    <ClCompile Include="Code\Engine\Object\Scene\Entity.cpp">
+      <Filter>Object\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Scene\Node.cpp">
+      <Filter>Object\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Scene\PickRecord.cpp">
+      <Filter>Object\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Scene\Scene.cpp">
+      <Filter>Object\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Scene\SceneGraph.cpp">
+      <Filter>Object\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Scene\Transform.cpp">
+      <Filter>Object\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Actor\Actor.cpp">
+      <Filter>Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Actor\Camera\BaseCamera.cpp">
+      <Filter>Object\Actor\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Actor\Camera\MainCamera.cpp">
+      <Filter>Object\Actor\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Actor\Light\DirectionalLight.cpp">
+      <Filter>Object\Actor\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Actor\Light\Light.cpp">
+      <Filter>Object\Actor\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Object\Actor\Skybox\Skybox.cpp">
+      <Filter>Object\Actor\Skybox</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\BaseClass\BaseNumericTypeRenderParameter.cpp">
+      <Filter>Parameter\Parameters\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\BaseClass\RenderParameter.cpp">
+      <Filter>Parameter\Parameters\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Matrix\MatrixArrayParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Matrix\MatrixParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Scalar\BoolParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Scalar\FloatParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Scalar</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector2fParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector3fParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector4fParameter.cpp">
+      <Filter>Parameter\Parameters\Numeric\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Object\ConstantBufferParameter.cpp">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Object\SamplerParameter.cpp">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Object\ShaderResourceParameter.cpp">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Object\UnorderedAccessParameter.cpp">
+      <Filter>Parameter\Parameters\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Struct\StructureParameter.cpp">
+      <Filter>Parameter\Parameters\Struct</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\MatrixWriter\MatrixArrayParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\MatrixWriter\MatrixParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\MatrixWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\ConstantBufferParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\SamplerParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\ShaderResourceParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\UnorderedAccessParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ObjectWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ScalarWriter\BoolParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ScalarWriter\FloatParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\ScalarWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\StructWriter\StructureParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\StructWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector2fParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector3fParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector4fParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter\VectorWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ParameterWriter.cpp">
+      <Filter>Parameter\ParameterWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterContainer.cpp">
+      <Filter>Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Parameter\ParameterManager.cpp">
+      <Filter>Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\InputAssemblerStage\InputAssemblerStage.cpp">
+      <Filter>Pipeline\PipelineStage\FixedStages\InputAssemblerStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\InputAssemblerStage\InputAssemblerState.cpp">
+      <Filter>Pipeline\PipelineStage\FixedStages\InputAssemblerStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\OutputMergeStage\OutputMergeStage.cpp">
+      <Filter>Pipeline\PipelineStage\FixedStages\OutputMergeStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\OutputMergeStage\OutputMergeStageState.cpp">
+      <Filter>Pipeline\PipelineStage\FixedStages\OutputMergeStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\RasterizerStage\RasterizerStage.cpp">
+      <Filter>Pipeline\PipelineStage\FixedStages\RasterizerStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\RasterizerStage\RasterizerStageState.cpp">
+      <Filter>Pipeline\PipelineStage\FixedStages\RasterizerStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\ComputeShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\DomainShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\GeometryShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\HullShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\PixelShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Shader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\VertexShader.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderReflection.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderReflectionGenerator.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\ComputeStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\DomainStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\GeometryStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\HullStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\PixelStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\ShaderStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\VertexStage.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\State\ShaderStageState.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage\Stages\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderFactory.cpp">
+      <Filter>Pipeline\PipelineStage\ProgrammableStage</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\Basic\VertexElement.cpp">
+      <Filter>Pipeline\StageExecutor\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\Geometry.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\GeometryGenerator.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\GeometryLoader.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\InputAssemblerStageExecutor.cpp">
+      <Filter>Pipeline\StageExecutor\InputAssembler</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Pipeline\PipelineManager.cpp">
+      <Filter>Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Render\DXGI\DXGIAdapter.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Render\DXGI\DXGIOutput.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Render\DXGI\Renderer.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Render\DXGI\SwapChain.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Render\DXGI\SwapChainConfig.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Utility\FileLoader.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\Base\GenericPlatformString.cpp">
-      <Filter>Base</Filter>
+    <ClCompile Include="Code\Engine\Utility\FileSystem.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\Base\SString.cpp">
-      <Filter>Base</Filter>
+    <ClCompile Include="Code\Engine\Utility\Log.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\Gui\EditorManager.cpp">
-      <Filter>IMGUI</Filter>
+    <ClCompile Include="Code\Engine\Utility\StringUtil.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_draw.cpp">
-      <Filter>IMGUI</Filter>
+    <ClCompile Include="Code\Engine\Utility\Timer.cpp">
+      <Filter>Utility</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui.cpp">
-      <Filter>IMGUI</Filter>
+    <ClCompile Include="Code\Engine\Script\LuaActor.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_demo.cpp">
-      <Filter>IMGUI</Filter>
+    <ClCompile Include="Code\Engine\Script\LuaApp.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\Gui\SandGui.cpp">
-      <Filter>IMGUI</Filter>
+    <ClCompile Include="Code\Engine\Script\LuaEffect.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="..\Engine\Gui\ImModule.cpp">
-      <Filter>IMGUI</Filter>
+    <ClCompile Include="Code\Engine\Script\LuaEntity.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Engine\Script\LuaGeometry.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Script\LuaMaterial.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Script\ScriptManager.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Resource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\ResourceProxy.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Buffer\Buffer.cpp">
+      <Filter>Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Buffer\BufferConfig.cpp">
+      <Filter>Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Buffer\ConstantBuffer.cpp">
+      <Filter>Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Buffer\IndexBuffer.cpp">
+      <Filter>Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Buffer\StructuredBuffer.cpp">
+      <Filter>Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Buffer\VertexBuffer.cpp">
+      <Filter>Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\ResourceView\DepthStencilView.cpp">
+      <Filter>Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\ResourceView\DepthStencilViewConfig.cpp">
+      <Filter>Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\ResourceView\RenderTargetView.cpp">
+      <Filter>Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\ResourceView\RenderTargetViewConfig.cpp">
+      <Filter>Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\ResourceView\ShaderResourceView.cpp">
+      <Filter>Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\ResourceView\ShaderResourceViewConfig.cpp">
+      <Filter>Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\ResourceView\UnorderedAccessView.cpp">
+      <Filter>Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\ResourceView\UnorderedAccessViewConfig.cpp">
+      <Filter>Resource\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\State\BlendStateConfig.cpp">
+      <Filter>Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\State\DepthStencilStateConfig.cpp">
+      <Filter>Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\State\RasterizerStateConfig.cpp">
+      <Filter>Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\State\SamplerStateConfig.cpp">
+      <Filter>Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\State\ViewPort.cpp">
+      <Filter>Resource\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Texture\Texture2D.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\Resource\Texture\Texture2DConfig.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Engine\PCH.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Include\TStateMonitor.inl">
-      <Filter>Pipeline\PipelineStage\Common</Filter>
-    </None>
-    <None Include="..\Include\TStateArrayMonitor.inl">
-      <Filter>Pipeline\PipelineStage\Common</Filter>
-    </None>
-    <None Include="..\Include\IController.inl">
-      <Filter>Object\Controller</Filter>
-    </None>
-    <None Include="..\Include\SpatialController.inl">
-      <Filter>Object\Controller</Filter>
-    </None>
-    <None Include="..\Include\RotationController.inl">
-      <Filter>Object\Controller</Filter>
-    </None>
-    <None Include="..\Include\PositionExtractorController.inl">
-      <Filter>Object\Controller</Filter>
-    </None>
-    <None Include="..\Include\OrientationController.inl">
-      <Filter>Object\Controller</Filter>
-    </None>
-    <None Include="..\Engine\Base\TArray.inl">
+    <None Include="Code\Engine\Base\TArray.inl">
       <Filter>Base</Filter>
+    </None>
+    <None Include="Code\Engine\Object\Controller\IController.inl">
+      <Filter>Object\Controller</Filter>
+    </None>
+    <None Include="Code\Engine\Object\Controller\OrientationController.inl">
+      <Filter>Object\Controller</Filter>
+    </None>
+    <None Include="Code\Engine\Object\Controller\PositionExtractorController.inl">
+      <Filter>Object\Controller</Filter>
+    </None>
+    <None Include="Code\Engine\Object\Controller\RotationController.inl">
+      <Filter>Object\Controller</Filter>
+    </None>
+    <None Include="Code\Engine\Object\Controller\SpatialController.inl">
+      <Filter>Object\Controller</Filter>
+    </None>
+    <None Include="Code\Engine\Pipeline\PipelineStage\Common\TStateArrayMonitor.inl">
+      <Filter>Pipeline\PipelineStage\Common</Filter>
+    </None>
+    <None Include="Code\Engine\Pipeline\PipelineStage\Common\TStateMonitor.inl">
+      <Filter>Pipeline\PipelineStage\Common</Filter>
+    </None>
+    <None Include="Code\Engine\Resource\Buffer\TGrowableBuffer.inl">
+      <Filter>Resource\Buffer</Filter>
     </None>
   </ItemGroup>
 </Project>

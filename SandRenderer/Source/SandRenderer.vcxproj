@@ -22,6 +22,7 @@
     <ProjectGuid>{BB479591-72DE-41F0-8FD2-66852B7C4F87}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SandRenderer</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -70,33 +71,33 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Include;$(SolutionDir);$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)Library\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)Source/Code;$(SolutionDir)Source/ThirdParty;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)pub\$(Configuration)\</OutDir>
+    <IntDir>pub\$(Configuration)\</IntDir>
     <TargetExt>.lib</TargetExt>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)Include;$(SolutionDir);$(IncludePath)</IncludePath>
-    <OutDir>$(SolutionDir)Library\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)Source/Code;$(SolutionDir)Source/ThirdParty;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)pub\$(Configuration)\</OutDir>
+    <IntDir>pub\$(Configuration)\</IntDir>
     <TargetExt>.lib</TargetExt>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)Include;$(SolutionDir);$(IncludePath)</IncludePath>
-    <OutDir>..\Library\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)Source/Code;$(SolutionDir)Source/ThirdParty;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)pub\$(Configuration)\</OutDir>
+    <IntDir>pub\$(Configuration)\</IntDir>
     <TargetExt>.lib</TargetExt>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)Include;$(SolutionDir);$(IncludePath)</IncludePath>
-    <OutDir>..\Library\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>Bin\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)Source/Code;$(SolutionDir)Source/ThirdParty;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)pub\$(Configuration)\</OutDir>
+    <IntDir>pub\$(Configuration)\</IntDir>
     <TargetExt>.lib</TargetExt>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
@@ -107,9 +108,9 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>SAND_EXPORT;FBXSDK_SHARED;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>Engine/PCH.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty;$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\inc;$(SolutionDir)ThirdParty\DirecTXTK\Inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -118,10 +119,10 @@
     </Link>
     <Lib>
       <AdditionalDependencies>Lua5_3_3.lib;libfbxsdk.lib;DirectXTK.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)Source\ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)Application\Bin /Y</Command>
+      <Command>xcopy $(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)pub\$(Configuration) /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -131,9 +132,9 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>SAND_EXPORT;FBXSDK_SHARED;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>Engine/PCH.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty;$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\inc;$(SolutionDir)ThirdParty\DirecTXTK\Inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -142,10 +143,10 @@
     </Link>
     <Lib>
       <AdditionalDependencies>Lua5_3_3.lib;libfbxsdk.lib;DirectXTK.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)Source\ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)Application\Bin /Y</Command>
+      <Command>xcopy $(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)pub\$(Configuration) /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -157,9 +158,9 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>SAND_EXPORT;FBXSDK_SHARED;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>Engine/PCH.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty;$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\inc;$(SolutionDir)ThirdParty\DirecTXTK\Inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -169,10 +170,10 @@
     </Link>
     <Lib>
       <AdditionalDependencies>Lua5_3_3.lib;libfbxsdk.lib;DirectXTK.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)Source\ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)Application\Bin /Y</Command>
+      <Command>xcopy $(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)pub\$(Configuration) /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -184,9 +185,9 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>SAND_EXPORT;FBXSDK_SHARED;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>Engine/PCH.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
-      <AdditionalIncludeDirectories>..\Include;$(SolutionDir)ThirdParty;$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\inc;$(SolutionDir)ThirdParty\DirecTXTK\Inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -196,456 +197,458 @@
     </Link>
     <Lib>
       <AdditionalDependencies>Lua5_3_3.lib;libfbxsdk.lib;DirectXTK.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Source\ThirdParty\DirecTXTK\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)Source\ThirdParty\Lua\Lib\$(PlatformTarget)\$(Configuration);$(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>xcopy $(SolutionDir)ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)Application\Bin /Y</Command>
+      <Command>xcopy $(SolutionDir)Source\ThirdParty\FBXSDK\2017.0.1\lib\$(PlatformTarget)\$(Configuration)\libfbxsdk.dll $(SolutionDir)pub\$(Configuration) /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Engine\Animation\ExportProcesser.h" />
-    <ClInclude Include="..\Engine\Animation\FbxImporterProcesser.h" />
-    <ClInclude Include="..\Engine\Animation\FbxLoader.h" />
-    <ClInclude Include="..\Engine\Animation\FFbxDataConverter.h" />
-    <ClInclude Include="..\Engine\Animation\ImportProcesser.h" />
-    <ClInclude Include="..\Engine\Animation\VAnimation.h" />
-    <ClInclude Include="..\Engine\Animation\VAnimSequence.h" />
-    <ClInclude Include="..\Engine\Animation\VJoint.h" />
-    <ClInclude Include="..\Engine\Animation\VJointManager.h" />
-    <ClInclude Include="..\Engine\Animation\VKeyFrame.h" />
-    <ClInclude Include="..\Engine\Animation\VMaterial.h" />
-    <ClInclude Include="..\Engine\Animation\VMesh.h" />
-    <ClInclude Include="..\Engine\Animation\VPose.h" />
-    <ClInclude Include="..\Engine\Animation\VScene.h" />
-    <ClInclude Include="..\Engine\Animation\VSkeleton.h" />
-    <ClInclude Include="..\Engine\Animation\VSkeletonManager.h" />
-    <ClInclude Include="..\Engine\Animation\VSubMesh.h" />
-    <ClInclude Include="..\Engine\Animation\VTriangle.h" />
-    <ClInclude Include="..\Engine\Animation\VVertex.h" />
-    <ClInclude Include="..\Engine\Base\AddOrNot.h" />
-    <ClInclude Include="..\Engine\Base\AlignOf.h" />
-    <ClInclude Include="..\Engine\Base\AllocationPolicies.h" />
-    <ClInclude Include="..\Engine\Base\AreTypesEqual.h" />
-    <ClInclude Include="..\Engine\Base\CString.h" />
-    <ClInclude Include="..\Engine\Base\GenericPlatformMemory.h" />
-    <ClInclude Include="..\Engine\Base\GenericPlatformStricmp.h" />
-    <ClInclude Include="..\Engine\Base\GenericPlatformString.h" />
-    <ClInclude Include="..\Engine\Base\Greater.h" />
-    <ClInclude Include="..\Engine\Base\IsClass.h" />
-    <ClInclude Include="..\Engine\Base\IsPODType.h" />
-    <ClInclude Include="..\Engine\Base\IsTriviallyCopyAssignable.h" />
-    <ClInclude Include="..\Engine\Base\IsTriviallyDestructible.h" />
-    <ClInclude Include="..\Engine\Base\Less.h" />
-    <ClInclude Include="..\Engine\Base\MemoryOps.h" />
-    <ClInclude Include="..\Engine\Base\Platform.h" />
-    <ClInclude Include="..\Engine\Base\RefCounter.h" />
-    <ClInclude Include="..\Engine\Base\RemoveReference.h" />
-    <ClInclude Include="..\Engine\Base\SMemory.h" />
-    <ClInclude Include="..\Engine\Base\SMicrosoftPlatformString.h" />
-    <ClInclude Include="..\Engine\Base\Sorting.h" />
-    <ClInclude Include="..\Engine\Base\SPlatformString.h" />
-    <ClInclude Include="..\Engine\Base\SString.h" />
-    <ClInclude Include="..\Engine\Base\STypeTraits.h" />
-    <ClInclude Include="..\Engine\Base\TArray.h" />
-    <ClInclude Include="..\Engine\Base\TChar.h" />
-    <ClInclude Include="..\Engine\Base\TChooseClass.h" />
-    <ClInclude Include="..\Engine\Base\TEnableIf.h" />
-    <ClInclude Include="..\Engine\Base\TestTemplate.h" />
-    <ClInclude Include="..\Engine\Base\TIntegralConstant.h" />
-    <ClInclude Include="..\Engine\Base\TIsArithmetic.h" />
-    <ClInclude Include="..\Engine\Base\TIsPointer.h" />
-    <ClInclude Include="..\Engine\Base\TypeCompatibleBytes.h" />
-    <ClInclude Include="..\Engine\Base\WindowsPlatform.h" />
-    <ClInclude Include="..\Engine\Base\WindowsPlatformMemory.h" />
-    <ClInclude Include="..\Engine\Gui\EditorManager.h" />
-    <ClInclude Include="..\Engine\Gui\ImModule.h" />
-    <ClInclude Include="..\Engine\Gui\SandGui.h" />
-    <ClInclude Include="..\Engine\IO\FileInStream.h" />
-    <ClInclude Include="..\Engine\IO\FileOutStream.h" />
-    <ClInclude Include="..\Engine\IO\IVFileStream.h" />
-    <ClInclude Include="..\Engine\IO\ReadWriter\VModelReadWriter.h" />
-    <ClInclude Include="..\Include\Actor.h" />
-    <ClInclude Include="..\Include\Application.h" />
-    <ClInclude Include="..\Include\BaseCamera.h" />
-    <ClInclude Include="..\Include\BaseNumericTypeRenderParameter.h" />
-    <ClInclude Include="..\Include\BlendStateConfig.h" />
-    <ClInclude Include="..\Include\BoolParameter.h" />
-    <ClInclude Include="..\Include\BoolParameterWriter.h" />
-    <ClInclude Include="..\Include\Buffer.h" />
-    <ClInclude Include="..\Include\BufferConfig.h" />
-    <ClInclude Include="..\Include\FbxInfoHeader.h" />
-    <ClInclude Include="..\Include\FFbxImporter.h" />
-    <ClInclude Include="..\Include\FFbxMesh.h" />
-    <ClInclude Include="..\Include\FFbxShape.h" />
-    <ClInclude Include="..\Include\GeometryActor.h" />
-    <ClInclude Include="..\Include\InputAssemblerLayer.h" />
-    <ClInclude Include="..\Include\LuaActor.h" />
-    <ClInclude Include="..\Include\LuaEffect.h" />
-    <ClInclude Include="..\Include\LuaEntity.h" />
-    <ClInclude Include="..\Include\LuaGeometry.h" />
-    <ClInclude Include="..\Include\LuaMaterial.h" />
-    <ClInclude Include="..\Include\LuaSampler.h" />
-    <ClInclude Include="..\Include\MainCamera.h" />
-    <ClInclude Include="..\Include\ComputeShader.h" />
-    <ClInclude Include="..\Include\ComputeStage.h" />
-    <ClInclude Include="..\Include\ConstantBuffer.h" />
-    <ClInclude Include="..\Include\ConstantBufferParameter.h" />
-    <ClInclude Include="..\Include\ConstantBufferParameterWriter.h" />
-    <ClInclude Include="..\Include\DepthStencilStateConfig.h" />
-    <ClInclude Include="..\Include\DepthStencilView.h" />
-    <ClInclude Include="..\Include\DepthStencilViewConfig.h" />
-    <ClInclude Include="..\Include\DirectionalLight.h" />
-    <ClInclude Include="..\Include\DomainShader.h" />
-    <ClInclude Include="..\Include\DomainStage.h" />
-    <ClInclude Include="..\Include\DXGIAdapter.h" />
-    <ClInclude Include="..\Include\DXGIOutput.h" />
-    <ClInclude Include="..\Include\Entity.h" />
-    <ClInclude Include="..\Include\EventChar.h" />
-    <ClInclude Include="..\Include\EventErrorMessage.h" />
-    <ClInclude Include="..\Include\EventFrameStart.h" />
-    <ClInclude Include="..\Include\EventInfoMessage.h" />
-    <ClInclude Include="..\Include\EventKeyboardMessage.h" />
-    <ClInclude Include="..\Include\EventKeyDown.h" />
-    <ClInclude Include="..\Include\EventKeyUp.h" />
-    <ClInclude Include="..\Include\EventManager.h" />
-    <ClInclude Include="..\Include\EventMouseLButtonDown.h" />
-    <ClInclude Include="..\Include\EventMouseLButtonUp.h" />
-    <ClInclude Include="..\Include\EventMouseLeave.h" />
-    <ClInclude Include="..\Include\EventMouseMButtonDown.h" />
-    <ClInclude Include="..\Include\EventMouseMButtonUp.h" />
-    <ClInclude Include="..\Include\EventMouseMessage.h" />
-    <ClInclude Include="..\Include\EventMouseMove.h" />
-    <ClInclude Include="..\Include\EventMouseRButtonDown.h" />
-    <ClInclude Include="..\Include\EventMouseRButtonUp.h" />
-    <ClInclude Include="..\Include\EventMouseWheel.h" />
-    <ClInclude Include="..\Include\EventWindowMessage.h" />
-    <ClInclude Include="..\Include\EventWindowResize.h" />
-    <ClInclude Include="..\Include\FileLoader.h" />
-    <ClInclude Include="..\Include\FileSystem.h" />
-    <ClInclude Include="..\Include\FloatParameter.h" />
-    <ClInclude Include="..\Include\FloatParameterWriter.h" />
-    <ClInclude Include="..\Include\Geometry.h" />
-    <ClInclude Include="..\Include\GeometryGenerator.h" />
-    <ClInclude Include="..\Include\GeometryLoader.h" />
-    <ClInclude Include="..\Include\GeometryShader.h" />
-    <ClInclude Include="..\Include\GeometryStage.h" />
-    <ClInclude Include="..\Include\HullShader.h" />
-    <ClInclude Include="..\Include\HullStage.h" />
-    <ClInclude Include="..\Include\IController.h" />
-    <ClInclude Include="..\Include\IEvent.h" />
-    <ClInclude Include="..\Include\IEventListener.h" />
-    <ClInclude Include="..\Include\IndexBuffer.h" />
-    <ClInclude Include="..\Include\InputAssemblerStage.h" />
-    <ClInclude Include="..\Include\InputAssemblerStageExecutor.h" />
-    <ClInclude Include="..\Include\InputAssemblerState.h" />
-    <ClInclude Include="..\Include\IParameterManager.h" />
-    <ClInclude Include="..\Include\IWindowProc.h" />
-    <ClInclude Include="..\Include\Light.h" />
-    <ClInclude Include="..\Include\Log.h" />
-    <ClInclude Include="..\Include\Effect.h" />
-    <ClInclude Include="..\Include\EffectGenerator.h" />
-    <ClInclude Include="..\Include\Material.h" />
-    <ClInclude Include="..\Include\MaterialHelper.h" />
-    <ClInclude Include="..\Include\MaterialLua.h" />
-    <ClInclude Include="..\Include\SMath.h" />
-    <ClInclude Include="..\Include\Matrix3f.h" />
-    <ClInclude Include="..\Include\Matrix4f.h" />
-    <ClInclude Include="..\Include\MatrixArrayParameter.h" />
-    <ClInclude Include="..\Include\MatrixArrayParameterWriter.h" />
-    <ClInclude Include="..\Include\MatrixParameter.h" />
-    <ClInclude Include="..\Include\MatrixParameterWriter.h" />
-    <ClInclude Include="..\Include\MS3D.h" />
-    <ClInclude Include="..\Include\Node.h" />
-    <ClInclude Include="..\Include\OBJ.h" />
-    <ClInclude Include="..\Include\OrientationController.h" />
-    <ClInclude Include="..\Include\OutputMergeStage.h" />
-    <ClInclude Include="..\Include\OutputMergeStageState.h" />
-    <ClInclude Include="..\Include\ParameterContainer.h" />
-    <ClInclude Include="..\Include\ParameterManager.h" />
-    <ClInclude Include="..\Include\ParameterWriter.h" />
-    <ClInclude Include="..\Include\PCH.h" />
-    <ClInclude Include="..\Include\PickRecord.h" />
-    <ClInclude Include="..\Include\PipelineManager.h" />
-    <ClInclude Include="..\Include\PixelShader.h" />
-    <ClInclude Include="..\Include\PixelStage.h" />
-    <ClInclude Include="..\Include\PositionExtractorController.h" />
-    <ClInclude Include="..\Include\RasterizerStage.h" />
-    <ClInclude Include="..\Include\RasterizerStageState.h" />
-    <ClInclude Include="..\Include\RasterizerStateConfig.h" />
-    <ClInclude Include="..\Include\Renderable.h" />
-    <ClInclude Include="..\Include\RenderEffect.h" />
-    <ClInclude Include="..\Include\Renderer.h" />
-    <ClInclude Include="..\Include\RenderParameter.h" />
-    <ClInclude Include="..\Include\RenderTargetView.h" />
-    <ClInclude Include="..\Include\RenderTargetViewConfig.h" />
-    <ClInclude Include="..\Include\RenderWindow.h" />
-    <ClInclude Include="..\Include\Resource.h" />
-    <ClInclude Include="..\Include\ResourceProxy.h" />
-    <ClInclude Include="..\Include\RotationController.h" />
-    <ClInclude Include="..\Include\SamplerParameter.h" />
-    <ClInclude Include="..\Include\SamplerParameterWriter.h" />
-    <ClInclude Include="..\Include\SamplerStateConfig.h" />
-    <ClInclude Include="..\Include\SandRendererModule.h" />
-    <ClInclude Include="..\Include\StringUtil.h" />
-    <ClInclude Include="..\Include\Scene.h" />
-    <ClInclude Include="..\Include\SceneGraph.h" />
-    <ClInclude Include="..\Include\SceneRenderTask.h" />
-    <ClInclude Include="..\Include\ScriptManager.h" />
-    <ClInclude Include="..\Include\Shader.h" />
-    <ClInclude Include="..\Include\ShaderFactory.h" />
-    <ClInclude Include="..\Include\ShaderReflection.h" />
-    <ClInclude Include="..\Include\ShaderReflectionGenerator.h" />
-    <ClInclude Include="..\Include\ShaderResoruceView.h" />
-    <ClInclude Include="..\Include\ShaderResourceParameter.h" />
-    <ClInclude Include="..\Include\ShaderResourceParameterWriter.h" />
-    <ClInclude Include="..\Include\ShaderResourceViewConfig.h" />
-    <ClInclude Include="..\Include\ShaderStage.h" />
-    <ClInclude Include="..\Include\ShaderStageState.h" />
-    <ClInclude Include="..\Include\ShaderStructure.h" />
-    <ClInclude Include="..\Include\Skybox.h" />
-    <ClInclude Include="..\Include\SpatialController.h" />
-    <ClInclude Include="..\Include\StructuredBuffer.h" />
-    <ClInclude Include="..\Include\StructureParameter.h" />
-    <ClInclude Include="..\Include\StructureParameterWriter.h" />
-    <ClInclude Include="..\Include\SwapChain.h" />
-    <ClInclude Include="..\Include\SwapChainConfig.h" />
-    <ClInclude Include="..\Include\Task.h" />
-    <ClInclude Include="..\Include\Texture2D.h" />
-    <ClInclude Include="..\Include\Texture2DConfig.h" />
-    <ClInclude Include="..\Include\Timer.h" />
-    <ClInclude Include="..\Include\Transform.h" />
-    <ClInclude Include="..\Include\TStateArrayMonitor.h" />
-    <ClInclude Include="..\Include\TStateMonitor.h" />
-    <ClInclude Include="..\Include\UnorderedAccessParameter.h" />
-    <ClInclude Include="..\Include\UnorderedAccessParameterWriter.h" />
-    <ClInclude Include="..\Include\UnorderedAccessView.h" />
-    <ClInclude Include="..\Include\UnorderedAccessViewConfig.h" />
-    <ClInclude Include="..\Include\Vector2f.h" />
-    <ClInclude Include="..\Include\Vector2fParameter.h" />
-    <ClInclude Include="..\Include\Vector2fParameterWriter.h" />
-    <ClInclude Include="..\Include\Vector3f.h" />
-    <ClInclude Include="..\Include\Vector3fParameter.h" />
-    <ClInclude Include="..\Include\Vector3fParameterWriter.h" />
-    <ClInclude Include="..\Include\Vector4f.h" />
-    <ClInclude Include="..\Include\Vector4fParameter.h" />
-    <ClInclude Include="..\Include\Vector4fParameterWriter.h" />
-    <ClInclude Include="..\Include\VertexBuffer.h" />
-    <ClInclude Include="..\Include\VertexElement.h" />
-    <ClInclude Include="..\Include\VertexShader.h" />
-    <ClInclude Include="..\Include\VertexStage.h" />
-    <ClInclude Include="..\Include\ViewPerspective.h" />
-    <ClInclude Include="..\Include\ViewPort.h" />
-    <ClInclude Include="..\Include\ViewShadowMap.h" />
-    <ClInclude Include="..\Include\Win32RenderWindow.h" />
-    <ClInclude Include="..\ThirdParty\ImGui\inc\imconfig.h" />
-    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui.h" />
-    <ClInclude Include="..\ThirdParty\ImGui\inc\imgui_internal.h" />
-    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_rect_pack.h" />
-    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_textedit.h" />
-    <ClInclude Include="..\ThirdParty\ImGui\inc\stb_truetype.h" />
+    <ClInclude Include="Code\Engine\Animation\VAnimation.h" />
+    <ClInclude Include="Code\Engine\Animation\VAnimSequence.h" />
+    <ClInclude Include="Code\Engine\Animation\VJoint.h" />
+    <ClInclude Include="Code\Engine\Animation\VJointManager.h" />
+    <ClInclude Include="Code\Engine\Animation\VKeyFrame.h" />
+    <ClInclude Include="Code\Engine\Animation\VMaterial.h" />
+    <ClInclude Include="Code\Engine\Animation\VMesh.h" />
+    <ClInclude Include="Code\Engine\Animation\VPose.h" />
+    <ClInclude Include="Code\Engine\Animation\VScene.h" />
+    <ClInclude Include="Code\Engine\Animation\VSkeleton.h" />
+    <ClInclude Include="Code\Engine\Animation\VSkeletonManager.h" />
+    <ClInclude Include="Code\Engine\Animation\VSubMesh.h" />
+    <ClInclude Include="Code\Engine\Animation\VTriangle.h" />
+    <ClInclude Include="Code\Engine\Animation\VVertex.h" />
+    <ClInclude Include="Code\Engine\Application\Application.h" />
+    <ClInclude Include="Code\Engine\Application\Console.h" />
+    <ClInclude Include="Code\Engine\Application\IWindowProc.h" />
+    <ClInclude Include="Code\Engine\Application\RenderWindow.h" />
+    <ClInclude Include="Code\Engine\Application\SandRendererModule.h" />
+    <ClInclude Include="Code\Engine\Application\Win32RenderWindow.h" />
+    <ClInclude Include="Code\Engine\Base\AddOrNot.h" />
+    <ClInclude Include="Code\Engine\Base\AlignOf.h" />
+    <ClInclude Include="Code\Engine\Base\AllocationPolicies.h" />
+    <ClInclude Include="Code\Engine\Base\AreTypesEqual.h" />
+    <ClInclude Include="Code\Engine\Base\CString.h" />
+    <ClInclude Include="Code\Engine\Base\GenericPlatformMemory.h" />
+    <ClInclude Include="Code\Engine\Base\GenericPlatformStricmp.h" />
+    <ClInclude Include="Code\Engine\Base\GenericPlatformString.h" />
+    <ClInclude Include="Code\Engine\Base\Greater.h" />
+    <ClInclude Include="Code\Engine\Base\IsClass.h" />
+    <ClInclude Include="Code\Engine\Base\IsPODType.h" />
+    <ClInclude Include="Code\Engine\Base\IsTriviallyCopyAssignable.h" />
+    <ClInclude Include="Code\Engine\Base\IsTriviallyDestructible.h" />
+    <ClInclude Include="Code\Engine\Base\Less.h" />
+    <ClInclude Include="Code\Engine\Base\MemoryOps.h" />
+    <ClInclude Include="Code\Engine\Base\Platform.h" />
+    <ClInclude Include="Code\Engine\Base\RefCounter.h" />
+    <ClInclude Include="Code\Engine\Base\RemoveReference.h" />
+    <ClInclude Include="Code\Engine\Base\SMemory.h" />
+    <ClInclude Include="Code\Engine\Base\SMicrosoftPlatformString.h" />
+    <ClInclude Include="Code\Engine\Base\Sorting.h" />
+    <ClInclude Include="Code\Engine\Base\SPlatformString.h" />
+    <ClInclude Include="Code\Engine\Base\SString.h" />
+    <ClInclude Include="Code\Engine\Base\STypeTraits.h" />
+    <ClInclude Include="Code\Engine\Base\TArray.h" />
+    <ClInclude Include="Code\Engine\Base\TChar.h" />
+    <ClInclude Include="Code\Engine\Base\TChooseClass.h" />
+    <ClInclude Include="Code\Engine\Base\TEnableIf.h" />
+    <ClInclude Include="Code\Engine\Base\TestTemplate.h" />
+    <ClInclude Include="Code\Engine\Base\TIntegralConstant.h" />
+    <ClInclude Include="Code\Engine\Base\TIsArithmetic.h" />
+    <ClInclude Include="Code\Engine\Base\TIsPointer.h" />
+    <ClInclude Include="Code\Engine\Base\TypeCompatibleBytes.h" />
+    <ClInclude Include="Code\Engine\Base\WindowsPlatform.h" />
+    <ClInclude Include="Code\Engine\Base\WindowsPlatformMemory.h" />
+    <ClInclude Include="Code\Engine\Effect\Effect.h" />
+    <ClInclude Include="Code\Engine\Effect\EffectGenerator.h" />
+    <ClInclude Include="Code\Engine\Effect\Renderable.h" />
+    <ClInclude Include="Code\Engine\Effect\RenderEffect.h" />
+    <ClInclude Include="Code\Engine\Effect\task\SceneRenderTask.h" />
+    <ClInclude Include="Code\Engine\Effect\task\Task.h" />
+    <ClInclude Include="Code\Engine\Effect\task\ViewPerspective.h" />
+    <ClInclude Include="Code\Engine\Effect\task\ViewShadowMap.h" />
+    <ClInclude Include="Code\Engine\Event\EventManager.h" />
+    <ClInclude Include="Code\Engine\Event\IEvent.h" />
+    <ClInclude Include="Code\Engine\Event\IEventListener.h" />
+    <ClInclude Include="Code\Engine\Event\Notification\EventErrorMessage.h" />
+    <ClInclude Include="Code\Engine\Event\Notification\EventInfoMessage.h" />
+    <ClInclude Include="Code\Engine\Event\Render\EventFrameStart.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\EventWindowMessage.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Keyboard\EventChar.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyboardMessage.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyDown.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyUp.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLButtonDown.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLButtonUp.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLeave.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMButtonDown.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMButtonUp.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMessage.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMove.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseRButtonDown.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseRButtonUp.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Mouse\EventMouseWheel.h" />
+    <ClInclude Include="Code\Engine\Event\Windows Message\Window\EventWindowResize.h" />
+    <ClInclude Include="Code\Engine\Geom\ExportProcesser.h" />
+    <ClInclude Include="Code\Engine\Geom\FbxImporterProcesser.h" />
+    <ClInclude Include="Code\Engine\Geom\FbxInfoHeader.h" />
+    <ClInclude Include="Code\Engine\Geom\FbxLoader.h" />
+    <ClInclude Include="Code\Engine\Geom\FFbxDataConverter.h" />
+    <ClInclude Include="Code\Engine\Geom\FFbxImporter.h" />
+    <ClInclude Include="Code\Engine\Geom\FFbxMesh.h" />
+    <ClInclude Include="Code\Engine\Geom\FFbxShape.h" />
+    <ClInclude Include="Code\Engine\Geom\ImportProcesser.h" />
+    <ClInclude Include="Code\Engine\Geom\MS3D.h" />
+    <ClInclude Include="Code\Engine\Geom\OBJ.h" />
+    <ClInclude Include="Code\Engine\Gui\EditorManager.h" />
+    <ClInclude Include="Code\Engine\Gui\ImModule.h" />
+    <ClInclude Include="Code\Engine\Gui\SandGui.h" />
+    <ClInclude Include="Code\Engine\IO\FileInStream.h" />
+    <ClInclude Include="Code\Engine\IO\FileOutStream.h" />
+    <ClInclude Include="Code\Engine\IO\IVFileStream.h" />
+    <ClInclude Include="Code\Engine\IO\ReadWriter\VModelReadWriter.h" />
+    <ClInclude Include="Code\Engine\Material\LuaSampler.h" />
+    <ClInclude Include="Code\Engine\Material\Material.h" />
+    <ClInclude Include="Code\Engine\Material\MaterialHelper.h" />
+    <ClInclude Include="Code\Engine\Material\MaterialLua.h" />
+    <ClInclude Include="Code\Engine\Math\Matrix3f.h" />
+    <ClInclude Include="Code\Engine\Math\Matrix4f.h" />
+    <ClInclude Include="Code\Engine\Math\SMath.h" />
+    <ClInclude Include="Code\Engine\Math\Vector2f.h" />
+    <ClInclude Include="Code\Engine\Math\Vector3f.h" />
+    <ClInclude Include="Code\Engine\Math\Vector4f.h" />
+    <ClInclude Include="Code\Engine\Object\Actor\Actor.h" />
+    <ClInclude Include="Code\Engine\Object\Actor\Camera\BaseCamera.h" />
+    <ClInclude Include="Code\Engine\Object\Actor\Camera\MainCamera.h" />
+    <ClInclude Include="Code\Engine\Object\Actor\GeometryActor.h" />
+    <ClInclude Include="Code\Engine\Object\Actor\Light\DirectionalLight.h" />
+    <ClInclude Include="Code\Engine\Object\Actor\Light\Light.h" />
+    <ClInclude Include="Code\Engine\Object\Actor\Skybox\Skybox.h" />
+    <ClInclude Include="Code\Engine\Object\Controller\IController.h" />
+    <ClInclude Include="Code\Engine\Object\Controller\OrientationController.h" />
+    <ClInclude Include="Code\Engine\Object\Controller\PositionExtractorController.h" />
+    <ClInclude Include="Code\Engine\Object\Controller\RotationController.h" />
+    <ClInclude Include="Code\Engine\Object\Controller\SpatialController.h" />
+    <ClInclude Include="Code\Engine\Object\Scene\Entity.h" />
+    <ClInclude Include="Code\Engine\Object\Scene\Node.h" />
+    <ClInclude Include="Code\Engine\Object\Scene\PickRecord.h" />
+    <ClInclude Include="Code\Engine\Object\Scene\Scene.h" />
+    <ClInclude Include="Code\Engine\Object\Scene\SceneGraph.h" />
+    <ClInclude Include="Code\Engine\Object\Scene\Transform.h" />
+    <ClInclude Include="Code\Engine\Parameter\IParameterManager.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterContainer.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterManager.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\BaseClass\BaseNumericTypeRenderParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\BaseClass\RenderParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Matrix\MatrixArrayParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Matrix\MatrixParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Scalar\BoolParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Scalar\FloatParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector2fParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector3fParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector4fParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Object\ConstantBufferParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Object\SamplerParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Object\ShaderResourceParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Object\UnorderedAccessParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\Parameters\Struct\StructureParameter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\MatrixWriter\MatrixArrayParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\MatrixWriter\MatrixParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\ConstantBufferParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\SamplerParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\ShaderResourceParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\UnorderedAccessParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ScalarWriter\BoolParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\ScalarWriter\FloatParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\StructWriter\StructureParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector2fParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector3fParameterWriter.h" />
+    <ClInclude Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector4fParameterWriter.h" />
+    <ClInclude Include="Code\Engine\PCH.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineManager.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\Common\TStateArrayMonitor.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\Common\TStateMonitor.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\InputAssemblerStage\InputAssemblerStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\InputAssemblerStage\InputAssemblerState.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\OutputMergeStage\OutputMergeStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\OutputMergeStage\OutputMergeStageState.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\RasterizerStage\RasterizerStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\FixedStages\RasterizerStage\RasterizerStageState.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderFactory.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\ComputeShader.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\DomainShader.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\GeometryShader.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\HullShader.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\PixelShader.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderReflection.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderReflectionGenerator.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderStructure.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Shader.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\VertexShader.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\ComputeStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\DomainStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\GeometryStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\HullStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\PixelStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\ShaderStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\VertexStage.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\State\ShaderStageState.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\Basic\VertexElement.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\Geometry.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\GeometryGenerator.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\GeometryLoader.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\InputAssemblerLayer.h" />
+    <ClInclude Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\InputAssemblerStageExecutor.h" />
+    <ClInclude Include="Code\Engine\Render\DXGI\DXGIAdapter.h" />
+    <ClInclude Include="Code\Engine\Render\DXGI\DXGIOutput.h" />
+    <ClInclude Include="Code\Engine\Render\DXGI\Renderer.h" />
+    <ClInclude Include="Code\Engine\Render\DXGI\SwapChain.h" />
+    <ClInclude Include="Code\Engine\Render\DXGI\SwapChainConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\Buffer\Buffer.h" />
+    <ClInclude Include="Code\Engine\Resource\Buffer\BufferConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\Buffer\ConstantBuffer.h" />
+    <ClInclude Include="Code\Engine\Resource\Buffer\IndexBuffer.h" />
+    <ClInclude Include="Code\Engine\Resource\Buffer\StructuredBuffer.h" />
+    <ClInclude Include="Code\Engine\Resource\Buffer\TGrowableBuffer.h" />
+    <ClInclude Include="Code\Engine\Resource\Buffer\VertexBuffer.h" />
+    <ClInclude Include="Code\Engine\Resource\Resource.h" />
+    <ClInclude Include="Code\Engine\Resource\ResourceProxy.h" />
+    <ClInclude Include="Code\Engine\Resource\ResourceView\DepthStencilView.h" />
+    <ClInclude Include="Code\Engine\Resource\ResourceView\DepthStencilViewConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\ResourceView\RenderTargetView.h" />
+    <ClInclude Include="Code\Engine\Resource\ResourceView\RenderTargetViewConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\ResourceView\ShaderResoruceView.h" />
+    <ClInclude Include="Code\Engine\Resource\ResourceView\ShaderResourceViewConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\ResourceView\UnorderedAccessView.h" />
+    <ClInclude Include="Code\Engine\Resource\ResourceView\UnorderedAccessViewConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\State\BlendStateConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\State\DepthStencilStateConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\State\RasterizerStateConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\State\SamplerStateConfig.h" />
+    <ClInclude Include="Code\Engine\Resource\State\ViewPort.h" />
+    <ClInclude Include="Code\Engine\Resource\Texture\Texture2D.h" />
+    <ClInclude Include="Code\Engine\Resource\Texture\Texture2DConfig.h" />
+    <ClInclude Include="Code\Engine\Script\IScriptInterface.h" />
+    <ClInclude Include="Code\Engine\Script\LuaActor.h" />
+    <ClInclude Include="Code\Engine\Script\LuaApp.h" />
+    <ClInclude Include="Code\Engine\Script\LuaEffect.h" />
+    <ClInclude Include="Code\Engine\Script\LuaEntity.h" />
+    <ClInclude Include="Code\Engine\Script\LuaGeometry.h" />
+    <ClInclude Include="Code\Engine\Script\LuaMaterial.h" />
+    <ClInclude Include="Code\Engine\Script\LuaScene.h" />
+    <ClInclude Include="Code\Engine\Script\ScriptManager.h" />
+    <ClInclude Include="Code\Engine\Utility\FileLoader.h" />
+    <ClInclude Include="Code\Engine\Utility\FileSystem.h" />
+    <ClInclude Include="Code\Engine\Utility\Log.h" />
+    <ClInclude Include="Code\Engine\Utility\StringUtil.h" />
+    <ClInclude Include="Code\Engine\Utility\Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Engine\Animation\ExportProcesser.cpp" />
-    <ClCompile Include="..\Engine\Animation\FbxImporterProcesser.cpp" />
-    <ClCompile Include="..\Engine\Animation\FbxLoadercpp.cpp" />
-    <ClCompile Include="..\Engine\Animation\FFbxDataConverter.cpp" />
-    <ClCompile Include="..\Engine\Animation\ImportProcesser.cpp" />
-    <ClCompile Include="..\Engine\Animation\VAnimSequence.cpp" />
-    <ClCompile Include="..\Engine\Animation\VJoint.cpp" />
-    <ClCompile Include="..\Engine\Animation\VJointManager.cpp" />
-    <ClCompile Include="..\Engine\Animation\VKeyFrame.cpp" />
-    <ClCompile Include="..\Engine\Animation\VMaterial.cpp" />
-    <ClCompile Include="..\Engine\Animation\VMesh.cpp" />
-    <ClCompile Include="..\Engine\Animation\VPose.cpp" />
-    <ClCompile Include="..\Engine\Animation\VScene.cpp" />
-    <ClCompile Include="..\Engine\Animation\VSkeleton.cpp" />
-    <ClCompile Include="..\Engine\Animation\VSkeletonManager.cpp" />
-    <ClCompile Include="..\Engine\Animation\VSubMesh.cpp" />
-    <ClCompile Include="..\Engine\Animation\VTriangle.cpp" />
-    <ClCompile Include="..\Engine\Animation\VVertex.cpp" />
-    <ClCompile Include="..\Engine\Base\GenericPlatformString.cpp" />
-    <ClCompile Include="..\Engine\Base\SString.cpp" />
-    <ClCompile Include="..\Engine\Gui\EditorManager.cpp" />
-    <ClCompile Include="..\Engine\Gui\ImModule.cpp" />
-    <ClCompile Include="..\Engine\Gui\SandGui.cpp" />
-    <ClCompile Include="..\Engine\IO\FileInStream.cpp" />
-    <ClCompile Include="..\Engine\IO\FileOutStream.cpp" />
-    <ClCompile Include="..\Engine\IO\ReadWriter\VModelReadWriter.cpp" />
-    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui.cpp" />
-    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_demo.cpp" />
-    <ClCompile Include="..\ThirdParty\ImGui\inc\imgui_draw.cpp" />
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="BaseCamera.cpp" />
-    <ClCompile Include="BaseNumericTypeRenderParameter.cpp" />
-    <ClCompile Include="BlendStateConfig.cpp" />
-    <ClCompile Include="BoolParameter.cpp" />
-    <ClCompile Include="BoolParameterWriter.cpp" />
-    <ClCompile Include="Buffer.cpp" />
-    <ClCompile Include="BufferConfig.cpp" />
-    <ClCompile Include="FFbxImporter.cpp" />
-    <ClCompile Include="FFbxMesh.cpp" />
-    <ClCompile Include="FFbxShape.cpp" />
-    <ClCompile Include="LuaActor.cpp" />
-    <ClCompile Include="LuaEffect.cpp" />
-    <ClCompile Include="LuaEntity.cpp" />
-    <ClCompile Include="LuaGeometry.cpp" />
-    <ClCompile Include="LuaMaterial.cpp" />
-    <ClCompile Include="LuaSampler.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainCamera.cpp" />
-    <ClCompile Include="ComputeShader.cpp" />
-    <ClCompile Include="ComputeStage.cpp" />
-    <ClCompile Include="ConstantBuffer.cpp" />
-    <ClCompile Include="ConstantBufferParameter.cpp" />
-    <ClCompile Include="ConstantBufferParameterWriter.cpp" />
-    <ClCompile Include="DepthStencilStateConfig.cpp" />
-    <ClCompile Include="DepthStencilView.cpp" />
-    <ClCompile Include="DepthStencilViewConfig.cpp" />
-    <ClCompile Include="DirectionalLight.cpp" />
-    <ClCompile Include="DomainShader.cpp" />
-    <ClCompile Include="DomainStage.cpp" />
-    <ClCompile Include="DXGIAdapter.cpp" />
-    <ClCompile Include="DXGIOutput.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="EventChar.cpp" />
-    <ClCompile Include="EventErrorMessage.cpp" />
-    <ClCompile Include="EventFrameStart.cpp" />
-    <ClCompile Include="EventInfoMessage.cpp" />
-    <ClCompile Include="EventKeyboardMessage.cpp" />
-    <ClCompile Include="EventKeyDown.cpp" />
-    <ClCompile Include="EventKeyUp.cpp" />
-    <ClCompile Include="EventManager.cpp" />
-    <ClCompile Include="EventMouseLButtonUp.cpp" />
-    <ClCompile Include="EventMouseLButtonDown.cpp" />
-    <ClCompile Include="EventMouseLeave.cpp" />
-    <ClCompile Include="EventMouseMButtonDown.cpp" />
-    <ClCompile Include="EventMouseMButtonUp.cpp" />
-    <ClCompile Include="EventMouseMessage.cpp" />
-    <ClCompile Include="EventMouseMove.cpp" />
-    <ClCompile Include="EventMouseRButtonDown.cpp" />
-    <ClCompile Include="EventMouseRButtonUp.cpp" />
-    <ClCompile Include="EventMouseWheel.cpp" />
-    <ClCompile Include="EventWindowMessage.cpp" />
-    <ClCompile Include="EventWindowResize.cpp" />
-    <ClCompile Include="FileLoader.cpp" />
-    <ClCompile Include="FileSystem.cpp" />
-    <ClCompile Include="FloatParameter.cpp" />
-    <ClCompile Include="FloatParameterWriter.cpp" />
-    <ClCompile Include="GeometryGenerator.cpp" />
-    <ClCompile Include="Geometry.cpp" />
-    <ClCompile Include="GeometryLoader.cpp" />
-    <ClCompile Include="GeometryShader.cpp" />
-    <ClCompile Include="GeometryStage.cpp" />
-    <ClCompile Include="HullShader.cpp" />
-    <ClCompile Include="HullStage.cpp" />
-    <ClCompile Include="IEventListener.cpp" />
-    <ClCompile Include="IndexBuffer.cpp" />
-    <ClCompile Include="InputAssemblerStage.cpp" />
-    <ClCompile Include="InputAssemblerStageExecutor.cpp" />
-    <ClCompile Include="InputAssemblerState.cpp" />
-    <ClCompile Include="Light.cpp" />
-    <ClCompile Include="Log.cpp" />
-    <ClCompile Include="Effect.cpp" />
-    <ClCompile Include="EffectGenerator.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MaterialHelper.cpp" />
-    <ClCompile Include="MaterialLua.cpp" />
-    <ClCompile Include="SMath.cpp" />
-    <ClCompile Include="Matrix3f.cpp" />
-    <ClCompile Include="Matrix4f.cpp" />
-    <ClCompile Include="MatrixArrayParameter.cpp" />
-    <ClCompile Include="MatrixArrayParameterWriter.cpp" />
-    <ClCompile Include="MatrixParameter.cpp" />
-    <ClCompile Include="MatrixParameterWriter.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="OutputMergeStage.cpp" />
-    <ClCompile Include="OutputMergeStageState.cpp" />
-    <ClCompile Include="ParameterContainer.cpp" />
-    <ClCompile Include="ParameterManager.cpp" />
-    <ClCompile Include="ParameterWriter.cpp" />
-    <ClCompile Include="PCH.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    <ClCompile Include="Code\Engine\Animation\VAnimSequence.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VJoint.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VJointManager.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VKeyFrame.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VMaterial.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VMesh.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VPose.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VScene.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VSkeleton.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VSkeletonManager.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VSubMesh.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VTriangle.cpp" />
+    <ClCompile Include="Code\Engine\Animation\VVertex.cpp" />
+    <ClCompile Include="Code\Engine\Application\Application.cpp" />
+    <ClCompile Include="Code\Engine\Application\main.cpp" />
+    <ClCompile Include="Code\Engine\Application\RenderWindow.cpp" />
+    <ClCompile Include="Code\Engine\Application\Win32RenderWindow.cpp" />
+    <ClCompile Include="Code\Engine\Base\GenericPlatformString.cpp" />
+    <ClCompile Include="Code\Engine\Base\SString.cpp" />
+    <ClCompile Include="Code\Engine\Effect\Effect.cpp" />
+    <ClCompile Include="Code\Engine\Effect\EffectGenerator.cpp" />
+    <ClCompile Include="Code\Engine\Effect\Renderable.cpp" />
+    <ClCompile Include="Code\Engine\Effect\RenderEffect.cpp" />
+    <ClCompile Include="Code\Engine\Effect\task\SceneRenderTask.cpp" />
+    <ClCompile Include="Code\Engine\Effect\task\Task.cpp" />
+    <ClCompile Include="Code\Engine\Effect\task\ViewPerspective.cpp" />
+    <ClCompile Include="Code\Engine\Effect\task\ViewShadowMap.cpp" />
+    <ClCompile Include="Code\Engine\Event\EventManager.cpp" />
+    <ClCompile Include="Code\Engine\Event\IEventListener.cpp" />
+    <ClCompile Include="Code\Engine\Event\Notification\EventErrorMessage.cpp" />
+    <ClCompile Include="Code\Engine\Event\Notification\EventInfoMessage.cpp" />
+    <ClCompile Include="Code\Engine\Event\Render\EventFrameStart.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\EventWindowMessage.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Keyboard\EventChar.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyboardMessage.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyDown.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Keyboard\EventKeyUp.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLButtonDown.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLButtonUp.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseLeave.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMButtonDown.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMButtonUp.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMessage.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseMove.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseRButtonDown.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseRButtonUp.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Mouse\EventMouseWheel.cpp" />
+    <ClCompile Include="Code\Engine\Event\Windows Message\Window\EventWindowResize.cpp" />
+    <ClCompile Include="Code\Engine\Geom\ExportProcesser.cpp" />
+    <ClCompile Include="Code\Engine\Geom\FbxImporterProcesser.cpp" />
+    <ClCompile Include="Code\Engine\Geom\FbxLoadercpp.cpp" />
+    <ClCompile Include="Code\Engine\Geom\FFbxDataConverter.cpp" />
+    <ClCompile Include="Code\Engine\Geom\FFbxImporter.cpp" />
+    <ClCompile Include="Code\Engine\Geom\FFbxMesh.cpp" />
+    <ClCompile Include="Code\Engine\Geom\FFbxShape.cpp" />
+    <ClCompile Include="Code\Engine\Geom\ImportProcesser.cpp" />
+    <ClCompile Include="Code\Engine\Gui\EditorManager.cpp" />
+    <ClCompile Include="Code\Engine\Gui\ImModule.cpp" />
+    <ClCompile Include="Code\Engine\Gui\SandGui.cpp" />
+    <ClCompile Include="Code\Engine\IO\FileInStream.cpp" />
+    <ClCompile Include="Code\Engine\IO\FileOutStream.cpp" />
+    <ClCompile Include="Code\Engine\IO\ReadWriter\VModelReadWriter.cpp" />
+    <ClCompile Include="Code\Engine\Material\LuaSampler.cpp" />
+    <ClCompile Include="Code\Engine\Material\Material.cpp" />
+    <ClCompile Include="Code\Engine\Material\MaterialHelper.cpp" />
+    <ClCompile Include="Code\Engine\Material\MaterialLua.cpp" />
+    <ClCompile Include="Code\Engine\Math\Matrix3f.cpp" />
+    <ClCompile Include="Code\Engine\Math\Matrix4f.cpp" />
+    <ClCompile Include="Code\Engine\Math\SMath.cpp" />
+    <ClCompile Include="Code\Engine\Math\Vector2f.cpp" />
+    <ClCompile Include="Code\Engine\Math\Vector3f.cpp" />
+    <ClCompile Include="Code\Engine\Math\Vector4f.cpp" />
+    <ClCompile Include="Code\Engine\Object\Actor\Actor.cpp" />
+    <ClCompile Include="Code\Engine\Object\Actor\Camera\BaseCamera.cpp" />
+    <ClCompile Include="Code\Engine\Object\Actor\Camera\MainCamera.cpp" />
+    <ClCompile Include="Code\Engine\Object\Actor\Light\DirectionalLight.cpp" />
+    <ClCompile Include="Code\Engine\Object\Actor\Light\Light.cpp" />
+    <ClCompile Include="Code\Engine\Object\Actor\Skybox\Skybox.cpp" />
+    <ClCompile Include="Code\Engine\Object\Scene\Entity.cpp" />
+    <ClCompile Include="Code\Engine\Object\Scene\Node.cpp" />
+    <ClCompile Include="Code\Engine\Object\Scene\PickRecord.cpp" />
+    <ClCompile Include="Code\Engine\Object\Scene\Scene.cpp" />
+    <ClCompile Include="Code\Engine\Object\Scene\SceneGraph.cpp" />
+    <ClCompile Include="Code\Engine\Object\Scene\Transform.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterContainer.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterManager.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\BaseClass\BaseNumericTypeRenderParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\BaseClass\RenderParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Matrix\MatrixArrayParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Matrix\MatrixParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Scalar\BoolParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Scalar\FloatParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector2fParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector3fParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Numeric\Vector\Vector4fParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Object\ConstantBufferParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Object\SamplerParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Object\ShaderResourceParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Object\UnorderedAccessParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\Parameters\Struct\StructureParameter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\MatrixWriter\MatrixArrayParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\MatrixWriter\MatrixParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\ConstantBufferParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\SamplerParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\ShaderResourceParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ObjectWriter\UnorderedAccessParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ScalarWriter\BoolParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\ScalarWriter\FloatParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\StructWriter\StructureParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector2fParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector3fParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\Parameter\ParameterWriter\VectorWriter\Vector4fParameterWriter.cpp" />
+    <ClCompile Include="Code\Engine\PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Engine/pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Engine/pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Engine/pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Engine/pch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="PickRecord.cpp" />
-    <ClCompile Include="PipelineManager.cpp" />
-    <ClCompile Include="PixelShader.cpp" />
-    <ClCompile Include="PixelStage.cpp" />
-    <ClCompile Include="RasterizerStage.cpp" />
-    <ClCompile Include="RasterizerStageState.cpp" />
-    <ClCompile Include="RasterizerStateConfig.cpp" />
-    <ClCompile Include="Renderable.cpp" />
-    <ClCompile Include="RenderEffect.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="RenderParameter.cpp" />
-    <ClCompile Include="RenderTargetView.cpp" />
-    <ClCompile Include="RenderTargetViewConfig.cpp" />
-    <ClCompile Include="RenderWindow.cpp" />
-    <ClCompile Include="Resource.cpp" />
-    <ClCompile Include="ResourceProxy.cpp" />
-    <ClCompile Include="SamplerParameter.cpp" />
-    <ClCompile Include="SamplerParameterWriter.cpp" />
-    <ClCompile Include="SamplerStateConfig.cpp" />
-    <ClCompile Include="StringUtil.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneGraph.cpp" />
-    <ClCompile Include="SceneRenderTask.cpp" />
-    <ClCompile Include="ScriptManager.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="ShaderFactory.cpp" />
-    <ClCompile Include="ShaderReflection.cpp" />
-    <ClCompile Include="ShaderReflectionGenerator.cpp" />
-    <ClCompile Include="ShaderResourceParameter.cpp" />
-    <ClCompile Include="ShaderResourceParameterWriter.cpp" />
-    <ClCompile Include="ShaderResourceView.cpp" />
-    <ClCompile Include="ShaderResourceViewConfig.cpp" />
-    <ClCompile Include="ShaderStage.cpp" />
-    <ClCompile Include="ShaderStageState.cpp" />
-    <ClCompile Include="Skybox.cpp" />
-    <ClCompile Include="StructuredBuffer.cpp" />
-    <ClCompile Include="StructureParameter.cpp" />
-    <ClCompile Include="StructureParameterWriter.cpp" />
-    <ClCompile Include="SwapChain.cpp" />
-    <ClCompile Include="SwapChainConfig.cpp" />
-    <ClCompile Include="Task.cpp" />
-    <ClCompile Include="Texture2D.cpp" />
-    <ClCompile Include="Texture2DConfig.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="UnorderedAccessParameter.cpp" />
-    <ClCompile Include="UnorderedAccessParameterWriter.cpp" />
-    <ClCompile Include="UnorderedAccessView.cpp" />
-    <ClCompile Include="UnorderedAccessViewConfig.cpp" />
-    <ClCompile Include="Vector2f.cpp" />
-    <ClCompile Include="Vector2fParameter.cpp" />
-    <ClCompile Include="Vector2fParameterWriter.cpp" />
-    <ClCompile Include="Vector3f.cpp" />
-    <ClCompile Include="Vector3fParameter.cpp" />
-    <ClCompile Include="Vector3fParameterWriter.cpp" />
-    <ClCompile Include="Vector4f.cpp" />
-    <ClCompile Include="Vector4fParameter.cpp" />
-    <ClCompile Include="Vector4fParameterWriter.cpp" />
-    <ClCompile Include="VertexBuffer.cpp" />
-    <ClCompile Include="VertexElement.cpp" />
-    <ClCompile Include="VertexShader.cpp" />
-    <ClCompile Include="VertexStage.cpp" />
-    <ClCompile Include="ViewPerspective.cpp" />
-    <ClCompile Include="ViewPort.cpp" />
-    <ClCompile Include="ViewShadowMap.cpp" />
-    <ClCompile Include="Win32RenderWindow.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineManager.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\InputAssemblerStage\InputAssemblerStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\InputAssemblerStage\InputAssemblerState.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\OutputMergeStage\OutputMergeStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\OutputMergeStage\OutputMergeStageState.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\RasterizerStage\RasterizerStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\FixedStages\RasterizerStage\RasterizerStageState.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderFactory.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\ComputeShader.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\DomainShader.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\GeometryShader.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\HullShader.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\PixelShader.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderReflection.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Reflection\ShaderReflectionGenerator.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\Shader.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\ShaderProgram\VertexShader.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\ComputeStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\DomainStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\GeometryStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\HullStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\PixelStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\ShaderStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\ShaderStage\VertexStage.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\ProgrammableStage\Stages\State\ShaderStageState.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\Basic\VertexElement.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\Geometry.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\GeometryGenerator.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\GeometryLoader.cpp" />
+    <ClCompile Include="Code\Engine\Pipeline\PipelineStage\StageExecutor\InputAssember\InputAssemblerStageExecutor.cpp" />
+    <ClCompile Include="Code\Engine\Render\DXGI\DXGIAdapter.cpp" />
+    <ClCompile Include="Code\Engine\Render\DXGI\DXGIOutput.cpp" />
+    <ClCompile Include="Code\Engine\Render\DXGI\Renderer.cpp" />
+    <ClCompile Include="Code\Engine\Render\DXGI\SwapChain.cpp" />
+    <ClCompile Include="Code\Engine\Render\DXGI\SwapChainConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Buffer\Buffer.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Buffer\BufferConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Buffer\ConstantBuffer.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Buffer\IndexBuffer.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Buffer\StructuredBuffer.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Buffer\VertexBuffer.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Resource.cpp" />
+    <ClCompile Include="Code\Engine\Resource\ResourceProxy.cpp" />
+    <ClCompile Include="Code\Engine\Resource\ResourceView\DepthStencilView.cpp" />
+    <ClCompile Include="Code\Engine\Resource\ResourceView\DepthStencilViewConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\ResourceView\RenderTargetView.cpp" />
+    <ClCompile Include="Code\Engine\Resource\ResourceView\RenderTargetViewConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\ResourceView\ShaderResourceView.cpp" />
+    <ClCompile Include="Code\Engine\Resource\ResourceView\ShaderResourceViewConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\ResourceView\UnorderedAccessView.cpp" />
+    <ClCompile Include="Code\Engine\Resource\ResourceView\UnorderedAccessViewConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\State\BlendStateConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\State\DepthStencilStateConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\State\RasterizerStateConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\State\SamplerStateConfig.cpp" />
+    <ClCompile Include="Code\Engine\Resource\State\ViewPort.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Texture\Texture2D.cpp" />
+    <ClCompile Include="Code\Engine\Resource\Texture\Texture2DConfig.cpp" />
+    <ClCompile Include="Code\Engine\Script\LuaActor.cpp" />
+    <ClCompile Include="Code\Engine\Script\LuaApp.cpp" />
+    <ClCompile Include="Code\Engine\Script\LuaEffect.cpp" />
+    <ClCompile Include="Code\Engine\Script\LuaEntity.cpp" />
+    <ClCompile Include="Code\Engine\Script\LuaGeometry.cpp" />
+    <ClCompile Include="Code\Engine\Script\LuaMaterial.cpp" />
+    <ClCompile Include="Code\Engine\Script\ScriptManager.cpp" />
+    <ClCompile Include="Code\Engine\Utility\FileLoader.cpp" />
+    <ClCompile Include="Code\Engine\Utility\FileSystem.cpp" />
+    <ClCompile Include="Code\Engine\Utility\Log.cpp" />
+    <ClCompile Include="Code\Engine\Utility\StringUtil.cpp" />
+    <ClCompile Include="Code\Engine\Utility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Engine\Base\TArray.inl" />
-    <None Include="..\Include\IController.inl" />
-    <None Include="..\Include\OrientationController.inl" />
-    <None Include="..\Include\PositionExtractorController.inl" />
-    <None Include="..\Include\RotationController.inl" />
-    <None Include="..\Include\SpatialController.inl" />
-    <None Include="..\Include\TStateArrayMonitor.inl" />
-    <None Include="..\Include\TStateMonitor.inl" />
+    <None Include="Code\Engine\Base\TArray.inl" />
+    <None Include="Code\Engine\Object\Controller\IController.inl" />
+    <None Include="Code\Engine\Object\Controller\OrientationController.inl" />
+    <None Include="Code\Engine\Object\Controller\PositionExtractorController.inl" />
+    <None Include="Code\Engine\Object\Controller\RotationController.inl" />
+    <None Include="Code\Engine\Object\Controller\SpatialController.inl" />
+    <None Include="Code\Engine\Pipeline\PipelineStage\Common\TStateArrayMonitor.inl" />
+    <None Include="Code\Engine\Pipeline\PipelineStage\Common\TStateMonitor.inl" />
+    <None Include="Code\Engine\Resource\Buffer\TGrowableBuffer.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
